@@ -28,7 +28,7 @@
 ## Bonus
 
 - [ ] Memory features (M+, M−, MR) and session history (3/5)
-  - [ ] Users can add to memory, subtract from memory, and recall memory.
+  - [x] Users can add to memory, subtract from memory, and recall memory.
   - [ ] Optionally, undo/redo the last operation and print history.
 
 - [ ] Expression parsing with precedence and parentheses (4/5)
