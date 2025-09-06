@@ -8,9 +8,9 @@
 
 ## Tasks
 
-- [-] Command normalization and aliases (2/5)
-  - [ ] The same operation is invoked via multiple aliases (+, add, 1).
-  - [ ] Invalid commands return `None` or a friendly message without crashing.
+- [x] Command normalization and aliases (2/5)
+  - [x] The same operation is invoked via multiple aliases (+, add, 1).
+  - [x] Invalid commands return `None` or a friendly message without crashing.
 
 - [x] Core operations: add, subtract, multiply, divide (1/5)
   - [x] All four operations compute correct results for sample inputs.
