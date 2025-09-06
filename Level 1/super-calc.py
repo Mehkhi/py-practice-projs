@@ -1,3 +1,21 @@
+OPS = ("add", "sub", "mul", "div", "quit")
+
+ALIASES = {
+    1: "add", "add": "add", "+": "add",
+    2: "sub", "sub": "sub", "-": "sub",
+    3: "mul", "mul": "mul", "*": "mul",
+    4: "div", "div": "div", "/": "div",
+    "q": "quit", "quit": "quit", "x": "quit", "exit": "quit",
+}
+
+def normalize_command(raw): # Accept any text, normalize, and map to an operation
+    if raw is None:
+        return None
+    token = raw.strip().lower()
+    if not token: # empty after trimming spaces
+        return None
+    return ALIASES.get(token)
+
 def read_number(prompt):
     while True:
         raw_input = input(prompt)
