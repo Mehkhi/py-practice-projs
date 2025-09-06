@@ -1,10 +1,10 @@
 OPS = ("add", "sub", "mul", "div", "quit")
 
 ALIASES = {
-    1: "add", "add": "add", "+": "add",
-    2: "sub", "sub": "sub", "-": "sub",
-    3: "mul", "mul": "mul", "*": "mul",
-    4: "div", "div": "div", "/": "div",
+    "1": "add", "add": "add", "+": "add",
+    "2": "sub", "sub": "sub", "-": "sub",
+    "3": "mul", "mul": "mul", "*": "mul",
+    "4": "div", "div": "div", "/": "div",
     "q": "quit", "quit": "quit", "x": "quit", "exit": "quit",
 }
 
