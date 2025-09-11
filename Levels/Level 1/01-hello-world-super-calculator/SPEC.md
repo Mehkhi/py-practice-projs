@@ -1,32 +1,32 @@
 ## 1. 1. Hello World & Super-Calculator
 
-> **Note:** If you’re basing this on your `super-calc.py`, acceptance for command normalization should include mapping numeric and symbol aliases via an `ALIASES` dict and whitespace/uppercase normalization.
+> Updated for the expression‑driven REPL UI and modular package split.
 
 ### Overview & Core Skills
 
-**What you’re building:** A flexible command‑line calculator that accepts multiple aliases for operations and handles edge cases like division by zero.
+**What you’re building:** A modular, expression‑driven CLI calculator. Users type arithmetic expressions directly (e.g., `2+3*4`, `(2+3)/5`) and can issue control commands (`m+`, `m-`, `mr`, `undo`, `redo`, `hist`, `help`, `config`, `quit`). State (memory/history) and user preferences can persist across runs.
 
-**Core skills:** Parsing, defensive programming, mapping operations to functions, formatting, unit testing.
+**Core skills:** Expression parsing and validation, defensive programming, separation of concerns (CLI vs. logic vs. persistence), simple JSON persistence, modular OO design, packaging.
 
 
 ### Required Features
 
-- **Parse and validate numeric input** — **Difficulty 2/5**
+- **Expression input (REPL) and validation** — **Difficulty 2/5**
   - **What it teaches:**
-    - Separating parsing from core logic using small functions.
-    - Using `try/except` to guard against bad input and avoid crashes.
-    - Clear user feedback loops that re‑prompt until valid data arrives.
+    - Building a small REPL and interpreting inputs.
+    - Using a safe AST subset to validate and evaluate math expressions.
+    - Clear feedback for malformed expressions without crashing.
   - **Acceptance criteria:**
-    - Non‑numeric input does not crash the program and re‑prompts the user.
-    - Empty/whitespace input is rejected.
-    - Unit tests cover valid/invalid cases.
-- **Core operations: add, subtract, multiply, divide** — **Difficulty 1/5**
+    - Valid expressions evaluate with correct precedence and parentheses.
+    - Malformed expressions show a friendly error and do not crash.
+    - Blank input is ignored; EOF exits cleanly.
+- **Core operations and operators** — **Difficulty 1/5**
   - **What it teaches:**
     - Mapping operations to functions for clarity and testability.
     - Floating‑point behavior and rounding considerations.
     - Simple functional design (pure functions for arithmetic).
   - **Acceptance criteria:**
-    - All four operations compute correct results for sample inputs.
+    - Operators `+ - * / ** % //` compute correct results for sample inputs.
     - Output formatting is consistent and readable (e.g., fixed precision).
 - **Division by zero handling** — **Difficulty 1/5**
   - **What it teaches:**
@@ -35,17 +35,17 @@
     - User‑friendly error messages tied to the invalid operation.
   - **Acceptance criteria:**
     - When denominator == 0, the program shows a clear message and does not crash.
-    - Unit tests cover zero and near‑zero denominators.
+    - Result is treated as undefined; history/last result not updated.
 - **Command normalization and aliases** — **Difficulty 2/5**
   - **What it teaches:**
-    - User experience via flexible inputs (e.g., `+`, `add`, `1`).
+    - User experience via flexible inputs for control commands.
     - Dictionary‑based dispatch and normalization (`strip()`, `lower()`).
     - Defensive programming: handling `None` and empty tokens.
   - **Acceptance criteria:**
-    - The same operation is invoked via multiple aliases (+, add, 1).
+    - Control commands have aliases (e.g., `u/undo`, `r/redo`, `h/hist`, `q/quit/x/exit`, `m+`, `m-`, `mr`).
     - Invalid commands return `None` or a friendly message without crashing.
 
-### Bonus Features
+### Bonus Features (Implemented)
 
 - **Memory features (M+, M−, MR) and session history** — **Difficulty 3/5**
   - **What it teaches:**
@@ -57,9 +57,9 @@
     - Optionally, undo/redo the last operation and print history.
 - **Expression parsing with precedence and parentheses** — **Difficulty 4/5**
   - **What it teaches:**
-    - Tokenization and parsing strategies (shunting‑yard or recursive descent).
-    - Operator precedence/associativity and error handling for invalid syntax.
-    - Designing pure evaluators for testability.
+    - Using Python's `ast` to safely evaluate a restricted grammar.
+    - Operator precedence/associativity; clear errors for invalid syntax.
+    - Keeping the evaluator pure and easy to isolate.
   - **Acceptance criteria:**
     - `2+3*4` evaluates to `14`, `(2+3)*4` evaluates to `20`.
     - Malformed expressions produce friendly errors and do not crash.
@@ -69,16 +69,24 @@
     - Separating configuration (precision) from business logic.
     - Basic packaging considerations (entry points).
   - **Acceptance criteria:**
-    - `--precision N` formats results accordingly.
-    - All required features continue to work with flags applied.
+    - `--precision N` formats results accordingly; `precision off` disables fixed formatting.
+    - Decimal mode (`--decimal`) uses exact decimal arithmetic; functions disabled in this mode.
+    - Formatting options: thousands separators and scientific/engineering notation via `format` commands.
+    - All features continue to work with flags applied.
 
 
-**Requirements for Project Completion**  
-- All required features implemented and demonstrated.  
-- At least **5 unit tests** (happy paths + edge cases).  
-- A clear **README** with setup steps, usage examples, and limitations.  
-- Code formatted with **black** and linted with **ruff/flake8**.  
-- Public functions include **type hints**; `mypy` passes or deviations are documented.  
+**Current Status & Completion Criteria (this build)**  
+- All required and listed bonus features above are implemented and manually verified via the REPL.  
+- Unit tests are deferred for this iteration.  
+- The code is split into a modular package (`super_calc/`) with a `main.py` entrypoint and a `super-calc.py` wrapper.  
+- CLI flags supported: `--precision N`, `--state PATH`.  
+- History persistence is backward‑compatible (supports legacy op‑based and new expression entries).  
+
+Usage
+- Preferred: `python3 Levels/Level\ 1/01-hello-world-super-calculator/main.py --precision 4 --state state.json`  
+- Wrapper: `python3 Levels/Level\ 1/01-hello-world-super-calculator/super-calc.py --precision 4 --state state.json`  
+- Optional install: `pip install -e Levels/Level\ 1/01-hello-world-super-calculator` then `super-calc --precision 4 --state state.json`  
+- At the `calc>` prompt: type expressions or commands: memory/history (`m+`, `m-`, `mr`, `undo`, `redo`, `hist`, `hist N`, `hist /pattern/`), precision (`precision N`, `precision off`), formatting (`format thousands on|off`, `format notation plain|scientific|engineering`), and introspection (`help`, `config`).
 
 ---
 
