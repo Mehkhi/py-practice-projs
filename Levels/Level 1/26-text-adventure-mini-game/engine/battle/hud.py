@@ -37,147 +37,74 @@ class BattleHudMixin:
     """
 
     def _draw_party_hud(self, surface: pygame.Surface, font) -> None:
-        """Draw HP/SP bars for player and all party members with improved spacing."""
-        from ..ui import draw_hp_bar, draw_sp_bar, draw_status_icons
-        from ..theme import Colors, Layout
+        """
+        Draw HP/SP bars for player and all party members.
 
-        hud_x = Layout.HUD_MARGIN
-        hud_y = Layout.HUD_MARGIN
-        bar_width = 180
-        bar_height = Layout.BAR_HEIGHT
-        sp_bar_width = 70
-        row_height = Layout.HUD_ROW_HEIGHT
-        bar_gap = Layout.BAR_GAP
-
-        # Draw player stats
-        if self.player.stats:
-            # Player name label with subtle background
-            if font:
-                name_text = font.render(self.player.name, True, Colors.TEXT_PRIMARY)
-                name_shadow = font.render(self.player.name, True, Colors.BG_DARK)
-                surface.blit(name_shadow, (hud_x + 1, hud_y + 1))
-                surface.blit(name_text, (hud_x, hud_y))
-
-            # HP bar positioned below name
-            bar_y = hud_y + Layout.HUD_NAME_HEIGHT + Layout.ELEMENT_GAP_SMALL
-            draw_hp_bar(
-                surface, hud_x, bar_y, bar_width, bar_height,
-                self.player.stats.hp, self.player.stats.max_hp, "",
-                font=font, show_text=False,
-            )
-
-            # SP bar with proper gap
-            draw_sp_bar(
-                surface, hud_x + bar_width + bar_gap, bar_y, sp_bar_width, bar_height,
-                self.player.stats.sp, self.player.stats.max_sp, "",
-                font=font, show_text=False,
-            )
-
-            # HP/SP text overlay on bars
-            if font:
-                hp_text = font.render(f"{self.player.stats.hp}/{self.player.stats.max_hp}", True, Colors.WHITE)
-                sp_text = font.render(f"{self.player.stats.sp}", True, Colors.WHITE)
-                # Center text on bars
-                hp_text_x = hud_x + (bar_width - hp_text.get_width()) // 2
-                sp_text_x = hud_x + bar_width + bar_gap + (sp_bar_width - sp_text.get_width()) // 2
-                surface.blit(hp_text, (hp_text_x, bar_y + (bar_height - hp_text.get_height()) // 2))
-                surface.blit(sp_text, (sp_text_x, bar_y + (bar_height - sp_text.get_height()) // 2))
-
-            # Status icons
-            icons = self._collect_status_icons(self.player.stats.status_effects)
-            if icons:
-                icon_x = hud_x + bar_width + bar_gap + sp_bar_width + bar_gap
-                draw_status_icons(surface, icons, (icon_x, bar_y))
-
-            hud_y += row_height
-
-        # Draw party member stats
-        for member in getattr(self.player, "party", []):
-            if not member or not member.stats:
-                continue
-
-            # Dim color for dead members
-            is_alive = member.is_alive()
-            name_color = Colors.TEXT_PRIMARY if is_alive else Colors.TEXT_DISABLED
-
-            if font:
-                name_text = font.render(member.name, True, name_color)
-                name_shadow = font.render(member.name, True, Colors.BG_DARK)
-                surface.blit(name_shadow, (hud_x + 1, hud_y + 1))
-                surface.blit(name_text, (hud_x, hud_y))
-
-            bar_y = hud_y + Layout.HUD_NAME_HEIGHT + Layout.ELEMENT_GAP_SMALL
-            draw_hp_bar(
-                surface, hud_x, bar_y, bar_width, bar_height,
-                member.stats.hp, member.stats.max_hp, "",
-                font=font, show_text=False,
-            )
-            draw_sp_bar(
-                surface, hud_x + bar_width + bar_gap, bar_y, sp_bar_width, bar_height,
-                member.stats.sp, member.stats.max_sp, "",
-                font=font, show_text=False,
-            )
-
-            # HP/SP text overlay
-            if font:
-                hp_text = font.render(f"{member.stats.hp}/{member.stats.max_hp}", True, Colors.WHITE)
-                sp_text = font.render(f"{member.stats.sp}", True, Colors.WHITE)
-                hp_text_x = hud_x + (bar_width - hp_text.get_width()) // 2
-                sp_text_x = hud_x + bar_width + bar_gap + (sp_bar_width - sp_text.get_width()) // 2
-                surface.blit(hp_text, (hp_text_x, bar_y + (bar_height - hp_text.get_height()) // 2))
-                surface.blit(sp_text, (sp_text_x, bar_y + (bar_height - sp_text.get_height()) // 2))
-
-            icons = self._collect_status_icons(member.stats.status_effects)
-            if icons:
-                icon_x = hud_x + bar_width + bar_gap + sp_bar_width + bar_gap
-                draw_status_icons(surface, icons, (icon_x, bar_y))
-
-            hud_y += row_height
+        NOTE: User requested to remove the large HUD panel entirely and rely on
+        the small indicators near the sprites. This method is now a no-op
+        to fulfill that request while keeping the structure if needed later.
+        """
+        pass
 
     def _draw_enemy_hud(self, surface: pygame.Surface, font) -> None:
-        """Draw enemy names and HP bars."""
+        """Draw enemy names and HP bars synced with sprite positions."""
         from ..ui import draw_hp_bar, draw_status_icons
+        from ..theme import Colors
 
-        enemy_x = 120
-        enemy_y = 120
+        # Use layout mixin methods to ensure sync with sprite rendering
+        enemy_x, enemy_y = self._get_enemy_base_position()
+        spacing = self._get_enemy_spacing()
 
         for enemy in self.battle_system.enemies:
             if enemy.is_alive() and enemy.stats:
-                # Draw HP bar above enemy
+                # Draw name above HP bar with proper transparency
+                if font:
+                    name_text = enemy.entity.name
+
+                    # Render text with antialiasing - pygame should handle transparency
+                    # Draw shadow first (offset by 1 pixel)
+                    shadow_surf = font.render(name_text, True, (0, 0, 0))
+                    name_surf = font.render(name_text, True, (255, 255, 255))
+
+                    # Center above sprite
+                    name_x = enemy_x + (self.sprite_size - name_surf.get_width()) // 2
+                    name_y = enemy_y - 35
+
+                    # Blit shadow then text
+                    surface.blit(shadow_surf, (name_x + 1, name_y + 1))
+                    surface.blit(name_surf, (name_x, name_y))
+
+                    # Draw HP numbers below name
+                    hp_text = f"{enemy.stats.hp}/{enemy.stats.max_hp}"
+                    hp_shadow = font.render(hp_text, True, (0, 0, 0))
+                    hp_surf = font.render(hp_text, True, (255, 255, 255))
+                    hp_x = enemy_x + (self.sprite_size - hp_surf.get_width()) // 2
+                    hp_y = enemy_y - 22
+                    surface.blit(hp_shadow, (hp_x + 1, hp_y + 1))
+                    surface.blit(hp_surf, (hp_x, hp_y))
+
+                # Draw HP bar above enemy (smaller, no text)
                 draw_hp_bar(
                     surface,
                     enemy_x,
-                    enemy_y - 20,
+                    enemy_y - 8,
                     self.sprite_size,
-                    8,
+                    4,
                     enemy.stats.hp,
                     enemy.stats.max_hp,
-                    "",  # No label to save space
+                    "",
                     font=font,
+                    show_text=False
                 )
 
                 # Draw phase indicator if enemy has a phase
                 if enemy.current_phase:
-                    phase_y = enemy_y - 35
+                    phase_y = enemy_y - 50
                     phase_text = enemy.current_phase.upper()
                     phase_surf = font.render(phase_text, True, (255, 200, 100))
-                    # Draw background for phase indicator
-                    phase_bg_rect = pygame.Rect(
-                        enemy_x - 2,
-                        phase_y - 2,
-                        phase_surf.get_width() + 4,
-                        phase_surf.get_height() + 4
-                    )
-                    phase_bg = pygame.Surface((phase_bg_rect.width, phase_bg_rect.height), pygame.SRCALPHA)
-                    phase_bg.fill((40, 20, 10, 200))
-                    surface.blit(phase_bg, phase_bg_rect.topleft)
-                    # Draw phase text with outline
-                    outline_surf = font.render(phase_text, True, (0, 0, 0))
-                    for ox, oy in [(-1, 0), (1, 0), (0, -1), (0, 1)]:
-                        surface.blit(outline_surf, (enemy_x + ox, phase_y + oy))
                     surface.blit(phase_surf, (enemy_x, phase_y))
 
-                # Draw status icons below
+                # Draw status icons below sprite
                 icons = self._collect_status_icons(enemy.stats.status_effects)
                 if icons:
                     draw_status_icons(
@@ -186,7 +113,7 @@ class BattleHudMixin:
                         (enemy_x, enemy_y + self.sprite_size + 5)
                     )
 
-            enemy_x += self.draw_size + 40
+            enemy_x += spacing
 
     def _draw_menus(self, surface: pygame.Surface, font, message_box_y: Optional[int] = None) -> None:
         """Draw the active battle menu.

@@ -110,7 +110,7 @@ class HintButton:
     def draw(self, surface: pygame.Surface) -> None:
         """
         Draw the hint button:
-        1. Circular button with "?" icon
+        1. Circular button with icon
         2. Subtle pulse when new tips available
         3. Tooltip on hover: "Press H for Help"
         """
@@ -125,15 +125,22 @@ class HintButton:
             pulse_scale = 1.0 + (math.sin(self.pulse_timer) * 0.1)  # 10% size variation
             pulse_alpha = 200 + int(55 * (0.5 + 0.5 * math.sin(self.pulse_timer)))  # Alpha pulse
 
-        # Draw button background (circular)
+        # Draw button background (circular) with gradient-like look
         center_x = bx + bw // 2
         center_y = by + bh // 2
         radius = int((min(bw, bh) // 2) * pulse_scale)
 
-        # Button background
+        # Button background - slightly darker/richer
         button_color = Colors.BG_PANEL if not self.hovered else Colors.BG_MAIN
         pygame.draw.circle(surface, button_color, (center_x, center_y), radius)
-        pygame.draw.circle(surface, Colors.BORDER_HIGHLIGHT if self.hovered else Colors.BORDER, (center_x, center_y), radius, Layout.BORDER_WIDTH)
+
+        # Inner glow/highlight
+        pygame.draw.circle(surface, Colors.BG_DARK, (center_x, center_y), radius - 2, 1)
+
+        # Outer border - thicker and accent colored
+        border_color = Colors.BORDER_HIGHLIGHT if self.hovered else Colors.BORDER
+        pygame.draw.circle(surface, border_color, (center_x, center_y), radius, 2)
+        pygame.draw.circle(surface, border_color, (center_x, center_y), radius - 1, 1)
 
         # Draw icon
         if self._icon_surface:
@@ -153,12 +160,29 @@ class HintButton:
             tooltip_width = tooltip_surface.get_width() + (Layout.TOOLTIP_PADDING * 2)
             tooltip_height = tooltip_surface.get_height() + (Layout.TOOLTIP_PADDING * 2)
 
-            # Position tooltip above button
-            tooltip_x = bx
+            # Position tooltip relative to button, keeping it on screen
+            # Default: Above button, centered horizontally
+            tooltip_x = center_x - tooltip_width // 2
             tooltip_y = by - tooltip_height - Layout.TOOLTIP_OFFSET
 
-            # Draw tooltip background
+            # Check right edge - ensure it doesn't go off screen
+            screen_w = surface.get_width()
+            if tooltip_x + tooltip_width > screen_w - Layout.SCREEN_MARGIN:
+                tooltip_x = screen_w - tooltip_width - Layout.SCREEN_MARGIN
+
+            # Check left edge
+            if tooltip_x < Layout.SCREEN_MARGIN:
+                tooltip_x = Layout.SCREEN_MARGIN
+
+            # Draw tooltip background with shadow
             tooltip_rect = pygame.Rect(tooltip_x, tooltip_y, tooltip_width, tooltip_height)
+
+            # Shadow
+            shadow_rect = tooltip_rect.copy()
+            shadow_rect.move_ip(2, 2)
+            pygame.draw.rect(surface, (0, 0, 0, 100), shadow_rect, border_radius=Layout.CORNER_RADIUS_SMALL)
+
+            # Main body
             pygame.draw.rect(surface, Colors.BG_TOOLTIP, tooltip_rect, border_radius=Layout.CORNER_RADIUS_SMALL)
             pygame.draw.rect(surface, Colors.BORDER, tooltip_rect, Layout.BORDER_WIDTH_THIN, border_radius=Layout.CORNER_RADIUS_SMALL)
 

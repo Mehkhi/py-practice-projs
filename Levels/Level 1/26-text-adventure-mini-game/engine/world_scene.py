@@ -9,6 +9,7 @@ import pygame
 from .scene import Scene
 from .assets import AssetManager
 from .ui import draw_hp_bar, draw_sp_bar, Minimap, TransitionManager, HelpOverlay, TipPopup, HintButton
+from .theme import Layout
 from .config_loader import load_config
 from .world.world_renderer import WorldRenderer
 from .world.overworld_controller import OverworldController
@@ -222,6 +223,17 @@ class WorldScene(Scene):
             self.tip_popup = TipPopup(theme=None)
             self.hint_button = HintButton(tutorial_manager, theme=None, assets=self.assets)
             self.hint_button.set_context("world")
+
+            # Reposition hint button to bottom-right to avoid overlap with HUD
+            # Use Layout constants for consistent spacing, but with extra margin
+            # to ensure tooltips don't clip off screen
+            btn_w, btn_h = self.hint_button.size
+            margin_right = Layout.SCREEN_MARGIN * 2
+            margin_bottom = Layout.SCREEN_MARGIN
+            self.hint_button.position = (
+                Layout.SCREEN_WIDTH - btn_w - margin_right,
+                Layout.SCREEN_HEIGHT - btn_h - margin_bottom
+            )
         else:
             self.help_overlay = None
             self.tip_popup = None

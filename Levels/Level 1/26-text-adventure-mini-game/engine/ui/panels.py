@@ -163,10 +163,58 @@ class MessageBox:
         self.text = ""
         self.portrait_surface = portrait_surface
 
-    def set_text(self, text: str) -> None:
-        """Set the message text."""
+    def set_text(self, text: str, font: Optional[pygame.font.Font] = None) -> None:
+        """Set the message text with automatic wrapping."""
         self.text = text
-        self.lines = text.split("\n")
+        if font:
+            # Calculate available width
+            padding = Layout.MESSAGE_BOX_PADDING
+            portrait_width = 0
+            if self.portrait_surface:
+                portrait_width = self.portrait_surface.get_width() + Layout.MESSAGE_BOX_PORTRAIT_GAP
+
+            available_width = self.width - (padding * 2) - portrait_width
+            self.lines = self._wrap_text(text, font, available_width)
+        else:
+            # Fallback if no font provided (will require re-wrapping in draw if font differs)
+            self.lines = text.split("\n")
+
+    def _wrap_text(self, text: str, font: pygame.font.Font, max_width: int) -> List[str]:
+        """Wrap text to fit within max_width."""
+        words = text.split()
+        lines = []
+        current_line = []
+
+        for word in words:
+            # Handle explicit newlines in the source text
+            if '\n' in word:
+                parts = word.split('\n')
+                for i, part in enumerate(parts):
+                    if i > 0:
+                        lines.append(" ".join(current_line))
+                        current_line = []
+                    if part:
+                        test_line = " ".join(current_line + [part])
+                        if font.size(test_line)[0] <= max_width:
+                            current_line.append(part)
+                        else:
+                            if current_line:
+                                lines.append(" ".join(current_line))
+                            current_line = [part]
+                continue
+
+            test_line = " ".join(current_line + [word])
+            if font.size(test_line)[0] <= max_width:
+                current_line.append(word)
+            else:
+                if current_line:
+                    lines.append(" ".join(current_line))
+                current_line = [word]
+
+        if current_line:
+            lines.append(" ".join(current_line))
+
+        return lines
 
     def set_portrait(self, surface: Optional[pygame.Surface]) -> None:
         """Assign a portrait surface to render alongside text."""
@@ -178,40 +226,56 @@ class MessageBox:
         font: Optional[pygame.font.Font] = None,
         panel: Optional[NineSlicePanel] = None,
     ) -> None:
-        """Draw the message box with improved spacing."""
+        """Draw the message box with improved spacing and visuals."""
         if font is None:
             font = pygame.font.Font(None, Fonts.SIZE_BODY)
+
+        # Re-wrap text if it hasn't been wrapped with this font yet
+        # This checks if we likely need to re-wrap (simple heuristic)
+        if len(self.lines) == 1 and len(self.text) > 50 and font.size(self.lines[0])[0] > self.width:
+             self.set_text(self.text, font)
 
         x, y = self.position
         padding = Layout.MESSAGE_BOX_PADDING
         bg_rect = pygame.Rect(x, y, self.width, self.height)
 
+        # Draw shadow
+        shadow_rect = bg_rect.copy()
+        shadow_rect.move_ip(4, 4)
+        pygame.draw.rect(surface, (0, 0, 0, 120), shadow_rect, border_radius=Layout.CORNER_RADIUS)
+
         if panel:
             panel.draw(surface, bg_rect)
         else:
-            # Fallback style with improved visuals
+            # Fallback style with gorgeous visuals
+            # Gradient background (simulated with lines for performance or just a solid color)
             pygame.draw.rect(surface, Colors.BG_PANEL, bg_rect, border_radius=Layout.CORNER_RADIUS)
-            # Inner shadow effect
-            inner_rect = bg_rect.inflate(-2, -2)
+
+            # Inner bevel/glow
+            inner_rect = bg_rect.inflate(-4, -4)
             pygame.draw.rect(surface, Colors.BG_DARK, inner_rect, 1, border_radius=Layout.CORNER_RADIUS)
-            # Outer border
+
+            # Fancy double border
             pygame.draw.rect(surface, Colors.BORDER, bg_rect, Layout.BORDER_WIDTH, border_radius=Layout.CORNER_RADIUS)
+            pygame.draw.rect(surface, Colors.ACCENT_DIM, bg_rect.inflate(2, 2), 1, border_radius=Layout.CORNER_RADIUS)
 
         # Calculate text starting position
         text_x = x + padding
         content_top = y + padding
 
         if self.portrait_surface:
-            # Draw portrait with frame
+            # Draw portrait with fancy frame
             p_w = self.portrait_surface.get_width()
             p_h = self.portrait_surface.get_height()
             portrait_x = x + padding
             portrait_y = y + (self.height - p_h) // 2  # Vertically center portrait
 
-            # Portrait frame with subtle styling
-            frame_rect = pygame.Rect(portrait_x - 2, portrait_y - 2, p_w + 4, p_h + 4)
-            pygame.draw.rect(surface, Colors.BG_DARK, frame_rect, border_radius=2)
-            pygame.draw.rect(surface, Colors.BORDER, frame_rect, 1, border_radius=2)
+            # Portrait frame background
+            frame_rect = pygame.Rect(portrait_x - 3, portrait_y - 3, p_w + 6, p_h + 6)
+            pygame.draw.rect(surface, Colors.BG_DARK, frame_rect, border_radius=4)
+
+            # Portrait frame border
+            pygame.draw.rect(surface, Colors.ACCENT, frame_rect, 1, border_radius=4)
 
             surface.blit(self.portrait_surface, (portrait_x, portrait_y))
             text_x = portrait_x + p_w + Layout.MESSAGE_BOX_PORTRAIT_GAP
@@ -223,7 +287,9 @@ class MessageBox:
         # Vertically center text block in message box
         total_text_height = len(self.lines) * line_height - Layout.MESSAGE_BOX_LINE_GAP
         text_y = y + (self.height - total_text_height) // 2
-        text_y = max(text_y, content_top)  # Don't go above padding
+
+        # Ensure we don't start above the top padding
+        text_y = max(text_y, content_top)
 
         for line in self.lines:
             if text_y > y + self.height - padding - font.get_linesize():

@@ -40,7 +40,7 @@ class BattleUILayoutMixin:
         menu_y = max(100, menu_y)  # Don't go too high (keep at least 100px from top)
 
         # Right side of screen with margin
-        menu_x = Layout.SCREEN_WIDTH - 200  # Approximate menu width + margin
+        menu_x = Layout.SCREEN_WIDTH - 110  # Approximate menu width + margin
 
         return (menu_x, menu_y)
 
@@ -64,16 +64,17 @@ class BattleUILayoutMixin:
 
         gap = 20  # Minimum gap between message box and hotbar
         y = screen_height - hotbar_height - message_box_height - gap
-        # Ensure message box doesn't go above ally sprites (y=300) + sprite height + gap
-        # Ally sprites are at y=300, with status icons below extending to ~y=370
-        # So message box should be at y >= 380 to avoid overlap
-        min_y = 380  # Minimum y to avoid ally sprite overlap
+
+        # Ensure message box doesn't go above ally sprites.
+        # Allies are now at y=220, with status icons below extending to ~y=290-300
+        # So message box should be at y >= 310 to avoid overlap
+        min_y = 310  # Minimum y to avoid ally sprite overlap
         y = max(y, min_y)
         return (Layout.SCREEN_MARGIN, y)
 
     def _get_ally_base_position(self) -> Tuple[int, int]:
         """Base position for drawing allies."""
-        return (80, 300)
+        return (80, 220)
 
     def _get_ally_spacing(self) -> int:
         """Horizontal spacing between ally sprites."""
@@ -81,7 +82,7 @@ class BattleUILayoutMixin:
 
     def _get_enemy_base_position(self) -> Tuple[int, int]:
         """Base position for drawing enemies."""
-        return (120, 120)
+        return (120, 60)
 
     def _get_enemy_spacing(self) -> int:
         """Horizontal spacing between enemy sprites."""

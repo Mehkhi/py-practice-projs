@@ -73,13 +73,13 @@ class BattleInitializer:
 
         scene.message_box = MessageBox(
             position=scene._get_message_box_position(),
-            width=600,
+            width=490,
             height=90,
         )
 
         scene.combat_log = CombatLog(
             position=scene._get_message_box_position(),
-            width=600,
+            width=490,
             collapsed_height=90,
             expanded_height=280,
         )

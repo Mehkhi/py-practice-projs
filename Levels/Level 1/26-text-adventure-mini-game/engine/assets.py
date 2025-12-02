@@ -93,11 +93,33 @@ class AssetManager:
             if entry.lower().endswith((".png", ".jpg", ".bmp")):
                 sprite_id = os.path.splitext(entry)[0]
                 try:
-                    # Load image with alpha channel support
+                    # Load image
                     image = pygame.image.load(full_path)
-                    # Only use convert_alpha if display is initialized
-                    if pygame.display.get_surface() is not None:
+
+                    # Ensure we are working with an SRCALPHA surface regardless of display state
+                    try:
                         image = image.convert_alpha()
+                    except pygame.error:
+                        # convert_alpha requires a display; fall back to manual conversion
+                        temp_surface = pygame.Surface(image.get_size(), pygame.SRCALPHA)
+                        temp_surface.blit(image, (0, 0))
+                        image = temp_surface
+
+                    # Fix for "black box" issue:
+                    # Manually replace black pixels (0,0,0) with transparent pixels
+                    # This is more reliable than relying on colorkey alone
+                    try:
+                        w, h = image.get_size()
+                        image.lock()
+                        for x in range(w):
+                            for y in range(h):
+                                r, g, b, a = image.get_at((x, y))
+                                if r <= 5 and g <= 5 and b <= 5 and a > 0:
+                                    image.set_at((x, y), (0, 0, 0, 0))
+                        image.unlock()
+                    except Exception as e:
+                        log_warning(f"Transparency fix failed for {entry}: {e}")
+
                     self.images[sprite_id] = image
                 except Exception as e:
                     log_warning(f"Failed to load sprite {entry} from {full_path}: {e}")
@@ -152,6 +174,14 @@ class AssetManager:
             base_surface,
             (cache_key[1], cache_key[2])
         )
+
+        # Preserve alpha channel on scaled surfaces to avoid black boxes reappearing
+        try:
+            scaled = scaled.convert_alpha()
+        except pygame.error:
+            temp_surface = pygame.Surface(scaled.get_size(), pygame.SRCALPHA)
+            temp_surface.blit(scaled, (0, 0))
+            scaled = temp_surface
         self.scaled_cache[cache_key] = scaled
         return scaled
 

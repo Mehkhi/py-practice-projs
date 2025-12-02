@@ -10,115 +10,75 @@ from ..theme import Colors, Fonts, Layout
 def draw_hp_bar(surface: pygame.Surface, x: int, y: int, width: int, height: int,
                  current: int, maximum: int, label: str = "", font: Optional[pygame.font.Font] = None,
                  show_text: bool = True) -> None:
-    """Draw a stylized HP bar with improved visuals."""
+    """Draw a simple, clean HP bar without borders."""
     height = height or Layout.BAR_HEIGHT
-    inner_padding = Layout.BAR_INNER_PADDING
 
     bg_rect = pygame.Rect(x, y, width, height)
 
-    # Background with subtle gradient effect
-    pygame.draw.rect(surface, Colors.BAR_BG, bg_rect, border_radius=Layout.BAR_BORDER_RADIUS)
-    pygame.draw.rect(surface, Colors.BORDER, bg_rect, Layout.BORDER_WIDTH, border_radius=Layout.BAR_BORDER_RADIUS)
+    # Dark background for the empty part of the bar
+    pygame.draw.rect(surface, (40, 40, 40), bg_rect, border_radius=Layout.BAR_BORDER_RADIUS)
 
     if maximum > 0:
         hp_ratio = max(0.0, min(1.0, current / maximum))
-        hp_width = int((width - inner_padding * 2) * hp_ratio)
+        hp_width = int(width * hp_ratio)
 
         if hp_width > 0:
-            hp_rect = pygame.Rect(
-                x + inner_padding,
-                y + inner_padding,
-                hp_width,
-                height - inner_padding * 2
-            )
+            hp_rect = pygame.Rect(x, y, hp_width, height)
 
             # Use accessibility-aware color
             color = Colors.get_hp_color(hp_ratio)
 
             # Draw main fill
-            pygame.draw.rect(surface, color, hp_rect, border_radius=max(1, Layout.BAR_BORDER_RADIUS - 2))
+            pygame.draw.rect(surface, color, hp_rect, border_radius=Layout.BAR_BORDER_RADIUS)
 
-            # Shine effect (top half gradient)
-            shine_height = (height - inner_padding * 2) // 2
-            if shine_height > 0:
-                shine_rect = pygame.Rect(
-                    x + inner_padding,
-                    y + inner_padding,
-                    hp_width,
-                    shine_height
-                )
-                shine_surface = pygame.Surface((shine_rect.width, shine_rect.height), pygame.SRCALPHA)
-                shine_surface.fill((255, 255, 255, 60))
-                surface.blit(shine_surface, shine_rect)
-
-    # Draw label with proper positioning
+    # Draw label
     if label and show_text:
         label_font = font or pygame.font.Font(None, Fonts.SIZE_SMALL)
         label_text = f"{label}: {current}/{maximum}"
 
         # Shadow
-        text_shadow = label_font.render(label_text, True, Colors.BLACK)
-        surface.blit(text_shadow, (x + Layout.ELEMENT_GAP + 1, y + Layout.BAR_LABEL_OFFSET_Y + 1))
+        text_shadow = label_font.render(label_text, True, Colors.BLACK, None)
+        surface.blit(text_shadow, (x + 1, y - 14))
 
         # Main text
-        text = label_font.render(label_text, True, Colors.TEXT_PRIMARY)
-        surface.blit(text, (x + Layout.ELEMENT_GAP, y + Layout.BAR_LABEL_OFFSET_Y))
+        text = label_font.render(label_text, True, Colors.TEXT_PRIMARY, None)
+        surface.blit(text, (x, y - 15))
 
 
 def draw_sp_bar(surface: pygame.Surface, x: int, y: int, width: int, height: int,
                 current: int, maximum: int, label: str = "", font: Optional[pygame.font.Font] = None,
                 show_text: bool = True) -> None:
-    """Draw a stylized SP (soul points) bar with improved visuals."""
+    """Draw a simple, clean SP bar without borders."""
     height = height or Layout.BAR_HEIGHT
-    inner_padding = Layout.BAR_INNER_PADDING
 
     bg_rect = pygame.Rect(x, y, width, height)
 
     # Background
-    pygame.draw.rect(surface, Colors.BAR_BG, bg_rect, border_radius=Layout.BAR_BORDER_RADIUS)
-    pygame.draw.rect(surface, Colors.BORDER, bg_rect, Layout.BORDER_WIDTH, border_radius=Layout.BAR_BORDER_RADIUS)
+    pygame.draw.rect(surface, (40, 40, 40), bg_rect, border_radius=Layout.BAR_BORDER_RADIUS)
 
     if maximum > 0:
         sp_ratio = max(0.0, min(1.0, current / maximum))
-        sp_width = int((width - inner_padding * 2) * sp_ratio)
+        sp_width = int(width * sp_ratio)
 
         if sp_width > 0:
-            sp_rect = pygame.Rect(
-                x + inner_padding,
-                y + inner_padding,
-                sp_width,
-                height - inner_padding * 2
-            )
+            sp_rect = pygame.Rect(x, y, sp_width, height)
 
             # Use accessibility-aware color
             sp_color = Colors.get_sp_color()
-            pygame.draw.rect(surface, sp_color, sp_rect, border_radius=max(1, Layout.BAR_BORDER_RADIUS - 2))
+            pygame.draw.rect(surface, sp_color, sp_rect, border_radius=Layout.BAR_BORDER_RADIUS)
 
-            # Shine effect
-            shine_height = (height - inner_padding * 2) // 2
-            if shine_height > 0:
-                shine_rect = pygame.Rect(
-                    x + inner_padding,
-                    y + inner_padding,
-                    sp_width,
-                    shine_height
-                )
-                shine_surface = pygame.Surface((shine_rect.width, shine_rect.height), pygame.SRCALPHA)
-                shine_surface.fill((255, 255, 255, 60))
-                surface.blit(shine_surface, shine_rect)
-
-    # Draw label with proper positioning
+    # Draw label
     if label and show_text:
         label_font = font or pygame.font.Font(None, Fonts.SIZE_SMALL)
         label_text = f"{label}: {current}/{maximum}"
 
         # Shadow
-        text_shadow = label_font.render(label_text, True, Colors.BLACK)
-        surface.blit(text_shadow, (x + Layout.ELEMENT_GAP + 1, y + Layout.BAR_LABEL_OFFSET_Y + 1))
+        text_shadow = label_font.render(label_text, True, Colors.BLACK, None)
+        surface.blit(text_shadow, (x + 1, y - 14))
 
         # Main text
-        text = label_font.render(label_text, True, Colors.TEXT_PRIMARY)
-        surface.blit(text, (x + Layout.ELEMENT_GAP, y + Layout.BAR_LABEL_OFFSET_Y))
+        text = label_font.render(label_text, True, Colors.TEXT_PRIMARY, None)
+        surface.blit(text, (x, y - 15))
 
 
 def draw_status_icons(

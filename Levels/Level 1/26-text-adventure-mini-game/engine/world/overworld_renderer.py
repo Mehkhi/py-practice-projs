@@ -208,7 +208,7 @@ class OverworldRenderer:
         font_default = self.scene.assets.get_font("default")
 
         # Draw left HUD (player stats, map name, gold)
-        self._draw_left_hud(surface, current_map, font_small, font_default)
+        left_hud_rect = self._draw_left_hud(surface, current_map, font_small, font_default)
 
         # Reset right-side HUD stacking position
         screen_height = surface.get_height()
@@ -244,8 +244,8 @@ class OverworldRenderer:
         # 4. Party member stats
         self._draw_party_ui(surface)
 
-        # Draw quest tracking HUD (bottom-left)
-        self._draw_quest_tracker(surface)
+        # Draw quest tracking HUD (bottom-left), respecting left HUD position
+        self._draw_quest_tracker(surface, left_hud_rect)
 
         # Draw day/night overlay
         self._draw_day_night_overlay(surface)
@@ -272,11 +272,11 @@ class OverworldRenderer:
         current_map: "Map",
         font_small: pygame.font.Font,
         font_default: pygame.font.Font
-    ) -> None:
-        """Draw the left-side HUD (player HP/SP, map name, gold)."""
+    ) -> Optional[pygame.Rect]:
+        """Draw the left-side HUD (player HP/SP, map name, gold). Returns the bounding rect."""
         # Guard against missing fonts - cannot render HUD without them
         if not font_default:
-            return
+            return None
         if not font_small:
             font_small = font_default  # Fallback to default font
 
@@ -305,6 +305,10 @@ class OverworldRenderer:
             self.PANEL_BORDER,
             radius=Layout.CORNER_RADIUS
         )
+        # Inner bevel for fanciness
+        inner_rect = panel_rect.inflate(-2, -2)
+        pygame.draw.rect(surface, Colors.BORDER, inner_rect, 1, border_radius=Layout.CORNER_RADIUS)
+
 
         # Draw HP/SP bars
         if self.scene.player.stats:
@@ -338,6 +342,8 @@ class OverworldRenderer:
                 (hud_x + hud_padding, gold_y),
                 Colors.ACCENT
             )
+
+        return panel_rect
 
     def _draw_player(self, surface: pygame.Surface, screen_x: int, screen_y: int) -> None:
         """Draw the player with improved walking animation."""
@@ -638,7 +644,11 @@ class OverworldRenderer:
         # Update stacking position for next element (only if drawn)
         self._right_hud_y += panel_height + Layout.ELEMENT_GAP
 
-    def _draw_quest_tracker(self, surface: pygame.Surface) -> None:
+    def _draw_quest_tracker(
+        self,
+        surface: pygame.Surface,
+        left_hud_rect: Optional[pygame.Rect] = None
+    ) -> None:
         """Draw active quest tracking HUD in the corner of the screen."""
         if not self.scene.quest_manager:
             return
@@ -669,21 +679,10 @@ class OverworldRenderer:
         screen_height = surface.get_height()
         screen_width = surface.get_width()
 
-        # Calculate left HUD bottom position to avoid overlap
-        # Left HUD is at top-left, calculate its bottom edge
-        left_hud_x = Layout.SCREEN_MARGIN_SMALL
-        left_hud_y = Layout.SCREEN_MARGIN_SMALL
-        left_hud_height = (
-            Layout.PADDING_SM +  # Top padding
-            Layout.BAR_HEIGHT +  # HP bar
-            Layout.ELEMENT_GAP_SMALL +  # Gap
-            Layout.BAR_HEIGHT +  # SP bar
-            Layout.ELEMENT_GAP +  # Gap
-            Layout.LINE_HEIGHT_COMPACT +  # Map name
-            Layout.LINE_HEIGHT_COMPACT +  # Gold
-            Layout.PADDING_SM  # Bottom padding (approximate)
-        )
-        left_hud_bottom = left_hud_y + left_hud_height
+        # Determine left HUD bottom position
+        left_hud_bottom = padding
+        if left_hud_rect:
+            left_hud_bottom = left_hud_rect.bottom
 
         # Calculate available space below left HUD
         space_below_left_hud = screen_height - (left_hud_bottom + Layout.ELEMENT_GAP)
@@ -702,7 +701,6 @@ class OverworldRenderer:
 
         if not fits_on_screen:
             # Panel is too tall to fit anywhere - position at bottom and clip
-            # This maintains visual hierarchy even if content is cut off
             panel_y = screen_height - panel_height - padding
         elif not would_overlap:
             # Bottom position doesn't overlap - use it
@@ -714,27 +712,14 @@ class OverworldRenderer:
             # Panel doesn't fit below left HUD but fits on screen
             # Choose the position that minimizes overlap
             # Prefer bottom position (closer to expected location) even if it slightly overlaps
-            # Only move below left HUD if there's significant space
             if space_below_left_hud >= panel_height * 0.7:  # At least 70% fits
                 panel_y = left_hud_bottom + Layout.ELEMENT_GAP
             else:
-                # Use bottom position and accept slight overlap
                 panel_y = bottom_position
 
         # Final bounds check: ensure panel doesn't go completely off-screen
-        # Clip to screen bounds if necessary
         if panel_y < padding:
             panel_y = padding
-        if panel_y + panel_height > screen_height - padding:
-            # Panel extends off-screen - clip it
-            # Keep the top visible, clip the bottom
-            max_y = screen_height - padding
-            if panel_y < max_y:
-                # Panel is partially visible, keep it
-                pass  # Will be clipped during drawing
-            else:
-                # Panel is completely off-screen, position at top
-                panel_y = padding
 
         # Clip panel to screen bounds if it extends off-screen
         panel_rect = pygame.Rect(panel_x, panel_y, panel_width, panel_height)
@@ -751,6 +736,11 @@ class OverworldRenderer:
                 self.PANEL_BORDER,
                 radius=Layout.CORNER_RADIUS
             )
+
+            # Inner bevel for fanciness
+            inner_rect = clipped_panel_rect.inflate(-2, -2)
+            pygame.draw.rect(surface, Colors.BORDER, inner_rect, 1, border_radius=Layout.CORNER_RADIUS)
+
             # Set clipping region to prevent drawing outside panel bounds
             old_clip = surface.get_clip()
             surface.set_clip(clipped_panel_rect)

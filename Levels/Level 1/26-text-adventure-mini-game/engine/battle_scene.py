@@ -672,16 +672,36 @@ class BattleScene(
 
             # Ally HP bar + status icons
             if ally.stats:
+                # Draw ally name above sprite
+                if hp_font:
+                    name_surf = hp_font.render(ally.entity.name, True, (255, 255, 255))
+                    name_shadow = hp_font.render(ally.entity.name, True, (0, 0, 0))
+                    name_x = ally_x + (self.draw_size - name_surf.get_width()) // 2
+                    name_y = ally_y - 40
+                    surface.blit(name_shadow, (name_x + 1, name_y + 1))
+                    surface.blit(name_surf, (name_x, name_y))
+
+                    # Draw HP numbers
+                    hp_text = f"{ally.stats.hp}/{ally.stats.max_hp}"
+                    hp_surf = hp_font.render(hp_text, True, (255, 255, 255))
+                    hp_shadow = hp_font.render(hp_text, True, (0, 0, 0))
+                    hp_x = ally_x + (self.draw_size - hp_surf.get_width()) // 2
+                    hp_y = ally_y - 26
+                    surface.blit(hp_shadow, (hp_x + 1, hp_y + 1))
+                    surface.blit(hp_surf, (hp_x, hp_y))
+
+                # Draw HP bar (small, no text)
                 draw_hp_bar(
                     surface,
                     ally_x,
-                    ally_y - 26,
-                    100,
-                    12,
+                    ally_y - 12,
+                    self.draw_size,
+                    6,
                     ally.stats.hp,
                     ally.stats.max_hp,
-                    ally.entity.name,
+                    "",
                     font=hp_font,
+                    show_text=False,
                 )
                 icons = self._collect_status_icons(ally.stats.status_effects)
                 if icons:

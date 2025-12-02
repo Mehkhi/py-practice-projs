@@ -109,7 +109,17 @@ The game features four interconnected areas:
 ```
 26-text-adventure-mini-game/
 ├── text_adventure_mini_game.py    # Entry point
-├── requirements.txt                 # Dependencies (pygame)
+├── requirements.txt               # Dependencies (pygame)
+├── docs/                          # Documentation (architecture, systems, economy, guides)
+│   ├── ARCHITECTURE.md
+│   ├── SYSTEMS.md
+│   ├── CONTENT_GUIDE.md
+│   ├── ECONOMY_ANALYSIS.md
+│   ├── ECONOMY_BALANCE.md
+│   ├── DIFFICULTY_CURVE_ANALYSIS.md
+│   ├── CHECKLIST.md
+│   ├── plan.md
+│   └── AGENTS.md
 ├── core/                           # Domain model (no pygame)
 │   ├── world.py                    # Maps, tiles, warps, triggers
 │   ├── entities.py                 # Player, Enemy, NPC
@@ -136,6 +146,17 @@ The game features four interconnected areas:
     ├── tilesets/                   # Tile graphics
     └── sprites/                     # Character/enemy sprites
 ```
+
+## Documentation
+
+Additional documentation lives in `docs/`:
+- `docs/ARCHITECTURE.md` - Scene stack, data flow, save format, AI profile structure
+- `docs/SYSTEMS.md` - Domain-specific systems (fishing, arena, scheduling, tutorials)
+- `docs/CONTENT_GUIDE.md` - Writing and tone guidelines
+- `docs/ECONOMY_ANALYSIS.md` / `docs/ECONOMY_BALANCE.md` - Economy modeling and balance notes
+- `docs/DIFFICULTY_CURVE_ANALYSIS.md` - Difficulty tuning guide
+- `docs/CHECKLIST.md` and `docs/plan.md` - Project checklist and planning notes
+- `docs/AGENTS.md` - Automation/agent usage guidelines
 
 ## Architecture
 
