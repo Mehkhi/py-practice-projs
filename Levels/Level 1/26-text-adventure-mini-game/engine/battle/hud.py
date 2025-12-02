@@ -11,6 +11,8 @@ import pygame
 if TYPE_CHECKING:
     from core.combat import BattleState
 
+from ..theme import Colors, Layout
+
 
 class BattleHudMixin:
     """Mixin providing HUD rendering logic for BattleScene.
@@ -124,7 +126,6 @@ class BattleHudMixin:
             message_box_y: Pre-calculated message box Y position (if None, uses current position)
         """
         from core.combat import BattleState
-        from ..theme import Colors, Layout
 
         if self.battle_system.state != BattleState.PLAYER_CHOOSE:
             return
@@ -200,14 +201,13 @@ class BattleHudMixin:
             # Use 9-slice panel if available
             self.panel.draw(surface, pygame.Rect(panel_x, panel_y, panel_width, panel_height))
         else:
-            # Fallback: draw a semi-transparent dark rectangle with border
+            # Fallback: draw a semi-transparent dark rectangle with border and rounded corners
             panel_surface = pygame.Surface((panel_width, panel_height), pygame.SRCALPHA)
-            panel_surface.fill((20, 20, 30, 220))  # Dark blue-gray with high opacity
+            bg_color = (20, 20, 30, 220)  # Dark blue-gray with high opacity
+            pygame.draw.rect(panel_surface, bg_color, (0, 0, panel_width, panel_height), border_radius=Layout.CORNER_RADIUS)
+            border_color = (*Colors.ACCENT[:3], 220)
+            pygame.draw.rect(panel_surface, border_color, (0, 0, panel_width, panel_height), Layout.BORDER_WIDTH, border_radius=Layout.CORNER_RADIUS)
             surface.blit(panel_surface, (panel_x, panel_y))
-
-            # Draw border
-            border_rect = pygame.Rect(panel_x, panel_y, panel_width, panel_height)
-            pygame.draw.rect(surface, Colors.ACCENT, border_rect, 2)
 
         # Draw the menu on top of the panel
         active_menu.draw(surface, font)
@@ -266,8 +266,13 @@ class BattleHudMixin:
         if self.panel:
             self.panel.draw(surface, hotbar_bg_rect)
         else:
-            pygame.draw.rect(surface, (40, 40, 50, 200), hotbar_bg_rect)
-            pygame.draw.rect(surface, (100, 100, 120), hotbar_bg_rect, 2)
+            # Draw semi-transparent hotbar background with rounded corners
+            hotbar_surface = pygame.Surface((hotbar_bg_rect.width, hotbar_bg_rect.height), pygame.SRCALPHA)
+            bg_color = (40, 40, 50, 200)
+            pygame.draw.rect(hotbar_surface, bg_color, (0, 0, hotbar_bg_rect.width, hotbar_bg_rect.height), border_radius=Layout.CORNER_RADIUS_SMALL)
+            border_color = (100, 100, 120, 200)
+            pygame.draw.rect(hotbar_surface, border_color, (0, 0, hotbar_bg_rect.width, hotbar_bg_rect.height), Layout.BORDER_WIDTH, border_radius=Layout.CORNER_RADIUS_SMALL)
+            surface.blit(hotbar_surface, hotbar_bg_rect.topleft)
 
         # Draw each hotbar slot with padding from left edge
         slot_padding_left = 10  # Small padding from left edge
@@ -345,14 +350,14 @@ class BattleHudMixin:
         x = width - text_width - padding - 10
         y = padding
 
-        # Draw background panel
+        # Draw background panel with rounded corners
         bg_rect = pygame.Rect(x - 8, y - 4, text_width + 16, text_height + 8)
         bg_surf = pygame.Surface((bg_rect.width, bg_rect.height), pygame.SRCALPHA)
-        bg_surf.fill((20, 20, 30, 200))
+        bg_color = (20, 20, 30, 200)
+        pygame.draw.rect(bg_surf, bg_color, (0, 0, bg_rect.width, bg_rect.height), border_radius=Layout.CORNER_RADIUS_SMALL)
+        border_color = (*indicator_color[:3], 200) if len(indicator_color) == 3 else indicator_color
+        pygame.draw.rect(bg_surf, border_color, (0, 0, bg_rect.width, bg_rect.height), Layout.BORDER_WIDTH, border_radius=Layout.CORNER_RADIUS_SMALL)
         surface.blit(bg_surf, bg_rect.topleft)
-
-        # Draw border
-        pygame.draw.rect(surface, indicator_color, bg_rect, 2)
 
         # Draw text
         surface.blit(text_surf, (x, y))

@@ -247,17 +247,24 @@ class MessageBox:
         if panel:
             panel.draw(surface, bg_rect)
         else:
-            # Fallback style with gorgeous visuals
-            # Gradient background (simulated with lines for performance or just a solid color)
-            pygame.draw.rect(surface, Colors.BG_PANEL, bg_rect, border_radius=Layout.CORNER_RADIUS)
+            # Fallback style with semi-transparent background
+            bg_surface = pygame.Surface((self.width, self.height), pygame.SRCALPHA)
+            bg_color = (*Colors.BG_PANEL[:3], 220)
+            pygame.draw.rect(bg_surface, bg_color, (0, 0, self.width, self.height), border_radius=Layout.CORNER_RADIUS)
 
             # Inner bevel/glow
-            inner_rect = bg_rect.inflate(-4, -4)
-            pygame.draw.rect(surface, Colors.BG_DARK, inner_rect, 1, border_radius=Layout.CORNER_RADIUS)
+            inner_rect = pygame.Rect(2, 2, self.width - 4, self.height - 4)
+            inner_color = (*Colors.BG_DARK[:3], 200)
+            pygame.draw.rect(bg_surface, inner_color, inner_rect, 1, border_radius=Layout.CORNER_RADIUS)
 
             # Fancy double border
-            pygame.draw.rect(surface, Colors.BORDER, bg_rect, Layout.BORDER_WIDTH, border_radius=Layout.CORNER_RADIUS)
-            pygame.draw.rect(surface, Colors.ACCENT_DIM, bg_rect.inflate(2, 2), 1, border_radius=Layout.CORNER_RADIUS)
+            border_color = (*Colors.BORDER[:3], 220)
+            pygame.draw.rect(bg_surface, border_color, (0, 0, self.width, self.height), Layout.BORDER_WIDTH, border_radius=Layout.CORNER_RADIUS)
+            surface.blit(bg_surface, bg_rect.topleft)
+            # Outer accent border (drawn on main surface since it extends outside)
+            accent_color = (*Colors.ACCENT_DIM[:3], 200)
+            outer_rect = bg_rect.inflate(2, 2)
+            pygame.draw.rect(surface, accent_color, outer_rect, 1, border_radius=Layout.CORNER_RADIUS)
 
         # Calculate text starting position
         text_x = x + padding
@@ -391,8 +398,13 @@ class ConfirmationDialog:
         pygame.draw.rect(surface, (0, 0, 0, 100), shadow_rect, border_radius=Layout.CORNER_RADIUS)
 
         dialog_rect = pygame.Rect(dialog_x, dialog_y, self.width, self.height)
-        pygame.draw.rect(surface, Colors.BG_PANEL, dialog_rect, border_radius=Layout.CORNER_RADIUS)
-        pygame.draw.rect(surface, Colors.BORDER_FOCUS, dialog_rect, Layout.BORDER_WIDTH, border_radius=Layout.CORNER_RADIUS)
+        # Create semi-transparent surface for dialog
+        dialog_surface = pygame.Surface((self.width, self.height), pygame.SRCALPHA)
+        bg_color = (*Colors.BG_PANEL[:3], 230)
+        pygame.draw.rect(dialog_surface, bg_color, (0, 0, self.width, self.height), border_radius=Layout.CORNER_RADIUS)
+        border_color = (*Colors.BORDER_FOCUS[:3], 230)
+        pygame.draw.rect(dialog_surface, border_color, (0, 0, self.width, self.height), Layout.BORDER_WIDTH, border_radius=Layout.CORNER_RADIUS)
+        surface.blit(dialog_surface, dialog_rect.topleft)
 
         # Draw title
         title_surface = font.render(self.title, True, Colors.ACCENT)
@@ -581,12 +593,18 @@ class CombatLog:
         if panel:
             panel.draw(surface, bg_rect)
         else:
-            pygame.draw.rect(surface, Colors.BG_PANEL, bg_rect, border_radius=Layout.CORNER_RADIUS)
-            inner_rect = bg_rect.inflate(-2, -2)
-            pygame.draw.rect(surface, Colors.BG_DARK, inner_rect, 1, border_radius=Layout.CORNER_RADIUS)
+            # Create semi-transparent surface for combat log
+            bg_surface = pygame.Surface((self.width, height), pygame.SRCALPHA)
+            bg_color = (*Colors.BG_PANEL[:3], 220)
+            pygame.draw.rect(bg_surface, bg_color, (0, 0, self.width, height), border_radius=Layout.CORNER_RADIUS)
+            inner_rect = pygame.Rect(1, 1, self.width - 2, height - 2)
+            inner_color = (*Colors.BG_DARK[:3], 200)
+            pygame.draw.rect(bg_surface, inner_color, inner_rect, 1, border_radius=Layout.CORNER_RADIUS)
             # Highlight border when expanded
-            border_color = Colors.ACCENT if self.expanded else Colors.BORDER
-            pygame.draw.rect(surface, border_color, bg_rect, Layout.BORDER_WIDTH, border_radius=Layout.CORNER_RADIUS)
+            border_base = Colors.ACCENT if self.expanded else Colors.BORDER
+            border_color = (*border_base[:3], 220)
+            pygame.draw.rect(bg_surface, border_color, (0, 0, self.width, height), Layout.BORDER_WIDTH, border_radius=Layout.CORNER_RADIUS)
+            surface.blit(bg_surface, bg_rect.topleft)
 
         # Header (when expanded)
         text_x = x + padding
