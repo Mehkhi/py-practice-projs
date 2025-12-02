@@ -1,19 +1,17 @@
 """Dialogue scene for narrative choices."""
 
-import copy
 import os
-from typing import Optional, Dict, List, TYPE_CHECKING
+from typing import Optional, Dict, List, Set, TYPE_CHECKING
 
 import pygame
 
 from .base_menu_scene import BaseMenuScene
 from .assets import AssetManager
-from .ui import Menu, MessageBox, NineSlicePanel
+from .ui import Menu, MessageBox
 from .theme import Colors, Fonts, Layout
-from core.dialogue import load_dialogue_from_json, DialogueNode, DialogueTree
+from core.dialogue import DialogueChoice, DialogueNode, DialogueTree, load_dialogue_from_json
 from core.world import World
 from core.logging_utils import log_warning, log_info
-from core.gambling import GamblingGameType
 from core.tutorial_system import TipTrigger
 
 if TYPE_CHECKING:
@@ -41,6 +39,10 @@ class DialogueScene(BaseMenuScene):
 
         self.tree = tree or self._load_tree()
         self.current_node: Optional[DialogueNode] = self.tree.get_node(dialogue_id) if self.tree else None
+        self._visited_nodes: Set[str] = set()
+        self._previous_npc_interaction_state = self.world.npc_interaction_active if self.world else False
+        if self.world:
+            self.world.npc_interaction_active = True
 
         # Position message box at bottom
         self.message_box = MessageBox(
@@ -53,6 +55,7 @@ class DialogueScene(BaseMenuScene):
         # Queued notifications to show after dialogue closes
         self._pending_notifications: List[str] = []
 
+        self._apply_node_effects(self.current_node)
         self._refresh_ui()
 
     def _load_tree(self) -> Optional[DialogueTree]:
@@ -93,7 +96,7 @@ class DialogueScene(BaseMenuScene):
             # Align with the text start position (accounting for portrait)
             menu_x = self.message_box.position[0] + Layout.PADDING_LARGE
             if portrait_width > 0:
-                 menu_x += portrait_width + Layout.MESSAGE_BOX_PORTRAIT_GAP
+                menu_x += portrait_width + Layout.MESSAGE_BOX_PORTRAIT_GAP
 
             # Position bottom of menu 10px above message box
             menu_y = self.message_box.position[1] - menu_height - 10
@@ -107,6 +110,113 @@ class DialogueScene(BaseMenuScene):
             )
         else:
             self.choice_menu = None
+
+    def _apply_node_effects(self, node: Optional[DialogueNode]) -> None:
+        """Apply one-time effects when entering a node (recipes, etc.)."""
+        if not node or node.id in self._visited_nodes:
+            return
+        self._visited_nodes.add(node.id)
+
+        if node.discover_recipes and self.player:
+            try:
+                from core.crafting import CraftingSystem, discover_recipes_for_player
+
+                crafting_system = getattr(self, "crafting_system", None)
+                if not crafting_system:
+                    crafting_system = CraftingSystem()
+                    self.crafting_system = crafting_system
+                newly_discovered = discover_recipes_for_player(self.player, node.discover_recipes)
+                if newly_discovered:
+                    recipe_names: List[str] = []
+                    for recipe_id in newly_discovered:
+                        recipe = crafting_system.get_recipe(recipe_id)
+                        recipe_names.append(recipe.name if recipe else recipe_id)
+
+                    if len(recipe_names) == 1:
+                        self._pending_notifications.append(f"Recipe discovered: {recipe_names[0]}")
+                    else:
+                        recipes_text = ", ".join(recipe_names[:-1]) + f", and {recipe_names[-1]}"
+                        self._pending_notifications.append(f"Recipes discovered: {recipes_text}")
+            except Exception as exc:
+                log_warning(f"Failed to grant recipes for dialogue node '{node.id}': {exc}")
+        elif node.discover_recipes:
+            log_warning("discover_recipes provided but no player available to learn them")
+
+    def _apply_choice_effects(self, choice: DialogueChoice) -> None:
+        """Apply effects tied to a chosen option."""
+        if self.world and choice.set_flag:
+            self.world.set_flag(choice.set_flag, True)
+
+            if choice.set_flag.endswith("_recruited"):
+                tutorial_manager = self.get_manager_attr("tutorial_manager", "_apply_choice_effects")
+                if tutorial_manager:
+                    tutorial_manager.trigger_tip(TipTrigger.FIRST_PARTY_MEMBER)
+
+        if self.world and self.current_node and self.current_node.set_flags_after_choice:
+            for flag in self.current_node.set_flags_after_choice:
+                self.world.set_flag(flag, True)
+
+    def _select_choice(self) -> None:
+        """Handle confirming the current menu choice."""
+        if not self.choice_menu or not self.current_node or not self.current_node.choices:
+            self._close_dialogue()
+            return
+
+        index = max(0, min(self.choice_menu.selected_index, len(self.current_node.choices) - 1))
+        choice = self.current_node.choices[index]
+        self._apply_choice_effects(choice)
+
+        next_id = choice.next_id
+        if next_id and self.tree:
+            next_node = self.tree.get_node(next_id)
+            if next_node:
+                self.current_node = next_node
+                self._apply_node_effects(self.current_node)
+                self._refresh_ui()
+                return
+            log_warning(f"Dialogue node '{next_id}' not found for dialogue '{self.dialogue_id}'")
+
+        self._close_dialogue()
+
+    def _close_dialogue(self) -> None:
+        """Clean up state and return to the previous scene."""
+        if self.world:
+            self.world.npc_interaction_active = self._previous_npc_interaction_state
+
+        if self._pending_notifications:
+            for note in self._pending_notifications:
+                log_info(note)
+            self._pending_notifications.clear()
+
+        if self.manager:
+            self.manager.pop()
+
+    def handle_event(self, event: pygame.event.Event) -> None:
+        if event.type != pygame.KEYDOWN:
+            return
+
+        if not self.current_node:
+            if event.key in (pygame.K_RETURN, pygame.K_SPACE, pygame.K_ESCAPE):
+                self._close_dialogue()
+            return
+
+        if self.choice_menu:
+            if event.key in (pygame.K_UP, pygame.K_w):
+                self.choice_menu.move_selection(-1)
+            elif event.key in (pygame.K_DOWN, pygame.K_s):
+                self.choice_menu.move_selection(1)
+            elif event.key in (pygame.K_RETURN, pygame.K_SPACE):
+                self._select_choice()
+            elif event.key == pygame.K_ESCAPE:
+                self._close_dialogue()
+        else:
+            if event.key in (pygame.K_RETURN, pygame.K_SPACE, pygame.K_ESCAPE):
+                self._close_dialogue()
+
+    def update(self, dt: float) -> None:
+        """Update dialogue state (currently no timers needed)."""
+        # Placeholder for future animations or typing effects
+        return
 
     def draw(self, surface: pygame.Surface) -> None:
         # Draw semi-transparent dark background

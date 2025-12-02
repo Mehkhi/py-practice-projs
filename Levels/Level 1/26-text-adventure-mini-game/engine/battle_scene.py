@@ -648,6 +648,8 @@ class BattleScene(
                 ally.entity.sprite_id,
                 (self.sprite_size, self.sprite_size)
             )
+            # Apply colorkey to remove black background from battle sprites
+            ally_surface.set_colorkey((0, 0, 0))
             ally_x = ally_base_x + idx * ally_spacing
             surface.blit(ally_surface, (ally_x, ally_y))
 
@@ -780,6 +782,8 @@ class BattleScene(
                     enemy.entity.sprite_id,
                     (self.sprite_size, self.sprite_size)
                 )
+                # Apply colorkey to remove black background from battle sprites
+                enemy_surface.set_colorkey((0, 0, 0))
                 surface.blit(enemy_surface, (enemy_x, enemy_y))
 
                 # Enemy target highlight

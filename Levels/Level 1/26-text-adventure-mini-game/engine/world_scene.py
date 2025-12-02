@@ -129,6 +129,11 @@ class WorldScene(Scene):
         self.scale = max(1, int(scale))
         self.draw_tile = self.tile_size * self.scale
         self.projection = projection
+        # Config is expected to already include env overrides (load_config handles this)
+        self.config = config or load_config()
+        # If tileset_name not provided, read from config with "default" fallback
+        if tileset_name is None:
+            tileset_name = self.config.get("tileset", "default")
         self.assets = AssetManager(
             scale=self.scale,
             tileset_name=tileset_name,
@@ -137,8 +142,6 @@ class WorldScene(Scene):
         )
         self.dialogue_tree = dialogue_tree
         self.items_db = items_db or {}
-        # Config is expected to already include env overrides (load_config handles this)
-        self.config = config or load_config()
         if self.dialogue_tree is None:
             self.dialogue_tree = self._load_dialogue_tree()
         self.encounters_data = encounters_data or load_encounters_from_json()

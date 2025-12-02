@@ -18,7 +18,7 @@ class BattleUILayoutMixin:
     def _get_main_menu_position(screen_height: Optional[int] = None, message_box_y: Optional[int] = None) -> Tuple[int, int]:
         """Position for the main battle menu.
 
-        Positions menu to avoid overlapping with message box and other UI elements.
+        Positions menu flush with right edge and bottom corner, adjacent to message box.
 
         Args:
             screen_height: Height of the screen surface (defaults to Layout.SCREEN_HEIGHT if None)
@@ -34,21 +34,48 @@ class BattleUILayoutMixin:
         if message_box_y is None:
             _, message_box_y = BattleUILayoutMixin._get_message_box_position(screen_height)
 
-        # Position menu on right side, above message box
-        # Ensure menu doesn't overlap with message box (leave gap)
-        menu_y = message_box_y - 200  # Position well above message box
-        menu_y = max(100, menu_y)  # Don't go too high (keep at least 100px from top)
+        # Menu panel width (will be calculated in hud.py, but estimate for text position)
+        menu_panel_width = 120
 
-        # Right side of screen with margin
-        menu_x = Layout.SCREEN_WIDTH - 110  # Approximate menu width + margin
+        # Position menu text inside the panel (panel extends to right edge)
+        # Text starts with padding from the panel's left edge
+        menu_x = Layout.SCREEN_WIDTH - menu_panel_width + 25  # 25px padding from panel left
+
+        # Calculate menu height: 8 options * compact line height + padding
+        num_options = 8
+        line_height = 28  # MENU_ITEM_HEIGHT_COMPACT
+        panel_padding_v = 8  # Vertical padding in panel
+        menu_height = num_options * line_height + panel_padding_v * 2
+
+        # Position menu so panel bottom is flush with screen bottom
+        # Menu text starts with padding offset from panel top
+        menu_y = screen_height - menu_height + panel_padding_v
 
         return (menu_x, menu_y)
+
+    @staticmethod
+    def _get_submenu_position(screen_height: Optional[int] = None) -> Tuple[int, int]:
+        """Position for battle submenus (move, skill, item selection).
+
+        Positions submenu closer to the player sprite area, not in the sidebar.
+
+        Returns:
+            Tuple of (x, y) position for submenus
+        """
+        if screen_height is None:
+            screen_height = Layout.SCREEN_HEIGHT
+
+        # Position close to player sprite (player is around x=80)
+        submenu_x = 200  # To the right of player sprite
+        submenu_y = 250  # Above the message box area
+
+        return (submenu_x, submenu_y)
 
     @staticmethod
     def _get_message_box_position(screen_height: Optional[int] = None, hotbar_height: int = 50, message_box_height: int = 90) -> Tuple[int, int]:
         """Position for the battle message box.
 
-        Positions the message box above the hotbar with proper spacing.
+        Positions the message box above the hotbar, flush with left edge.
         Formula: y = screen_height - hotbar_height - message_box_height - gap
 
         Args:
@@ -62,7 +89,7 @@ class BattleUILayoutMixin:
         if screen_height is None:
             screen_height = Layout.SCREEN_HEIGHT
 
-        gap = 20  # Minimum gap between message box and hotbar
+        gap = 10  # Small gap between message box and hotbar
         y = screen_height - hotbar_height - message_box_height - gap
 
         # Ensure message box doesn't go above ally sprites.
@@ -70,7 +97,7 @@ class BattleUILayoutMixin:
         # So message box should be at y >= 310 to avoid overlap
         min_y = 310  # Minimum y to avoid ally sprite overlap
         y = max(y, min_y)
-        return (Layout.SCREEN_MARGIN, y)
+        return (0, y)  # Flush with left edge
 
     def _get_ally_base_position(self) -> Tuple[int, int]:
         """Base position for drawing allies."""

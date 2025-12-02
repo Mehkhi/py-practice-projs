@@ -240,7 +240,7 @@ class BattleMenuMixin(BattleTargetingMixin):
                 move_names.append(move_id)
                 self.move_menu_mapping[idx] = move_id
 
-        self.move_menu = Menu(move_names, position=(380, 200), compact=True)
+        self.move_menu = Menu(move_names, position=self._get_submenu_position(), compact=True)
         self.menu_mode = "move"
         self.message_box.set_text("Choose a move.")
 
@@ -291,7 +291,7 @@ class BattleMenuMixin(BattleTargetingMixin):
             self.message_box.set_text("No skills available!")
             return
 
-        self.skill_menu = Menu(available_skills, position=(380, 200), compact=True)
+        self.skill_menu = Menu(available_skills, position=self._get_submenu_position(), compact=True)
         self.menu_mode = "skill"
 
     def _handle_skill_selection(self) -> None:
@@ -388,7 +388,7 @@ class BattleMenuMixin(BattleTargetingMixin):
             self.message_box.set_text("No usable items available!")
             return
 
-        self.item_menu = Menu(options, position=(380, 200), compact=True)
+        self.item_menu = Menu(options, position=self._get_submenu_position(), compact=True)
         self.menu_mode = "item"
 
     def _use_hotbar_item(self, slot: int) -> None:
@@ -590,7 +590,7 @@ class BattleMenuMixin(BattleTargetingMixin):
             "MC Clear",
             f"[Memory: {mem_val} ({mem_type})]"
         ]
-        self.memory_menu = Menu(options[:4], position=(360, 230))
+        self.memory_menu = Menu(options[:4], position=self._get_submenu_position(), compact=True)
         self.menu_mode = "memory"
         self.message_box.set_text(f"Memory: {mem_val} ({mem_type}). Choose operation.")
 
@@ -624,7 +624,7 @@ class BattleMenuMixin(BattleTargetingMixin):
             "Current HP",
             "Last Damage"
         ]
-        self.memory_stat_menu = Menu(stat_options, position=(360, 230))
+        self.memory_stat_menu = Menu(stat_options, position=self._get_submenu_position(), compact=True)
         self.menu_mode = "memory_stat"
         is_store = "Store" in operation
         self._pending_memory_op = MemoryOperation.STORE if is_store else MemoryOperation.SUBTRACT

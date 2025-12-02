@@ -1,14 +1,14 @@
 {
   "meta": {
     "version": 1,
-    "timestamp": "2025-12-02T14:20:27.193607",
-    "play_time_seconds": 6.81500000000003
+    "timestamp": "2025-12-02T15:53:35.967390",
+    "play_time_seconds": 6.2580000000000195
   },
   "world": {
     "current_map_id": "forest_path",
     "flags": {
       "gold": 20,
-      "play_time_seconds": 6.81500000000003
+      "play_time_seconds": 6.2580000000000195
     },
     "visited_maps": [
       "forest_path"
@@ -20,7 +20,7 @@
   },
   "player": {
     "entity_id": "player",
-    "name": "hi",
+    "name": "mehkhi",
     "x": 5,
     "y": 5,
     "inventory": {
@@ -1241,7 +1241,7 @@
     ]
   },
   "day_night": {
-    "current_time": 366.81499999999886,
+    "current_time": 366.25799999999896,
     "day_count": 1,
     "time_scale": 1.0,
     "paused": false
@@ -1915,7 +1915,7 @@
     "current_weather": "clear",
     "transition_weather": null,
     "transition_progress": 0.0,
-    "change_timer": 293.18500000000114,
+    "change_timer": 293.74200000000104,
     "enabled": true,
     "paused": false
   },

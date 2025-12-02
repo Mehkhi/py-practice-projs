@@ -105,20 +105,8 @@ class AssetManager:
                         temp_surface.blit(image, (0, 0))
                         image = temp_surface
 
-                    # Fix for "black box" issue:
-                    # Manually replace black pixels (0,0,0) with transparent pixels
-                    # This is more reliable than relying on colorkey alone
-                    try:
-                        w, h = image.get_size()
-                        image.lock()
-                        for x in range(w):
-                            for y in range(h):
-                                r, g, b, a = image.get_at((x, y))
-                                if r <= 5 and g <= 5 and b <= 5 and a > 0:
-                                    image.set_at((x, y), (0, 0, 0, 0))
-                        image.unlock()
-                    except Exception as e:
-                        log_warning(f"Transparency fix failed for {entry}: {e}")
+                    # Normalize transparency to avoid opaque boxes around sprites
+                    image = self._clean_sprite_transparency(image, entry)
 
                     self.images[sprite_id] = image
                 except Exception as e:
@@ -147,6 +135,97 @@ class AssetManager:
                     self.sounds[sound_id] = sound
                 except Exception as e:
                     log_warning(f"Failed to load sound {filename} from {audio_dir}: {e}")
+
+    def _surface_has_transparency(self, surface: pygame.Surface) -> bool:
+        """Return True if any pixel has alpha < 255."""
+        w, h = surface.get_size()
+        for y in range(h):
+            for x in range(w):
+                if surface.get_at((x, y)).a < 255:
+                    return True
+        return False
+
+    def _clean_sprite_transparency(self, image: pygame.Surface, entry: str = "") -> pygame.Surface:
+        """Remove solid backgrounds and stray color data from sprite surfaces."""
+        w, h = image.get_size()
+
+        # If sprite already has transparency, clear stray color on fully transparent pixels
+        if self._surface_has_transparency(image):
+            try:
+                image.lock()
+                for y in range(h):
+                    for x in range(w):
+                        c = image.get_at((x, y))
+                        if c.a == 0 and (c.r or c.g or c.b):
+                            image.set_at((x, y), (0, 0, 0, 0))
+                image.unlock()
+            except Exception as e:
+                log_warning(f"Alpha cleanup failed for {entry}: {e}")
+            return image
+
+        # Otherwise, attempt to treat a uniform corner color as a background to strip
+        # BUT only if it's a known placeholder color (magenta, pure black, pure white)
+        corners = [
+            image.get_at((0, 0)),
+            image.get_at((w - 1, 0)),
+            image.get_at((0, h - 1)),
+            image.get_at((w - 1, h - 1)),
+        ]
+        corner_colors = {(c.r, c.g, c.b) for c in corners}
+        if len(corner_colors) != 1:
+            return image
+
+        bg_rgb = corner_colors.pop()
+
+        # Only strip known placeholder/keying colors to avoid corrupting natural tile colors
+        # Common placeholder colors: magenta (255, 0, 255), pink variants, pure black, pure white
+        is_placeholder_color = (
+            (bg_rgb[0] > 200 and bg_rgb[1] < 50 and bg_rgb[2] > 200) or  # Magenta/pink
+            (bg_rgb == (0, 0, 0)) or  # Pure black
+            (bg_rgb == (255, 255, 255))  # Pure white
+        )
+
+        if not is_placeholder_color:
+            return image
+
+        bg_matches = 0
+        non_bg = 0
+        try:
+            image.lock()
+            for y in range(h):
+                for x in range(w):
+                    c = image.get_at((x, y))
+                    if (c.r, c.g, c.b) == bg_rgb:
+                        bg_matches += 1
+                    else:
+                        non_bg += 1
+            image.unlock()
+        except Exception as e:
+            log_warning(f"Background scan failed for {entry}: {e}")
+            return image
+
+        # If there's nothing but the background color, make the whole surface transparent
+        total_pixels = w * h
+        if non_bg == 0:
+            image.fill((*bg_rgb, 0))
+            return image
+
+        coverage = bg_matches / total_pixels
+        # Only strip if the background color clearly dominates
+        if coverage >= 0.5:
+            try:
+                image.lock()
+                for y in range(h):
+                    for x in range(w):
+                        c = image.get_at((x, y))
+                        if (c.r, c.g, c.b) == bg_rgb:
+                            image.set_at((x, y), (bg_rgb[0], bg_rgb[1], bg_rgb[2], 0))
+                image.unlock()
+                log_debug(f"Applied background transparency fix to {entry or 'sprite'}")
+            except Exception as e:
+                log_warning(f"Transparency strip failed for {entry}: {e}")
+
+        return image
 
     # --- Retrieval helpers ---
 

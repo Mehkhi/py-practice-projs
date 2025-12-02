@@ -89,9 +89,10 @@ class Menu:
                 if option in self.icons:
                     icon_padding = self.icons[option].get_width() + Layout.ELEMENT_GAP
 
-                # Create highlight rectangle with better padding
-                highlight_x = x - cursor_width - highlight_padding
-                highlight_width = text_width + cursor_width + icon_padding + (highlight_padding * 2)
+                # Create highlight rectangle - contained within menu bounds
+                # Start at menu x position minus small padding, don't extend past cursor area
+                highlight_x = x - highlight_padding
+                highlight_width = text_width + icon_padding + (highlight_padding * 2)
                 highlight_rect = pygame.Rect(
                     highlight_x,
                     row_y,

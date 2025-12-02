@@ -167,25 +167,33 @@ class BattleHudMixin:
         # Calculate menu panel dimensions based on menu content
         menu_x, menu_y = active_menu.position
         num_options = len(active_menu.options)
-        line_height = Layout.MENU_ITEM_HEIGHT
+        line_height = Layout.MENU_ITEM_HEIGHT_COMPACT  # Use compact height for tighter fit
 
-        # Calculate max text width for panel sizing
-        max_width = 0
-        if font:
-            for option in active_menu.options:
-                text_width = font.size(option)[0]
-                max_width = max(max_width, text_width)
+        # Panel dimensions - sized to fit content tightly
+        panel_padding_v = 8  # Vertical padding (top/bottom)
+        panel_padding_h = 12  # Horizontal padding (left/right)
+        panel_height = num_options * line_height + panel_padding_v * 2
+
+        # Differentiate between main menu (sidebar) and submenus (near player)
+        is_main_menu = (self.menu_mode == "main")
+
+        if is_main_menu:
+            # Main menu: fixed width, flush with right edge
+            panel_width = 120
+            panel_x = width - panel_width  # Flush with right edge
+            panel_y = menu_y - panel_padding_v
         else:
-            max_width = 150  # Default width
-
-        # Panel dimensions with padding
-        panel_padding = 16
-        panel_width = max_width + panel_padding * 2 + 30  # Extra space for cursor
-        panel_height = num_options * line_height + panel_padding * 2
-
-        # Panel position (offset from menu position to account for cursor space)
-        panel_x = menu_x - 25
-        panel_y = menu_y - panel_padding // 2
+            # Submenus: dynamic width based on content, positioned near player
+            max_text_width = 0
+            if font:
+                for option in active_menu.options:
+                    text_width = font.size(option)[0]
+                    max_text_width = max(max_text_width, text_width)
+            else:
+                max_text_width = 150
+            panel_width = max_text_width + panel_padding_h * 2 + 30  # Extra for cursor
+            panel_x = menu_x - panel_padding_h - 15  # Offset for cursor space
+            panel_y = menu_y - panel_padding_v
 
         # Draw semi-transparent dark panel behind menu
         if self.panel:
@@ -233,22 +241,26 @@ class BattleHudMixin:
             self.message_box.draw(surface, font, panel=self.panel)
 
     def _draw_hotbar(self, surface: pygame.Surface, font: pygame.font.Font) -> None:
-        """Draw the hotbar at the bottom of the screen."""
+        """Draw the hotbar at the bottom of the screen, flush with left edge."""
         if not self.player.inventory:
             return
 
         width, height = surface.get_size()
         hotbar_y = height - 50
-        hotbar_x = 20
+        hotbar_x = 0  # Flush with left edge
         slot_width = 50
         slot_height = 40
         slot_spacing = 5
 
-        # Draw hotbar background
+        # Calculate hotbar width to match message box (flush with menu panel)
+        menu_panel_width = 120
+        hotbar_total_width = width - menu_panel_width
+
+        # Draw hotbar background - extends to match message box width
         hotbar_bg_rect = pygame.Rect(
-            hotbar_x - 5,
+            hotbar_x,
             hotbar_y - 5,
-            9 * (slot_width + slot_spacing) - slot_spacing + 10,
+            hotbar_total_width,
             slot_height + 10
         )
         if self.panel:
@@ -257,9 +269,10 @@ class BattleHudMixin:
             pygame.draw.rect(surface, (40, 40, 50, 200), hotbar_bg_rect)
             pygame.draw.rect(surface, (100, 100, 120), hotbar_bg_rect, 2)
 
-        # Draw each hotbar slot
+        # Draw each hotbar slot with padding from left edge
+        slot_padding_left = 10  # Small padding from left edge
         for slot in range(1, 10):
-            slot_x = hotbar_x + (slot - 1) * (slot_width + slot_spacing)
+            slot_x = slot_padding_left + (slot - 1) * (slot_width + slot_spacing)
             slot_rect = pygame.Rect(slot_x, hotbar_y, slot_width, slot_height)
 
             # Slot background
