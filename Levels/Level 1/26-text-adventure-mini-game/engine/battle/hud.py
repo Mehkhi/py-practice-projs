@@ -72,6 +72,19 @@ class BattleHudMixin:
                     name_x = enemy_x + (self.sprite_size - name_surf.get_width()) // 2
                     name_y = enemy_y - 35
 
+                    # Draw semi-transparent name tag background
+                    name_padding = 4
+                    name_bg_rect = pygame.Rect(
+                        name_x - name_padding,
+                        name_y - name_padding,
+                        name_surf.get_width() + name_padding * 2,
+                        name_surf.get_height() + name_padding * 2
+                    )
+                    name_bg_surface = pygame.Surface((name_bg_rect.width, name_bg_rect.height), pygame.SRCALPHA)
+                    name_bg_color = (*Colors.BG_PANEL[:3], 220)
+                    pygame.draw.rect(name_bg_surface, name_bg_color, (0, 0, name_bg_rect.width, name_bg_rect.height), border_radius=Layout.CORNER_RADIUS_SMALL)
+                    surface.blit(name_bg_surface, name_bg_rect.topleft)
+
                     # Blit shadow then text
                     surface.blit(shadow_surf, (name_x + 1, name_y + 1))
                     surface.blit(name_surf, (name_x, name_y))
@@ -82,6 +95,20 @@ class BattleHudMixin:
                     hp_surf = font.render(hp_text, True, (255, 255, 255))
                     hp_x = enemy_x + (self.sprite_size - hp_surf.get_width()) // 2
                     hp_y = enemy_y - 22
+
+                    # Draw semi-transparent HP number background
+                    hp_padding = 4
+                    hp_bg_rect = pygame.Rect(
+                        hp_x - hp_padding,
+                        hp_y - hp_padding,
+                        hp_surf.get_width() + hp_padding * 2,
+                        hp_surf.get_height() + hp_padding * 2
+                    )
+                    hp_bg_surface = pygame.Surface((hp_bg_rect.width, hp_bg_rect.height), pygame.SRCALPHA)
+                    hp_bg_color = (*Colors.BG_PANEL[:3], 220)
+                    pygame.draw.rect(hp_bg_surface, hp_bg_color, (0, 0, hp_bg_rect.width, hp_bg_rect.height), border_radius=Layout.CORNER_RADIUS_SMALL)
+                    surface.blit(hp_bg_surface, hp_bg_rect.topleft)
+
                     surface.blit(hp_shadow, (hp_x + 1, hp_y + 1))
                     surface.blit(hp_surf, (hp_x, hp_y))
 
@@ -280,9 +307,13 @@ class BattleHudMixin:
             slot_x = slot_padding_left + (slot - 1) * (slot_width + slot_spacing)
             slot_rect = pygame.Rect(slot_x, hotbar_y, slot_width, slot_height)
 
-            # Slot background
-            pygame.draw.rect(surface, (50, 50, 60), slot_rect)
-            pygame.draw.rect(surface, (100, 100, 120), slot_rect, 1)
+            # Slot background with semi-transparent rounded corners
+            slot_surface = pygame.Surface((slot_width, slot_height), pygame.SRCALPHA)
+            slot_bg_color = (50, 50, 60, 200)
+            pygame.draw.rect(slot_surface, slot_bg_color, (0, 0, slot_width, slot_height), border_radius=Layout.CORNER_RADIUS_SMALL)
+            slot_border_color = (100, 100, 120, 200)
+            pygame.draw.rect(slot_surface, slot_border_color, (0, 0, slot_width, slot_height), Layout.BORDER_WIDTH_THIN, border_radius=Layout.CORNER_RADIUS_SMALL)
+            surface.blit(slot_surface, slot_rect.topleft)
 
             # Slot number (small, top-left)
             num_text = font.render(str(slot), True, (200, 200, 200))
@@ -306,8 +337,11 @@ class BattleHudMixin:
                         qty_rect = qty_text.get_rect(center=(slot_x + slot_width // 2, hotbar_y + 28))
                         surface.blit(qty_text, qty_rect)
                     else:
-                        # Item out of stock - gray out
-                        pygame.draw.rect(surface, (30, 30, 30, 180), slot_rect)
+                        # Item out of stock - gray out with semi-transparent overlay
+                        out_overlay = pygame.Surface((slot_width, slot_height), pygame.SRCALPHA)
+                        out_bg_color = (30, 30, 30, 180)
+                        pygame.draw.rect(out_overlay, out_bg_color, (0, 0, slot_width, slot_height), border_radius=Layout.CORNER_RADIUS_SMALL)
+                        surface.blit(out_overlay, slot_rect.topleft)
                         out_text = font.render("OUT", True, (150, 150, 150))
                         out_rect = out_text.get_rect(center=(slot_x + slot_width // 2, hotbar_y + slot_height // 2))
                         surface.blit(out_text, out_rect)

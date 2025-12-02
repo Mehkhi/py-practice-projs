@@ -8,7 +8,6 @@ and data-driven world system.
 
 import logging
 import os
-import sys
 
 import pygame
 
@@ -30,7 +29,6 @@ def main() -> None:
         pass
     finally:
         pygame.quit()
-        sys.exit(0)
 
 
 if __name__ == "__main__":

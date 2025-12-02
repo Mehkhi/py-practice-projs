@@ -680,6 +680,20 @@ class BattleScene(
                     name_shadow = hp_font.render(ally.entity.name, True, (0, 0, 0))
                     name_x = ally_x + (self.draw_size - name_surf.get_width()) // 2
                     name_y = ally_y - 40
+
+                    # Draw semi-transparent name tag background
+                    name_padding = 4
+                    name_bg_rect = pygame.Rect(
+                        name_x - name_padding,
+                        name_y - name_padding,
+                        name_surf.get_width() + name_padding * 2,
+                        name_surf.get_height() + name_padding * 2
+                    )
+                    name_bg_surface = pygame.Surface((name_bg_rect.width, name_bg_rect.height), pygame.SRCALPHA)
+                    name_bg_color = (*Colors.BG_PANEL[:3], 220)
+                    pygame.draw.rect(name_bg_surface, name_bg_color, (0, 0, name_bg_rect.width, name_bg_rect.height), border_radius=Layout.CORNER_RADIUS_SMALL)
+                    surface.blit(name_bg_surface, name_bg_rect.topleft)
+
                     surface.blit(name_shadow, (name_x + 1, name_y + 1))
                     surface.blit(name_surf, (name_x, name_y))
 
@@ -689,6 +703,20 @@ class BattleScene(
                     hp_shadow = hp_font.render(hp_text, True, (0, 0, 0))
                     hp_x = ally_x + (self.draw_size - hp_surf.get_width()) // 2
                     hp_y = ally_y - 26
+
+                    # Draw semi-transparent HP number background
+                    hp_padding = 4
+                    hp_bg_rect = pygame.Rect(
+                        hp_x - hp_padding,
+                        hp_y - hp_padding,
+                        hp_surf.get_width() + hp_padding * 2,
+                        hp_surf.get_height() + hp_padding * 2
+                    )
+                    hp_bg_surface = pygame.Surface((hp_bg_rect.width, hp_bg_rect.height), pygame.SRCALPHA)
+                    hp_bg_color = (*Colors.BG_PANEL[:3], 220)
+                    pygame.draw.rect(hp_bg_surface, hp_bg_color, (0, 0, hp_bg_rect.width, hp_bg_rect.height), border_radius=Layout.CORNER_RADIUS_SMALL)
+                    surface.blit(hp_bg_surface, hp_bg_rect.topleft)
+
                     surface.blit(hp_shadow, (hp_x + 1, hp_y + 1))
                     surface.blit(hp_surf, (hp_x, hp_y))
 

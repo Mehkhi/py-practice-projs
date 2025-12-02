@@ -107,16 +107,20 @@ class NineSlicePanel:
 
     def draw(self, surface: pygame.Surface, dest_rect: pygame.Rect) -> None:
         if not self.source:
-            # Fallback procedural drawing with improved style
-            # Main background
-            pygame.draw.rect(surface, Colors.BG_PANEL, dest_rect, border_radius=Layout.CORNER_RADIUS)
+            # Fallback procedural drawing with semi-transparent style
+            panel_surface = pygame.Surface((dest_rect.width, dest_rect.height), pygame.SRCALPHA)
+            bg_color = (*Colors.BG_PANEL[:3], 220)
+            pygame.draw.rect(panel_surface, bg_color, (0, 0, dest_rect.width, dest_rect.height), border_radius=Layout.CORNER_RADIUS)
 
             # Inner bevel (darker)
-            inner_rect = dest_rect.inflate(-2, -2)
-            pygame.draw.rect(surface, Colors.BG_DARK, inner_rect, 1, border_radius=Layout.CORNER_RADIUS)
+            inner_rect = pygame.Rect(2, 2, dest_rect.width - 4, dest_rect.height - 4)
+            inner_color = (*Colors.BG_DARK[:3], 200)
+            pygame.draw.rect(panel_surface, inner_color, inner_rect, 1, border_radius=Layout.CORNER_RADIUS)
 
             # Outer border
-            pygame.draw.rect(surface, Colors.BORDER, dest_rect, Layout.BORDER_WIDTH, border_radius=Layout.CORNER_RADIUS)
+            border_color = (*Colors.BORDER[:3], 220)
+            pygame.draw.rect(panel_surface, border_color, (0, 0, dest_rect.width, dest_rect.height), Layout.BORDER_WIDTH, border_radius=Layout.CORNER_RADIUS)
+            surface.blit(panel_surface, dest_rect.topleft)
             return
 
         sw, sh = self.cell_w, self.cell_h
