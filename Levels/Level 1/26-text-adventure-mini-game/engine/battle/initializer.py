@@ -175,12 +175,11 @@ class BattleInitializer:
     # --- Helpers mirrored from original `BattleScene` private methods ---
 
     def _load_panel(self, scene: "BattleScene") -> None:
-        """Try to build a reusable 9-slice panel from UI sprite."""
-        try:
-            panel_surface = scene.assets.get_image("ui_panel")
-            scene.panel = NineSlicePanel(panel_surface)
-        except Exception:
-            scene.panel = None
+        """Use overworld-style translucent panels in battle UI."""
+        # Intentionally skip loading the solid "ui_panel" asset so all battle UI
+        # (message boxes, menus, hotbar) falls back to the rounded, translucent
+        # overworld styling implemented in draw_rounded_panel.
+        scene.panel = None
 
     def _load_status_icon_map(self) -> Dict[str, str]:
         """Load mapping of status effect IDs to sprite IDs."""

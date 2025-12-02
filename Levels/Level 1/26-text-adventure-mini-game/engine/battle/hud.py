@@ -59,6 +59,9 @@ class BattleHudMixin:
 
         for enemy in self.battle_system.enemies:
             if enemy.is_alive() and enemy.stats:
+                bar_height = 4
+                bar_y = enemy_y - 8
+
                 # Draw name above HP bar with proper transparency
                 if font:
                     name_text = enemy.entity.name
@@ -70,44 +73,59 @@ class BattleHudMixin:
 
                     # Center above sprite
                     name_x = enemy_x + (self.sprite_size - name_surf.get_width()) // 2
-                    name_y = enemy_y - 35
-
-                    # Draw semi-transparent name tag background
                     name_padding = 4
+                    hp_padding = 4
+
+                    # Precompute positions so name, HP, and bar never overlap
+                    hp_text = f"{enemy.stats.hp}/{enemy.stats.max_hp}"
+                    hp_shadow = font.render(hp_text, True, (0, 0, 0))
+                    hp_surf = font.render(hp_text, True, (255, 255, 255))
+                    hp_x = enemy_x + (self.sprite_size - hp_surf.get_width()) // 2
+
+                    hp_box_height = hp_surf.get_height() + hp_padding * 2
+                    name_box_height = name_surf.get_height() + name_padding * 2
+                    hp_y = bar_y - hp_box_height - Layout.ELEMENT_GAP_SMALL
+                    name_y = hp_y - name_box_height - Layout.ELEMENT_GAP_SMALL
+
+                    # Draw semi-transparent name tag background matching weather/time styling
                     name_bg_rect = pygame.Rect(
                         name_x - name_padding,
                         name_y - name_padding,
                         name_surf.get_width() + name_padding * 2,
                         name_surf.get_height() + name_padding * 2
                     )
-                    name_bg_surface = pygame.Surface((name_bg_rect.width, name_bg_rect.height), pygame.SRCALPHA)
-                    name_bg_color = (*Colors.BG_PANEL[:3], 220)
-                    pygame.draw.rect(name_bg_surface, name_bg_color, (0, 0, name_bg_rect.width, name_bg_rect.height), border_radius=Layout.CORNER_RADIUS_SMALL)
-                    surface.blit(name_bg_surface, name_bg_rect.topleft)
+                    from ..world.overworld_renderer import draw_rounded_panel
+                    PANEL_BG = (20, 25, 40, 180)
+                    draw_rounded_panel(
+                        surface,
+                        name_bg_rect,
+                        PANEL_BG,
+                        Colors.BORDER,
+                        border_width=Layout.BORDER_WIDTH_THIN,
+                        radius=Layout.CORNER_RADIUS_SMALL
+                    )
 
                     # Blit shadow then text
                     surface.blit(shadow_surf, (name_x + 1, name_y + 1))
                     surface.blit(name_surf, (name_x, name_y))
 
-                    # Draw HP numbers below name
-                    hp_text = f"{enemy.stats.hp}/{enemy.stats.max_hp}"
-                    hp_shadow = font.render(hp_text, True, (0, 0, 0))
-                    hp_surf = font.render(hp_text, True, (255, 255, 255))
-                    hp_x = enemy_x + (self.sprite_size - hp_surf.get_width()) // 2
-                    hp_y = enemy_y - 22
-
-                    # Draw semi-transparent HP number background
-                    hp_padding = 4
+                    # Draw HP numbers below name with spacing from bar
                     hp_bg_rect = pygame.Rect(
                         hp_x - hp_padding,
                         hp_y - hp_padding,
                         hp_surf.get_width() + hp_padding * 2,
                         hp_surf.get_height() + hp_padding * 2
                     )
-                    hp_bg_surface = pygame.Surface((hp_bg_rect.width, hp_bg_rect.height), pygame.SRCALPHA)
-                    hp_bg_color = (*Colors.BG_PANEL[:3], 220)
-                    pygame.draw.rect(hp_bg_surface, hp_bg_color, (0, 0, hp_bg_rect.width, hp_bg_rect.height), border_radius=Layout.CORNER_RADIUS_SMALL)
-                    surface.blit(hp_bg_surface, hp_bg_rect.topleft)
+                    from ..world.overworld_renderer import draw_rounded_panel
+                    PANEL_BG = (20, 25, 40, 180)
+                    draw_rounded_panel(
+                        surface,
+                        hp_bg_rect,
+                        PANEL_BG,
+                        Colors.BORDER,
+                        border_width=Layout.BORDER_WIDTH_THIN,
+                        radius=Layout.CORNER_RADIUS_SMALL
+                    )
 
                     surface.blit(hp_shadow, (hp_x + 1, hp_y + 1))
                     surface.blit(hp_surf, (hp_x, hp_y))
@@ -116,9 +134,9 @@ class BattleHudMixin:
                 draw_hp_bar(
                     surface,
                     enemy_x,
-                    enemy_y - 8,
+                    bar_y,
                     self.sprite_size,
-                    4,
+                    bar_height,
                     enemy.stats.hp,
                     enemy.stats.max_hp,
                     "",
@@ -228,13 +246,18 @@ class BattleHudMixin:
             # Use 9-slice panel if available
             self.panel.draw(surface, pygame.Rect(panel_x, panel_y, panel_width, panel_height))
         else:
-            # Fallback: draw a semi-transparent dark rectangle with border and rounded corners
-            panel_surface = pygame.Surface((panel_width, panel_height), pygame.SRCALPHA)
-            bg_color = (20, 20, 30, 220)  # Dark blue-gray with high opacity
-            pygame.draw.rect(panel_surface, bg_color, (0, 0, panel_width, panel_height), border_radius=Layout.CORNER_RADIUS)
-            border_color = (*Colors.ACCENT[:3], 220)
-            pygame.draw.rect(panel_surface, border_color, (0, 0, panel_width, panel_height), Layout.BORDER_WIDTH, border_radius=Layout.CORNER_RADIUS)
-            surface.blit(panel_surface, (panel_x, panel_y))
+            # Fallback: draw panel matching weather/time styling
+            from ..world.overworld_renderer import draw_rounded_panel
+            PANEL_BG = (20, 25, 40, 180)
+            panel_rect = pygame.Rect(panel_x, panel_y, panel_width, panel_height)
+            draw_rounded_panel(
+                surface,
+                panel_rect,
+                PANEL_BG,
+                Colors.BORDER,
+                border_width=Layout.BORDER_WIDTH_THIN,
+                radius=Layout.CORNER_RADIUS_SMALL
+            )
 
         # Draw the menu on top of the panel
         active_menu.draw(surface, font)
@@ -293,13 +316,17 @@ class BattleHudMixin:
         if self.panel:
             self.panel.draw(surface, hotbar_bg_rect)
         else:
-            # Draw semi-transparent hotbar background with rounded corners
-            hotbar_surface = pygame.Surface((hotbar_bg_rect.width, hotbar_bg_rect.height), pygame.SRCALPHA)
-            bg_color = (40, 40, 50, 200)
-            pygame.draw.rect(hotbar_surface, bg_color, (0, 0, hotbar_bg_rect.width, hotbar_bg_rect.height), border_radius=Layout.CORNER_RADIUS_SMALL)
-            border_color = (100, 100, 120, 200)
-            pygame.draw.rect(hotbar_surface, border_color, (0, 0, hotbar_bg_rect.width, hotbar_bg_rect.height), Layout.BORDER_WIDTH, border_radius=Layout.CORNER_RADIUS_SMALL)
-            surface.blit(hotbar_surface, hotbar_bg_rect.topleft)
+            # Draw semi-transparent hotbar background with rounded corners matching weather/time styling
+            from ..world.overworld_renderer import draw_rounded_panel
+            PANEL_BG = (20, 25, 40, 180)
+            draw_rounded_panel(
+                surface,
+                hotbar_bg_rect,
+                PANEL_BG,
+                Colors.BORDER,
+                border_width=Layout.BORDER_WIDTH_THIN,
+                radius=Layout.CORNER_RADIUS_SMALL
+            )
 
         # Draw each hotbar slot with padding from left edge
         slot_padding_left = 10  # Small padding from left edge
@@ -307,13 +334,17 @@ class BattleHudMixin:
             slot_x = slot_padding_left + (slot - 1) * (slot_width + slot_spacing)
             slot_rect = pygame.Rect(slot_x, hotbar_y, slot_width, slot_height)
 
-            # Slot background with semi-transparent rounded corners
-            slot_surface = pygame.Surface((slot_width, slot_height), pygame.SRCALPHA)
-            slot_bg_color = (50, 50, 60, 200)
-            pygame.draw.rect(slot_surface, slot_bg_color, (0, 0, slot_width, slot_height), border_radius=Layout.CORNER_RADIUS_SMALL)
-            slot_border_color = (100, 100, 120, 200)
-            pygame.draw.rect(slot_surface, slot_border_color, (0, 0, slot_width, slot_height), Layout.BORDER_WIDTH_THIN, border_radius=Layout.CORNER_RADIUS_SMALL)
-            surface.blit(slot_surface, slot_rect.topleft)
+            # Slot background with semi-transparent rounded corners matching weather/time styling
+            from ..world.overworld_renderer import draw_rounded_panel
+            PANEL_BG = (20, 25, 40, 180)
+            draw_rounded_panel(
+                surface,
+                slot_rect,
+                PANEL_BG,
+                Colors.BORDER,
+                border_width=Layout.BORDER_WIDTH_THIN,
+                radius=Layout.CORNER_RADIUS_SMALL
+            )
 
             # Slot number (small, top-left)
             num_text = font.render(str(slot), True, (200, 200, 200))

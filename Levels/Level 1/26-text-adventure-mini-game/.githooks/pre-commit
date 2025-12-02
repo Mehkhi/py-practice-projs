@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Prevent committing local save files unless explicitly allowed.
+if [[ "${SKIP_SAVE_GUARD:-0}" == "1" || "${ALLOW_SAVE_COMMITS:-0}" == "1" ]]; then
+  exit 0
+fi
+
+staged_files=$(git diff --cached --name-only --diff-filter=ACM)
+# Block any save file JSONs anywhere in the repo (e.g., nested level paths).
+blocked_files=$(printf "%s\n" "$staged_files" | rg '(^|/)saves/[^/]+\.json$' || true)
+
+if [[ -n "$blocked_files" ]]; then
+  echo "Blocking commit: staged save files detected (likely local progress)." >&2
+  printf "%s\n" "$blocked_files" >&2
+  echo "To force this commit, re-run with ALLOW_SAVE_COMMITS=1 or use --no-verify." >&2
+  exit 1
+fi
+
+exit 0

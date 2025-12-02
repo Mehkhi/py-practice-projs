@@ -251,24 +251,17 @@ class MessageBox:
         if panel:
             panel.draw(surface, bg_rect)
         else:
-            # Fallback style with semi-transparent background
-            bg_surface = pygame.Surface((self.width, self.height), pygame.SRCALPHA)
-            bg_color = (*Colors.BG_PANEL[:3], 220)
-            pygame.draw.rect(bg_surface, bg_color, (0, 0, self.width, self.height), border_radius=Layout.CORNER_RADIUS)
-
-            # Inner bevel/glow
-            inner_rect = pygame.Rect(2, 2, self.width - 4, self.height - 4)
-            inner_color = (*Colors.BG_DARK[:3], 200)
-            pygame.draw.rect(bg_surface, inner_color, inner_rect, 1, border_radius=Layout.CORNER_RADIUS)
-
-            # Fancy double border
-            border_color = (*Colors.BORDER[:3], 220)
-            pygame.draw.rect(bg_surface, border_color, (0, 0, self.width, self.height), Layout.BORDER_WIDTH, border_radius=Layout.CORNER_RADIUS)
-            surface.blit(bg_surface, bg_rect.topleft)
-            # Outer accent border (drawn on main surface since it extends outside)
-            accent_color = (*Colors.ACCENT_DIM[:3], 200)
-            outer_rect = bg_rect.inflate(2, 2)
-            pygame.draw.rect(surface, accent_color, outer_rect, 1, border_radius=Layout.CORNER_RADIUS)
+            # Fallback style matching weather/time panel styling
+            from engine.world.overworld_renderer import draw_rounded_panel
+            PANEL_BG = (20, 25, 40, 180)
+            draw_rounded_panel(
+                surface,
+                bg_rect,
+                PANEL_BG,
+                Colors.BORDER,
+                border_width=Layout.BORDER_WIDTH_THIN,
+                radius=Layout.CORNER_RADIUS_SMALL
+            )
 
         # Calculate text starting position
         text_x = x + padding
@@ -473,9 +466,9 @@ class CombatLog:
         self,
         position: Tuple[int, int] = (10, 400),
         width: int = 620,
-        collapsed_height: int = 90,
+        collapsed_height: int = 110,
         expanded_height: int = 280,
-        max_visible_collapsed: int = 3,
+        max_visible_collapsed: int = 2,
         max_visible_expanded: int = 12,
     ):
         self.position = position
@@ -597,41 +590,31 @@ class CombatLog:
         if panel:
             panel.draw(surface, bg_rect)
         else:
-            # Create semi-transparent surface for combat log
-            bg_surface = pygame.Surface((self.width, height), pygame.SRCALPHA)
-            bg_color = (*Colors.BG_PANEL[:3], 220)
-            pygame.draw.rect(bg_surface, bg_color, (0, 0, self.width, height), border_radius=Layout.CORNER_RADIUS)
-            inner_rect = pygame.Rect(1, 1, self.width - 2, height - 2)
-            inner_color = (*Colors.BG_DARK[:3], 200)
-            pygame.draw.rect(bg_surface, inner_color, inner_rect, 1, border_radius=Layout.CORNER_RADIUS)
-            # Highlight border when expanded
-            border_base = Colors.ACCENT if self.expanded else Colors.BORDER
-            border_color = (*border_base[:3], 220)
-            pygame.draw.rect(bg_surface, border_color, (0, 0, self.width, height), Layout.BORDER_WIDTH, border_radius=Layout.CORNER_RADIUS)
-            surface.blit(bg_surface, bg_rect.topleft)
+            # Fallback style matching weather/time panel styling
+            from engine.world.overworld_renderer import draw_rounded_panel
+            PANEL_BG = (20, 25, 40, 180)
+            draw_rounded_panel(
+                surface,
+                bg_rect,
+                PANEL_BG,
+                Colors.BORDER,
+                border_width=Layout.BORDER_WIDTH_THIN,
+                radius=Layout.CORNER_RADIUS_SMALL
+            )
 
         # Header (when expanded)
         text_x = x + padding
         text_y = y + padding
         line_height = font.get_linesize() + Layout.MESSAGE_BOX_LINE_GAP
 
+        indicator_pos = None
         if self.expanded:
             # Draw header with scroll hints
             header_text = "Battle Log"
             header_surface = font.render(header_text, True, Colors.ACCENT)
             surface.blit(header_surface, (text_x, text_y))
 
-            # Scroll indicators
-            can_scroll_up = self.scroll_offset > 0
-            can_scroll_down = self.scroll_offset < max(0, len(self.messages) - max_visible)
-
-            indicator_x = x + self.width - padding - 20
-            if can_scroll_up:
-                up_arrow = font.render("^", True, Colors.TEXT_HIGHLIGHT)
-                surface.blit(up_arrow, (indicator_x, text_y))
-            if can_scroll_down:
-                down_arrow = font.render("v", True, Colors.TEXT_HIGHLIGHT)
-                surface.blit(down_arrow, (indicator_x + 10, text_y))
+            indicator_pos = (x + self.width - padding - 20, text_y)
 
             text_y += line_height + 4
 
@@ -641,12 +624,44 @@ class CombatLog:
                 (text_x, text_y - 2), (x + self.width - padding, text_y - 2)
             )
 
+        # Determine hint and reserve space so it never overlaps entries
+        show_hint = self.expanded or len(self.messages) > max_visible
+        hint_surface = None
+        hint_height = 0
+        hint_gap = Layout.ELEMENT_GAP_SMALL
+        if show_hint:
+            hint_text = "[TAB] Collapse | [UP/DOWN] Scroll" if self.expanded else f"[TAB] View full log ({len(self.messages)} messages)"
+            hint_surface = font.render(hint_text, True, Colors.TEXT_DISABLED)
+            hint_height = hint_surface.get_height()
+
+        content_bottom = y + height - padding
+        if show_hint:
+            content_bottom -= hint_height + hint_gap
+
+        available_height = content_bottom - text_y
+        max_lines_fit = max(1, available_height // line_height)
+        max_visible_for_draw = max(1, min(max_visible, max_lines_fit))
+        max_scroll = max(0, len(self.messages) - max_visible_for_draw)
+        if self.scroll_offset > max_scroll:
+            self.scroll_offset = max_scroll
+
+        if self.expanded and indicator_pos:
+            indicator_x, indicator_y = indicator_pos
+            can_scroll_up = self.scroll_offset > 0
+            can_scroll_down = self.scroll_offset < max_scroll
+            if can_scroll_up:
+                up_arrow = font.render("^", True, Colors.TEXT_HIGHLIGHT)
+                surface.blit(up_arrow, (indicator_x, indicator_y))
+            if can_scroll_down:
+                down_arrow = font.render("v", True, Colors.TEXT_HIGHLIGHT)
+                surface.blit(down_arrow, (indicator_x + 10, indicator_y))
+
         # Get visible messages
-        visible_messages = self.messages[self.scroll_offset:self.scroll_offset + max_visible]
+        visible_messages = self.messages[self.scroll_offset:self.scroll_offset + max_visible_for_draw]
 
         # Draw messages
         for i, msg in enumerate(visible_messages):
-            if text_y > y + height - padding - font.get_linesize():
+            if text_y > content_bottom - font.get_linesize():
                 break
 
             # Truncate long messages
@@ -664,16 +679,8 @@ class CombatLog:
 
             text_y += line_height
 
-        # Toggle hint at bottom
-        if not self.expanded and len(self.messages) > max_visible:
-            hint_text = f"[TAB] View full log ({len(self.messages)} messages)"
-            hint_surface = font.render(hint_text, True, Colors.TEXT_DISABLED)
+        # Toggle hint at bottom without colliding with messages
+        if show_hint and hint_surface:
             hint_x = x + self.width - padding - hint_surface.get_width()
-            hint_y = y + height - padding - hint_surface.get_height()
-            surface.blit(hint_surface, (hint_x, hint_y))
-        elif self.expanded:
-            hint_text = "[TAB] Collapse | [UP/DOWN] Scroll"
-            hint_surface = font.render(hint_text, True, Colors.TEXT_DISABLED)
-            hint_x = x + self.width - padding - hint_surface.get_width()
-            hint_y = y + height - padding - hint_surface.get_height()
+            hint_y = content_bottom + hint_gap
             surface.blit(hint_surface, (hint_x, hint_y))

@@ -6,7 +6,7 @@ existing imports like `from core.entities import Player` continue to work.
 
 from ..constants import DEFAULT_FORMATION_POSITION, SUPPORTED_EQUIP_SLOTS
 from ..logging_utils import log_warning
-from .base import CombatantMixin, Entity, EQUIPMENT_LOG_PREFIX
+from .base import CombatantMixin, Entity, EQUIPMENT_LOG_PREFIX, MAX_LEARNED_MOVES
 from .enemy import Enemy
 from .npc import NPC
 from .overworld_enemy import OverworldEnemy
@@ -22,6 +22,7 @@ __all__ = [
     "OverworldEnemy",
     "NPC",
     "EQUIPMENT_LOG_PREFIX",
+    "MAX_LEARNED_MOVES",
     "SUPPORTED_EQUIP_SLOTS",
     "DEFAULT_FORMATION_POSITION",
     "log_warning",

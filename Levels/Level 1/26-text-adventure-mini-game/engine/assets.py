@@ -42,7 +42,20 @@ class AssetManager:
     # --- Loading helpers ---
 
     def _load_fonts(self) -> None:
-        """Load default and bundled fonts."""
+        """Load default and bundled fonts.
+
+        Handles headless test environments by checking pygame.font initialization
+        and attempting to initialize it if needed. Fonts are created lazily in
+        get_font() if initialization fails here.
+        """
+        # Ensure pygame.font is initialized before creating fonts
+        if not pygame.font.get_init():
+            try:
+                pygame.font.init()
+            except Exception as e:
+                log_warning(f"Failed to initialize pygame.font: {e}. Fonts will be created lazily on first use.")
+                return  # Exit early, fonts will be created in get_font() when needed
+
         # Try to load default pygame fonts
         try:
             self.fonts["default"] = pygame.font.Font(None, 24)
@@ -54,7 +67,8 @@ class AssetManager:
             try:
                 self.fonts["default"] = pygame.font.Font(None, 24)
             except Exception:
-                log_error("Critical: Unable to create any default font. Game may have rendering issues.")
+                log_warning("Unable to create default font during initialization. Will attempt lazy creation on first use.")
+                # Don't set critical error - fonts can be created lazily in get_font()
 
         # Load bundled fonts from assets/fonts directory
         fonts_dir = os.path.join(self.assets_dir, "fonts")
@@ -288,8 +302,16 @@ class AssetManager:
 
         base_font = self.fonts.get(font_name) or self.fonts.get("default")
 
-        # If no base font found, try to create a fallback
+        # If no base font found, try to create a fallback (lazy initialization)
         if not base_font:
+            # Ensure pygame.font is initialized before creating fallback font
+            if not pygame.font.get_init():
+                try:
+                    pygame.font.init()
+                except Exception as e:
+                    log_error(f"Failed to initialize pygame.font for fallback: {e}")
+                    return None
+
             log_warning(f"Font '{font_name}' not found, using pygame default fallback")
             try:
                 base_font = pygame.font.Font(None, size or 24)
@@ -306,6 +328,10 @@ class AssetManager:
             if cache_key in self.font_variants:
                 return self.font_variants[cache_key]
             try:
+                # Ensure pygame.font is initialized before creating variant
+                if not pygame.font.get_init():
+                    pygame.font.init()
+
                 # Try to use the font's file path if available
                 font_path = getattr(base_font, "name", None)
                 if font_path:
@@ -318,6 +344,9 @@ class AssetManager:
             except (pygame.error, OSError) as e:
                 log_warning(f"Failed to create font size {size} from {font_name}: {e}. Using base font.")
                 try:
+                    # Ensure pygame.font is initialized before last resort attempt
+                    if not pygame.font.get_init():
+                        pygame.font.init()
                     # Last resort: try pygame default at requested size
                     fallback = pygame.font.Font(None, size)
                     log_debug(f"Using pygame default fallback at size {size}")
