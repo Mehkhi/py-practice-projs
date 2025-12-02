@@ -1,0 +1,6 @@
+racecar
+hello world
+level
+python programming
+madam
+not a palindrome

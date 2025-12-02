@@ -1,0 +1,237 @@
+{% extends "base.html" %}
+
+{% block title %}Edit Task - Flask To-Do App{% endblock %}
+
+{% block content %}
+<section class="page-header slim">
+    <div>
+        <p class="eyebrow">Update Task</p>
+        <h1>Edit "{{ task.title }}"</h1>
+        <p class="lede">Tune status, scheduling, dependencies, and knowledge in one console.</p>
+    </div>
+    <div class="header-actions">
+        <a href="{{ url_for('tasks.view_task', task_id=task.id) }}" class="pill actionable">View task</a>
+        <a href="{{ url_for('tasks.board_view') }}" class="pill subtle">Open board</a>
+    </div>
+</section>
+
+<div class="content-grid">
+    <div class="card form-card">
+        <form method="POST" action="{{ url_for('tasks.update_task_route', task_id=task.id) }}">
+            <div class="form-group">
+                <label for="title">Title *</label>
+                <input type="text" id="title" name="title" value="{{ task.title }}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="description">Description</label>
+                <textarea id="description" name="description">{{ task.description or '' }}</textarea>
+            </div>
+
+            <div class="form-grid two-col">
+                <div class="form-group">
+                    <label for="status">Kanban lane</label>
+                    <select id="status" name="status">
+                        {% for status in statuses %}
+                            <option value="{{ status }}" {% if task.status == status %}selected{% endif %}>{{ status|replace('_',' ')|title }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="priority">Priority</label>
+                    <select id="priority" name="priority">
+                        <option value="low" {% if task.priority == 'low' %}selected{% endif %}>Low</option>
+                        <option value="medium" {% if task.priority == 'medium' %}selected{% endif %}>Medium</option>
+                        <option value="high" {% if task.priority == 'high' %}selected{% endif %}>High</option>
+                        <option value="urgent" {% if task.priority == 'urgent' %}selected{% endif %}>Urgent</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-grid two-col">
+                <div class="form-group">
+                    <label for="due_date">Due date</label>
+                    <input type="date" id="due_date" name="due_date" value="{{ task.due_date.strftime('%Y-%m-%d') if task.due_date }}">
+                </div>
+                <div class="form-group">
+                    <label for="size_points">Size (points)</label>
+                    <input type="number" id="size_points" name="size_points" value="{{ task.size_points }}" min="1" max="13">
+                </div>
+            </div>
+
+            <div class="form-grid two-col">
+                <div class="form-group">
+                    <label for="recurrence_interval_days">Recurs every (days)</label>
+                    <input type="number" id="recurrence_interval_days" name="recurrence_interval_days" value="{{ task.recurrence_interval_days or '' }}" min="0">
+                </div>
+                <div class="form-group">
+                    <label for="recurrence_end_date">Recurrence end date</label>
+                    <input type="date" id="recurrence_end_date" name="recurrence_end_date" value="{{ task.recurrence_end_date.strftime('%Y-%m-%d') if task.recurrence_end_date }}">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="blocked_reason">Blocked reason</label>
+                <textarea id="blocked_reason" name="blocked_reason" placeholder="Document policy, constraint, or dependency blocking this work.">{{ task.blocked_reason or '' }}</textarea>
+            </div>
+
+            <div class="form-grid two-col">
+                <label class="checkbox">
+                    <input type="checkbox" name="requires_approval" {% if task.requires_approval %}checked{% endif %}>
+                    <span>Requires approval</span>
+                </label>
+                <label class="checkbox">
+                    <input type="checkbox" disabled {% if task.completed %}checked{% endif %}>
+                    <span>Completed</span>
+                </label>
+            </div>
+
+            <div class="flex-gap-10">
+                <button type="submit" class="btn">Update Task</button>
+                <a href="{{ url_for('tasks.list_tasks') }}" class="btn btn-secondary">Back to list</a>
+            </div>
+        </form>
+    </div>
+
+    <div class="secondary-grid">
+        <div class="card form-card">
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow">Dependencies</p>
+                    <h3>Critical path control</h3>
+                </div>
+                <span class="pill subtle">{{ task.dependencies|length }} active</span>
+            </div>
+            <ul class="mini-list">
+                {% if task.dependencies %}
+                    {% for link in task.dependencies %}
+                        <li>
+                            <span>{{ link.depends_on.title }}</span>
+                        </li>
+                    {% endfor %}
+                {% else %}
+                    <li class="muted">No dependencies yet</li>
+                {% endif %}
+            </ul>
+            <form method="POST" action="{{ url_for('tasks.add_dependency_route', task_id=task.id) }}" class="form-grid two-col">
+                <div class="form-group">
+                    <label for="dependency_id">Add dependency</label>
+                    <select id="dependency_id" name="dependency_id">
+                        <option value="">Select task</option>
+                        {% for candidate in other_tasks %}
+                            <option value="{{ candidate.id }}">{{ candidate.title }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <button type="submit" class="btn">Link</button>
+            </form>
+        </div>
+
+        <div class="card form-card">
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow">Knowledge Hub</p>
+                    <h3>Notes & Attachments</h3>
+                </div>
+                <span class="pill subtle">{{ task.notes|length }} notes</span>
+            </div>
+            <form method="POST" action="{{ url_for('tasks.add_note_route', task_id=task.id) }}" class="form-grid two-col">
+                <div class="form-group">
+                    <label for="content">Add note</label>
+                    <textarea id="content" name="content" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="kind">Type</label>
+                    <select name="kind" id="kind">
+                        <option value="note">Note</option>
+                        <option value="acceptance">Acceptance Criteria</option>
+                        <option value="retro">Retro</option>
+                        <option value="checklist">Checklist</option>
+                    </select>
+                    <button type="submit" class="btn">Add note</button>
+                </div>
+            </form>
+
+            <form method="POST" action="{{ url_for('tasks.add_attachment_route', task_id=task.id) }}" class="form-grid two-col">
+                <div class="form-group">
+                    <label for="title">Attachment title</label>
+                    <input type="text" name="title" required>
+                </div>
+                <div class="form-group">
+                    <label for="url">Link</label>
+                    <input type="url" name="url" required placeholder="https://...">
+                    <button type="submit" class="btn">Attach</button>
+                </div>
+            </form>
+
+            <div class="knowledge-list">
+                {% for note in task.notes|sort(attribute='created_at', reverse=True) %}
+                    <div class="knowledge-item">
+                        <div class="knowledge-meta">
+                            <span class="pill subtle">{{ note.kind|title }}</span>
+                            <span class="pill subtle">{{ note.created_at.strftime('%b %d, %Y') }}</span>
+                        </div>
+                        <p>{{ note.content }}</p>
+                    </div>
+                {% endfor %}
+                {% for attachment in task.attachments %}
+                    <div class="knowledge-item attachment">
+                        <div class="knowledge-meta">
+                            <span class="pill subtle">Attachment</span>
+                            <span class="pill subtle">{{ attachment.created_at.strftime('%b %d, %Y') }}</span>
+                        </div>
+                        <a href="{{ attachment.url }}" target="_blank">{{ attachment.title }}</a>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="card form-card">
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow">Time Tracking</p>
+                    <h3>Burndown fuel</h3>
+                </div>
+                <span class="pill subtle">{{ task.time_entries|length }} sessions</span>
+            </div>
+            <div class="flex-gap-10">
+                <form method="POST" action="{{ url_for('tasks.start_timer_route', task_id=task.id) }}" class="inline-form">
+                    <button type="submit" class="btn">Start timer</button>
+                </form>
+                <form method="POST" action="{{ url_for('tasks.stop_timer_route', task_id=task.id) }}" class="inline-form">
+                    <button type="submit" class="btn btn-secondary">Stop</button>
+                </form>
+            </div>
+            {% set total_minutes = task.time_entries|map(attribute='duration_minutes')|select|sum %}
+            <p class="lede">Total logged: {{ total_minutes|default(0)|int }} minutes</p>
+            <ul class="mini-list">
+                {% for entry in task.time_entries|sort(attribute='started_at', reverse=True) %}
+                    <li>{{ entry.started_at.strftime('%b %d %H:%M') }} → {{ entry.ended_at.strftime('%H:%M') if entry.ended_at else 'running' }} ({{ entry.duration_minutes or '?' }}m)</li>
+                {% else %}
+                    <li class="muted">No time tracked yet</li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div class="card form-card">
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow">Approvals</p>
+                    <h3>Gatekeeping</h3>
+                </div>
+                <span class="pill subtle">{% if task.requires_approval %}Required{% else %}Optional{% endif %}</span>
+            </div>
+            {% if task.requires_approval and not task.approved_at %}
+                <form method="POST" action="{{ url_for('tasks.approve_task', task_id=task.id) }}">
+                    <button type="submit" class="btn">Approve</button>
+                    <p class="mini muted">Only task owners can self-approve in this demo.</p>
+                </form>
+            {% elif task.approved_at %}
+                <p class="lede">Approved on {{ task.approved_at.strftime('%b %d, %Y') }}</p>
+            {% else %}
+                <p class="muted">Approval not required.</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

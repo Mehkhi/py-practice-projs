@@ -1,0 +1,11 @@
+Name,Age,Email,Salary,Department,Start Date
+John Doe,25,john.doe@email.com,50000,Engineering,2023-01-15
+Jane Smith,30,jane.smith@email.com,60000,Marketing,2023-02-20
+Bob Johnson,,bob.johnson@email.com,55000,Engineering,2023-03-10
+Alice Brown,28,alice.brown@email.com,,Sales,2023-04-05
+Charlie Wilson,35,charlie.wilson@email.com,70000,,2023-05-12
+Diana Prince,22,diana.prince@email.com,45000,HR,2023-06-01
+Bruce Wayne,40,bruce.wayne@email.com,80000,Engineering,2023-07-15
+Clark Kent,29,clark.kent@email.com,65000,Marketing,2023-08-20
+Tony Stark,45,tony.stark@email.com,90000,Engineering,2023-09-10
+Natasha Romanoff,32,natasha.romanoff@email.com,75000,Sales,2023-10-05

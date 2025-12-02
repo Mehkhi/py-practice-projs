@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+
+{% block title %}Task Templates - Flask To-Do App{% endblock %}
+
+{% block content %}
+<section class="page-header slim">
+    <div>
+        <p class="eyebrow">Templates</p>
+        <h1>Reusable workflows</h1>
+        <p class="lede">Stamp out repeatable checklists, SLA rules, and triage presets.</p>
+    </div>
+</section>
+
+<div class="content-grid">
+    <div class="card form-card">
+        <form method="POST" action="{{ url_for('tasks.templates') }}">
+            <div class="form-group">
+                <label for="name">Template name *</label>
+                <input type="text" id="name" name="name" required placeholder="Bug intake, QA checklist, weekly retro">
+            </div>
+            <div class="form-group">
+                <label for="description">Description</label>
+                <textarea id="description" name="description"></textarea>
+            </div>
+            <div class="form-grid two-col">
+                <div class="form-group">
+                    <label for="default_priority">Default priority</label>
+                    <select id="default_priority" name="default_priority">
+                        <option value="low">Low</option>
+                        <option value="medium" selected>Medium</option>
+                        <option value="high">High</option>
+                        <option value="urgent">Urgent</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="default_status">Default status</label>
+                    <select id="default_status" name="default_status">
+                        {% for status in statuses %}
+                            <option value="{{ status }}">{{ status|replace('_',' ')|title }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="form-grid two-col">
+                <div class="form-group">
+                    <label for="default_size_points">Default size points</label>
+                    <input type="number" id="default_size_points" name="default_size_points" value="1" min="1">
+                </div>
+                <div class="form-group">
+                    <label for="default_recurrence_interval_days">Recurs every (days)</label>
+                    <input type="number" id="default_recurrence_interval_days" name="default_recurrence_interval_days" min="0">
+                </div>
+            </div>
+            <label class="checkbox">
+                <input type="checkbox" name="default_requires_approval">
+                <span>Requires approval when applied</span>
+            </label>
+            <div class="form-group">
+                <label for="default_checklist">Default checklist (one per line)</label>
+                <textarea id="default_checklist" name="default_checklist" placeholder="Add acceptance criteria, policy steps, or QA items"></textarea>
+            </div>
+            <button type="submit" class="btn">Create Template</button>
+        </form>
+    </div>
+
+    <div class="secondary-grid">
+        {% for template in templates %}
+            <div class="card form-card">
+                <div class="section-heading">
+                    <div>
+                        <p class="eyebrow">Template</p>
+                        <h3>{{ template.name }}</h3>
+                    </div>
+                    <span class="pill subtle">{{ template.default_priority|title }}</span>
+                </div>
+                <p class="muted">{{ template.description or 'No description' }}</p>
+                <ul class="mini-list">
+                    <li>Status: {{ template.default_status|replace('_',' ')|title }}</li>
+                    <li>Size: {{ template.default_size_points }} pt</li>
+                    {% if template.default_recurrence_interval_days %}
+                        <li>Recurs every {{ template.default_recurrence_interval_days }}d</li>
+                    {% endif %}
+                    <li>Requires approval: {{ 'Yes' if template.default_requires_approval else 'No' }}</li>
+                </ul>
+                {% if template.default_checklist %}
+                    <p class="eyebrow">Checklist</p>
+                    <ul class="mini-list">
+                        {% for line in template.default_checklist.splitlines() %}
+                            <li>{{ line }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+        {% else %}
+            <div class="card form-card">
+                <p class="muted">No templates yet. Create one on the left to speed up intake.</p>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

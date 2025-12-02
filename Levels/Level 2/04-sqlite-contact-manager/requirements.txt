@@ -1,0 +1,15 @@
+# SQLite Contact Manager Dependencies
+# Core dependencies for the contact management system
+
+# Testing framework
+pytest>=7.0.0
+
+# Code quality tools (optional but recommended)
+black>=22.0.0
+ruff>=0.1.0
+
+# Type checking (optional)
+mypy>=1.0.0
+
+# Note: SQLite3 is included in Python standard library
+# No additional database dependencies needed

@@ -1,0 +1,11 @@
+# To-Do GUI Application Dependencies
+# Core GUI framework (built into Python)
+# tkinter is included with Python standard library
+
+# Additional dependencies for enhanced functionality
+# No external dependencies required for basic functionality
+# Tkinter provides all necessary GUI components
+
+# Optional: For future enhancements
+# pillow>=8.0.0  # For image handling if needed
+# requests>=2.25.0  # For future API integrations

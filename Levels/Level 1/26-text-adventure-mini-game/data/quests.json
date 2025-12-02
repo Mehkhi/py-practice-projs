@@ -1,0 +1,1337 @@
+{
+  "quests": [
+    {
+      "id": "tutorial_quest",
+      "name": "A Hero's Beginning",
+      "description": "Learn the basics of adventuring by exploring the forest and defeating your first enemy.",
+      "category": "main",
+      "required_flags": [],
+      "required_quests": [],
+      "objectives": [
+        {
+          "id": "explore_forest",
+          "description": "Explore the forest path",
+          "type": "reach",
+          "target": "forest_path",
+          "required_count": 1
+        },
+        {
+          "id": "first_battle",
+          "description": "Win your first battle",
+          "type": "flag",
+          "target": "tutorial_completed",
+          "required_count": 1
+        }
+      ],
+      "reward_gold": 50,
+      "reward_exp": 25,
+      "reward_items": {
+        "health_potion": 2
+      },
+      "reward_flags": [
+        "tutorial_complete"
+      ],
+      "reward_recipes": [
+        "health_potion"
+      ],
+      "giver_npc": null,
+      "turn_in_npc": null,
+      "difficulty": "Easy",
+      "recommended_level": 1,
+      "tags": [
+        "story",
+        "tutorial"
+      ]
+    },
+    {
+      "id": "cave_exploration",
+      "name": "Into the Darkness",
+      "description": "The dark cave to the north holds many secrets. Brave its depths and discover what lies within.",
+      "category": "main",
+      "required_flags": [
+        "tutorial_complete"
+      ],
+      "required_quests": [
+        "tutorial_quest"
+      ],
+      "objectives": [
+        {
+          "id": "enter_cave",
+          "description": "Enter the dark cave",
+          "type": "reach",
+          "target": "dark_cave",
+          "required_count": 1
+        },
+        {
+          "id": "defeat_cave_enemies",
+          "description": "Defeat cave dwellers",
+          "type": "kill",
+          "target": "goblin",
+          "required_count": 3
+        },
+        {
+          "id": "find_treasure",
+          "description": "Find the hidden treasure",
+          "type": "flag",
+          "target": "cave_treasure_found",
+          "required_count": 1
+        }
+      ],
+      "reward_gold": 150,
+      "reward_exp": 75,
+      "reward_items": {
+        "iron_sword": 1
+      },
+      "reward_flags": [
+        "cave_cleared"
+      ],
+      "giver_npc": "village_elder",
+      "turn_in_npc": "village_elder",
+      "difficulty": "Normal",
+      "recommended_level": 3,
+      "tags": [
+        "story",
+        "dungeon"
+      ]
+    },
+    {
+      "id": "garden_secrets",
+      "name": "Secrets of the Garden",
+      "description": "Legends speak of a mystical garden hidden beyond the cave. Seek out its ancient guardian and uncover the secrets it protects.",
+      "category": "main",
+      "required_flags": [
+        "cave_cleared"
+      ],
+      "required_quests": [
+        "cave_exploration"
+      ],
+      "objectives": [
+        {
+          "id": "find_secret_garden",
+          "description": "Discover the secret garden",
+          "type": "reach",
+          "target": "secret_garden",
+          "required_count": 1
+        },
+        {
+          "id": "speak_garden_spirit",
+          "description": "Speak with the Garden Spirit",
+          "type": "talk",
+          "target": "garden_spirit",
+          "required_count": 1
+        },
+        {
+          "id": "garden_trial",
+          "description": "Complete the garden trial",
+          "type": "flag",
+          "target": "garden_trial_complete",
+          "required_count": 1
+        }
+      ],
+      "reward_gold": 200,
+      "reward_exp": 100,
+      "reward_items": {
+        "elixir": 1,
+        "sp_potion": 3
+      },
+      "reward_flags": [
+        "garden_secrets_complete"
+      ],
+      "reward_recipes": [
+        "sp_potion",
+        "elixir"
+      ],
+      "giver_npc": "village_elder",
+      "turn_in_npc": "garden_spirit",
+      "difficulty": "Challenging",
+      "recommended_level": 5,
+      "tags": [
+        "story",
+        "exploration"
+      ]
+    },
+    {
+      "id": "ruins_expedition",
+      "name": "Echoes of the Ancients",
+      "description": "The Garden Spirit has revealed the location of ancient ruins that hold the key to an even greater mystery. Explore the ruins and defeat the guardian that protects its secrets.",
+      "category": "main",
+      "required_flags": [
+        "garden_secrets_complete"
+      ],
+      "required_quests": [
+        "garden_secrets"
+      ],
+      "objectives": [
+        {
+          "id": "reach_ruins",
+          "description": "Travel to the ancient ruins",
+          "type": "reach",
+          "target": "ancient_ruins",
+          "required_count": 1
+        },
+        {
+          "id": "defeat_ruins_guardian",
+          "description": "Defeat the Ruins Guardian",
+          "type": "flag",
+          "target": "ruins_guardian_defeated",
+          "required_count": 1
+        },
+        {
+          "id": "discover_prophecy",
+          "description": "Discover the ancient prophecy",
+          "type": "flag",
+          "target": "prophecy_discovered",
+          "required_count": 1
+        }
+      ],
+      "reward_gold": 300,
+      "reward_exp": 150,
+      "reward_items": {
+        "elixir": 2
+      },
+      "reward_flags": [
+        "ruins_cleared"
+      ],
+      "giver_npc": "garden_spirit",
+      "turn_in_npc": null,
+      "difficulty": "Challenging",
+      "recommended_level": 7,
+      "tags": [
+        "story",
+        "dungeon"
+      ]
+    },
+    {
+      "id": "treasure_hunt",
+      "name": "The Heart of Darkness",
+      "description": "The prophecy speaks of an ancient evil sealed within the Treasure Chamber. You must venture forth and prepare to face what lies within.",
+      "category": "main",
+      "required_flags": [
+        "ruins_cleared"
+      ],
+      "required_quests": [
+        "ruins_expedition"
+      ],
+      "objectives": [
+        {
+          "id": "enter_chamber",
+          "description": "Enter the Treasure Chamber",
+          "type": "reach",
+          "target": "treasure_chamber",
+          "required_count": 1
+        },
+        {
+          "id": "collect_ancient_relics",
+          "description": "Collect the 3 ancient relics",
+          "type": "collect",
+          "target": "ancient_relic",
+          "required_count": 3
+        },
+        {
+          "id": "unseal_darkness",
+          "description": "Unseal the final chamber",
+          "type": "flag",
+          "target": "darkness_unsealed",
+          "required_count": 1
+        }
+      ],
+      "reward_gold": 400,
+      "reward_exp": 200,
+      "reward_items": {
+        "elixir": 3
+      },
+      "reward_flags": [
+        "treasure_found",
+        "final_boss_unlocked"
+      ],
+      "giver_npc": null,
+      "turn_in_npc": null,
+      "difficulty": "Hard",
+      "recommended_level": 8,
+      "tags": [
+        "story",
+        "puzzle"
+      ]
+    },
+    {
+      "id": "final_confrontation",
+      "name": "The Final Confrontation",
+      "description": "The ancient evil has awakened. Face the Shadow Lord in final combat and save the realm from eternal darkness!",
+      "category": "main",
+      "required_flags": [
+        "final_boss_unlocked"
+      ],
+      "required_quests": [
+        "treasure_hunt"
+      ],
+      "objectives": [
+        {
+          "id": "prepare_battle",
+          "description": "Prepare for the final battle",
+          "type": "flag",
+          "target": "final_preparation_complete",
+          "required_count": 1
+        },
+        {
+          "id": "defeat_shadow_lord",
+          "description": "Defeat the Shadow Lord",
+          "type": "flag",
+          "target": "final_boss_defeated",
+          "required_count": 1
+        }
+      ],
+      "reward_gold": 1000,
+      "reward_exp": 500,
+      "reward_items": {
+        "legendary_blade": 1
+      },
+      "reward_flags": [
+        "game_complete",
+        "hero_of_the_realm"
+      ],
+      "giver_npc": null,
+      "turn_in_npc": null,
+      "difficulty": "Epic",
+      "recommended_level": 10,
+      "tags": [
+        "story",
+        "boss"
+      ]
+    },
+    {
+      "id": "herb_gathering",
+      "name": "Medicinal Herbs",
+      "description": "The village healer needs herbs from the forest. Gather some to help the sick villagers.",
+      "category": "side",
+      "required_flags": [],
+      "required_quests": [],
+      "objectives": [
+        {
+          "id": "collect_herbs",
+          "description": "Collect forest herbs",
+          "type": "collect",
+          "target": "forest_herb",
+          "required_count": 5
+        },
+        {
+          "id": "return_to_healer",
+          "description": "Return to the healer",
+          "type": "talk",
+          "target": "village_healer",
+          "required_count": 1
+        }
+      ],
+      "reward_gold": 30,
+      "reward_exp": 20,
+      "reward_items": {
+        "health_potion": 3
+      },
+      "reward_flags": [
+        "helped_healer"
+      ],
+      "giver_npc": "village_healer",
+      "turn_in_npc": "village_healer",
+      "difficulty": "Normal",
+      "recommended_level": 4,
+      "tags": [
+        "side"
+      ]
+    },
+    {
+      "id": "secret_garden",
+      "name": "The Secret Garden",
+      "description": "Rumors speak of a hidden garden with magical properties. Find it and uncover its secrets.",
+      "category": "side",
+      "required_flags": [
+        "cave_cleared"
+      ],
+      "required_quests": [
+        "cave_exploration"
+      ],
+      "objectives": [
+        {
+          "id": "find_garden",
+          "description": "Discover the secret garden",
+          "type": "reach",
+          "target": "secret_garden",
+          "required_count": 1
+        },
+        {
+          "id": "garden_flower",
+          "description": "Collect a rare moonflower",
+          "type": "collect",
+          "target": "moonflower",
+          "required_count": 1,
+          "optional": true
+        }
+      ],
+      "reward_gold": 100,
+      "reward_exp": 50,
+      "reward_items": {},
+      "reward_flags": [
+        "garden_discovered"
+      ],
+      "giver_npc": null,
+      "turn_in_npc": null,
+      "difficulty": "Normal",
+      "recommended_level": 4,
+      "tags": [
+        "side"
+      ]
+    },
+    {
+      "id": "goblin_bounty",
+      "name": "Goblin Menace",
+      "description": "Goblins have been raiding travelers on the forest path. Eliminate the threat.",
+      "category": "bounty",
+      "required_flags": [
+        "tutorial_complete"
+      ],
+      "required_quests": [],
+      "objectives": [
+        {
+          "id": "kill_goblins",
+          "description": "Defeat goblins",
+          "type": "kill",
+          "target": "goblin",
+          "required_count": 5
+        }
+      ],
+      "reward_gold": 75,
+      "reward_exp": 40,
+      "reward_items": {},
+      "reward_flags": [
+        "goblin_bounty_complete"
+      ],
+      "giver_npc": "bounty_board",
+      "turn_in_npc": "bounty_board",
+      "difficulty": "Challenging",
+      "recommended_level": 5,
+      "tags": [
+        "bounty",
+        "combat"
+      ]
+    },
+    {
+      "id": "iron_recovery",
+      "name": "The Blacksmith's Iron",
+      "description": "Recover stolen iron ore from bandits for Marcus the Blacksmith in Riverside Town.",
+      "category": "side",
+      "required_flags": [
+        "quest_iron_recovery_started"
+      ],
+      "required_quests": [],
+      "objectives": [
+        {
+          "id": "defeat_bandits",
+          "description": "Defeat the bandits",
+          "type": "kill",
+          "target": "bandit",
+          "required_count": 3
+        },
+        {
+          "id": "collect_ore",
+          "description": "Collect iron ore",
+          "type": "flag",
+          "target": "iron_ore_collected",
+          "required_count": 1
+        }
+      ],
+      "reward_gold": 100,
+      "reward_exp": 60,
+      "reward_items": {
+        "health_potion": 2
+      },
+      "class_rewards": {
+        "warrior": {
+          "warriors_blade": 1
+        },
+        "berserker": {
+          "berserker_axe": 1
+        },
+        "knight": {
+          "knights_armor": 1
+        },
+        "paladin": {
+          "paladins_shield": 1
+        }
+      },
+      "subclass_rewards": {
+        "warrior": {
+          "health_potion": 2
+        },
+        "knight": {
+          "health_potion": 2
+        }
+      },
+      "reward_flags": [
+        "iron_recovery_complete"
+      ],
+      "giver_npc": "riverside_blacksmith",
+      "turn_in_npc": "riverside_blacksmith",
+      "difficulty": "Normal",
+      "recommended_level": 4,
+      "tags": [
+        "side"
+      ]
+    },
+    {
+      "id": "river_mystery",
+      "name": "Mystery of the River",
+      "description": "Investigate what's scaring the fish away from Riverside Town.",
+      "category": "side",
+      "required_flags": [
+        "quest_river_mystery_started"
+      ],
+      "required_quests": [],
+      "objectives": [
+        {
+          "id": "investigate_river",
+          "description": "Investigate upstream",
+          "type": "reach",
+          "target": "dark_cave",
+          "required_count": 1
+        },
+        {
+          "id": "defeat_creature",
+          "description": "Defeat the river creature",
+          "type": "flag",
+          "target": "river_creature_defeated",
+          "required_count": 1
+        }
+      ],
+      "reward_gold": 80,
+      "reward_exp": 50,
+      "reward_items": {
+        "health_potion": 3
+      },
+      "class_rewards": {
+        "ranger": {
+          "hunters_bow": 1
+        },
+        "rogue": {
+          "shadow_dagger": 1
+        }
+      },
+      "reward_flags": [
+        "river_mystery_complete"
+      ],
+      "giver_npc": "riverside_fisherman",
+      "turn_in_npc": "riverside_fisherman",
+      "difficulty": "Normal",
+      "recommended_level": 4,
+      "tags": [
+        "side"
+      ]
+    },
+    {
+      "id": "moonpetal_gathering",
+      "name": "Moonpetal Collection",
+      "description": "Gather rare moonpetals from the secret garden for Willow the Herbalist.",
+      "category": "side",
+      "required_flags": [
+        "quest_moonpetal_started",
+        "garden_discovered"
+      ],
+      "required_quests": [],
+      "objectives": [
+        {
+          "id": "collect_moonpetals",
+          "description": "Collect moonpetals",
+          "type": "collect",
+          "target": "moonpetal",
+          "required_count": 3
+        }
+      ],
+      "reward_gold": 120,
+      "reward_exp": 70,
+      "reward_items": {
+        "health_potion": 5
+      },
+      "class_rewards": {
+        "cleric": {
+          "holy_symbol": 1
+        },
+        "mage": {
+          "arcane_focus": 1
+        },
+        "necromancer": {
+          "necromancers_tome": 1
+        }
+      },
+      "reward_flags": [
+        "moonpetal_complete"
+      ],
+      "giver_npc": "hillcrest_herbalist",
+      "turn_in_npc": "hillcrest_herbalist",
+      "difficulty": "Normal",
+      "recommended_level": 4,
+      "tags": [
+        "side"
+      ]
+    },
+    {
+      "id": "mine_clearing",
+      "name": "Clear the Mines",
+      "description": "Clear cave creatures from the mines for Gruff the Miner.",
+      "category": "side",
+      "required_flags": [
+        "quest_mine_clear_started"
+      ],
+      "required_quests": [],
+      "objectives": [
+        {
+          "id": "kill_bats",
+          "description": "Defeat cave bats",
+          "type": "kill",
+          "target": "cave_bat",
+          "required_count": 5
+        }
+      ],
+      "reward_gold": 90,
+      "reward_exp": 55,
+      "reward_items": {},
+      "class_rewards": {
+        "warrior": {
+          "warriors_blade": 1
+        },
+        "monk": {
+          "monks_wraps": 1
+        },
+        "berserker": {
+          "berserker_axe": 1
+        }
+      },
+      "reward_flags": [
+        "mine_clear_complete"
+      ],
+      "giver_npc": "hillcrest_miner",
+      "turn_in_npc": "hillcrest_miner",
+      "difficulty": "Normal",
+      "recommended_level": 4,
+      "tags": [
+        "side"
+      ]
+    },
+    {
+      "id": "venom_collection",
+      "name": "Venom Harvest",
+      "description": "Collect venom sacs from swamp creatures for Mordecai the Alchemist.",
+      "category": "side",
+      "required_flags": [
+        "quest_venom_started"
+      ],
+      "required_quests": [],
+      "objectives": [
+        {
+          "id": "collect_venom",
+          "description": "Collect venom sacs",
+          "type": "kill",
+          "target": "swamp_spider",
+          "required_count": 4
+        }
+      ],
+      "reward_gold": 110,
+      "reward_exp": 65,
+      "reward_items": {
+        "sp_potion": 3
+      },
+      "class_rewards": {
+        "necromancer": {
+          "necromancers_tome": 1
+        },
+        "rogue": {
+          "shadow_dagger": 1
+        },
+        "mage": {
+          "arcane_focus": 1
+        }
+      },
+      "reward_flags": [
+        "venom_complete"
+      ],
+      "giver_npc": "shadowfen_alchemist",
+      "turn_in_npc": "shadowfen_alchemist",
+      "difficulty": "Normal",
+      "recommended_level": 5,
+      "tags": [
+        "side",
+        "alchemy"
+      ]
+    },
+    {
+      "id": "shadow_hunt",
+      "name": "The Shadow Beast",
+      "description": "Hunt down the shadow beast terrorizing Shadowfen Town.",
+      "category": "side",
+      "required_flags": [
+        "quest_shadow_hunt_started"
+      ],
+      "required_quests": [],
+      "objectives": [
+        {
+          "id": "track_beast",
+          "description": "Track the beast",
+          "type": "reach",
+          "target": "haunted_crypt",
+          "required_count": 1
+        },
+        {
+          "id": "defeat_beast",
+          "description": "Defeat the shadow beast",
+          "type": "flag",
+          "target": "shadow_beast_defeated",
+          "required_count": 1
+        }
+      ],
+      "reward_gold": 150,
+      "reward_exp": 80,
+      "reward_items": {
+        "elixir": 1
+      },
+      "class_rewards": {
+        "ranger": {
+          "hunters_bow": 1
+        },
+        "rogue": {
+          "shadow_dagger": 1
+        },
+        "monk": {
+          "monks_wraps": 1
+        }
+      },
+      "reward_flags": [
+        "shadow_hunt_complete"
+      ],
+      "giver_npc": "shadowfen_hunter",
+      "turn_in_npc": "shadowfen_hunter",
+      "difficulty": "Challenging",
+      "recommended_level": 6,
+      "tags": [
+        "bounty",
+        "stealth"
+      ]
+    },
+    {
+      "id": "demon_strike",
+      "name": "Strike Against Demons",
+      "description": "Attack demon outposts at the fortress for Commander Steelheart.",
+      "category": "side",
+      "required_flags": [
+        "quest_demon_strike_started"
+      ],
+      "required_quests": [],
+      "objectives": [
+        {
+          "id": "defeat_demons",
+          "description": "Defeat demons",
+          "type": "kill",
+          "target": "demon",
+          "required_count": 8
+        }
+      ],
+      "reward_gold": 200,
+      "reward_exp": 100,
+      "reward_items": {
+        "elixir": 2
+      },
+      "class_rewards": {
+        "warrior": {
+          "warriors_blade": 1
+        },
+        "paladin": {
+          "paladins_shield": 1
+        },
+        "knight": {
+          "knights_armor": 1
+        },
+        "berserker": {
+          "berserker_axe": 1
+        }
+      },
+      "reward_flags": [
+        "demon_strike_complete"
+      ],
+      "giver_npc": "ironhold_commander",
+      "turn_in_npc": "ironhold_commander",
+      "difficulty": "Hard",
+      "recommended_level": 7,
+      "tags": [
+        "side",
+        "combat"
+      ]
+    },
+    {
+      "id": "dragon_scales",
+      "name": "Dragon Scale Hunt",
+      "description": "Retrieve dragon scales from the volcanic crater for Forge Master Grimm.",
+      "category": "side",
+      "required_flags": [
+        "quest_dragon_scales_started"
+      ],
+      "required_quests": [],
+      "objectives": [
+        {
+          "id": "reach_crater",
+          "description": "Reach the volcanic crater",
+          "type": "reach",
+          "target": "volcanic_crater",
+          "required_count": 1
+        },
+        {
+          "id": "collect_scales",
+          "description": "Collect dragon scales",
+          "type": "flag",
+          "target": "dragon_scales_collected",
+          "required_count": 1
+        }
+      ],
+      "reward_gold": 250,
+      "reward_exp": 120,
+      "reward_items": {},
+      "class_rewards": {
+        "warrior": {
+          "warriors_blade": 1
+        },
+        "knight": {
+          "knights_armor": 1
+        },
+        "berserker": {
+          "berserker_axe": 1
+        },
+        "ranger": {
+          "hunters_bow": 1
+        }
+      },
+      "reward_flags": [
+        "dragon_scales_complete"
+      ],
+      "giver_npc": "ironhold_weaponsmith",
+      "turn_in_npc": "ironhold_weaponsmith",
+      "difficulty": "Epic",
+      "recommended_level": 9,
+      "tags": [
+        "side",
+        "boss"
+      ]
+    },
+    {
+      "id": "arena_challenge",
+      "name": "Arena Champion",
+      "description": "Prove your worth in the Ironhold Arena.",
+      "category": "side",
+      "required_flags": [
+        "quest_arena_started"
+      ],
+      "required_quests": [],
+      "objectives": [
+        {
+          "id": "win_battles",
+          "description": "Win arena battles",
+          "type": "flag",
+          "target": "arena_victories_3",
+          "required_count": 1
+        }
+      ],
+      "reward_gold": 180,
+      "reward_exp": 90,
+      "reward_items": {
+        "elixir": 1
+      },
+      "class_rewards": {
+        "warrior": {
+          "warriors_blade": 1
+        },
+        "berserker": {
+          "berserker_axe": 1
+        },
+        "monk": {
+          "monks_wraps": 1
+        },
+        "knight": {
+          "knights_armor": 1
+        }
+      },
+      "reward_flags": [
+        "arena_champion"
+      ],
+      "giver_npc": "ironhold_arena_master",
+      "turn_in_npc": "ironhold_arena_master",
+      "difficulty": "Challenging",
+      "recommended_level": 6,
+      "tags": [
+        "side",
+        "arena"
+      ]
+    },
+    {
+      "id": "arena_champion",
+      "name": "Arena Champion",
+      "description": "Prove your prediction skills at the Monster Arena.",
+      "category": "side",
+      "required_flags": [],
+      "required_quests": [],
+      "objectives": [
+        {
+          "id": "arena_wins",
+          "description": "Win 5 arena bets",
+          "type": "flag",
+          "target": "arena_wins_5",
+          "required_count": 1
+        }
+      ],
+      "reward_gold": 500,
+      "reward_exp": 0,
+      "reward_items": {
+        "champion_medal": 1
+      },
+      "reward_flags": [
+        "arena_champion_complete"
+      ],
+      "giver_npc": null,
+      "turn_in_npc": null,
+      "difficulty": "Hard",
+      "recommended_level": 8,
+      "tags": [
+        "side",
+        "arena",
+        "boss"
+      ]
+    },
+    {
+      "id": "arcane_power",
+      "name": "The Arcane Core",
+      "description": "Retrieve the ancient power source from the ruins for Archmage Seraphina.",
+      "category": "side",
+      "required_flags": [
+        "quest_power_source_started"
+      ],
+      "required_quests": [],
+      "objectives": [
+        {
+          "id": "reach_ruins",
+          "description": "Reach the ancient ruins",
+          "type": "reach",
+          "target": "ancient_ruins",
+          "required_count": 1
+        },
+        {
+          "id": "retrieve_core",
+          "description": "Retrieve the Arcane Core",
+          "type": "flag",
+          "target": "arcane_core_retrieved",
+          "required_count": 1
+        }
+      ],
+      "reward_gold": 200,
+      "reward_exp": 100,
+      "reward_items": {
+        "sp_potion": 5
+      },
+      "class_rewards": {
+        "mage": {
+          "arcane_focus": 1
+        },
+        "necromancer": {
+          "necromancers_tome": 1
+        },
+        "summoner": {
+          "summoners_crystal": 1
+        },
+        "bard": {
+          "bards_lyre": 1
+        }
+      },
+      "reward_flags": [
+        "arcane_power_complete"
+      ],
+      "giver_npc": "crystalspire_archmage",
+      "turn_in_npc": "crystalspire_archmage",
+      "difficulty": "Normal",
+      "recommended_level": 4,
+      "tags": [
+        "side"
+      ]
+    },
+    {
+      "id": "essence_crystals",
+      "name": "Crystal Essence",
+      "description": "Gather essence crystals for Enchanter Rune.",
+      "category": "side",
+      "required_flags": [
+        "quest_essence_crystals_started"
+      ],
+      "required_quests": [],
+      "objectives": [
+        {
+          "id": "collect_crystals",
+          "description": "Collect essence crystals",
+          "type": "collect",
+          "target": "essence_crystal",
+          "required_count": 5
+        }
+      ],
+      "reward_gold": 150,
+      "reward_exp": 75,
+      "reward_items": {},
+      "class_rewards": {
+        "mage": {
+          "arcane_focus": 1
+        },
+        "cleric": {
+          "holy_symbol": 1
+        },
+        "summoner": {
+          "summoners_crystal": 1
+        }
+      },
+      "reward_flags": [
+        "essence_crystals_complete"
+      ],
+      "giver_npc": "crystalspire_enchanter",
+      "turn_in_npc": "crystalspire_enchanter",
+      "difficulty": "Challenging",
+      "recommended_level": 7,
+      "tags": [
+        "side",
+        "collection"
+      ]
+    },
+    {
+      "id": "forbidden_grimoire",
+      "name": "The Forbidden Grimoire",
+      "description": "Recover the stolen grimoire from the haunted crypt.",
+      "category": "side",
+      "required_flags": [
+        "quest_grimoire_started"
+      ],
+      "required_quests": [],
+      "objectives": [
+        {
+          "id": "enter_crypt",
+          "description": "Enter the haunted crypt",
+          "type": "reach",
+          "target": "haunted_crypt",
+          "required_count": 1
+        },
+        {
+          "id": "recover_grimoire",
+          "description": "Recover the grimoire",
+          "type": "flag",
+          "target": "grimoire_recovered",
+          "required_count": 1
+        }
+      ],
+      "reward_gold": 180,
+      "reward_exp": 90,
+      "reward_items": {
+        "sp_potion": 3
+      },
+      "class_rewards": {
+        "mage": {
+          "arcane_focus": 1
+        },
+        "necromancer": {
+          "necromancers_tome": 1
+        },
+        "cleric": {
+          "holy_symbol": 1
+        }
+      },
+      "reward_flags": [
+        "grimoire_complete"
+      ],
+      "giver_npc": "crystalspire_librarian",
+      "turn_in_npc": "crystalspire_librarian",
+      "difficulty": "Hard",
+      "recommended_level": 8,
+      "tags": [
+        "side",
+        "magic"
+      ]
+    },
+    {
+      "id": "artifact_retrieval",
+      "name": "Shadow Artifact",
+      "description": "Retrieve a stolen artifact for the Shadow Broker.",
+      "category": "side",
+      "required_flags": [
+        "quest_artifact_theft_started"
+      ],
+      "required_quests": [],
+      "objectives": [
+        {
+          "id": "infiltrate",
+          "description": "Infiltrate the hideout",
+          "type": "reach",
+          "target": "treasure_chamber",
+          "required_count": 1
+        },
+        {
+          "id": "steal_artifact",
+          "description": "Retrieve the artifact",
+          "type": "flag",
+          "target": "shadow_artifact_retrieved",
+          "required_count": 1
+        }
+      ],
+      "reward_gold": 220,
+      "reward_exp": 85,
+      "reward_items": {},
+      "class_rewards": {
+        "rogue": {
+          "shadow_dagger": 1
+        },
+        "bard": {
+          "bards_lyre": 1
+        },
+        "ranger": {
+          "hunters_bow": 1
+        }
+      },
+      "reward_flags": [
+        "artifact_retrieval_complete"
+      ],
+      "giver_npc": "nighthaven_shadow_broker",
+      "turn_in_npc": "nighthaven_shadow_broker",
+      "difficulty": "Challenging",
+      "recommended_level": 7,
+      "tags": [
+        "side",
+        "exploration"
+      ]
+    },
+    {
+      "id": "fence_job",
+      "name": "Whisper's Request",
+      "description": "Acquire valuable items for Whisper the Fence.",
+      "category": "side",
+      "required_flags": [
+        "quest_fence_job_started"
+      ],
+      "required_quests": [],
+      "objectives": [
+        {
+          "id": "acquire_valuables",
+          "description": "Acquire valuables",
+          "type": "collect",
+          "target": "valuable_gem",
+          "required_count": 3
+        }
+      ],
+      "reward_gold": 200,
+      "reward_exp": 70,
+      "reward_items": {
+        "health_potion": 3,
+        "sp_potion": 3
+      },
+      "class_rewards": {
+        "rogue": {
+          "shadow_dagger": 1
+        },
+        "bard": {
+          "bards_lyre": 1
+        }
+      },
+      "reward_flags": [
+        "fence_job_complete"
+      ],
+      "giver_npc": "nighthaven_fence",
+      "turn_in_npc": "nighthaven_fence",
+      "difficulty": "Normal",
+      "recommended_level": 5,
+      "tags": [
+        "side",
+        "stealth"
+      ]
+    },
+    {
+      "id": "spy_mission",
+      "name": "Eyes Everywhere",
+      "description": "Gather intelligence for Silent Eye.",
+      "category": "side",
+      "required_flags": [
+        "quest_spy_mission_started"
+      ],
+      "required_quests": [],
+      "objectives": [
+        {
+          "id": "gather_intel",
+          "description": "Gather intelligence",
+          "type": "flag",
+          "target": "intel_gathered",
+          "required_count": 1
+        }
+      ],
+      "reward_gold": 160,
+      "reward_exp": 80,
+      "reward_items": {},
+      "class_rewards": {
+        "rogue": {
+          "shadow_dagger": 1
+        },
+        "ranger": {
+          "hunters_bow": 1
+        },
+        "bard": {
+          "bards_lyre": 1
+        }
+      },
+      "reward_flags": [
+        "spy_mission_complete"
+      ],
+      "giver_npc": "nighthaven_informant",
+      "turn_in_npc": "nighthaven_informant",
+      "difficulty": "Challenging",
+      "recommended_level": 6,
+      "tags": [
+        "side",
+        "stealth"
+      ]
+    },
+    {
+      "id": "purify_crypt",
+      "name": "Cleanse the Darkness",
+      "description": "Purify the haunted crypt for High Priest Solarius.",
+      "category": "side",
+      "required_flags": [
+        "quest_purify_crypt_started"
+      ],
+      "required_quests": [],
+      "objectives": [
+        {
+          "id": "enter_crypt",
+          "description": "Enter the haunted crypt",
+          "type": "reach",
+          "target": "haunted_crypt",
+          "required_count": 1
+        },
+        {
+          "id": "purify",
+          "description": "Purify the dark altar",
+          "type": "flag",
+          "target": "crypt_purified",
+          "required_count": 1
+        }
+      ],
+      "reward_gold": 200,
+      "reward_exp": 100,
+      "reward_items": {
+        "elixir": 2
+      },
+      "class_rewards": {
+        "cleric": {
+          "holy_symbol": 1
+        },
+        "paladin": {
+          "paladins_shield": 1
+        },
+        "monk": {
+          "monks_wraps": 1
+        }
+      },
+      "reward_flags": [
+        "purify_crypt_complete"
+      ],
+      "giver_npc": "sunharbor_high_priest",
+      "turn_in_npc": "sunharbor_high_priest",
+      "difficulty": "Challenging",
+      "recommended_level": 7,
+      "tags": [
+        "side",
+        "puzzle"
+      ]
+    },
+    {
+      "id": "caravan_guard",
+      "name": "Protect the Caravans",
+      "description": "Guard trade caravans for Merchant Prince Aurelius.",
+      "category": "side",
+      "required_flags": [
+        "quest_caravan_guard_started"
+      ],
+      "required_quests": [],
+      "objectives": [
+        {
+          "id": "defeat_raiders",
+          "description": "Defeat caravan raiders",
+          "type": "kill",
+          "target": "bandit",
+          "required_count": 6
+        }
+      ],
+      "reward_gold": 250,
+      "reward_exp": 90,
+      "reward_items": {
+        "health_potion": 5
+      },
+      "class_rewards": {
+        "warrior": {
+          "warriors_blade": 1
+        },
+        "knight": {
+          "knights_armor": 1
+        },
+        "paladin": {
+          "paladins_shield": 1
+        }
+      },
+      "reward_flags": [
+        "caravan_guard_complete"
+      ],
+      "giver_npc": "sunharbor_merchant_prince",
+      "turn_in_npc": "sunharbor_merchant_prince",
+      "difficulty": "Normal",
+      "recommended_level": 4,
+      "tags": [
+        "side"
+      ]
+    },
+    {
+      "id": "sea_serpents",
+      "name": "Serpents of the Deep",
+      "description": "Drive off sea serpents threatening Sunharbor.",
+      "category": "side",
+      "required_flags": [
+        "quest_sea_serpents_started"
+      ],
+      "required_quests": [],
+      "objectives": [
+        {
+          "id": "defeat_serpents",
+          "description": "Defeat sea serpents",
+          "type": "flag",
+          "target": "sea_serpents_defeated",
+          "required_count": 1
+        }
+      ],
+      "reward_gold": 220,
+      "reward_exp": 110,
+      "reward_items": {
+        "elixir": 1
+      },
+      "class_rewards": {
+        "ranger": {
+          "hunters_bow": 1
+        },
+        "mage": {
+          "arcane_focus": 1
+        },
+        "summoner": {
+          "summoners_crystal": 1
+        }
+      },
+      "reward_flags": [
+        "sea_serpents_complete"
+      ],
+      "giver_npc": "sunharbor_ship_captain",
+      "turn_in_npc": "sunharbor_ship_captain",
+      "difficulty": "Hard",
+      "recommended_level": 8,
+      "tags": [
+        "side",
+        "exploration"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "customer_name": "John Doe",
+  "order_id": "ORD-12345",
+  "premium": true,
+  "item1": "Widget A",
+  "item2": "Widget B",
+  "total": "49.99",
+  "company_name": "Gadget Store"
+}

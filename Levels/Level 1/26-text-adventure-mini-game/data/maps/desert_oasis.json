@@ -1,0 +1,1327 @@
+{
+  "map_id": "desert_oasis",
+  "width": 15,
+  "height": 15,
+  "tiles": [
+    [
+      {
+        "tile_id": "dirt",
+        "walkable": true,
+        "sprite_id": "dirt"
+      },
+      {
+        "tile_id": "sand_rocky",
+        "walkable": true,
+        "sprite_id": "sand_rocky"
+      },
+      {
+        "tile_id": "sand_rocky",
+        "walkable": true,
+        "sprite_id": "sand_rocky"
+      },
+      {
+        "tile_id": "sand_rocky",
+        "walkable": true,
+        "sprite_id": "sand_rocky"
+      },
+      {
+        "tile_id": "sand",
+        "walkable": true,
+        "sprite_id": "sand"
+      },
+      {
+        "tile_id": "sand",
+        "walkable": true,
+        "sprite_id": "sand"
+      },
+      {
+        "tile_id": "sand",
+        "walkable": true,
+        "sprite_id": "sand"
+      },
+      {
+        "tile_id": "sand",
+        "walkable": true,
+        "sprite_id": "sand"
+      },
+      {
+        "tile_id": "sand",
+        "walkable": true,
+        "sprite_id": "sand"
+      },
+      {
+        "tile_id": "sand",
+        "walkable": true,
+        "sprite_id": "sand"
+      },
+      {
+        "tile_id": "sand",
+        "walkable": true,
+        "sprite_id": "sand"
+      },
+      {
+        "tile_id": "sand",
+        "walkable": true,
+        "sprite_id": "sand"
+      },
+      {
+        "tile_id": "sand_rocky",
+        "walkable": true,
+        "sprite_id": "sand_rocky"
+      },
+      {
+        "tile_id": "sand",
+        "walkable": true,
+        "sprite_id": "sand"
+      },
+      {
+        "tile_id": "sand",
+        "walkable": true,
+        "sprite_id": "sand"
+      }
+    ],
+    [
+      {
+        "tile_id": "dirt",
+        "walkable": true,
+        "sprite_id": "dirt"
+      },
+      {
+        "tile_id": "sand",
+        "walkable": true,
+        "sprite_id": "sand"
+      },
+      {
+        "tile_id": "moss",
+        "walkable": true,
+        "sprite_id": "moss"
+      },
+      {
+        "tile_id": "ruins",
+        "walkable": true,
+        "sprite_id": "ruins"
+      },
+      {
+        "tile_id": "sand",
+        "walkable": true,
+        "sprite_id": "sand"
+      },
+      {
+        "tile_id": "sand_rocky",
+        "walkable": true,
+        "sprite_id": "sand_rocky"
+      },
+      {
+        "tile_id": "sand_rocky",
+        "walkable": true,
+        "sprite_id": "sand_rocky"
+      },
+      {
+        "tile_id": "sand_rocky",
+        "walkable": true,
+        "sprite_id": "sand_rocky"
+      },
+      {
+        "tile_id": "sand_rocky",
+        "walkable": true,
+        "sprite_id": "sand_rocky"
+      },
+      {
+        "tile_id": "sand_rocky",
+        "walkable": true,
+        "sprite_id": "sand_rocky"
+      },
+      {
+        "tile_id": "sand",
+        "walkable": true,
+        "sprite_id": "sand"
+      },
+      {
+        "tile_id": "ruins",
+        "walkable": true,
+        "sprite_id": "ruins"
+      },
+      {
+        "tile_id": "ruins",
+        "walkable": true,
+        "sprite_id": "ruins"
+      },
+      {
+        "tile_id": "sand_rocky",
+        "walkable": true,
+        "sprite_id": "sand_rocky"
+      },
+      {
+        "tile_id": "sand_rocky",
+        "walkable": true,
+        "sprite_id": "sand_rocky"
+      }
+    ],
+    [
+      {
+        "tile_id": "dirt",
+        "walkable": true,
+        "sprite_id": "dirt"
+      },
+      {
+        "tile_id": "stone_cracked",
+        "walkable": true,
+        "sprite_id": "stone_cracked"
+      },
+      {
+        "tile_id": "moss",
+        "walkable": true,
+        "sprite_id": "moss"
+      },
+      {
+        "tile_id": "stone_floor",
+        "walkable": true,
+        "sprite_id": "stone_floor"
+      },
+      {
+        "tile_id": "ruins",
+        "walkable": true,
+        "sprite_id": "ruins"
+      },
+      {
+        "tile_id": "sand_rocky",
+        "walkable": true,
+        "sprite_id": "sand_rocky"
+      },
+      {
+        "tile_id": "sand",
+        "walkable": true,
+        "sprite_id": "sand"
+      },
+      {
+        "tile_id": "sand_rocky",
+        "walkable": true,
+        "sprite_id": "sand_rocky"
+      },
+      {
+        "tile_id": "sand",
+        "walkable": true,
+        "sprite_id": "sand"
+      },
+      {
+        "tile_id": "sand",
+        "walkable": true,
+        "sprite_id": "sand"
+      },
+      {
+        "tile_id": "moss",
+        "walkable": true,
+        "sprite_id": "moss"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "stone_floor",
+        "walkable": true,
+        "sprite_id": "stone_floor"
+      },
+      {
+        "tile_id": "stone_cracked",
+        "walkable": true,
+        "sprite_id": "stone_cracked"
+      },
+      {
+        "tile_id": "sand_rocky",
+        "walkable": true,
+        "sprite_id": "sand_rocky"
+      }
+    ],
+    [
+      {
+        "tile_id": "sand_rocky",
+        "walkable": true,
+        "sprite_id": "sand_rocky"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "stone_cracked",
+        "walkable": true,
+        "sprite_id": "stone_cracked"
+      },
+      {
+        "tile_id": "stone_floor",
+        "walkable": true,
+        "sprite_id": "stone_floor"
+      },
+      {
+        "tile_id": "stone_cracked",
+        "walkable": true,
+        "sprite_id": "stone_cracked"
+      },
+      {
+        "tile_id": "sand",
+        "walkable": true,
+        "sprite_id": "sand"
+      },
+      {
+        "tile_id": "dirt",
+        "walkable": true,
+        "sprite_id": "dirt"
+      },
+      {
+        "tile_id": "grass_dark",
+        "walkable": true,
+        "sprite_id": "grass_dark"
+      },
+      {
+        "tile_id": "sand",
+        "walkable": true,
+        "sprite_id": "sand"
+      },
+      {
+        "tile_id": "sand",
+        "walkable": true,
+        "sprite_id": "sand"
+      },
+      {
+        "tile_id": "stone_cracked",
+        "walkable": true,
+        "sprite_id": "stone_cracked"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "ruins",
+        "walkable": true,
+        "sprite_id": "ruins"
+      },
+      {
+        "tile_id": "dirt",
+        "walkable": true,
+        "sprite_id": "dirt"
+      }
+    ],
+    [
+      {
+        "tile_id": "sand_rocky",
+        "walkable": true,
+        "sprite_id": "sand_rocky"
+      },
+      {
+        "tile_id": "sand",
+        "walkable": true,
+        "sprite_id": "sand"
+      },
+      {
+        "tile_id": "ruins",
+        "walkable": true,
+        "sprite_id": "ruins"
+      },
+      {
+        "tile_id": "stone_cracked",
+        "walkable": true,
+        "sprite_id": "stone_cracked"
+      },
+      {
+        "tile_id": "sand",
+        "walkable": true,
+        "sprite_id": "sand"
+      },
+      {
+        "tile_id": "sand_rocky",
+        "walkable": true,
+        "sprite_id": "sand_rocky"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "sand",
+        "walkable": true,
+        "sprite_id": "sand"
+      },
+      {
+        "tile_id": "sand_rocky",
+        "walkable": true,
+        "sprite_id": "sand_rocky"
+      },
+      {
+        "tile_id": "moss",
+        "walkable": true,
+        "sprite_id": "moss"
+      },
+      {
+        "tile_id": "stone_cracked",
+        "walkable": true,
+        "sprite_id": "stone_cracked"
+      },
+      {
+        "tile_id": "sand",
+        "walkable": true,
+        "sprite_id": "sand"
+      },
+      {
+        "tile_id": "sand",
+        "walkable": true,
+        "sprite_id": "sand"
+      }
+    ],
+    [
+      {
+        "tile_id": "sand",
+        "walkable": true,
+        "sprite_id": "sand"
+      },
+      {
+        "tile_id": "sand_rocky",
+        "walkable": true,
+        "sprite_id": "sand_rocky"
+      },
+      {
+        "tile_id": "sand_rocky",
+        "walkable": true,
+        "sprite_id": "sand_rocky"
+      },
+      {
+        "tile_id": "sand",
+        "walkable": true,
+        "sprite_id": "sand"
+      },
+      {
+        "tile_id": "sand_rocky",
+        "walkable": true,
+        "sprite_id": "sand_rocky"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "water",
+        "walkable": false,
+        "sprite_id": "water"
+      },
+      {
+        "tile_id": "grass_dark",
+        "walkable": true,
+        "sprite_id": "grass_dark"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "sand",
+        "walkable": true,
+        "sprite_id": "sand"
+      },
+      {
+        "tile_id": "sand",
+        "walkable": true,
+        "sprite_id": "sand"
+      },
+      {
+        "tile_id": "sand_rocky",
+        "walkable": true,
+        "sprite_id": "sand_rocky"
+      },
+      {
+        "tile_id": "sand",
+        "walkable": true,
+        "sprite_id": "sand"
+      },
+      {
+        "tile_id": "sand_rocky",
+        "walkable": true,
+        "sprite_id": "sand_rocky"
+      }
+    ],
+    [
+      {
+        "tile_id": "sand",
+        "walkable": true,
+        "sprite_id": "sand"
+      },
+      {
+        "tile_id": "sand",
+        "walkable": true,
+        "sprite_id": "sand"
+      },
+      {
+        "tile_id": "sand_rocky",
+        "walkable": true,
+        "sprite_id": "sand_rocky"
+      },
+      {
+        "tile_id": "sand",
+        "walkable": true,
+        "sprite_id": "sand"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "water",
+        "walkable": false,
+        "sprite_id": "water"
+      },
+      {
+        "tile_id": "water",
+        "walkable": false,
+        "sprite_id": "water"
+      },
+      {
+        "tile_id": "water",
+        "walkable": false,
+        "sprite_id": "water"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass_flowers",
+        "walkable": true,
+        "sprite_id": "grass_flowers"
+      },
+      {
+        "tile_id": "sand",
+        "walkable": true,
+        "sprite_id": "sand"
+      },
+      {
+        "tile_id": "sand",
+        "walkable": true,
+        "sprite_id": "sand"
+      },
+      {
+        "tile_id": "sand_rocky",
+        "walkable": true,
+        "sprite_id": "sand_rocky"
+      },
+      {
+        "tile_id": "sand",
+        "walkable": true,
+        "sprite_id": "sand"
+      }
+    ],
+    [
+      {
+        "tile_id": "sand_rocky",
+        "walkable": true,
+        "sprite_id": "sand_rocky"
+      },
+      {
+        "tile_id": "sand_rocky",
+        "walkable": true,
+        "sprite_id": "sand_rocky"
+      },
+      {
+        "tile_id": "sand",
+        "walkable": true,
+        "sprite_id": "sand"
+      },
+      {
+        "tile_id": "flower_grass",
+        "walkable": true,
+        "sprite_id": "flower_grass"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "water",
+        "walkable": false,
+        "sprite_id": "water"
+      },
+      {
+        "tile_id": "water",
+        "walkable": false,
+        "sprite_id": "water"
+      },
+      {
+        "tile_id": "water",
+        "walkable": false,
+        "sprite_id": "water"
+      },
+      {
+        "tile_id": "water",
+        "walkable": false,
+        "sprite_id": "water"
+      },
+      {
+        "tile_id": "water",
+        "walkable": false,
+        "sprite_id": "water"
+      },
+      {
+        "tile_id": "grass_flowers",
+        "walkable": true,
+        "sprite_id": "grass_flowers"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "sand",
+        "walkable": true,
+        "sprite_id": "sand"
+      },
+      {
+        "tile_id": "sand",
+        "walkable": true,
+        "sprite_id": "sand"
+      },
+      {
+        "tile_id": "sand",
+        "walkable": true,
+        "sprite_id": "sand"
+      }
+    ],
+    [
+      {
+        "tile_id": "sand_rocky",
+        "walkable": true,
+        "sprite_id": "sand_rocky"
+      },
+      {
+        "tile_id": "sand_rocky",
+        "walkable": true,
+        "sprite_id": "sand_rocky"
+      },
+      {
+        "tile_id": "sand_rocky",
+        "walkable": true,
+        "sprite_id": "sand_rocky"
+      },
+      {
+        "tile_id": "dirt",
+        "walkable": true,
+        "sprite_id": "dirt"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass_dark",
+        "walkable": true,
+        "sprite_id": "grass_dark"
+      },
+      {
+        "tile_id": "water",
+        "walkable": false,
+        "sprite_id": "water"
+      },
+      {
+        "tile_id": "water",
+        "walkable": false,
+        "sprite_id": "water"
+      },
+      {
+        "tile_id": "water",
+        "walkable": false,
+        "sprite_id": "water"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "sand",
+        "walkable": true,
+        "sprite_id": "sand"
+      },
+      {
+        "tile_id": "sand",
+        "walkable": true,
+        "sprite_id": "sand"
+      },
+      {
+        "tile_id": "sand",
+        "walkable": true,
+        "sprite_id": "sand"
+      },
+      {
+        "tile_id": "sand",
+        "walkable": true,
+        "sprite_id": "sand"
+      }
+    ],
+    [
+      {
+        "tile_id": "sand",
+        "walkable": true,
+        "sprite_id": "sand"
+      },
+      {
+        "tile_id": "sand",
+        "walkable": true,
+        "sprite_id": "sand"
+      },
+      {
+        "tile_id": "dirt",
+        "walkable": true,
+        "sprite_id": "dirt"
+      },
+      {
+        "tile_id": "sand",
+        "walkable": true,
+        "sprite_id": "sand"
+      },
+      {
+        "tile_id": "sand_rocky",
+        "walkable": true,
+        "sprite_id": "sand_rocky"
+      },
+      {
+        "tile_id": "grass_dark",
+        "walkable": true,
+        "sprite_id": "grass_dark"
+      },
+      {
+        "tile_id": "grass_dark",
+        "walkable": true,
+        "sprite_id": "grass_dark"
+      },
+      {
+        "tile_id": "water",
+        "walkable": false,
+        "sprite_id": "water"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "sand_rocky",
+        "walkable": true,
+        "sprite_id": "sand_rocky"
+      },
+      {
+        "tile_id": "sand_rocky",
+        "walkable": true,
+        "sprite_id": "sand_rocky"
+      },
+      {
+        "tile_id": "sand_rocky",
+        "walkable": true,
+        "sprite_id": "sand_rocky"
+      },
+      {
+        "tile_id": "sand",
+        "walkable": true,
+        "sprite_id": "sand"
+      },
+      {
+        "tile_id": "sand_rocky",
+        "walkable": true,
+        "sprite_id": "sand_rocky"
+      }
+    ],
+    [
+      {
+        "tile_id": "sand",
+        "walkable": true,
+        "sprite_id": "sand"
+      },
+      {
+        "tile_id": "sand_rocky",
+        "walkable": true,
+        "sprite_id": "sand_rocky"
+      },
+      {
+        "tile_id": "moss",
+        "walkable": true,
+        "sprite_id": "moss"
+      },
+      {
+        "tile_id": "ruins",
+        "walkable": true,
+        "sprite_id": "ruins"
+      },
+      {
+        "tile_id": "dirt",
+        "walkable": true,
+        "sprite_id": "dirt"
+      },
+      {
+        "tile_id": "sand_rocky",
+        "walkable": true,
+        "sprite_id": "sand_rocky"
+      },
+      {
+        "tile_id": "grass_tall",
+        "walkable": true,
+        "sprite_id": "grass_tall"
+      },
+      {
+        "tile_id": "grass_tall",
+        "walkable": true,
+        "sprite_id": "grass_tall"
+      },
+      {
+        "tile_id": "flower_grass",
+        "walkable": true,
+        "sprite_id": "flower_grass"
+      },
+      {
+        "tile_id": "sand_rocky",
+        "walkable": true,
+        "sprite_id": "sand_rocky"
+      },
+      {
+        "tile_id": "sand",
+        "walkable": true,
+        "sprite_id": "sand"
+      },
+      {
+        "tile_id": "ruins",
+        "walkable": true,
+        "sprite_id": "ruins"
+      },
+      {
+        "tile_id": "ruins",
+        "walkable": true,
+        "sprite_id": "ruins"
+      },
+      {
+        "tile_id": "sand",
+        "walkable": true,
+        "sprite_id": "sand"
+      },
+      {
+        "tile_id": "sand",
+        "walkable": true,
+        "sprite_id": "sand"
+      }
+    ],
+    [
+      {
+        "tile_id": "sand",
+        "walkable": true,
+        "sprite_id": "sand"
+      },
+      {
+        "tile_id": "stone_cracked",
+        "walkable": true,
+        "sprite_id": "stone_cracked"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "ruins",
+        "walkable": true,
+        "sprite_id": "ruins"
+      },
+      {
+        "tile_id": "sand_rocky",
+        "walkable": true,
+        "sprite_id": "sand_rocky"
+      },
+      {
+        "tile_id": "sand",
+        "walkable": true,
+        "sprite_id": "sand"
+      },
+      {
+        "tile_id": "flower_grass",
+        "walkable": true,
+        "sprite_id": "flower_grass"
+      },
+      {
+        "tile_id": "dirt",
+        "walkable": true,
+        "sprite_id": "dirt"
+      },
+      {
+        "tile_id": "sand_rocky",
+        "walkable": true,
+        "sprite_id": "sand_rocky"
+      },
+      {
+        "tile_id": "stone_cracked",
+        "walkable": true,
+        "sprite_id": "stone_cracked"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "moss",
+        "walkable": true,
+        "sprite_id": "moss"
+      },
+      {
+        "tile_id": "dirt",
+        "walkable": true,
+        "sprite_id": "dirt"
+      }
+    ],
+    [
+      {
+        "tile_id": "sand",
+        "walkable": true,
+        "sprite_id": "sand"
+      },
+      {
+        "tile_id": "moss",
+        "walkable": true,
+        "sprite_id": "moss"
+      },
+      {
+        "tile_id": "stone_floor",
+        "walkable": true,
+        "sprite_id": "stone_floor"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "ruins",
+        "walkable": true,
+        "sprite_id": "ruins"
+      },
+      {
+        "tile_id": "sand",
+        "walkable": true,
+        "sprite_id": "sand"
+      },
+      {
+        "tile_id": "sand",
+        "walkable": true,
+        "sprite_id": "sand"
+      },
+      {
+        "tile_id": "sand",
+        "walkable": true,
+        "sprite_id": "sand"
+      },
+      {
+        "tile_id": "dirt",
+        "walkable": true,
+        "sprite_id": "dirt"
+      },
+      {
+        "tile_id": "sand",
+        "walkable": true,
+        "sprite_id": "sand"
+      },
+      {
+        "tile_id": "stone_cracked",
+        "walkable": true,
+        "sprite_id": "stone_cracked"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "ruins",
+        "walkable": true,
+        "sprite_id": "ruins"
+      },
+      {
+        "tile_id": "sand",
+        "walkable": true,
+        "sprite_id": "sand"
+      }
+    ],
+    [
+      {
+        "tile_id": "sand",
+        "walkable": true,
+        "sprite_id": "sand"
+      },
+      {
+        "tile_id": "sand",
+        "walkable": true,
+        "sprite_id": "sand"
+      },
+      {
+        "tile_id": "ruins",
+        "walkable": true,
+        "sprite_id": "ruins"
+      },
+      {
+        "tile_id": "ruins",
+        "walkable": true,
+        "sprite_id": "ruins"
+      },
+      {
+        "tile_id": "sand",
+        "walkable": true,
+        "sprite_id": "sand"
+      },
+      {
+        "tile_id": "sand",
+        "walkable": true,
+        "sprite_id": "sand"
+      },
+      {
+        "tile_id": "sand",
+        "walkable": true,
+        "sprite_id": "sand"
+      },
+      {
+        "tile_id": "sand_rocky",
+        "walkable": true,
+        "sprite_id": "sand_rocky"
+      },
+      {
+        "tile_id": "sand_rocky",
+        "walkable": true,
+        "sprite_id": "sand_rocky"
+      },
+      {
+        "tile_id": "sand_rocky",
+        "walkable": true,
+        "sprite_id": "sand_rocky"
+      },
+      {
+        "tile_id": "sand",
+        "walkable": true,
+        "sprite_id": "sand"
+      },
+      {
+        "tile_id": "ruins",
+        "walkable": true,
+        "sprite_id": "ruins"
+      },
+      {
+        "tile_id": "stone_cracked",
+        "walkable": true,
+        "sprite_id": "stone_cracked"
+      },
+      {
+        "tile_id": "sand",
+        "walkable": true,
+        "sprite_id": "sand"
+      },
+      {
+        "tile_id": "sand_rocky",
+        "walkable": true,
+        "sprite_id": "sand_rocky"
+      }
+    ],
+    [
+      {
+        "tile_id": "sand_rocky",
+        "walkable": true,
+        "sprite_id": "sand_rocky"
+      },
+      {
+        "tile_id": "dirt",
+        "walkable": true,
+        "sprite_id": "dirt"
+      },
+      {
+        "tile_id": "dirt",
+        "walkable": true,
+        "sprite_id": "dirt"
+      },
+      {
+        "tile_id": "sand",
+        "walkable": true,
+        "sprite_id": "sand"
+      },
+      {
+        "tile_id": "sand_rocky",
+        "walkable": true,
+        "sprite_id": "sand_rocky"
+      },
+      {
+        "tile_id": "sand",
+        "walkable": true,
+        "sprite_id": "sand"
+      },
+      {
+        "tile_id": "sand",
+        "walkable": true,
+        "sprite_id": "sand"
+      },
+      {
+        "tile_id": "puddle",
+        "walkable": true,
+        "sprite_id": "puddle"
+      },
+      {
+        "tile_id": "sand_rocky",
+        "walkable": true,
+        "sprite_id": "sand_rocky"
+      },
+      {
+        "tile_id": "sand",
+        "walkable": true,
+        "sprite_id": "sand"
+      },
+      {
+        "tile_id": "sand_rocky",
+        "walkable": true,
+        "sprite_id": "sand_rocky"
+      },
+      {
+        "tile_id": "dirt",
+        "walkable": true,
+        "sprite_id": "dirt"
+      },
+      {
+        "tile_id": "sand",
+        "walkable": true,
+        "sprite_id": "sand"
+      },
+      {
+        "tile_id": "sand",
+        "walkable": true,
+        "sprite_id": "sand"
+      },
+      {
+        "tile_id": "sand_rocky",
+        "walkable": true,
+        "sprite_id": "sand_rocky"
+      }
+    ]
+  ],
+  "warps": [
+    {
+      "x": 0,
+      "y": 7,
+      "target_map_id": "forest_path",
+      "target_x": 7,
+      "target_y": 14
+    },
+    {
+      "x": 14,
+      "y": 7,
+      "target_map_id": "haunted_crypt",
+      "target_x": 7,
+      "target_y": 14,
+      "requires_flag": "desert_bandits_cleared",
+      "fail_dialogue_id": "need_bandits_cleared"
+    },
+    {
+      "x": 7,
+      "y": 14,
+      "target_map_id": "sunharbor_city",
+      "target_x": 10,
+      "target_y": 0
+    }
+  ],
+  "triggers": [
+    {
+      "id": "desert_water",
+      "x": 7,
+      "y": 7,
+      "trigger_type": "item",
+      "data": {
+        "item_id": "health_potion",
+        "unique": true
+      },
+      "once": true
+    },
+    {
+      "id": "desert_treasure",
+      "x": 3,
+      "y": 3,
+      "trigger_type": "item",
+      "data": {
+        "item_id": "magic_crystal",
+        "unique": true
+      },
+      "once": true
+    },
+    {
+      "id": "desert_bandit_cache",
+      "x": 11,
+      "y": 11,
+      "trigger_type": "item",
+      "data": {
+        "item_id": "elixir",
+        "unique": true
+      },
+      "once": true
+    }
+  ],
+  "entities": [
+    {
+      "entity_id": "desert_nomad",
+      "x": 11,
+      "y": 11
+    }
+  ],
+  "enemy_spawns": [
+    {
+      "spawn_id": "bandit_1",
+      "x": 3,
+      "y": 3,
+      "encounter_id": "bandit_ambush",
+      "sprite_id": "bandit",
+      "facing": "down",
+      "detection_range": 4,
+      "move_interval": 1.5,
+      "patrol_radius": 2,
+      "once": true
+    },
+    {
+      "spawn_id": "bandit_2",
+      "x": 11,
+      "y": 3,
+      "encounter_id": "bandit_ambush",
+      "sprite_id": "bandit",
+      "facing": "down",
+      "detection_range": 4,
+      "move_interval": 1.6,
+      "patrol_radius": 2,
+      "once": true
+    },
+    {
+      "spawn_id": "bandit_3",
+      "x": 3,
+      "y": 11,
+      "encounter_id": "bandit_ambush",
+      "sprite_id": "bandit",
+      "facing": "up",
+      "detection_range": 4,
+      "move_interval": 1.4,
+      "patrol_radius": 2,
+      "once": true
+    },
+    {
+      "spawn_id": "bandit_4",
+      "x": 11,
+      "y": 11,
+      "encounter_id": "bandit_ambush",
+      "sprite_id": "bandit",
+      "facing": "up",
+      "detection_range": 4,
+      "move_interval": 1.7,
+      "patrol_radius": 2,
+      "once": true
+    },
+    {
+      "spawn_id": "spider_1",
+      "x": 2,
+      "y": 7,
+      "encounter_id": "swamp_spiders",
+      "sprite_id": "spider",
+      "facing": "right",
+      "detection_range": 3,
+      "move_interval": 1.3,
+      "patrol_radius": 2,
+      "once": true
+    },
+    {
+      "spawn_id": "spider_2",
+      "x": 12,
+      "y": 7,
+      "encounter_id": "swamp_spiders",
+      "sprite_id": "spider",
+      "facing": "left",
+      "detection_range": 3,
+      "move_interval": 1.2,
+      "patrol_radius": 2,
+      "once": true
+    },
+    {
+      "spawn_id": "lizardman_1",
+      "x": 7,
+      "y": 3,
+      "encounter_id": "lizardman_tribe",
+      "sprite_id": "lizardman",
+      "facing": "down",
+      "detection_range": 4,
+      "move_interval": 1.8,
+      "patrol_radius": 2,
+      "once": true
+    },
+    {
+      "spawn_id": "mimic_1",
+      "x": 7,
+      "y": 11,
+      "encounter_id": "mimic_trap",
+      "sprite_id": "mimic",
+      "facing": "up",
+      "detection_range": 2,
+      "move_interval": 5.0,
+      "patrol_radius": 0,
+      "once": true
+    }
+  ]
+}

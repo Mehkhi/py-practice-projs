@@ -1,0 +1,18 @@
+# Agent Guidelines
+
+## Environment
+**IMPORTANT:** Use `.venv/bin/python3` for all commands. Dependencies (pygame) are in the venv, not system Python.
+
+## Commands
+- Run all tests: `.venv/bin/python3 -m unittest discover -s . -p "test_*.py"`
+- Run single test file: `.venv/bin/python3 -m unittest test_stats`
+- Run single test: `.venv/bin/python3 -m unittest test_stats.TestStats.test_is_dead_true`
+- Run game: `.venv/bin/python3 text_adventure_mini_game.py`
+
+## Code Style
+- **Imports:** stdlib → third-party (pygame) → local. Use `TYPE_CHECKING` for type-only imports.
+- **Types:** Use type hints on all functions. Use `Optional`, `List`, `Dict`, `Tuple` from typing.
+- **Naming:** PascalCase classes, snake_case functions, _private methods, UPPER_SNAKE constants.
+- **Data:** Use `@dataclass` with `field(default_factory=...)` for mutable defaults.
+- **Errors:** Graceful degradation with warnings, check `os.path.exists()` before file ops, use `getattr()` for optional attrs.
+- **Tests:** unittest framework, descriptive names like `test_<what>_<expected>`.

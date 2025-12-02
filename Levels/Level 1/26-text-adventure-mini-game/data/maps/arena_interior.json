@@ -1,0 +1,167 @@
+{
+  "map_id": "arena_interior",
+  "name": "Monster Arena",
+  "width": 12,
+  "height": 10,
+  "tiles": [
+    [
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"}
+    ],
+    [
+      {"tile_id": "stone_wall", "walkable": false, "sprite_id": "stone_wall"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_wall", "walkable": false, "sprite_id": "stone_wall"}
+    ],
+    [
+      {"tile_id": "stone_wall", "walkable": false, "sprite_id": "stone_wall"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_wall", "walkable": false, "sprite_id": "stone_wall"}
+    ],
+    [
+      {"tile_id": "stone_wall", "walkable": false, "sprite_id": "stone_wall"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_wall", "walkable": false, "sprite_id": "stone_wall"}
+    ],
+    [
+      {"tile_id": "stone_wall", "walkable": false, "sprite_id": "stone_wall"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_wall", "walkable": false, "sprite_id": "stone_wall"}
+    ],
+    [
+      {"tile_id": "stone_wall", "walkable": false, "sprite_id": "stone_wall"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_wall", "walkable": false, "sprite_id": "stone_wall"}
+    ],
+    [
+      {"tile_id": "stone_wall", "walkable": false, "sprite_id": "stone_wall"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_wall", "walkable": false, "sprite_id": "stone_wall"}
+    ],
+    [
+      {"tile_id": "stone_wall", "walkable": false, "sprite_id": "stone_wall"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_wall", "walkable": false, "sprite_id": "stone_wall"}
+    ],
+    [
+      {"tile_id": "stone_wall", "walkable": false, "sprite_id": "stone_wall"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_wall", "walkable": false, "sprite_id": "stone_wall"}
+    ],
+    [
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"}
+    ]
+  ],
+  "warps": [
+    {
+      "x": 5,
+      "y": 9,
+      "target_map_id": "riverside_town",
+      "target_x": 7,
+      "target_y": 0
+    }
+  ],
+  "triggers": [],
+  "entities": [
+    {
+      "entity_id": "arena_bookkeeper",
+      "x": 5,
+      "y": 3
+    }
+  ],
+  "enemy_spawns": [],
+  "props": []
+}

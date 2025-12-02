@@ -1,0 +1,1453 @@
+{
+  "items": [
+    {
+      "id": "sword",
+      "name": "Basic Sword",
+      "description": "A basic iron sword.",
+      "item_type": "equipment",
+      "effect_id": "weapon_attack_boost",
+      "equip_slot": "weapon",
+      "stat_modifiers": {
+        "attack": 3
+      },
+      "granted_skills": [],
+      "value": 10,
+      "icon_id": "item_default",
+      "max_stack_size": 1
+    },
+    {
+      "id": "starter_sword",
+      "name": "Rusty Sword",
+      "description": "A worn but reliable blade for aspiring warriors.",
+      "item_type": "equipment",
+      "effect_id": "weapon_attack_boost",
+      "equip_slot": "weapon",
+      "stat_modifiers": {
+        "attack": 2
+      },
+      "granted_skills": [
+        "power_strike"
+      ],
+      "value": 5,
+      "icon_id": "item_default",
+      "max_stack_size": 1
+    },
+    {
+      "id": "starter_staff",
+      "name": "Apprentice Wand",
+      "description": "A simple wand that channels magical energy.",
+      "item_type": "equipment",
+      "effect_id": "staff_magic_boost",
+      "equip_slot": "weapon",
+      "stat_modifiers": {
+        "magic": 3
+      },
+      "granted_skills": [
+        "fire_bolt"
+      ],
+      "value": 5,
+      "icon_id": "item_default",
+      "max_stack_size": 1
+    },
+    {
+      "id": "starter_dagger",
+      "name": "Worn Dagger",
+      "description": "A quick blade favored by those who strike from shadows.",
+      "item_type": "equipment",
+      "effect_id": "weapon_attack_boost",
+      "equip_slot": "weapon",
+      "stat_modifiers": {
+        "attack": 1,
+        "speed": 2
+      },
+      "granted_skills": [
+        "backstab"
+      ],
+      "value": 5,
+      "icon_id": "item_default",
+      "max_stack_size": 1
+    },
+    {
+      "id": "starter_mace",
+      "name": "Holy Mace",
+      "description": "A blessed weapon that channels divine power.",
+      "item_type": "equipment",
+      "effect_id": "weapon_attack_boost",
+      "equip_slot": "weapon",
+      "stat_modifiers": {
+        "attack": 1,
+        "magic": 1
+      },
+      "granted_skills": [
+        "heal"
+      ],
+      "value": 5,
+      "icon_id": "item_default",
+      "max_stack_size": 1
+    },
+    {
+      "id": "starter_bow",
+      "name": "Hunter's Shortbow",
+      "description": "A lightweight bow for striking from a distance.",
+      "item_type": "equipment",
+      "effect_id": "weapon_attack_boost",
+      "equip_slot": "weapon",
+      "stat_modifiers": {
+        "attack": 2,
+        "speed": 1
+      },
+      "granted_skills": [],
+      "value": 5,
+      "icon_id": "item_default",
+      "max_stack_size": 1
+    },
+    {
+      "id": "starter_axe",
+      "name": "Brutal Hatchet",
+      "description": "A heavy axe that trades finesse for raw power.",
+      "item_type": "equipment",
+      "effect_id": "weapon_attack_boost",
+      "equip_slot": "weapon",
+      "stat_modifiers": {
+        "attack": 4
+      },
+      "granted_skills": [
+        "berserker_rage"
+      ],
+      "value": 5,
+      "icon_id": "item_default",
+      "max_stack_size": 1
+    },
+    {
+      "id": "starter_holy_sword",
+      "name": "Blessed Blade",
+      "description": "A sword imbued with holy light.",
+      "item_type": "equipment",
+      "effect_id": "weapon_attack_boost",
+      "equip_slot": "weapon",
+      "stat_modifiers": {
+        "attack": 2,
+        "magic": 1
+      },
+      "granted_skills": [
+        "divine_strike"
+      ],
+      "value": 5,
+      "icon_id": "item_default",
+      "max_stack_size": 1
+    },
+    {
+      "id": "starter_skull_staff",
+      "name": "Bone Staff",
+      "description": "A staff carved from ancient bones, pulsing with dark energy.",
+      "item_type": "equipment",
+      "effect_id": "staff_magic_boost",
+      "equip_slot": "weapon",
+      "stat_modifiers": {
+        "magic": 3
+      },
+      "granted_skills": [
+        "dark_bolt"
+      ],
+      "value": 5,
+      "icon_id": "item_default",
+      "max_stack_size": 1
+    },
+    {
+      "id": "starter_fists",
+      "name": "Wrapped Fists",
+      "description": "Hand wraps that focus inner energy into devastating strikes.",
+      "item_type": "equipment",
+      "effect_id": "weapon_attack_boost",
+      "equip_slot": "weapon",
+      "stat_modifiers": {
+        "attack": 1,
+        "speed": 2
+      },
+      "granted_skills": [
+        "ki_strike"
+      ],
+      "value": 5,
+      "icon_id": "item_default",
+      "max_stack_size": 1
+    },
+    {
+      "id": "starter_lute",
+      "name": "Traveler's Lute",
+      "description": "A well-worn instrument that produces magical melodies.",
+      "item_type": "equipment",
+      "effect_id": "weapon_magic_boost",
+      "equip_slot": "weapon",
+      "stat_modifiers": {
+        "magic": 2,
+        "luck": 1
+      },
+      "granted_skills": [
+        "inspiring_song"
+      ],
+      "value": 5,
+      "icon_id": "item_default",
+      "max_stack_size": 1
+    },
+    {
+      "id": "starter_orb",
+      "name": "Spirit Orb",
+      "description": "A crystalline orb that channels summoning magic.",
+      "item_type": "equipment",
+      "effect_id": "staff_magic_boost",
+      "equip_slot": "weapon",
+      "stat_modifiers": {
+        "magic": 3
+      },
+      "granted_skills": [
+        "spirit_link"
+      ],
+      "value": 5,
+      "icon_id": "item_default",
+      "max_stack_size": 1
+    },
+    {
+      "id": "starter_lance",
+      "name": "Iron Lance",
+      "description": "A sturdy lance favored by mounted knights.",
+      "item_type": "equipment",
+      "effect_id": "weapon_attack_boost",
+      "equip_slot": "weapon",
+      "stat_modifiers": {
+        "attack": 2,
+        "defense": 1
+      },
+      "granted_skills": [
+        "challenge"
+      ],
+      "value": 5,
+      "icon_id": "item_default",
+      "max_stack_size": 1
+    },
+    {
+      "id": "leather_armor",
+      "name": "Leather Armor",
+      "description": "Light armor that offers modest protection. Grants +3 defense.",
+      "item_type": "equipment",
+      "effect_id": "armor_defense_boost",
+      "equip_slot": "armor",
+      "stat_modifiers": {
+        "defense": 3
+      },
+      "granted_skills": [],
+      "value": 15,
+      "icon_id": "item_default",
+      "max_stack_size": 1
+    },
+    {
+      "id": "swift_ring",
+      "name": "Ring of Swiftness",
+      "description": "A slim ring that sharpens reflexes.",
+      "item_type": "equipment",
+      "effect_id": "ring_speed_luck",
+      "equip_slot": "accessory",
+      "stat_modifiers": {
+        "speed": 2,
+        "luck": 1
+      },
+      "granted_skills": [],
+      "value": 30,
+      "icon_id": "item_default",
+      "max_stack_size": 1
+    },
+    {
+      "id": "mage_staff",
+      "name": "Apprentice Staff",
+      "description": "A simple staff that channels magic.",
+      "item_type": "equipment",
+      "effect_id": "staff_magic_boost",
+      "equip_slot": "weapon",
+      "stat_modifiers": {
+        "magic": 4
+      },
+      "granted_skills": [
+        "fire_bolt"
+      ],
+      "value": 40,
+      "icon_id": "item_default",
+      "max_stack_size": 1
+    },
+    {
+      "id": "torch",
+      "name": "Torch",
+      "description": "A lit torch that illuminates dark areas.",
+      "item_type": "key",
+      "effect_id": "illuminate",
+      "value": 5,
+      "icon_id": "item_default",
+      "max_stack_size": 1
+    },
+    {
+      "id": "key",
+      "name": "Rusty Key",
+      "description": "An old rusty key.",
+      "item_type": "key",
+      "effect_id": "unlock_passage",
+      "value": 1,
+      "icon_id": "item_default",
+      "max_stack_size": 1
+    },
+    {
+      "id": "magic_crystal",
+      "name": "Magic Crystal",
+      "description": "A glowing crystal pulsing with ancient magic.",
+      "item_type": "key",
+      "effect_id": "activate_final_ritual",
+      "value": 100,
+      "icon_id": "item_default",
+      "max_stack_size": 1
+    },
+    {
+      "id": "health_potion",
+      "name": "Health Potion",
+      "description": "Restores 50 HP.",
+      "item_type": "consumable",
+      "effect_id": "heal_50",
+      "value": 20,
+      "icon_id": "icon_health_potion",
+      "target_pattern": "single_ally",
+      "max_stack_size": 99
+    },
+    {
+      "id": "warriors_blade",
+      "name": "Warrior's Blade",
+      "description": "A sturdy blade forged for warriors.",
+      "item_type": "equipment",
+      "effect_id": "weapon_attack_boost",
+      "equip_slot": "weapon",
+      "stat_modifiers": {
+        "attack": 5,
+        "defense": 2
+      },
+      "granted_skills": [
+        "power_strike"
+      ],
+      "value": 75,
+      "icon_id": "item_default",
+      "max_stack_size": 1
+    },
+    {
+      "id": "arcane_focus",
+      "name": "Arcane Focus",
+      "description": "A crystal orb that amplifies magical power.",
+      "item_type": "equipment",
+      "effect_id": "staff_magic_boost",
+      "equip_slot": "weapon",
+      "stat_modifiers": {
+        "magic": 6
+      },
+      "granted_skills": [
+        "arcane_blast"
+      ],
+      "value": 75,
+      "icon_id": "item_default",
+      "max_stack_size": 1
+    },
+    {
+      "id": "shadow_dagger",
+      "name": "Shadow Dagger",
+      "description": "A blade that strikes from darkness.",
+      "item_type": "equipment",
+      "effect_id": "weapon_attack_boost",
+      "equip_slot": "weapon",
+      "stat_modifiers": {
+        "attack": 3,
+        "speed": 4,
+        "luck": 2
+      },
+      "granted_skills": [
+        "backstab"
+      ],
+      "value": 75,
+      "icon_id": "item_default",
+      "max_stack_size": 1
+    },
+    {
+      "id": "holy_symbol",
+      "name": "Holy Symbol",
+      "description": "A blessed symbol that channels divine power. Grants +4 magic, +2 defense, and the Heal skill.",
+      "item_type": "equipment",
+      "effect_id": "weapon_magic_boost",
+      "equip_slot": "accessory",
+      "stat_modifiers": {
+        "magic": 4,
+        "defense": 2
+      },
+      "granted_skills": [
+        "heal"
+      ],
+      "value": 75,
+      "icon_id": "item_default",
+      "max_stack_size": 1
+    },
+    {
+      "id": "basic_fishing_rod",
+      "name": "Basic Fishing Rod",
+      "description": "A simple fishing rod for beginners. Rod quality: 1.",
+      "item_type": "equipment",
+      "effect_id": "fishing_rod",
+      "equip_slot": "accessory",
+      "stat_modifiers": {},
+      "granted_skills": [],
+      "value": 20,
+      "icon_id": "item_default",
+      "max_stack_size": 1,
+      "rod_quality": 1
+    },
+    {
+      "id": "improved_fishing_rod",
+      "name": "Improved Fishing Rod",
+      "description": "A better fishing rod with improved line strength. Rod quality: 2.",
+      "item_type": "equipment",
+      "effect_id": "fishing_rod",
+      "equip_slot": "accessory",
+      "stat_modifiers": {},
+      "granted_skills": [],
+      "value": 75,
+      "icon_id": "item_default",
+      "max_stack_size": 1,
+      "rod_quality": 2
+    },
+    {
+      "id": "master_fishing_rod",
+      "name": "Master Fishing Rod",
+      "description": "The finest fishing rod available. Rod quality: 3.",
+      "item_type": "equipment",
+      "effect_id": "fishing_rod",
+      "equip_slot": "accessory",
+      "stat_modifiers": {},
+      "granted_skills": [],
+      "value": 200,
+      "icon_id": "item_default",
+      "max_stack_size": 1,
+      "rod_quality": 3
+    },
+    {
+      "id": "hunters_bow",
+      "name": "Hunter's Bow",
+      "description": "A precision bow for skilled rangers.",
+      "item_type": "equipment",
+      "effect_id": "weapon_attack_boost",
+      "equip_slot": "weapon",
+      "stat_modifiers": {
+        "attack": 4,
+        "speed": 3
+      },
+      "granted_skills": [
+        "precise_shot"
+      ],
+      "value": 75,
+      "icon_id": "item_default",
+      "max_stack_size": 1
+    },
+    {
+      "id": "berserker_axe",
+      "name": "Berserker Axe",
+      "description": "A massive axe that grows stronger with rage.",
+      "item_type": "equipment",
+      "effect_id": "weapon_attack_boost",
+      "equip_slot": "weapon",
+      "stat_modifiers": {
+        "attack": 7
+      },
+      "granted_skills": [
+        "berserker_rage"
+      ],
+      "value": 75,
+      "icon_id": "item_default",
+      "max_stack_size": 1
+    },
+    {
+      "id": "paladins_shield",
+      "name": "Paladin's Shield",
+      "description": "A blessed shield that protects the righteous.",
+      "item_type": "equipment",
+      "effect_id": "armor_defense_boost",
+      "equip_slot": "armor",
+      "stat_modifiers": {
+        "defense": 5,
+        "magic": 2
+      },
+      "granted_skills": [],
+      "value": 75,
+      "icon_id": "item_default",
+      "max_stack_size": 1
+    },
+    {
+      "id": "necromancers_tome",
+      "name": "Necromancer's Tome",
+      "description": "A dark grimoire pulsing with death magic.",
+      "item_type": "equipment",
+      "effect_id": "staff_magic_boost",
+      "equip_slot": "weapon",
+      "stat_modifiers": {
+        "magic": 5,
+        "luck": 2
+      },
+      "granted_skills": [
+        "drain_life"
+      ],
+      "value": 75,
+      "icon_id": "item_default",
+      "max_stack_size": 1
+    },
+    {
+      "id": "monks_wraps",
+      "name": "Monk's Wraps",
+      "description": "Enchanted hand wraps that channel ki energy.",
+      "item_type": "equipment",
+      "effect_id": "weapon_attack_boost",
+      "equip_slot": "weapon",
+      "stat_modifiers": {
+        "attack": 3,
+        "speed": 4
+      },
+      "granted_skills": [
+        "ki_strike"
+      ],
+      "value": 75,
+      "icon_id": "item_default",
+      "max_stack_size": 1
+    },
+    {
+      "id": "bards_lyre",
+      "name": "Bard's Lyre",
+      "description": "A magical instrument that inspires allies.",
+      "item_type": "equipment",
+      "effect_id": "weapon_magic_boost",
+      "equip_slot": "weapon",
+      "stat_modifiers": {
+        "magic": 4,
+        "luck": 3
+      },
+      "granted_skills": [
+        "inspiring_song"
+      ],
+      "value": 75,
+      "icon_id": "item_default",
+      "max_stack_size": 1
+    },
+    {
+      "id": "summoners_crystal",
+      "name": "Summoner's Crystal",
+      "description": "A crystal that strengthens summoned creatures.",
+      "item_type": "equipment",
+      "effect_id": "staff_magic_boost",
+      "equip_slot": "weapon",
+      "stat_modifiers": {
+        "magic": 5,
+        "speed": 1
+      },
+      "granted_skills": [
+        "summon_elemental"
+      ],
+      "value": 75,
+      "icon_id": "item_default",
+      "max_stack_size": 1
+    },
+    {
+      "id": "knights_armor",
+      "name": "Knight's Armor",
+      "description": "Heavy armor that provides excellent protection. Grants +7 defense, +1 attack.",
+      "item_type": "equipment",
+      "effect_id": "armor_defense_boost",
+      "equip_slot": "armor",
+      "stat_modifiers": {
+        "defense": 7,
+        "attack": 1
+      },
+      "granted_skills": [],
+      "value": 75,
+      "icon_id": "item_default",
+      "max_stack_size": 1
+    },
+    {
+      "id": "sp_potion",
+      "name": "SP Potion",
+      "description": "Restores 30 SP.",
+      "item_type": "consumable",
+      "effect_id": "restore_sp_30",
+      "value": 25,
+      "icon_id": "item_default",
+      "target_pattern": "single_ally",
+      "max_stack_size": 99
+    },
+    {
+      "id": "elixir",
+      "name": "Elixir",
+      "description": "Restores 100 HP and 50 SP.",
+      "item_type": "consumable",
+      "effect_id": "restore_hp_sp",
+      "value": 100,
+      "icon_id": "item_default",
+      "target_pattern": "single_ally",
+      "max_stack_size": 99
+    },
+    {
+      "id": "hi_potion",
+      "name": "Hi-Potion",
+      "description": "Restores 100 HP.",
+      "item_type": "consumable",
+      "effect_id": "heal_100",
+      "value": 50,
+      "icon_id": "item_default",
+      "target_pattern": "single_ally",
+      "max_stack_size": 99
+    },
+    {
+      "id": "mega_potion",
+      "name": "Mega Potion",
+      "description": "Fully restores HP.",
+      "item_type": "consumable",
+      "effect_id": "heal_full",
+      "value": 150,
+      "icon_id": "item_default",
+      "target_pattern": "single_ally",
+      "max_stack_size": 99
+    },
+    {
+      "id": "hi_sp_potion",
+      "name": "Hi-SP Potion",
+      "description": "Restores 60 SP.",
+      "item_type": "consumable",
+      "effect_id": "restore_sp_60",
+      "value": 60,
+      "icon_id": "item_default",
+      "target_pattern": "single_ally",
+      "max_stack_size": 99
+    },
+    {
+      "id": "fishing_bait",
+      "name": "Fishing Bait",
+      "description": "Standard bait that improves your chances of catching fish.",
+      "item_type": "consumable",
+      "effect_id": "fishing_bait",
+      "value": 5,
+      "icon_id": "item_default",
+      "target_pattern": "self",
+      "max_stack_size": 99,
+      "fishing_bait": true
+    },
+    {
+      "id": "premium_bait",
+      "name": "Premium Bait",
+      "description": "High-quality bait that significantly improves your chances of catching rare fish.",
+      "item_type": "consumable",
+      "effect_id": "fishing_bait_premium",
+      "value": 25,
+      "icon_id": "item_default",
+      "target_pattern": "self",
+      "max_stack_size": 99,
+      "fishing_bait": true
+    },
+    {
+      "id": "mega_sp_potion",
+      "name": "Mega SP Potion",
+      "description": "Fully restores SP.",
+      "item_type": "consumable",
+      "effect_id": "restore_sp_full",
+      "value": 200,
+      "icon_id": "item_default",
+      "target_pattern": "single_ally",
+      "max_stack_size": 99
+    },
+    {
+      "id": "group_heal_potion",
+      "name": "Party Potion",
+      "description": "Restores 50 HP to all allies.",
+      "item_type": "consumable",
+      "effect_id": "heal_all_50",
+      "value": 80,
+      "icon_id": "item_default",
+      "target_pattern": "all_allies",
+      "max_stack_size": 99
+    },
+    {
+      "id": "antidote",
+      "name": "Antidote",
+      "description": "Cures poison.",
+      "item_type": "consumable",
+      "effect_id": "cure_poison",
+      "value": 15,
+      "icon_id": "item_default",
+      "target_pattern": "single_ally",
+      "max_stack_size": 99
+    },
+    {
+      "id": "burn_salve",
+      "name": "Burn Salve",
+      "description": "Cures burn.",
+      "item_type": "consumable",
+      "effect_id": "cure_burn",
+      "value": 15,
+      "icon_id": "item_default",
+      "target_pattern": "single_ally",
+      "max_stack_size": 99
+    },
+    {
+      "id": "thaw_tonic",
+      "name": "Thaw Tonic",
+      "description": "Cures frozen status.",
+      "item_type": "consumable",
+      "effect_id": "cure_frozen",
+      "value": 15,
+      "icon_id": "item_default",
+      "target_pattern": "single_ally",
+      "max_stack_size": 99
+    },
+    {
+      "id": "smelling_salts",
+      "name": "Smelling Salts",
+      "description": "Cures sleep and stun.",
+      "item_type": "consumable",
+      "effect_id": "cure_incapacitate",
+      "value": 20,
+      "icon_id": "item_default",
+      "target_pattern": "single_ally",
+      "max_stack_size": 99
+    },
+    {
+      "id": "clarity_tonic",
+      "name": "Clarity Tonic",
+      "description": "Cures confusion.",
+      "item_type": "consumable",
+      "effect_id": "cure_confusion",
+      "value": 15,
+      "icon_id": "item_default",
+      "target_pattern": "single_ally",
+      "max_stack_size": 99
+    },
+    {
+      "id": "panacea",
+      "name": "Panacea",
+      "description": "Cures all status ailments.",
+      "item_type": "consumable",
+      "effect_id": "cure_all",
+      "value": 100,
+      "icon_id": "item_default",
+      "target_pattern": "single_ally",
+      "max_stack_size": 99
+    },
+    {
+      "id": "attack_tonic",
+      "name": "Attack Tonic",
+      "description": "Temporarily boosts attack power.",
+      "item_type": "consumable",
+      "effect_id": "buff_attack",
+      "value": 40,
+      "icon_id": "item_default",
+      "target_pattern": "single_ally",
+      "max_stack_size": 99
+    },
+    {
+      "id": "defense_tonic",
+      "name": "Defense Tonic",
+      "description": "Temporarily boosts defense.",
+      "item_type": "consumable",
+      "effect_id": "buff_defense",
+      "value": 40,
+      "icon_id": "item_default",
+      "target_pattern": "single_ally",
+      "max_stack_size": 99
+    },
+    {
+      "id": "speed_tonic",
+      "name": "Speed Tonic",
+      "description": "Temporarily boosts speed.",
+      "item_type": "consumable",
+      "effect_id": "buff_speed",
+      "value": 40,
+      "icon_id": "item_default",
+      "target_pattern": "single_ally",
+      "max_stack_size": 99
+    },
+    {
+      "id": "magic_tonic",
+      "name": "Magic Tonic",
+      "description": "Temporarily boosts magic power.",
+      "item_type": "consumable",
+      "effect_id": "buff_magic",
+      "value": 40,
+      "icon_id": "item_default",
+      "target_pattern": "single_ally",
+      "max_stack_size": 99
+    },
+    {
+      "id": "phoenix_down",
+      "name": "Phoenix Down",
+      "description": "Revives a fallen ally with 25% HP.",
+      "item_type": "consumable",
+      "effect_id": "revive_25",
+      "value": 150,
+      "icon_id": "item_default",
+      "target_pattern": "single_ally",
+      "max_stack_size": 99
+    },
+    {
+      "id": "revival_crystal",
+      "name": "Revival Crystal",
+      "description": "Revives a fallen ally with 50% HP.",
+      "item_type": "consumable",
+      "effect_id": "revive_50",
+      "value": 300,
+      "icon_id": "item_default",
+      "target_pattern": "single_ally",
+      "max_stack_size": 99
+    },
+    {
+      "id": "smoke_bomb",
+      "name": "Smoke Bomb",
+      "description": "Allows escape from most battles.",
+      "item_type": "consumable",
+      "effect_id": "escape_battle",
+      "value": 50,
+      "icon_id": "item_default",
+      "target_pattern": "self",
+      "max_stack_size": 99
+    },
+    {
+      "id": "herb",
+      "name": "Healing Herb",
+      "description": "A common herb with mild healing properties.",
+      "item_type": "material",
+      "effect_id": "",
+      "value": 5,
+      "icon_id": "item_default"
+    },
+    {
+      "id": "mana_flower",
+      "name": "Mana Flower",
+      "description": "A blue flower that pulses with magical energy.",
+      "item_type": "material",
+      "effect_id": "",
+      "value": 8,
+      "icon_id": "item_default"
+    },
+    {
+      "id": "empty_vial",
+      "name": "Empty Vial",
+      "description": "A glass container for brewing potions.",
+      "item_type": "material",
+      "effect_id": "",
+      "value": 3,
+      "icon_id": "item_default"
+    },
+    {
+      "id": "iron_ore",
+      "name": "Iron Ore",
+      "description": "Raw iron ore, ready to be smelted.",
+      "item_type": "material",
+      "effect_id": "",
+      "value": 10,
+      "icon_id": "item_default"
+    },
+    {
+      "id": "leather_scraps",
+      "name": "Leather Scraps",
+      "description": "Pieces of leather useful for crafting.",
+      "item_type": "material",
+      "effect_id": "",
+      "value": 6,
+      "icon_id": "item_default"
+    },
+    {
+      "id": "steel_ingot",
+      "name": "Steel Ingot",
+      "description": "Refined steel, stronger than iron.",
+      "item_type": "material",
+      "effect_id": "",
+      "value": 25,
+      "icon_id": "item_default"
+    },
+    {
+      "id": "coal",
+      "name": "Coal",
+      "description": "Fuel for the forge.",
+      "item_type": "material",
+      "effect_id": "",
+      "value": 4,
+      "icon_id": "item_default"
+    },
+    {
+      "id": "ancient_wood",
+      "name": "Ancient Wood",
+      "description": "Wood from an ancient tree, imbued with natural magic.",
+      "item_type": "material",
+      "effect_id": "",
+      "value": 15,
+      "icon_id": "item_default"
+    },
+    {
+      "id": "phoenix_feather",
+      "name": "Phoenix Feather",
+      "description": "A rare feather from a legendary phoenix.",
+      "item_type": "material",
+      "effect_id": "",
+      "value": 50,
+      "icon_id": "item_default"
+    },
+    {
+      "id": "silver_ring",
+      "name": "Silver Ring Base",
+      "description": "A plain silver ring, ready for enchantment.",
+      "item_type": "material",
+      "effect_id": "",
+      "value": 20,
+      "icon_id": "item_default"
+    },
+    {
+      "id": "wind_essence",
+      "name": "Wind Essence",
+      "description": "Captured essence of the wind.",
+      "item_type": "material",
+      "effect_id": "",
+      "value": 30,
+      "icon_id": "item_default"
+    },
+    {
+      "id": "shadow_essence",
+      "name": "Shadow Essence",
+      "description": "Dark energy condensed into physical form.",
+      "item_type": "material",
+      "effect_id": "",
+      "value": 35,
+      "icon_id": "item_default"
+    },
+    {
+      "id": "cloth",
+      "name": "Cloth",
+      "description": "Simple fabric for basic crafting.",
+      "item_type": "material",
+      "effect_id": "",
+      "value": 2,
+      "icon_id": "item_default"
+    },
+    {
+      "id": "holy_water",
+      "name": "Holy Water",
+      "description": "Blessed water from a sacred spring.",
+      "item_type": "material",
+      "effect_id": "",
+      "value": 25,
+      "icon_id": "item_default"
+    },
+    {
+      "id": "fire_essence",
+      "name": "Fire Essence",
+      "description": "Blazing energy condensed from flame elementals.",
+      "item_type": "material",
+      "effect_id": "",
+      "value": 30,
+      "icon_id": "item_default"
+    },
+    {
+      "id": "ice_essence",
+      "name": "Ice Essence",
+      "description": "Frozen energy from the coldest regions.",
+      "item_type": "material",
+      "effect_id": "",
+      "value": 30,
+      "icon_id": "item_default"
+    },
+    {
+      "id": "beast_fang",
+      "name": "Beast Fang",
+      "description": "A sharp fang from a dangerous creature.",
+      "item_type": "material",
+      "effect_id": "",
+      "value": 12,
+      "icon_id": "item_default"
+    },
+    {
+      "id": "monster_bone",
+      "name": "Monster Bone",
+      "description": "Sturdy bone harvested from defeated monsters.",
+      "item_type": "material",
+      "effect_id": "",
+      "value": 8,
+      "icon_id": "item_default"
+    },
+    {
+      "id": "enchanted_silk",
+      "name": "Enchanted Silk",
+      "description": "Magical silk woven with arcane threads.",
+      "item_type": "material",
+      "effect_id": "",
+      "value": 35,
+      "icon_id": "item_default"
+    },
+    {
+      "id": "bowstring",
+      "name": "Bowstring",
+      "description": "A taut string perfect for bows.",
+      "item_type": "material",
+      "effect_id": "",
+      "value": 10,
+      "icon_id": "item_default"
+    },
+    {
+      "id": "sacred_ash",
+      "name": "Sacred Ash",
+      "description": "Ash from a phoenix's rebirth, holds revival power.",
+      "item_type": "material",
+      "effect_id": "",
+      "value": 75,
+      "icon_id": "item_default"
+    },
+    {
+      "id": "venomous_gland",
+      "name": "Venomous Gland",
+      "description": "A gland extracted from poisonous creatures.",
+      "item_type": "material",
+      "effect_id": "",
+      "value": 15,
+      "icon_id": "item_default"
+    },
+    {
+      "id": "sulfur",
+      "name": "Sulfite Powder",
+      "description": "Volatile powder used in smoke bombs and explosives.",
+      "item_type": "material",
+      "effect_id": "",
+      "value": 12,
+      "icon_id": "item_default"
+    },
+    {
+      "id": "dark_crystal",
+      "name": "Dark Crystal",
+      "description": "A crystal pulsing with forbidden energy.",
+      "item_type": "material",
+      "effect_id": "",
+      "value": 45,
+      "icon_id": "item_default"
+    },
+    {
+      "id": "magic_crystal_shard",
+      "name": "Magic Crystal Shard",
+      "description": "A fragment of a magic crystal, useful for crafting and enchanting.",
+      "item_type": "material",
+      "effect_id": "",
+      "value": 25,
+      "icon_id": "item_default"
+    },
+    {
+      "id": "spirit_essence",
+      "name": "Spirit Essence",
+      "description": "A pure essence of spiritual energy.",
+      "item_type": "material",
+      "effect_id": "",
+      "value": 100,
+      "icon_id": "item_default"
+    },
+    {
+      "id": "arcane_core",
+      "name": "Arcane Core",
+      "description": "A powerful magical core from ancient ruins.",
+      "item_type": "key",
+      "effect_id": "",
+      "value": 500,
+      "icon_id": "item_default",
+      "max_stack_size": 1
+    },
+    {
+      "id": "dragon_scale",
+      "name": "Dragon Scale",
+      "description": "A scale from a powerful dragon.",
+      "item_type": "key",
+      "effect_id": "",
+      "value": 500,
+      "icon_id": "item_default",
+      "max_stack_size": 1
+    },
+    {
+      "id": "forbidden_grimoire",
+      "name": "Forbidden Grimoire",
+      "description": "An ancient book of dark magic.",
+      "item_type": "key",
+      "effect_id": "",
+      "value": 500,
+      "icon_id": "item_default",
+      "max_stack_size": 1
+    },
+    {
+      "id": "forest_herb",
+      "name": "Forest Herb",
+      "description": "A common herb found in forest paths, used for basic healing.",
+      "item_type": "consumable",
+      "effect_id": "heal_25",
+      "value": 5,
+      "icon_id": "item_default",
+      "target_pattern": "single_ally",
+      "max_stack_size": 99
+    },
+    {
+      "id": "moonflower",
+      "name": "Moonflower",
+      "description": "A rare flower that blooms only under moonlight, prized by herbalists.",
+      "item_type": "material",
+      "effect_id": "",
+      "value": 50,
+      "icon_id": "item_default",
+      "max_stack_size": 1
+    },
+    {
+      "id": "moonpetal",
+      "name": "Moonpetal",
+      "description": "Delicate petals from the rare moonflower, used in advanced alchemy.",
+      "item_type": "material",
+      "effect_id": "",
+      "value": 30,
+      "icon_id": "item_default",
+      "max_stack_size": 99
+    },
+    {
+      "id": "ancient_relic",
+      "name": "Ancient Relic",
+      "description": "A fragment of an ancient civilization, pulsing with forgotten power.",
+      "item_type": "key",
+      "effect_id": "",
+      "value": 0,
+      "icon_id": "item_default",
+      "max_stack_size": 1
+    },
+    {
+      "id": "essence_crystal",
+      "name": "Essence Crystal",
+      "description": "A crystal infused with pure magical essence, valuable to enchanters.",
+      "item_type": "material",
+      "effect_id": "",
+      "value": 40,
+      "icon_id": "item_default",
+      "max_stack_size": 99
+    },
+    {
+      "id": "valuable_gem",
+      "name": "Valuable Gem",
+      "description": "A precious gemstone highly sought after by collectors and merchants.",
+      "item_type": "material",
+      "effect_id": "",
+      "value": 100,
+      "icon_id": "item_default",
+      "max_stack_size": 99
+    },
+    {
+      "id": "iron_sword",
+      "name": "Iron Sword",
+      "description": "A well-forged iron blade, stronger than basic starter weapons.",
+      "item_type": "equipment",
+      "effect_id": "weapon_attack_boost",
+      "equip_slot": "weapon",
+      "stat_modifiers": {
+        "attack": 4
+      },
+      "granted_skills": [],
+      "value": 50,
+      "icon_id": "item_default",
+      "max_stack_size": 1
+    },
+    {
+      "id": "legendary_blade",
+      "name": "Legendary Blade",
+      "description": "A legendary weapon of immense power, forged by ancient masters.",
+      "item_type": "equipment",
+      "effect_id": "weapon_attack_boost",
+      "equip_slot": "weapon",
+      "stat_modifiers": {
+        "attack": 15,
+        "defense": 5,
+        "magic": 5,
+        "speed": 3
+      },
+      "granted_skills": [
+        "legendary_strike"
+      ],
+      "value": 1000,
+      "icon_id": "item_default",
+      "max_stack_size": 1
+    },
+    {
+      "id": "fish_common_carp",
+      "name": "Common Carp",
+      "description": "A common freshwater fish. Can be sold or used in cooking.",
+      "item_type": "material",
+      "effect_id": "",
+      "value": 15,
+      "icon_id": "item_default"
+    },
+    {
+      "id": "fish_golden_trout",
+      "name": "Golden Trout",
+      "description": "A beautiful golden fish that only appears at dawn and dusk. Can be sold or used in cooking.",
+      "item_type": "material",
+      "effect_id": "",
+      "value": 150,
+      "icon_id": "item_default"
+    },
+    {
+      "id": "fish_abyssal_angler",
+      "name": "Abyssal Angler",
+      "description": "A terrifying fish from the depths. Glows with an eerie light. Can be sold or used in cooking.",
+      "item_type": "material",
+      "effect_id": "",
+      "value": 500,
+      "icon_id": "item_default"
+    },
+    {
+      "id": "fish_small_bass",
+      "name": "Small Bass",
+      "description": "A small but feisty bass. Can be sold or used in cooking.",
+      "item_type": "material",
+      "effect_id": "",
+      "value": 12,
+      "icon_id": "item_default"
+    },
+    {
+      "id": "fish_pond_perch",
+      "name": "Pond Perch",
+      "description": "A common perch found in ponds. Can be sold or used in cooking.",
+      "item_type": "material",
+      "effect_id": "",
+      "value": 10,
+      "icon_id": "item_default"
+    },
+    {
+      "id": "fish_river_trout",
+      "name": "River Trout",
+      "description": "A trout that lives in flowing rivers. Can be sold or used in cooking.",
+      "item_type": "material",
+      "effect_id": "",
+      "value": 18,
+      "icon_id": "item_default"
+    },
+    {
+      "id": "fish_catfish",
+      "name": "Catfish",
+      "description": "A bottom-feeding catfish, more active at night. Can be sold or used in cooking.",
+      "item_type": "material",
+      "effect_id": "",
+      "value": 20,
+      "icon_id": "item_default"
+    },
+    {
+      "id": "fish_sunfish",
+      "name": "Sunfish",
+      "description": "A small sunfish that loves sunny days. Can be sold or used in cooking.",
+      "item_type": "material",
+      "effect_id": "",
+      "value": 8,
+      "icon_id": "item_default"
+    },
+    {
+      "id": "fish_crayfish",
+      "name": "Crayfish",
+      "description": "A small freshwater crustacean. Can be sold or used in cooking.",
+      "item_type": "material",
+      "effect_id": "",
+      "value": 5,
+      "icon_id": "item_default"
+    },
+    {
+      "id": "fish_minnow",
+      "name": "Minnow",
+      "description": "A tiny minnow, easy to catch. Can be sold or used in cooking.",
+      "item_type": "material",
+      "effect_id": "",
+      "value": 3,
+      "icon_id": "item_default"
+    },
+    {
+      "id": "fish_bluegill",
+      "name": "Bluegill",
+      "description": "A common bluegill with distinctive coloring. Can be sold or used in cooking.",
+      "item_type": "material",
+      "effect_id": "",
+      "value": 9,
+      "icon_id": "item_default"
+    },
+    {
+      "id": "fish_creek_chub",
+      "name": "Creek Chub",
+      "description": "A small fish found in creeks and streams. Can be sold or used in cooking.",
+      "item_type": "material",
+      "effect_id": "",
+      "value": 7,
+      "icon_id": "item_default"
+    },
+    {
+      "id": "fish_rainbow_trout",
+      "name": "Rainbow Trout",
+      "description": "A beautiful rainbow-colored trout. Can be sold or used in cooking.",
+      "item_type": "material",
+      "effect_id": "",
+      "value": 45,
+      "icon_id": "item_default"
+    },
+    {
+      "id": "fish_largemouth_bass",
+      "name": "Largemouth Bass",
+      "description": "A large bass that's most active at dawn and dusk. Can be sold or used in cooking.",
+      "item_type": "material",
+      "effect_id": "",
+      "value": 50,
+      "icon_id": "item_default"
+    },
+    {
+      "id": "fish_pike",
+      "name": "Pike",
+      "description": "A predatory pike with sharp teeth. Can be sold or used in cooking.",
+      "item_type": "material",
+      "effect_id": "",
+      "value": 55,
+      "icon_id": "item_default"
+    },
+    {
+      "id": "fish_walleye",
+      "name": "Walleye",
+      "description": "A walleye that hunts at night. Can be sold or used in cooking.",
+      "item_type": "material",
+      "effect_id": "",
+      "value": 48,
+      "icon_id": "item_default"
+    },
+    {
+      "id": "fish_salmon",
+      "name": "Salmon",
+      "description": "A strong salmon that fights hard. Can be sold or used in cooking.",
+      "item_type": "material",
+      "effect_id": "",
+      "value": 60,
+      "icon_id": "item_default"
+    },
+    {
+      "id": "fish_electric_eel",
+      "name": "Electric Eel",
+      "description": "A dangerous eel that can shock you. Can be sold or used in cooking.",
+      "item_type": "material",
+      "effect_id": "",
+      "value": 65,
+      "icon_id": "item_default"
+    },
+    {
+      "id": "fish_ghost_fish",
+      "name": "Ghost Fish",
+      "description": "A translucent fish that appears at night. Can be sold or used in cooking.",
+      "item_type": "material",
+      "effect_id": "",
+      "value": 70,
+      "icon_id": "item_default"
+    },
+    {
+      "id": "fish_moonfish",
+      "name": "Moonfish",
+      "description": "A silvery fish that glows under moonlight. Can be sold or used in cooking.",
+      "item_type": "material",
+      "effect_id": "",
+      "value": 180,
+      "icon_id": "item_default"
+    },
+    {
+      "id": "fish_crystal_koi",
+      "name": "Crystal Koi",
+      "description": "A crystalline koi that shimmers in the light. Can be sold or used in cooking.",
+      "item_type": "material",
+      "effect_id": "",
+      "value": 200,
+      "icon_id": "item_default"
+    },
+    {
+      "id": "fish_phoenix_fish",
+      "name": "Phoenix Fish",
+      "description": "A fiery fish that appears at dawn. Can be sold or used in cooking.",
+      "item_type": "material",
+      "effect_id": "",
+      "value": 220,
+      "icon_id": "item_default"
+    },
+    {
+      "id": "fish_storm_sturgeon",
+      "name": "Storm Sturgeon",
+      "description": "A massive sturgeon that fights like a storm. Can be sold or used in cooking.",
+      "item_type": "material",
+      "effect_id": "",
+      "value": 250,
+      "icon_id": "item_default"
+    },
+    {
+      "id": "fish_leviathan_fry",
+      "name": "Leviathan Fry",
+      "description": "A young leviathan, massive even as a fry. Can be sold or used in cooking.",
+      "item_type": "material",
+      "effect_id": "",
+      "value": 600,
+      "icon_id": "item_default"
+    },
+    {
+      "id": "fish_world_serpent_scale",
+      "name": "World Serpent Scale",
+      "description": "A scale from the legendary World Serpent. Can be sold or used in cooking.",
+      "item_type": "material",
+      "effect_id": "",
+      "value": 750,
+      "icon_id": "item_default"
+    },
+    {
+      "id": "wyrm_lore_1",
+      "name": "Faded Scroll",
+      "description": "An ancient text mentioning a wyrm sleeping beneath the mountains. The writing is barely legible.",
+      "item_type": "key",
+      "effect_id": "",
+      "value": 0,
+      "icon_id": "item_default"
+    },
+    {
+      "id": "wyrm_lore_2",
+      "name": "Dragon Scale Fragment",
+      "description": "A fragment of an enormous scale. It radiates ancient power and whispers of a slumbering wyrm.",
+      "item_type": "key",
+      "effect_id": "",
+      "value": 0,
+      "icon_id": "item_default"
+    },
+    {
+      "id": "wyrm_lore_3",
+      "name": "Wyrm Prophecy",
+      "description": "A prophecy carved in stone: 'When scales are gathered and the prophecy found, the ancient one shall awaken.'",
+      "item_type": "key",
+      "effect_id": "",
+      "value": 0,
+      "icon_id": "item_default"
+    },
+    {
+      "id": "shadow_lore_1",
+      "name": "Shadow Realm Tome",
+      "description": "A dark tome that speaks of a realm where shadows reign. It mentions a sovereign who rules when all light fades.",
+      "item_type": "key",
+      "effect_id": "",
+      "value": 0,
+      "icon_id": "item_default"
+    },
+    {
+      "id": "shadow_lore_2",
+      "name": "Midnight Fragment",
+      "description": "A fragment that only appears at midnight. It seems to be part of something larger, something that grants passage to the shadow realm.",
+      "item_type": "key",
+      "effect_id": "",
+      "value": 0,
+      "icon_id": "item_default"
+    },
+    {
+      "id": "shadow_crown_fragment",
+      "name": "Shadow Crown Fragment",
+      "description": "A fragment of a dark crown. When held at midnight, it resonates with the shadow realm, granting passage to the throne.",
+      "item_type": "key",
+      "effect_id": "",
+      "value": 0,
+      "icon_id": "item_default"
+    }
+  ]
+}

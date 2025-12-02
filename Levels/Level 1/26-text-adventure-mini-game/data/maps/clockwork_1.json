@@ -1,0 +1,1196 @@
+{
+  "map_id": "clockwork_1",
+  "width": 15,
+  "height": 15,
+  "tiles": [
+    [
+      {
+        "tile_id": "metal_cracked",
+        "walkable": true,
+        "sprite_id": "metal_cracked"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal_cracked",
+        "walkable": true,
+        "sprite_id": "metal_cracked"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal_cracked",
+        "walkable": true,
+        "sprite_id": "metal_cracked"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal_cracked",
+        "walkable": true,
+        "sprite_id": "metal_cracked"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal_cracked",
+        "walkable": true,
+        "sprite_id": "metal_cracked"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      }
+    ],
+    [
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal_cracked",
+        "walkable": true,
+        "sprite_id": "metal_cracked"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal_cracked",
+        "walkable": true,
+        "sprite_id": "metal_cracked"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal_cracked",
+        "walkable": true,
+        "sprite_id": "metal_cracked"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal_cracked",
+        "walkable": true,
+        "sprite_id": "metal_cracked"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal_cracked",
+        "walkable": true,
+        "sprite_id": "metal_cracked"
+      }
+    ],
+    [
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal_cracked",
+        "walkable": true,
+        "sprite_id": "metal_cracked"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal_cracked",
+        "walkable": true,
+        "sprite_id": "metal_cracked"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal_cracked",
+        "walkable": true,
+        "sprite_id": "metal_cracked"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal_cracked",
+        "walkable": true,
+        "sprite_id": "metal_cracked"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal_cracked",
+        "walkable": true,
+        "sprite_id": "metal_cracked"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      }
+    ],
+    [
+      {
+        "tile_id": "metal_cracked",
+        "walkable": true,
+        "sprite_id": "metal_cracked"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal_cracked",
+        "walkable": true,
+        "sprite_id": "metal_cracked"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal_cracked",
+        "walkable": true,
+        "sprite_id": "metal_cracked"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal_cracked",
+        "walkable": true,
+        "sprite_id": "metal_cracked"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal_cracked",
+        "walkable": true,
+        "sprite_id": "metal_cracked"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      }
+    ],
+    [
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal_cracked",
+        "walkable": true,
+        "sprite_id": "metal_cracked"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal_cracked",
+        "walkable": true,
+        "sprite_id": "metal_cracked"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal_cracked",
+        "walkable": true,
+        "sprite_id": "metal_cracked"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal_cracked",
+        "walkable": true,
+        "sprite_id": "metal_cracked"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal_cracked",
+        "walkable": true,
+        "sprite_id": "metal_cracked"
+      }
+    ],
+    [
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal_cracked",
+        "walkable": true,
+        "sprite_id": "metal_cracked"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal_cracked",
+        "walkable": true,
+        "sprite_id": "metal_cracked"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal_cracked",
+        "walkable": true,
+        "sprite_id": "metal_cracked"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal_cracked",
+        "walkable": true,
+        "sprite_id": "metal_cracked"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal_cracked",
+        "walkable": true,
+        "sprite_id": "metal_cracked"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      }
+    ],
+    [
+      {
+        "tile_id": "metal_cracked",
+        "walkable": true,
+        "sprite_id": "metal_cracked"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal_cracked",
+        "walkable": true,
+        "sprite_id": "metal_cracked"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal_cracked",
+        "walkable": true,
+        "sprite_id": "metal_cracked"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal_cracked",
+        "walkable": true,
+        "sprite_id": "metal_cracked"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal_cracked",
+        "walkable": true,
+        "sprite_id": "metal_cracked"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      }
+    ],
+    [
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal_cracked",
+        "walkable": true,
+        "sprite_id": "metal_cracked"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal_cracked",
+        "walkable": true,
+        "sprite_id": "metal_cracked"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal_cracked",
+        "walkable": true,
+        "sprite_id": "metal_cracked"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal_cracked",
+        "walkable": true,
+        "sprite_id": "metal_cracked"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal_cracked",
+        "walkable": true,
+        "sprite_id": "metal_cracked"
+      }
+    ],
+    [
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal_cracked",
+        "walkable": true,
+        "sprite_id": "metal_cracked"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal_cracked",
+        "walkable": true,
+        "sprite_id": "metal_cracked"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal_cracked",
+        "walkable": true,
+        "sprite_id": "metal_cracked"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal_cracked",
+        "walkable": true,
+        "sprite_id": "metal_cracked"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal_cracked",
+        "walkable": true,
+        "sprite_id": "metal_cracked"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      }
+    ],
+    [
+      {
+        "tile_id": "metal_cracked",
+        "walkable": true,
+        "sprite_id": "metal_cracked"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal_cracked",
+        "walkable": true,
+        "sprite_id": "metal_cracked"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal_cracked",
+        "walkable": true,
+        "sprite_id": "metal_cracked"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal_cracked",
+        "walkable": true,
+        "sprite_id": "metal_cracked"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal_cracked",
+        "walkable": true,
+        "sprite_id": "metal_cracked"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      }
+    ],
+    [
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal_cracked",
+        "walkable": true,
+        "sprite_id": "metal_cracked"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal_cracked",
+        "walkable": true,
+        "sprite_id": "metal_cracked"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal_cracked",
+        "walkable": true,
+        "sprite_id": "metal_cracked"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal_cracked",
+        "walkable": true,
+        "sprite_id": "metal_cracked"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal_cracked",
+        "walkable": true,
+        "sprite_id": "metal_cracked"
+      }
+    ],
+    [
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal_cracked",
+        "walkable": true,
+        "sprite_id": "metal_cracked"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal_cracked",
+        "walkable": true,
+        "sprite_id": "metal_cracked"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal_cracked",
+        "walkable": true,
+        "sprite_id": "metal_cracked"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal_cracked",
+        "walkable": true,
+        "sprite_id": "metal_cracked"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal_cracked",
+        "walkable": true,
+        "sprite_id": "metal_cracked"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      }
+    ],
+    [
+      {
+        "tile_id": "metal_cracked",
+        "walkable": true,
+        "sprite_id": "metal_cracked"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal_cracked",
+        "walkable": true,
+        "sprite_id": "metal_cracked"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal_cracked",
+        "walkable": true,
+        "sprite_id": "metal_cracked"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal_cracked",
+        "walkable": true,
+        "sprite_id": "metal_cracked"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal_cracked",
+        "walkable": true,
+        "sprite_id": "metal_cracked"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      }
+    ],
+    [
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal_cracked",
+        "walkable": true,
+        "sprite_id": "metal_cracked"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal_cracked",
+        "walkable": true,
+        "sprite_id": "metal_cracked"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal_cracked",
+        "walkable": true,
+        "sprite_id": "metal_cracked"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal_cracked",
+        "walkable": true,
+        "sprite_id": "metal_cracked"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal_cracked",
+        "walkable": true,
+        "sprite_id": "metal_cracked"
+      }
+    ],
+    [
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal_cracked",
+        "walkable": true,
+        "sprite_id": "metal_cracked"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal_cracked",
+        "walkable": true,
+        "sprite_id": "metal_cracked"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal_cracked",
+        "walkable": true,
+        "sprite_id": "metal_cracked"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal_cracked",
+        "walkable": true,
+        "sprite_id": "metal_cracked"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      },
+      {
+        "tile_id": "metal_cracked",
+        "walkable": true,
+        "sprite_id": "metal_cracked"
+      },
+      {
+        "tile_id": "metal",
+        "walkable": true,
+        "sprite_id": "metal"
+      }
+    ]
+  ],
+  "warps": [
+    {
+      "x": 7,
+      "y": 14,
+      "target_map_id": "clockwork_2",
+      "target_x": 7,
+      "target_y": 0
+    }
+  ],
+  "triggers": [
+    {
+      "id": "mechanical_encounter_1_1",
+      "x": 5,
+      "y": 7,
+      "trigger_type": "battle",
+      "data": {
+        "encounter_id": "mechanical_1"
+      },
+      "once": true
+    },
+    {
+      "id": "mechanical_encounter_1_2",
+      "x": 9,
+      "y": 7,
+      "trigger_type": "battle",
+      "data": {
+        "encounter_id": "mechanical_1"
+      },
+      "once": true
+    }
+  ],
+  "entities": [],
+  "enemy_spawns": [],
+  "props": []
+}

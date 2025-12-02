@@ -1,0 +1,323 @@
+{
+  "moves": [
+    {
+      "id": "slash",
+      "name": "Slash",
+      "description": "A basic sword slash attack.",
+      "power": 10,
+      "accuracy": 95,
+      "element": "physical",
+      "animation": {
+        "type": "slash",
+        "color": [255, 255, 255],
+        "duration": 0.3,
+        "frames": 4
+      },
+      "learn_level": 1
+    },
+    {
+      "id": "punch",
+      "name": "Punch",
+      "description": "A quick punch attack.",
+      "power": 8,
+      "accuracy": 100,
+      "element": "physical",
+      "animation": {
+        "type": "impact",
+        "color": [255, 200, 100],
+        "duration": 0.2,
+        "frames": 3
+      },
+      "learn_level": 1
+    },
+    {
+      "id": "kick",
+      "name": "Kick",
+      "description": "A powerful kick.",
+      "power": 12,
+      "accuracy": 85,
+      "element": "physical",
+      "animation": {
+        "type": "impact",
+        "color": [200, 150, 100],
+        "duration": 0.25,
+        "frames": 3
+      },
+      "learn_level": 1
+    },
+    {
+      "id": "tackle",
+      "name": "Tackle",
+      "description": "Charge into the enemy.",
+      "power": 10,
+      "accuracy": 90,
+      "element": "physical",
+      "animation": {
+        "type": "charge",
+        "color": [255, 255, 200],
+        "duration": 0.4,
+        "frames": 5
+      },
+      "learn_level": 1
+    },
+    {
+      "id": "power_slash",
+      "name": "Power Slash",
+      "description": "A powerful overhead slash.",
+      "power": 18,
+      "accuracy": 85,
+      "element": "physical",
+      "animation": {
+        "type": "slash",
+        "color": [255, 100, 100],
+        "duration": 0.4,
+        "frames": 5
+      },
+      "learn_level": 3
+    },
+    {
+      "id": "quick_strike",
+      "name": "Quick Strike",
+      "description": "A lightning-fast attack.",
+      "power": 8,
+      "accuracy": 100,
+      "element": "physical",
+      "animation": {
+        "type": "slash",
+        "color": [200, 200, 255],
+        "duration": 0.15,
+        "frames": 2
+      },
+      "learn_level": 2
+    },
+    {
+      "id": "flame_strike",
+      "name": "Flame Strike",
+      "description": "An attack imbued with fire.",
+      "power": 15,
+      "accuracy": 90,
+      "element": "fire",
+      "animation": {
+        "type": "fire",
+        "color": [255, 100, 50],
+        "duration": 0.35,
+        "frames": 6
+      },
+      "learn_level": 4
+    },
+    {
+      "id": "frost_blade",
+      "name": "Frost Blade",
+      "description": "A chilling blade attack.",
+      "power": 14,
+      "accuracy": 90,
+      "element": "ice",
+      "animation": {
+        "type": "ice",
+        "color": [100, 200, 255],
+        "duration": 0.35,
+        "frames": 6
+      },
+      "learn_level": 4
+    },
+    {
+      "id": "thunder_punch",
+      "name": "Thunder Punch",
+      "description": "An electrified punch.",
+      "power": 16,
+      "accuracy": 85,
+      "element": "lightning",
+      "animation": {
+        "type": "lightning",
+        "color": [255, 255, 100],
+        "duration": 0.3,
+        "frames": 5
+      },
+      "learn_level": 5
+    },
+    {
+      "id": "crushing_blow",
+      "name": "Crushing Blow",
+      "description": "A devastating heavy attack.",
+      "power": 25,
+      "accuracy": 75,
+      "element": "physical",
+      "animation": {
+        "type": "impact",
+        "color": [150, 100, 50],
+        "duration": 0.5,
+        "frames": 6
+      },
+      "learn_level": 6
+    },
+    {
+      "id": "shadow_strike",
+      "name": "Shadow Strike",
+      "description": "Attack from the shadows.",
+      "power": 20,
+      "accuracy": 95,
+      "element": "dark",
+      "animation": {
+        "type": "dark",
+        "color": [80, 50, 120],
+        "duration": 0.35,
+        "frames": 5
+      },
+      "learn_level": 5
+    },
+    {
+      "id": "holy_smash",
+      "name": "Holy Smash",
+      "description": "A radiant attack blessed by light.",
+      "power": 18,
+      "accuracy": 90,
+      "element": "holy",
+      "animation": {
+        "type": "holy",
+        "color": [255, 255, 200],
+        "duration": 0.4,
+        "frames": 6
+      },
+      "learn_level": 5
+    },
+    {
+      "id": "double_strike",
+      "name": "Double Strike",
+      "description": "Two quick consecutive attacks.",
+      "power": 7,
+      "accuracy": 90,
+      "element": "physical",
+      "hits": 2,
+      "animation": {
+        "type": "slash",
+        "color": [255, 255, 255],
+        "duration": 0.4,
+        "frames": 6
+      },
+      "learn_level": 3
+    },
+    {
+      "id": "fury_swipes",
+      "name": "Fury Swipes",
+      "description": "Multiple rapid claw attacks.",
+      "power": 5,
+      "accuracy": 85,
+      "element": "physical",
+      "hits": 4,
+      "animation": {
+        "type": "slash",
+        "color": [255, 150, 150],
+        "duration": 0.5,
+        "frames": 8
+      },
+      "learn_level": 7
+    },
+    {
+      "id": "venomous_bite",
+      "name": "Venomous Bite",
+      "description": "A bite that may poison the target.",
+      "power": 12,
+      "accuracy": 90,
+      "element": "physical",
+      "status_inflict_id": "poison",
+      "status_chance": 0.3,
+      "animation": {
+        "type": "bite",
+        "color": [150, 50, 200],
+        "duration": 0.3,
+        "frames": 4
+      },
+      "learn_level": 4
+    },
+    {
+      "id": "stunning_blow",
+      "name": "Stunning Blow",
+      "description": "A strike that may stun the target.",
+      "power": 10,
+      "accuracy": 90,
+      "element": "physical",
+      "status_inflict_id": "stun",
+      "status_chance": 0.25,
+      "animation": {
+        "type": "impact",
+        "color": [255, 255, 100],
+        "duration": 0.35,
+        "frames": 5
+      },
+      "learn_level": 6
+    },
+    {
+      "id": "mega_punch",
+      "name": "Mega Punch",
+      "description": "An incredibly powerful punch.",
+      "power": 30,
+      "accuracy": 70,
+      "element": "physical",
+      "animation": {
+        "type": "impact",
+        "color": [255, 50, 50],
+        "duration": 0.5,
+        "frames": 7
+      },
+      "learn_level": 8
+    },
+    {
+      "id": "elemental_burst",
+      "name": "Elemental Burst",
+      "description": "Unleash raw elemental energy.",
+      "power": 22,
+      "accuracy": 85,
+      "element": "arcane",
+      "animation": {
+        "type": "burst",
+        "color": [200, 100, 255],
+        "duration": 0.45,
+        "frames": 7
+      },
+      "learn_level": 7
+    },
+    {
+      "id": "final_strike",
+      "name": "Final Strike",
+      "description": "The ultimate physical attack.",
+      "power": 40,
+      "accuracy": 80,
+      "element": "physical",
+      "animation": {
+        "type": "ultimate",
+        "color": [255, 200, 100],
+        "duration": 0.6,
+        "frames": 10
+      },
+      "learn_level": 10
+    }
+  ],
+  "class_starting_moves": {
+    "warrior": ["slash", "tackle"],
+    "mage": ["punch", "quick_strike"],
+    "rogue": ["quick_strike", "slash"],
+    "cleric": ["punch", "tackle"],
+    "ranger": ["quick_strike", "kick"],
+    "berserker": ["slash", "kick"],
+    "paladin": ["slash", "tackle"],
+    "necromancer": ["punch", "quick_strike"],
+    "monk": ["punch", "kick"],
+    "bard": ["punch", "quick_strike"],
+    "summoner": ["punch", "tackle"],
+    "knight": ["slash", "tackle"]
+  },
+  "class_learnable_moves": {
+    "warrior": ["power_slash", "double_strike", "crushing_blow", "stunning_blow", "mega_punch", "final_strike"],
+    "mage": ["flame_strike", "frost_blade", "thunder_punch", "elemental_burst"],
+    "rogue": ["double_strike", "shadow_strike", "fury_swipes", "venomous_bite"],
+    "cleric": ["holy_smash", "stunning_blow", "power_slash"],
+    "ranger": ["double_strike", "venomous_bite", "quick_strike", "fury_swipes"],
+    "berserker": ["power_slash", "crushing_blow", "mega_punch", "fury_swipes", "final_strike"],
+    "paladin": ["holy_smash", "power_slash", "stunning_blow", "final_strike"],
+    "necromancer": ["shadow_strike", "venomous_bite", "elemental_burst"],
+    "monk": ["double_strike", "thunder_punch", "fury_swipes", "mega_punch"],
+    "bard": ["stunning_blow", "shadow_strike", "elemental_burst"],
+    "summoner": ["flame_strike", "frost_blade", "elemental_burst"],
+    "knight": ["power_slash", "stunning_blow", "crushing_blow", "final_strike"]
+  }
+}

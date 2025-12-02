@@ -1,0 +1,7 @@
+The {adjective} {noun} decided to {verb} to the {place}.
+Along the way, it met a {adjective} {animal} who was {verb_ing} {adverb}.
+"What are you doing?" asked the {noun}.
+"I'm trying to {verb} to the {place} too!" replied the {animal}.
+So they {past_tense_verb} off together, {verb_ing} {adverb} through the {adjective} forest.
+When they finally arrived, they discovered the {place} was actually a {noun} full of {plural_noun}!
+"What a {adjective} surprise!" they exclaimed.

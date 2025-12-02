@@ -1,0 +1,25 @@
+CSV Cleaning Summary Report
+==================================================
+
+Generated: 2025-10-06 21:01:27
+
+Data Overview:
+  Original rows: 10
+  Cleaned rows: 10
+  Dropped rows: 0
+  Columns: 7
+
+Cleaning Operations:
+  Columns normalized: 6
+  Missing values filled: 3
+  Type conversions: 1
+  Outliers detected: 1
+
+Column Information:
+  name: object (0 nulls)
+  age: float64 (0 nulls)
+  email: object (0 nulls)
+  salary: float64 (0 nulls)
+  department: object (0 nulls)
+  start_date: datetime64[ns] (0 nulls)
+  age_outlier: bool (0 nulls)

@@ -1,0 +1,1 @@
+# This project relies on the Python standard library only.

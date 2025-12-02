@@ -1,0 +1,115 @@
+{% extends "base.html" %}
+
+{% block title %}Kanban Board - Flask To-Do App{% endblock %}
+
+{% block content %}
+<section class="page-header hero-grid">
+    <div class="page-heading">
+        <p class="eyebrow">Kanban</p>
+        <h1>Flow the work</h1>
+        <p class="lede">Drag lanes, enforce WIP, and keep critical-path items visible.</p>
+        <div class="header-meta">
+            <span class="pill subtle">Critical path length {{ critical_length }}</span>
+            <a class="pill actionable" href="{{ url_for('tasks.list_tasks') }}">List view</a>
+        </div>
+    </div>
+    <div class="hero-highlight">
+        <div class="stat-card elevated">
+            <div class="stat-card-header">
+                <div>
+                    <div class="stat-card-title">WIP guardrails</div>
+                    <div class="stat-card-subtitle">Keep focus by limiting active cards.</div>
+                </div>
+                <div class="stat-card-icon">↺</div>
+            </div>
+            <p class="mini muted">Drag cards between lanes or tap the lane selector on any card. Critical-path items are outlined.</p>
+        </div>
+    </div>
+</section>
+
+<div class="kanban-board" data-statuses="{{ statuses|join(',') }}">
+    {% for status in statuses %}
+        {% set cards = tasks_by_status[status] %}
+        {% set wip_limit = 5 if status in ['in_progress', 'review'] else 999 %}
+        <div class="kanban-column" data-status="{{ status }}">
+            <div class="kanban-header">
+                <div>
+                    <p class="eyebrow">{{ status|replace('_',' ')|title }}</p>
+                    <h3>{{ cards|length }} cards</h3>
+                </div>
+                {% if wip_limit < 900 %}
+                    <span class="pill subtle">WIP {{ wip_limit }}</span>
+                {% endif %}
+            </div>
+            <div class="kanban-dropzone">
+                {% for task in cards %}
+                    <article class="kanban-card {% if task.id in critical_path_ids %}critical-path{% endif %}"
+                             draggable="true"
+                             data-task-id="{{ task.id }}">
+                        <div class="task-pill-row">
+                            <span class="pill priority-pill priority-{{ task.priority }}">{{ task.priority|title }}</span>
+                            {% if task.due_date %}
+                            <span class="pill subtle">Due {{ task.due_date.strftime('%b %d') }}</span>
+                            {% endif %}
+                        </div>
+                        <h4>{{ task.title }}</h4>
+                        <p class="mini muted">
+                            {{ task.description[:80] if task.description else 'No description' }}
+                        </p>
+                        <div class="kanban-card-actions">
+                            <form method="POST" action="{{ url_for('tasks.change_status_route', task_id=task.id) }}" class="inline-form">
+                                <input type="hidden" name="status" value="{{ status }}">
+                                <button type="submit" class="pill actionable">Stay</button>
+                            </form>
+                            <a href="{{ url_for('tasks.view_task', task_id=task.id) }}" class="pill subtle">Details</a>
+                        </div>
+                    </article>
+                {% else %}
+                    <div class="empty-state small">
+                        <p>No cards here</p>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const cards = document.querySelectorAll('.kanban-card');
+    const dropzones = document.querySelectorAll('.kanban-dropzone');
+
+    cards.forEach(card => {
+        card.addEventListener('dragstart', (e) => {
+            e.dataTransfer.setData('text/plain', card.dataset.taskId);
+            card.classList.add('dragging');
+        });
+        card.addEventListener('dragend', () => card.classList.remove('dragging'));
+    });
+
+    dropzones.forEach(zone => {
+        zone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            zone.classList.add('dropping');
+        });
+        zone.addEventListener('dragleave', () => zone.classList.remove('dropping'));
+        zone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            zone.classList.remove('dropping');
+            const taskId = e.dataTransfer.getData('text/plain');
+            const status = zone.closest('.kanban-column').dataset.status;
+            fetch(`/tasks/${taskId}/status`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'X-Requested-With': 'XMLHttpRequest'
+                },
+                body: `status=${status}`
+            }).then(() => window.location.reload());
+        });
+    });
+});
+</script>
+{% endblock %}

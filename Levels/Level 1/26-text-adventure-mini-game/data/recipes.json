@@ -1,0 +1,861 @@
+{
+  "recipes": [
+    {
+      "id": "health_potion",
+      "name": "Health Potion",
+      "description": "Brew a healing potion from herbs.",
+      "category": "alchemy",
+      "ingredients": {
+        "herb": 2,
+        "empty_vial": 1
+      },
+      "result": {
+        "item_id": "health_potion",
+        "quantity": 1
+      },
+      "required_level": 1
+    },
+    {
+      "id": "sp_potion",
+      "name": "SP Potion",
+      "description": "Create a potion that restores spirit energy.",
+      "category": "alchemy",
+      "ingredients": {
+        "mana_flower": 2,
+        "empty_vial": 1
+      },
+      "result": {
+        "item_id": "sp_potion",
+        "quantity": 1
+      },
+      "required_level": 1
+    },
+    {
+      "id": "elixir",
+      "name": "Elixir",
+      "description": "A powerful restorative combining health and mana potions.",
+      "category": "alchemy",
+      "ingredients": {
+        "health_potion": 1,
+        "sp_potion": 1,
+        "phoenix_feather": 1
+      },
+      "result": {
+        "item_id": "elixir",
+        "quantity": 1
+      },
+      "required_level": 3
+    },
+    {
+      "id": "sword",
+      "name": "Iron Sword",
+      "description": "Forge a basic iron sword.",
+      "category": "smithing",
+      "ingredients": {
+        "iron_ore": 3,
+        "leather_scraps": 1
+      },
+      "result": {
+        "item_id": "sword",
+        "quantity": 1
+      },
+      "required_level": 1
+    },
+    {
+      "id": "leather_armor",
+      "name": "Leather Armor",
+      "description": "Craft protective leather armor.",
+      "category": "smithing",
+      "ingredients": {
+        "leather_scraps": 5,
+        "iron_ore": 1
+      },
+      "result": {
+        "item_id": "leather_armor",
+        "quantity": 1
+      },
+      "required_level": 1
+    },
+    {
+      "id": "warriors_blade",
+      "name": "Warrior's Blade",
+      "description": "Forge a sturdy blade fit for a warrior.",
+      "category": "smithing",
+      "ingredients": {
+        "iron_ore": 5,
+        "steel_ingot": 2,
+        "leather_scraps": 2
+      },
+      "result": {
+        "item_id": "warriors_blade",
+        "quantity": 1
+      },
+      "required_level": 3
+    },
+    {
+      "id": "mage_staff",
+      "name": "Apprentice Staff",
+      "description": "Craft a staff that channels magical energy.",
+      "category": "enchanting",
+      "ingredients": {
+        "ancient_wood": 2,
+        "magic_crystal_shard": 1
+      },
+      "result": {
+        "item_id": "mage_staff",
+        "quantity": 1
+      },
+      "required_level": 2
+    },
+    {
+      "id": "arcane_focus",
+      "name": "Arcane Focus",
+      "description": "Create a powerful crystal orb for magic users.",
+      "category": "enchanting",
+      "ingredients": {
+        "magic_crystal_shard": 2,
+        "phoenix_feather": 1,
+        "mana_flower": 3
+      },
+      "result": {
+        "item_id": "arcane_focus",
+        "quantity": 1
+      },
+      "required_level": 4
+    },
+    {
+      "id": "swift_ring",
+      "name": "Ring of Swiftness",
+      "description": "Enchant a ring with speed-enhancing magic.",
+      "category": "enchanting",
+      "ingredients": {
+        "silver_ring": 1,
+        "wind_essence": 2
+      },
+      "result": {
+        "item_id": "swift_ring",
+        "quantity": 1
+      },
+      "required_level": 2
+    },
+    {
+      "id": "shadow_dagger",
+      "name": "Shadow Dagger",
+      "description": "Forge a blade infused with shadow magic.",
+      "category": "smithing",
+      "ingredients": {
+        "iron_ore": 2,
+        "shadow_essence": 2,
+        "leather_scraps": 1
+      },
+      "result": {
+        "item_id": "shadow_dagger",
+        "quantity": 1
+      },
+      "required_level": 3
+    },
+    {
+      "id": "torch",
+      "name": "Torch",
+      "description": "Create a simple torch for illumination.",
+      "category": "basic",
+      "ingredients": {
+        "ancient_wood": 1,
+        "cloth": 1
+      },
+      "result": {
+        "item_id": "torch",
+        "quantity": 2
+      },
+      "required_level": 1
+    },
+    {
+      "id": "knights_armor",
+      "name": "Knight's Armor",
+      "description": "Forge heavy armor for maximum protection.",
+      "category": "smithing",
+      "ingredients": {
+        "steel_ingot": 5,
+        "iron_ore": 3,
+        "leather_scraps": 2
+      },
+      "result": {
+        "item_id": "knights_armor",
+        "quantity": 1
+      },
+      "required_level": 4
+    },
+    {
+      "id": "holy_symbol",
+      "name": "Holy Symbol",
+      "description": "Create a blessed symbol that channels divine power.",
+      "category": "enchanting",
+      "ingredients": {
+        "silver_ring": 1,
+        "holy_water": 2,
+        "phoenix_feather": 1
+      },
+      "result": {
+        "item_id": "holy_symbol",
+        "quantity": 1
+      },
+      "required_level": 3
+    },
+    {
+      "id": "steel_ingot",
+      "name": "Steel Ingot",
+      "description": "Smelt iron ore into refined steel.",
+      "category": "smithing",
+      "ingredients": {
+        "iron_ore": 3,
+        "coal": 2
+      },
+      "result": {
+        "item_id": "steel_ingot",
+        "quantity": 1
+      },
+      "required_level": 2
+    },
+    {
+      "id": "hi_potion",
+      "name": "Hi-Potion",
+      "description": "Brew a stronger healing potion.",
+      "category": "alchemy",
+      "ingredients": {
+        "health_potion": 2,
+        "herb": 3
+      },
+      "result": {
+        "item_id": "hi_potion",
+        "quantity": 1
+      },
+      "required_level": 2
+    },
+    {
+      "id": "mega_potion",
+      "name": "Mega Potion",
+      "description": "Create the ultimate healing potion.",
+      "category": "alchemy",
+      "ingredients": {
+        "hi_potion": 2,
+        "phoenix_feather": 1
+      },
+      "result": {
+        "item_id": "mega_potion",
+        "quantity": 1
+      },
+      "required_level": 4
+    },
+    {
+      "id": "hi_sp_potion",
+      "name": "Hi-SP Potion",
+      "description": "Brew a stronger spirit potion.",
+      "category": "alchemy",
+      "ingredients": {
+        "sp_potion": 2,
+        "mana_flower": 3
+      },
+      "result": {
+        "item_id": "hi_sp_potion",
+        "quantity": 1
+      },
+      "required_level": 2
+    },
+    {
+      "id": "mega_sp_potion",
+      "name": "Mega SP Potion",
+      "description": "Create the ultimate spirit potion.",
+      "category": "alchemy",
+      "ingredients": {
+        "hi_sp_potion": 2,
+        "magic_crystal_shard": 1
+      },
+      "result": {
+        "item_id": "mega_sp_potion",
+        "quantity": 1
+      },
+      "required_level": 4
+    },
+    {
+      "id": "group_heal_potion",
+      "name": "Party Potion",
+      "description": "Brew a potion that heals the entire party.",
+      "category": "alchemy",
+      "ingredients": {
+        "health_potion": 3,
+        "herb": 2,
+        "mana_flower": 1
+      },
+      "result": {
+        "item_id": "group_heal_potion",
+        "quantity": 1
+      },
+      "required_level": 3
+    },
+    {
+      "id": "antidote",
+      "name": "Antidote",
+      "description": "Create a cure for poison.",
+      "category": "alchemy",
+      "ingredients": {
+        "herb": 2,
+        "venomous_gland": 1,
+        "empty_vial": 1
+      },
+      "result": {
+        "item_id": "antidote",
+        "quantity": 2
+      },
+      "required_level": 1
+    },
+    {
+      "id": "burn_salve",
+      "name": "Burn Salve",
+      "description": "Create a salve that soothes burns.",
+      "category": "alchemy",
+      "ingredients": {
+        "herb": 2,
+        "ice_essence": 1,
+        "empty_vial": 1
+      },
+      "result": {
+        "item_id": "burn_salve",
+        "quantity": 2
+      },
+      "required_level": 2
+    },
+    {
+      "id": "thaw_tonic",
+      "name": "Thaw Tonic",
+      "description": "Create a warming tonic that cures frozen status.",
+      "category": "alchemy",
+      "ingredients": {
+        "herb": 2,
+        "fire_essence": 1,
+        "empty_vial": 1
+      },
+      "result": {
+        "item_id": "thaw_tonic",
+        "quantity": 2
+      },
+      "required_level": 2
+    },
+    {
+      "id": "panacea",
+      "name": "Panacea",
+      "description": "Create a cure-all remedy.",
+      "category": "alchemy",
+      "ingredients": {
+        "antidote": 1,
+        "burn_salve": 1,
+        "thaw_tonic": 1,
+        "phoenix_feather": 1
+      },
+      "result": {
+        "item_id": "panacea",
+        "quantity": 1
+      },
+      "required_level": 4
+    },
+    {
+      "id": "attack_tonic",
+      "name": "Attack Tonic",
+      "description": "Brew a tonic that temporarily boosts attack.",
+      "category": "alchemy",
+      "ingredients": {
+        "beast_fang": 2,
+        "fire_essence": 1,
+        "empty_vial": 1
+      },
+      "result": {
+        "item_id": "attack_tonic",
+        "quantity": 1
+      },
+      "required_level": 2
+    },
+    {
+      "id": "defense_tonic",
+      "name": "Defense Tonic",
+      "description": "Brew a tonic that temporarily boosts defense.",
+      "category": "alchemy",
+      "ingredients": {
+        "monster_bone": 2,
+        "iron_ore": 1,
+        "empty_vial": 1
+      },
+      "result": {
+        "item_id": "defense_tonic",
+        "quantity": 1
+      },
+      "required_level": 2
+    },
+    {
+      "id": "speed_tonic",
+      "name": "Speed Tonic",
+      "description": "Brew a tonic that temporarily boosts speed.",
+      "category": "alchemy",
+      "ingredients": {
+        "wind_essence": 2,
+        "mana_flower": 1,
+        "empty_vial": 1
+      },
+      "result": {
+        "item_id": "speed_tonic",
+        "quantity": 1
+      },
+      "required_level": 2
+    },
+    {
+      "id": "magic_tonic",
+      "name": "Magic Tonic",
+      "description": "Brew a tonic that temporarily boosts magic.",
+      "category": "alchemy",
+      "ingredients": {
+        "mana_flower": 3,
+        "magic_crystal_shard": 1,
+        "empty_vial": 1
+      },
+      "result": {
+        "item_id": "magic_tonic",
+        "quantity": 1
+      },
+      "required_level": 2
+    },
+    {
+      "id": "phoenix_down",
+      "name": "Phoenix Down",
+      "description": "Create a revival item from phoenix feathers.",
+      "category": "alchemy",
+      "ingredients": {
+        "phoenix_feather": 2,
+        "sacred_ash": 1,
+        "empty_vial": 1
+      },
+      "result": {
+        "item_id": "phoenix_down",
+        "quantity": 1
+      },
+      "required_level": 3
+    },
+    {
+      "id": "revival_crystal",
+      "name": "Revival Crystal",
+      "description": "Forge a powerful revival crystal.",
+      "category": "enchanting",
+      "ingredients": {
+        "phoenix_down": 1,
+        "magic_crystal_shard": 2,
+        "sacred_ash": 1
+      },
+      "result": {
+        "item_id": "revival_crystal",
+        "quantity": 1
+      },
+      "required_level": 5
+    },
+    {
+      "id": "smoke_bomb",
+      "name": "Smoke Bomb",
+      "description": "Create a bomb for quick escapes.",
+      "category": "basic",
+      "ingredients": {
+        "sulfur": 2,
+        "cloth": 2,
+        "coal": 1
+      },
+      "result": {
+        "item_id": "smoke_bomb",
+        "quantity": 2
+      },
+      "required_level": 1
+    },
+    {
+      "id": "hunters_bow",
+      "name": "Hunter's Bow",
+      "description": "Craft a precision bow for rangers.",
+      "category": "smithing",
+      "ingredients": {
+        "ancient_wood": 3,
+        "bowstring": 2,
+        "leather_scraps": 2
+      },
+      "result": {
+        "item_id": "hunters_bow",
+        "quantity": 1
+      },
+      "required_level": 3
+    },
+    {
+      "id": "berserker_axe",
+      "name": "Berserker Axe",
+      "description": "Forge a massive axe for berserkers.",
+      "category": "smithing",
+      "ingredients": {
+        "steel_ingot": 4,
+        "beast_fang": 3,
+        "leather_scraps": 2
+      },
+      "result": {
+        "item_id": "berserker_axe",
+        "quantity": 1
+      },
+      "required_level": 4
+    },
+    {
+      "id": "paladins_shield",
+      "name": "Paladin's Shield",
+      "description": "Forge a blessed shield for paladins.",
+      "category": "smithing",
+      "ingredients": {
+        "steel_ingot": 3,
+        "holy_water": 2,
+        "silver_ring": 1
+      },
+      "result": {
+        "item_id": "paladins_shield",
+        "quantity": 1
+      },
+      "required_level": 4
+    },
+    {
+      "id": "necromancers_tome",
+      "name": "Necromancer's Tome",
+      "description": "Bind dark knowledge into a grimoire.",
+      "category": "enchanting",
+      "ingredients": {
+        "dark_crystal": 2,
+        "monster_bone": 5,
+        "shadow_essence": 2
+      },
+      "result": {
+        "item_id": "necromancers_tome",
+        "quantity": 1
+      },
+      "required_level": 4
+    },
+    {
+      "id": "monks_wraps",
+      "name": "Monk's Wraps",
+      "description": "Weave enchanted hand wraps for monks.",
+      "category": "enchanting",
+      "ingredients": {
+        "enchanted_silk": 2,
+        "wind_essence": 2,
+        "leather_scraps": 2
+      },
+      "result": {
+        "item_id": "monks_wraps",
+        "quantity": 1
+      },
+      "required_level": 3
+    },
+    {
+      "id": "bards_lyre",
+      "name": "Bard's Lyre",
+      "description": "Craft a magical lyre for bards.",
+      "category": "enchanting",
+      "ingredients": {
+        "ancient_wood": 3,
+        "enchanted_silk": 2,
+        "magic_crystal_shard": 1
+      },
+      "result": {
+        "item_id": "bards_lyre",
+        "quantity": 1
+      },
+      "required_level": 3
+    },
+    {
+      "id": "summoners_crystal",
+      "name": "Summoner's Crystal",
+      "description": "Create a crystal that strengthens summoned creatures.",
+      "category": "enchanting",
+      "ingredients": {
+        "magic_crystal_shard": 2,
+        "spirit_essence": 2,
+        "silver_ring": 1
+      },
+      "result": {
+        "item_id": "summoners_crystal",
+        "quantity": 1
+      },
+      "required_level": 4
+    },
+    {
+      "id": "iron_sword",
+      "name": "Iron Sword",
+      "description": "Forge a reliable iron sword.",
+      "category": "smithing",
+      "ingredients": {
+        "iron_ore": 4,
+        "leather_scraps": 1,
+        "coal": 2
+      },
+      "result": {
+        "item_id": "sword",
+        "quantity": 1
+      },
+      "required_level": 1
+    },
+    {
+      "id": "enchanted_silk_craft",
+      "name": "Enchanted Silk",
+      "description": "Weave mundane cloth into magical silk.",
+      "category": "enchanting",
+      "ingredients": {
+        "cloth": 5,
+        "mana_flower": 2,
+        "magic_crystal_shard": 1
+      },
+      "result": {
+        "item_id": "enchanted_silk",
+        "quantity": 2
+      },
+      "required_level": 2
+    },
+    {
+      "id": "bowstring_craft",
+      "name": "Bowstring",
+      "description": "Create a strong bowstring.",
+      "category": "basic",
+      "ingredients": {
+        "leather_scraps": 2,
+        "cloth": 1
+      },
+      "result": {
+        "item_id": "bowstring",
+        "quantity": 2
+      },
+      "required_level": 1
+    },
+    {
+      "id": "smelling_salts",
+      "name": "Smelling Salts",
+      "description": "Create salts that cure sleep and stun.",
+      "category": "alchemy",
+      "ingredients": {
+        "herb": 1,
+        "sulfur": 1,
+        "empty_vial": 1
+      },
+      "result": {
+        "item_id": "smelling_salts",
+        "quantity": 2
+      },
+      "required_level": 1
+    },
+    {
+      "id": "clarity_tonic",
+      "name": "Clarity Tonic",
+      "description": "Create a tonic that cures confusion.",
+      "category": "alchemy",
+      "ingredients": {
+        "mana_flower": 2,
+        "holy_water": 1,
+        "empty_vial": 1
+      },
+      "result": {
+        "item_id": "clarity_tonic",
+        "quantity": 1
+      },
+      "required_level": 2
+    },
+    {
+      "id": "rangers_cloak",
+      "name": "Ranger's Cloak",
+      "description": "Craft a lightweight cloak for rangers.",
+      "category": "smithing",
+      "ingredients": {
+        "leather_scraps": 4,
+        "cloth": 3,
+        "wind_essence": 1
+      },
+      "result": {
+        "item_id": "leather_armor",
+        "quantity": 1
+      },
+      "required_level": 2
+    },
+    {
+      "id": "frost_blade",
+      "name": "Frost Blade",
+      "description": "Forge a sword imbued with ice magic.",
+      "category": "smithing",
+      "ingredients": {
+        "steel_ingot": 2,
+        "ice_essence": 3,
+        "leather_scraps": 1
+      },
+      "result": {
+        "item_id": "sword",
+        "quantity": 1
+      },
+      "required_level": 3
+    },
+    {
+      "id": "flame_staff",
+      "name": "Flame Staff",
+      "description": "Craft a staff that channels fire magic.",
+      "category": "enchanting",
+      "ingredients": {
+        "ancient_wood": 2,
+        "fire_essence": 2,
+        "magic_crystal_shard": 1
+      },
+      "result": {
+        "item_id": "mage_staff",
+        "quantity": 1
+      },
+      "required_level": 3
+    },
+    {
+      "id": "shadow_cloak",
+      "name": "Shadow Cloak",
+      "description": "Weave a cloak infused with shadow magic.",
+      "category": "enchanting",
+      "ingredients": {
+        "enchanted_silk": 3,
+        "shadow_essence": 2,
+        "cloth": 2
+      },
+      "result": {
+        "item_id": "leather_armor",
+        "quantity": 1
+      },
+      "required_level": 4
+    },
+    {
+      "id": "spirit_potion",
+      "name": "Spirit Potion",
+      "description": "Brew a potion that restores both HP and SP.",
+      "category": "alchemy",
+      "ingredients": {
+        "health_potion": 1,
+        "sp_potion": 1,
+        "spirit_essence": 1,
+        "empty_vial": 1
+      },
+      "result": {
+        "item_id": "elixir",
+        "quantity": 1
+      },
+      "required_level": 3
+    },
+    {
+      "id": "dark_blade",
+      "name": "Dark Blade",
+      "description": "Forge a blade infused with dark energy.",
+      "category": "smithing",
+      "ingredients": {
+        "steel_ingot": 3,
+        "dark_crystal": 1,
+        "shadow_essence": 2,
+        "leather_scraps": 2
+      },
+      "result": {
+        "item_id": "shadow_dagger",
+        "quantity": 1
+      },
+      "required_level": 4
+    },
+    {
+      "id": "holy_armor",
+      "name": "Holy Armor",
+      "description": "Forge blessed armor for paladins.",
+      "category": "smithing",
+      "ingredients": {
+        "steel_ingot": 4,
+        "holy_water": 3,
+        "silver_ring": 2,
+        "leather_scraps": 2
+      },
+      "result": {
+        "item_id": "knights_armor",
+        "quantity": 1
+      },
+      "required_level": 5
+    },
+    {
+      "id": "elemental_ring",
+      "name": "Elemental Ring",
+      "description": "Enchant a ring with elemental power.",
+      "category": "enchanting",
+      "ingredients": {
+        "silver_ring": 1,
+        "fire_essence": 1,
+        "ice_essence": 1,
+        "wind_essence": 1
+      },
+      "result": {
+        "item_id": "swift_ring",
+        "quantity": 1
+      },
+      "required_level": 4
+    },
+    {
+      "id": "beast_armor",
+      "name": "Beast Armor",
+      "description": "Craft armor from monster parts.",
+      "category": "smithing",
+      "ingredients": {
+        "monster_bone": 5,
+        "beast_fang": 3,
+        "leather_scraps": 3,
+        "iron_ore": 2
+      },
+      "result": {
+        "item_id": "leather_armor",
+        "quantity": 1
+      },
+      "required_level": 2
+    },
+    {
+      "id": "fish_stew",
+      "name": "Hearty Fish Stew",
+      "description": "A nutritious stew made from fresh fish and herbs.",
+      "category": "alchemy",
+      "ingredients": {
+        "fish_common_carp": 2,
+        "herb": 1
+      },
+      "result": {
+        "item_id": "fish_stew",
+        "quantity": 1
+      },
+      "required_level": 1
+    },
+    {
+      "id": "golden_lure",
+      "name": "Golden Lure",
+      "description": "A magical lure that attracts rare fish.",
+      "category": "enchanting",
+      "ingredients": {
+        "fish_golden_trout": 1,
+        "gold_nugget": 2
+      },
+      "result": {
+        "item_id": "golden_fishing_lure",
+        "quantity": 1
+      },
+      "required_level": 3
+    }
+  ],
+  "categories": {
+    "basic": {
+      "name": "Basic Crafting",
+      "description": "Simple items anyone can make."
+    },
+    "alchemy": {
+      "name": "Alchemy",
+      "description": "Brew potions and elixirs."
+    },
+    "smithing": {
+      "name": "Smithing",
+      "description": "Forge weapons and armor."
+    },
+    "enchanting": {
+      "name": "Enchanting",
+      "description": "Create magical items and accessories."
+    }
+  }
+}

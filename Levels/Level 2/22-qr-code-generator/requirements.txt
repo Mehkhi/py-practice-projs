@@ -1,0 +1,4 @@
+qrcode[pil]==7.4.2
+Pillow==10.0.1
+argparse
+pytest==7.4.3

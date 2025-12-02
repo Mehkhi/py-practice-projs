@@ -1,0 +1,23 @@
+{
+  "poison": "status_poison",
+  "bleed": "status_bleed",
+  "burn": "status_burn",
+  "frozen": "status_frozen",
+  "freeze": "status_frozen",
+  "stun": "status_stun",
+  "sleep": "status_sleep",
+  "confusion": "status_confusion",
+  "terror": "status_terror",
+  "taunt": "status_taunt",
+  "regen": "status_regen",
+  "barrier": "status_barrier",
+  "shield": "status_shield",
+  "attack_up": "status_attack_up",
+  "defense_up": "status_defense_up",
+  "limb_arm_left_missing": "status_limb_arm",
+  "limb_arm_right_missing": "status_limb_arm",
+  "limb_leg_left_missing": "status_limb_leg",
+  "limb_leg_right_missing": "status_limb_leg",
+  "summon_skeleton": "status_regen",
+  "summon_elemental": "status_regen"
+}

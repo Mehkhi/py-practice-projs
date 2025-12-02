@@ -1,0 +1,1943 @@
+{
+  "nodes": [
+    {
+      "id": "tutorial_npc",
+      "text": "Welcome, traveler! This forest path leads to danger. Be prepared for battle!",
+      "speaker": "Old Guide",
+      "portrait_id": "portrait_old_guide",
+      "choices": [
+        {
+          "text": "Thank you for the warning.",
+          "next_id": null,
+          "set_flag": null
+        },
+        {
+          "text": "I'm ready for anything!",
+          "next_id": null,
+          "set_flag": "confident_traveler"
+        }
+      ]
+    },
+    {
+      "id": "garden_choice",
+      "text": "You find a beautiful crystal. Do you take it?",
+      "choices": [
+        {
+          "text": "Take the crystal",
+          "next_id": null,
+          "set_flag": "took_crystal"
+        },
+        {
+          "text": "Leave it be",
+          "next_id": null,
+          "set_flag": "spared_crystal"
+        }
+      ],
+      "set_flags_after_choice": [
+        "crystal_choice_made"
+      ]
+    },
+    {
+      "id": "forest_merchant_intro",
+      "text": "Welcome, traveler. Care to trade supplies before you venture deeper?",
+      "speaker": "Forest Merchant",
+      "choices": [
+        {
+          "text": "Show me what you have.",
+          "next_id": null,
+          "set_flag": "met_forest_merchant"
+        },
+        {
+          "text": "Maybe later.",
+          "next_id": null,
+          "set_flag": null
+        }
+      ],
+      "portrait_id": "portrait_forest_merchant"
+    },
+    {
+      "id": "garden_spirit",
+      "text": "The garden hums with quiet magic. Will you protect it?",
+      "speaker": "Garden Spirit",
+      "choices": [
+        {
+          "text": "Yes, I will keep it safe.",
+          "next_id": null,
+          "set_flag": "pledged_to_garden"
+        },
+        {
+          "text": "I'm just passing through.",
+          "next_id": null,
+          "set_flag": "ignored_garden_spirit"
+        }
+      ],
+      "portrait_id": "portrait_garden_spirit"
+    },
+    {
+      "id": "forest_merchant_return",
+      "text": "Back for more supplies? I've got a few things for the road.",
+      "speaker": "Forest Merchant",
+      "choices": [
+        {
+          "text": "Let's trade.",
+          "next_id": null,
+          "set_flag": "met_forest_merchant"
+        }
+      ],
+      "portrait_id": "portrait_forest_merchant"
+    },
+    {
+      "id": "garden_spirit_grateful",
+      "text": "You left the crystal untouched. The garden thanks you.",
+      "speaker": "Garden Spirit",
+      "choices": [],
+      "portrait_id": "portrait_garden_spirit"
+    },
+    {
+      "id": "garden_spirit_displeased",
+      "text": "You took the crystal. Tread carefully; the spirits are watching.",
+      "speaker": "Garden Spirit",
+      "choices": [],
+      "portrait_id": "portrait_garden_spirit"
+    },
+    {
+      "id": "need_wolves_cleared",
+      "text": "The path ahead is too dangerous while the wolves roam free. Clear them first.",
+      "choices": []
+    },
+    {
+      "id": "need_slimes_first",
+      "text": "A sticky trail blocks the way. Handle the slime threat before moving on.",
+      "choices": []
+    },
+    {
+      "id": "need_torch",
+      "text": "It's pitch black ahead. You need a torch to see.",
+      "choices": []
+    },
+    {
+      "id": "need_crystal",
+      "text": "An ancient seal glows faintly. A magic crystal might awaken it.",
+      "choices": []
+    },
+    {
+      "id": "luna_recruit",
+      "text": "I've been watching you fight. You handle yourself well against those wolves. I'm Luna, a traveling mage. Mind if I join you? The road is safer together.",
+      "speaker": "Luna",
+      "portrait_id": "portrait_luna",
+      "choices": [
+        {
+          "text": "Welcome aboard, Luna!",
+          "next_id": "luna_joined",
+          "set_flag": "luna_recruited"
+        },
+        {
+          "text": "I prefer to travel alone.",
+          "next_id": null,
+          "set_flag": null
+        }
+      ]
+    },
+    {
+      "id": "luna_joined",
+      "text": "Excellent! My fire magic will light the way. Let's go!",
+      "speaker": "Luna",
+      "portrait_id": "portrait_luna",
+      "choices": []
+    },
+    {
+      "id": "luna_already_joined",
+      "text": "Ready when you are! Where to next?",
+      "speaker": "Luna",
+      "portrait_id": "portrait_luna",
+      "choices": []
+    },
+    {
+      "id": "brock_recruit",
+      "text": "You cleared out that cave? Impressive. Name's Brock. I've been stuck here for days. If you're heading deeper into danger, I'd like to come along. My sword arm is yours.",
+      "speaker": "Brock",
+      "portrait_id": "portrait_brock",
+      "choices": [
+        {
+          "text": "Glad to have you, Brock!",
+          "next_id": "brock_joined",
+          "set_flag": "brock_recruited"
+        },
+        {
+          "text": "Thanks, but I've got this.",
+          "next_id": null,
+          "set_flag": null
+        }
+      ]
+    },
+    {
+      "id": "brock_joined",
+      "text": "Ha! You won't regret it. Let's crush some monsters!",
+      "speaker": "Brock",
+      "portrait_id": "portrait_brock",
+      "choices": []
+    },
+    {
+      "id": "brock_already_joined",
+      "text": "Ready for battle anytime!",
+      "speaker": "Brock",
+      "portrait_id": "portrait_brock",
+      "choices": []
+    },
+    {
+      "id": "sage_recruit",
+      "text": "You found the secret garden... Few travelers make it here. I am Sage, keeper of healing arts. The world beyond needs mending. May I accompany you?",
+      "speaker": "Sage",
+      "portrait_id": "portrait_sage",
+      "choices": [
+        {
+          "text": "Your healing would be invaluable.",
+          "next_id": "sage_joined",
+          "set_flag": "sage_recruited"
+        },
+        {
+          "text": "The garden needs you more.",
+          "next_id": null,
+          "set_flag": null
+        }
+      ]
+    },
+    {
+      "id": "sage_joined",
+      "text": "Thank you. I will do my best to keep everyone safe.",
+      "speaker": "Sage",
+      "portrait_id": "portrait_sage",
+      "choices": []
+    },
+    {
+      "id": "sage_already_joined",
+      "text": "The garden's blessing goes with us.",
+      "speaker": "Sage",
+      "portrait_id": "portrait_sage",
+      "choices": []
+    },
+    {
+      "id": "riverside_blacksmith_intro",
+      "text": "Greetings, traveler! I'm Marcus, the blacksmith. Bandits stole my iron ore shipment. Help me recover it, and I'll craft something special for you.",
+      "speaker": "Marcus the Blacksmith",
+      "discover_recipes": ["sword"],
+      "choices": [
+        {
+          "text": "I'll help recover the ore.",
+          "next_id": null,
+          "set_flag": "quest_iron_recovery_started"
+        },
+        {
+          "text": "Maybe later.",
+          "next_id": null,
+          "set_flag": null
+        }
+      ],
+      "portrait_id": "portrait_marcus_blacksmith"
+    },
+    {
+      "id": "riverside_fisherman_intro",
+      "text": "Ahoy! Name's Tom. Something's scaring away all the fish upstream. Could you investigate?",
+      "speaker": "Old Fisher Tom",
+      "choices": [
+        {
+          "text": "I'll look into it.",
+          "next_id": null,
+          "set_flag": "quest_river_mystery_started"
+        },
+        {
+          "text": "Not right now.",
+          "next_id": null,
+          "set_flag": null
+        }
+      ],
+      "portrait_id": "portrait_fisher_tom"
+    },
+    {
+      "id": "hillcrest_herbalist_intro",
+      "text": "Welcome! I'm Willow. I need rare moonpetals from the secret garden for my healing potions. Can you gather some?",
+      "speaker": "Willow the Herbalist",
+      "choices": [
+        {
+          "text": "I can gather them.",
+          "next_id": null,
+          "set_flag": "quest_moonpetal_started"
+        },
+        {
+          "text": "I'm busy right now.",
+          "next_id": null,
+          "set_flag": null
+        }
+      ],
+      "portrait_id": "portrait_willow_herbalist"
+    },
+    {
+      "id": "hillcrest_miner_intro",
+      "text": "Oi! The mine's overrun by cave creatures. Clear 'em out and I'll share some rare gems.",
+      "speaker": "Gruff the Miner",
+      "choices": [
+        {
+          "text": "Consider it done.",
+          "next_id": null,
+          "set_flag": "quest_mine_clear_started"
+        },
+        {
+          "text": "Not interested.",
+          "next_id": null,
+          "set_flag": null
+        }
+      ],
+      "portrait_id": "portrait_gruff_miner"
+    },
+    {
+      "id": "shadowfen_alchemist_intro",
+      "text": "I am Mordecai. I require venom sacs from swamp creatures for my experiments. The rewards are... potent.",
+      "speaker": "Mordecai the Alchemist",
+      "discover_recipes": ["antidote"],
+      "choices": [
+        {
+          "text": "I'll collect the venom.",
+          "next_id": null,
+          "set_flag": "quest_venom_started"
+        },
+        {
+          "text": "Sounds too risky.",
+          "next_id": null,
+          "set_flag": null
+        }
+      ],
+      "portrait_id": "portrait_mordecai_alchemist"
+    },
+    {
+      "id": "shadowfen_hunter_intro",
+      "text": "You move quietly. Good. I'm tracking a shadow beast terrorizing the town. Help me hunt it.",
+      "speaker": "Shade the Hunter",
+      "choices": [
+        {
+          "text": "Let's hunt.",
+          "next_id": null,
+          "set_flag": "quest_shadow_hunt_started"
+        },
+        {
+          "text": "I'll pass.",
+          "next_id": null,
+          "set_flag": null
+        }
+      ],
+      "portrait_id": "portrait_shade_hunter"
+    },
+    {
+      "id": "ironhold_commander_intro",
+      "text": "Attention! I am Commander Steelheart. The demon fortress threatens our borders. We need warriors to strike at their outposts.",
+      "speaker": "Commander Steelheart",
+      "choices": [
+        {
+          "text": "I'll fight for Ironhold.",
+          "next_id": null,
+          "set_flag": "quest_demon_strike_started"
+        },
+        {
+          "text": "This isn't my war.",
+          "next_id": null,
+          "set_flag": null
+        }
+      ],
+      "portrait_id": "portrait_commander_steelheart"
+    },
+    {
+      "id": "ironhold_weaponsmith_intro",
+      "text": "I am Grimm, master of the forge. I seek dragon scales from the volcanic crater to craft legendary weapons.",
+      "speaker": "Forge Master Grimm",
+      "choices": [
+        {
+          "text": "I'll retrieve the scales.",
+          "next_id": null,
+          "set_flag": "quest_dragon_scales_started"
+        },
+        {
+          "text": "Too dangerous for me.",
+          "next_id": null,
+          "set_flag": null
+        }
+      ],
+      "portrait_id": "portrait_grimm_weaponsmith"
+    },
+    {
+      "id": "ironhold_arena_intro",
+      "text": "Welcome to the Arena! I'm Vex. Prove your worth in combat trials and earn glory - and prizes suited to your class.",
+      "speaker": "Arena Master Vex",
+      "choices": [
+        {
+          "text": "I accept the challenge.",
+          "next_id": null,
+          "set_flag": "quest_arena_started"
+        },
+        {
+          "text": "Not today.",
+          "next_id": null,
+          "set_flag": null
+        }
+      ],
+      "portrait_id": "portrait_arena_vex"
+    },
+    {
+      "id": "crystalspire_archmage_intro",
+      "text": "Greetings, seeker. I am Archmage Seraphina. Ancient texts speak of a power source in the ruins. Retrieve it for the academy.",
+      "speaker": "Archmage Seraphina",
+      "choices": [
+        {
+          "text": "I'll find this power source.",
+          "next_id": null,
+          "set_flag": "quest_power_source_started"
+        },
+        {
+          "text": "I'm not interested in magic.",
+          "next_id": null,
+          "set_flag": null
+        }
+      ],
+      "portrait_id": "portrait_archmage_seraphina"
+    },
+    {
+      "id": "crystalspire_enchanter_intro",
+      "text": "I am Rune, enchanter of artifacts. I need essence crystals to continue my work. They form in areas of concentrated magic.",
+      "speaker": "Enchanter Rune",
+      "choices": [
+        {
+          "text": "Where can I find them?",
+          "next_id": null,
+          "set_flag": "quest_essence_crystals_started"
+        },
+        {
+          "text": "I have other priorities.",
+          "next_id": null,
+          "set_flag": null
+        }
+      ],
+      "portrait_id": "portrait_enchanter_rune"
+    },
+    {
+      "id": "crystalspire_librarian_intro",
+      "text": "I am the Keeper of Tomes. A forbidden grimoire was stolen and taken to the haunted crypt. Its knowledge must not fall into wrong hands.",
+      "speaker": "Keeper of Tomes",
+      "choices": [
+        {
+          "text": "I'll recover the grimoire.",
+          "next_id": null,
+          "set_flag": "quest_grimoire_started"
+        },
+        {
+          "text": "Sounds too dangerous.",
+          "next_id": null,
+          "set_flag": null
+        }
+      ],
+      "portrait_id": "portrait_keeper_tomes"
+    },
+    {
+      "id": "nighthaven_broker_intro",
+      "text": "So, you've found me. I am the Shadow Broker. I have a job - retrieve a stolen artifact from a rival. Discretion is paramount.",
+      "speaker": "The Shadow Broker",
+      "choices": [
+        {
+          "text": "I can be discreet.",
+          "next_id": null,
+          "set_flag": "quest_artifact_theft_started"
+        },
+        {
+          "text": "I don't do that kind of work.",
+          "next_id": null,
+          "set_flag": null
+        }
+      ],
+      "portrait_id": "portrait_shadow_broker"
+    },
+    {
+      "id": "nighthaven_fence_intro",
+      "text": "Psst! Name's Whisper. I buy and sell... special goods. Got a job if you're interested. Need someone to 'acquire' some valuables.",
+      "speaker": "Whisper the Fence",
+      "choices": [
+        {
+          "text": "Tell me more.",
+          "next_id": null,
+          "set_flag": "quest_fence_job_started"
+        },
+        {
+          "text": "I'm not a thief.",
+          "next_id": null,
+          "set_flag": null
+        }
+      ],
+      "portrait_id": "portrait_whisper_fence"
+    },
+    {
+      "id": "nighthaven_informant_intro",
+      "text": "I see everything. I know everything. Information is power, and I have a task that requires... observation skills.",
+      "speaker": "Silent Eye",
+      "choices": [
+        {
+          "text": "What do you need?",
+          "next_id": null,
+          "set_flag": "quest_spy_mission_started"
+        },
+        {
+          "text": "I'm not interested.",
+          "next_id": null,
+          "set_flag": null
+        }
+      ],
+      "portrait_id": "portrait_silent_eye"
+    },
+    {
+      "id": "sunharbor_priest_intro",
+      "text": "Blessings upon you, traveler. I am High Priest Solarius. Dark forces gather at the haunted crypt. Will you help purify it?",
+      "speaker": "High Priest Solarius",
+      "choices": [
+        {
+          "text": "I will cleanse the darkness.",
+          "next_id": null,
+          "set_flag": "quest_purify_crypt_started"
+        },
+        {
+          "text": "I have other matters.",
+          "next_id": null,
+          "set_flag": null
+        }
+      ],
+      "portrait_id": "portrait_priest_solarius"
+    },
+    {
+      "id": "sunharbor_merchant_intro",
+      "text": "Ah, a capable adventurer! I am Merchant Prince Aurelius. My trade caravans are being raided. Protect them and share in the profits.",
+      "speaker": "Merchant Prince Aurelius",
+      "choices": [
+        {
+          "text": "I'll protect your caravans.",
+          "next_id": null,
+          "set_flag": "quest_caravan_guard_started"
+        },
+        {
+          "text": "Not my concern.",
+          "next_id": null,
+          "set_flag": null
+        }
+      ],
+      "portrait_id": "portrait_merchant_aurelius"
+    },
+    {
+      "id": "sunharbor_captain_intro",
+      "text": "Ahoy, landlubber! Captain Stormwind here. Sea serpents are threatening the harbor. Help me drive them off!",
+      "speaker": "Captain Stormwind",
+      "choices": [
+        {
+          "text": "I'll help with the serpents.",
+          "next_id": null,
+          "set_flag": "quest_sea_serpents_started"
+        },
+        {
+          "text": "I prefer dry land.",
+          "next_id": null,
+          "set_flag": null
+        }
+      ],
+      "portrait_id": "portrait_captain_stormwind"
+    },
+    {
+      "id": "hillcrest_herbalist_location",
+      "text": "Hillcrest Town sits at the foot of the great mountains. The air here is crisp and the herbs grow strong. If you're heading to Crystalspire City, take the eastern road. The mountain pass to the north leads to dangerous territory.",
+      "speaker": "Willow the Herbalist",
+      "choices": [
+        {
+          "text": "Tell me about Crystalspire City.",
+          "next_id": "hillcrest_about_crystalspire",
+          "set_flag": null
+        },
+        {
+          "text": "What's in the mountains?",
+          "next_id": "hillcrest_about_mountains",
+          "set_flag": null
+        },
+        {
+          "text": "Thanks for the information.",
+          "next_id": null,
+          "set_flag": null
+        }
+      ],
+      "portrait_id": "portrait_willow_herbalist"
+    },
+    {
+      "id": "hillcrest_about_crystalspire",
+      "text": "Crystalspire City is the center of magical learning in these lands. The Archmage Seraphina leads the academy there. Many seek her wisdom about ancient artifacts and forgotten lore.",
+      "speaker": "Willow the Herbalist",
+      "choices": [],
+      "portrait_id": "portrait_willow_herbalist"
+    },
+    {
+      "id": "hillcrest_about_mountains",
+      "text": "The mountain pass is treacherous. Trolls and ice elementals roam freely. Beyond lies the frozen tundra - only the bravest venture there. They say an Ice Queen rules those lands.",
+      "speaker": "Willow the Herbalist",
+      "choices": [],
+      "portrait_id": "portrait_willow_herbalist"
+    },
+    {
+      "id": "hillcrest_miner_location",
+      "text": "The mines beneath Hillcrest have been here for generations. We dig deep for gems and ore. But lately, creatures from the dark caves have been causing trouble. The path west leads to those cursed tunnels.",
+      "speaker": "Gruff the Miner",
+      "choices": [
+        {
+          "text": "What kind of creatures?",
+          "next_id": "hillcrest_about_creatures",
+          "set_flag": null
+        },
+        {
+          "text": "I'll check it out.",
+          "next_id": null,
+          "set_flag": null
+        }
+      ],
+      "portrait_id": "portrait_gruff_miner"
+    },
+    {
+      "id": "hillcrest_about_creatures",
+      "text": "Bats, cave slimes, and worse. Some say there's a treasure chamber hidden deep within, guarded by an ancient evil. Many have sought it. Few return.",
+      "speaker": "Gruff the Miner",
+      "choices": [],
+      "portrait_id": "portrait_gruff_miner"
+    },
+    {
+      "id": "riverside_blacksmith_location",
+      "text": "Riverside Town is a peaceful place, sitting where the forest meets the river. The forest path to the south is where most travelers begin their journey. Ironhold City lies to the west - a fortress city of warriors.",
+      "speaker": "Marcus the Blacksmith",
+      "choices": [
+        {
+          "text": "Tell me about Ironhold.",
+          "next_id": "riverside_about_ironhold",
+          "set_flag": null
+        },
+        {
+          "text": "What's in the forest?",
+          "next_id": "riverside_about_forest",
+          "set_flag": null
+        },
+        {
+          "text": "Thanks.",
+          "next_id": null,
+          "set_flag": null
+        }
+      ],
+      "portrait_id": "portrait_marcus_blacksmith"
+    },
+    {
+      "id": "riverside_about_ironhold",
+      "text": "Ironhold is a military stronghold. Commander Steelheart leads the defense against the demon threat. They're always looking for capable warriors. The Arena there tests the mettle of all who enter.",
+      "speaker": "Marcus the Blacksmith",
+      "choices": [],
+      "portrait_id": "portrait_marcus_blacksmith"
+    },
+    {
+      "id": "riverside_about_forest",
+      "text": "The forest path seems peaceful, but wolves and slimes lurk within. Beyond it lies the secret garden - a place of ancient magic. Some say a spirit dwells there, guarding powerful secrets.",
+      "speaker": "Marcus the Blacksmith",
+      "choices": [],
+      "portrait_id": "portrait_marcus_blacksmith"
+    },
+    {
+      "id": "riverside_fisherman_location",
+      "text": "I've fished these waters for forty years. The river flows from the mountains, through the swamps, and out to Sunharbor. Strange things have been happening upstream lately - the fish are scared of something.",
+      "speaker": "Old Fisher Tom",
+      "choices": [
+        {
+          "text": "What do you think it is?",
+          "next_id": "riverside_about_upstream",
+          "set_flag": null
+        },
+        {
+          "text": "I'll investigate.",
+          "next_id": null,
+          "set_flag": "quest_river_mystery_started"
+        }
+      ],
+      "portrait_id": "portrait_fisher_tom"
+    },
+    {
+      "id": "riverside_about_upstream",
+      "text": "Could be the swamp witch causing trouble again. The murky swamp lies between here and the ancient ruins. Dark magic festers in those waters.",
+      "speaker": "Old Fisher Tom",
+      "choices": [],
+      "portrait_id": "portrait_fisher_tom"
+    },
+    {
+      "id": "shadowfen_alchemist_location",
+      "text": "Shadowfen Town exists in the shadow of the murky swamp. We've learned to live alongside the darkness. The swamp to the south holds many alchemical ingredients - and many dangers. Nighthaven City to the east deals in... different commodities.",
+      "speaker": "Mordecai the Alchemist",
+      "discover_recipes": ["hi_potion"],
+      "choices": [
+        {
+          "text": "What's in Nighthaven?",
+          "next_id": "shadowfen_about_nighthaven",
+          "set_flag": null
+        },
+        {
+          "text": "Tell me about the swamp.",
+          "next_id": "shadowfen_about_swamp",
+          "set_flag": null
+        },
+        {
+          "text": "Interesting.",
+          "next_id": null,
+          "set_flag": null
+        }
+      ],
+      "portrait_id": "portrait_mordecai_alchemist"
+    },
+    {
+      "id": "shadowfen_about_nighthaven",
+      "text": "Nighthaven is a city of shadows and secrets. The Shadow Broker controls the flow of information there. If you need something found - or someone - that's where you go. Just watch your coin purse.",
+      "speaker": "Mordecai the Alchemist",
+      "choices": [],
+      "portrait_id": "portrait_mordecai_alchemist"
+    },
+    {
+      "id": "shadowfen_about_swamp",
+      "text": "The murky swamp is home to lizardmen, poisonous creatures, and a powerful witch. She guards the path to the ancient ruins. Many ingredients I need can only be found there.",
+      "speaker": "Mordecai the Alchemist",
+      "choices": [],
+      "portrait_id": "portrait_mordecai_alchemist"
+    },
+    {
+      "id": "shadowfen_hunter_location",
+      "text": "I track the beasts that threaten our town. The shadow beast I'm hunting came from the direction of the haunted crypt. That place connects to Nighthaven through underground passages.",
+      "speaker": "Shade the Hunter",
+      "choices": [
+        {
+          "text": "Tell me about the crypt.",
+          "next_id": "shadowfen_about_crypt",
+          "set_flag": null
+        },
+        {
+          "text": "I'll help you hunt.",
+          "next_id": null,
+          "set_flag": "quest_shadow_hunt_started"
+        }
+      ],
+      "portrait_id": "portrait_shade_hunter"
+    },
+    {
+      "id": "shadowfen_about_crypt",
+      "text": "The haunted crypt is filled with undead - skeletons, ghosts, vampires. It connects the desert oasis to the frozen tundra through ancient tunnels. Only the brave or foolish venture there.",
+      "speaker": "Shade the Hunter",
+      "choices": [],
+      "portrait_id": "portrait_shade_hunter"
+    },
+    {
+      "id": "ironhold_commander_location",
+      "text": "Ironhold City stands as the last bastion against the demon invasion. We guard the passage to the frozen north. Riverside Town supplies us, and we protect them in return. The volcanic crater to the far north holds the demon fortress.",
+      "speaker": "Commander Steelheart",
+      "choices": [
+        {
+          "text": "Tell me about the demons.",
+          "next_id": "ironhold_about_demons",
+          "set_flag": null
+        },
+        {
+          "text": "How can I help?",
+          "next_id": null,
+          "set_flag": "quest_demon_strike_started"
+        }
+      ],
+      "portrait_id": "portrait_commander_steelheart"
+    },
+    {
+      "id": "ironhold_about_demons",
+      "text": "The demons emerged from the volcanic crater years ago. Their fortress lies beyond, ruled by a Fire Lord. We've held them at bay, but we need heroes to strike at their heart.",
+      "speaker": "Commander Steelheart",
+      "choices": [],
+      "portrait_id": "portrait_commander_steelheart"
+    },
+    {
+      "id": "ironhold_weaponsmith_location",
+      "text": "My forge burns day and night, arming our soldiers. The frozen tundra to the north holds rare metals, but it's too dangerous for most. The volcanic crater beyond has dragon scales - the finest material for legendary weapons.",
+      "speaker": "Forge Master Grimm",
+      "choices": [
+        {
+          "text": "Dragon scales?",
+          "next_id": "ironhold_about_dragons",
+          "set_flag": null
+        },
+        {
+          "text": "I'll get you some.",
+          "next_id": null,
+          "set_flag": "quest_dragon_scales_started"
+        }
+      ],
+      "portrait_id": "portrait_grimm_weaponsmith"
+    },
+    {
+      "id": "ironhold_about_dragons",
+      "text": "Ancient dragons once ruled the volcanic crater. Their scales remain, scattered among the lava flows. Fire elementals guard them jealously. Bring me scales, and I'll forge you something worthy of legend.",
+      "speaker": "Forge Master Grimm",
+      "choices": [],
+      "portrait_id": "portrait_grimm_weaponsmith"
+    },
+    {
+      "id": "crystalspire_archmage_location",
+      "text": "Crystalspire City is built upon ley lines of magical power. Our academy trains the finest mages in the realm. Hillcrest Town lies to the west, and the ancient ruins to the south hold secrets of the old world.",
+      "speaker": "Archmage Seraphina",
+      "choices": [
+        {
+          "text": "Tell me about the ruins.",
+          "next_id": "crystalspire_about_ruins",
+          "set_flag": null
+        },
+        {
+          "text": "What secrets?",
+          "next_id": "crystalspire_about_secrets",
+          "set_flag": null
+        },
+        {
+          "text": "Fascinating.",
+          "next_id": null,
+          "set_flag": null
+        }
+      ],
+      "portrait_id": "portrait_archmage_seraphina"
+    },
+    {
+      "id": "crystalspire_about_ruins",
+      "text": "The ancient ruins predate our civilization. They connect to the murky swamp, the treasure chamber, and the haunted crypt. A guardian of immense power protects the deepest chambers.",
+      "speaker": "Archmage Seraphina",
+      "choices": [],
+      "portrait_id": "portrait_archmage_seraphina"
+    },
+    {
+      "id": "crystalspire_about_secrets",
+      "text": "The ancients possessed magic we can barely comprehend. A power source lies hidden in the ruins - one that could revolutionize our understanding of the arcane arts.",
+      "speaker": "Archmage Seraphina",
+      "choices": [],
+      "portrait_id": "portrait_archmage_seraphina"
+    },
+    {
+      "id": "crystalspire_enchanter_location",
+      "text": "I work with essence crystals - condensed magical energy. They form naturally in places of great power. The secret garden and ancient ruins are rich with them.",
+      "speaker": "Enchanter Rune",
+      "choices": [
+        {
+          "text": "Where exactly?",
+          "next_id": "crystalspire_about_crystals",
+          "set_flag": null
+        },
+        {
+          "text": "I'll find some.",
+          "next_id": null,
+          "set_flag": "quest_essence_crystals_started"
+        }
+      ],
+      "portrait_id": "portrait_enchanter_rune"
+    },
+    {
+      "id": "crystalspire_about_crystals",
+      "text": "The secret garden, hidden beyond the forest path, has the purest crystals. The mountain pass also has deposits, though ice elementals guard them fiercely.",
+      "speaker": "Enchanter Rune",
+      "choices": [],
+      "portrait_id": "portrait_enchanter_rune"
+    },
+    {
+      "id": "crystalspire_librarian_location",
+      "text": "Our library contains knowledge from across the ages. Recently, a forbidden grimoire was stolen - taken to the haunted crypt. The thief seeks to raise an army of undead.",
+      "speaker": "Keeper of Tomes",
+      "choices": [
+        {
+          "text": "Who stole it?",
+          "next_id": "crystalspire_about_thief",
+          "set_flag": null
+        },
+        {
+          "text": "I'll retrieve it.",
+          "next_id": null,
+          "set_flag": "quest_grimoire_started"
+        }
+      ],
+      "portrait_id": "portrait_keeper_tomes"
+    },
+    {
+      "id": "crystalspire_about_thief",
+      "text": "A necromancer who was expelled from our academy. He fled through the ancient ruins to the crypt. The undead there now serve him. Be careful - he's grown powerful.",
+      "speaker": "Keeper of Tomes",
+      "choices": [],
+      "portrait_id": "portrait_keeper_tomes"
+    },
+    {
+      "id": "nighthaven_broker_location",
+      "text": "Nighthaven City operates in shadows. We're connected to Shadowfen Town and the haunted crypt through secret passages. Information flows through me - for a price.",
+      "speaker": "The Shadow Broker",
+      "choices": [
+        {
+          "text": "What information do you have?",
+          "next_id": "nighthaven_about_info",
+          "set_flag": null
+        },
+        {
+          "text": "I need your services.",
+          "next_id": null,
+          "set_flag": "quest_artifact_theft_started"
+        }
+      ],
+      "portrait_id": "portrait_shadow_broker"
+    },
+    {
+      "id": "nighthaven_about_info",
+      "text": "I know the paths between all places. The crypt leads to the frozen north. The swamp connects to ancient ruins. And the treasure chamber? It can be reached from multiple locations - if you know the way.",
+      "speaker": "The Shadow Broker",
+      "choices": [],
+      "portrait_id": "portrait_shadow_broker"
+    },
+    {
+      "id": "nighthaven_fence_location",
+      "text": "Nighthaven's markets deal in goods that other cities won't touch. We have connections everywhere - Shadowfen for alchemical supplies, the crypt for... rare antiquities.",
+      "speaker": "Whisper the Fence",
+      "choices": [
+        {
+          "text": "Rare antiquities?",
+          "next_id": "nighthaven_about_antiquities",
+          "set_flag": null
+        },
+        {
+          "text": "What do you need?",
+          "next_id": null,
+          "set_flag": "quest_fence_job_started"
+        }
+      ],
+      "portrait_id": "portrait_whisper_fence"
+    },
+    {
+      "id": "nighthaven_about_antiquities",
+      "text": "The haunted crypt and ancient ruins are full of treasures from the old world. Dangerous to retrieve, but valuable beyond measure. I pay well for such items.",
+      "speaker": "Whisper the Fence",
+      "choices": [],
+      "portrait_id": "portrait_whisper_fence"
+    },
+    {
+      "id": "sunharbor_priest_location",
+      "text": "Sunharbor City basks in eternal light, blessed by the sun god. We stand against the darkness of the haunted crypt. The desert oasis to the north provides respite for travelers, and the volcanic crater to the west... that is where true evil dwells.",
+      "speaker": "High Priest Solarius",
+      "choices": [
+        {
+          "text": "Tell me about the darkness.",
+          "next_id": "sunharbor_about_darkness",
+          "set_flag": null
+        },
+        {
+          "text": "I will fight the evil.",
+          "next_id": null,
+          "set_flag": "quest_purify_crypt_started"
+        }
+      ],
+      "portrait_id": "portrait_priest_solarius"
+    },
+    {
+      "id": "sunharbor_about_darkness",
+      "text": "The haunted crypt festers with undead corruption. It spreads through underground passages to the frozen tundra and desert. We must purify it before the darkness consumes all.",
+      "speaker": "High Priest Solarius",
+      "choices": [],
+      "portrait_id": "portrait_priest_solarius"
+    },
+    {
+      "id": "sunharbor_merchant_location",
+      "text": "Sunharbor is the trading heart of the realm. Ships come from distant lands, caravans from the desert oasis. The volcanic crater's rare minerals fetch high prices - if anyone dares retrieve them.",
+      "speaker": "Merchant Prince Aurelius",
+      "choices": [
+        {
+          "text": "What about the caravans?",
+          "next_id": "sunharbor_about_caravans",
+          "set_flag": null
+        },
+        {
+          "text": "I'll protect your trade.",
+          "next_id": null,
+          "set_flag": "quest_caravan_guard_started"
+        }
+      ],
+      "portrait_id": "portrait_merchant_aurelius"
+    },
+    {
+      "id": "sunharbor_about_caravans",
+      "text": "Bandits from the desert oasis have been raiding our caravans. They hide among the ruins there. Clear them out, and I'll make it worth your while.",
+      "speaker": "Merchant Prince Aurelius",
+      "choices": [],
+      "portrait_id": "portrait_merchant_aurelius"
+    },
+    {
+      "id": "sunharbor_captain_location",
+      "text": "The harbor is my domain. Ships sail to distant lands, but lately sea serpents have made the waters treacherous. They came from somewhere deep - perhaps disturbed by the volcanic activity to the west.",
+      "speaker": "Captain Stormwind",
+      "choices": [
+        {
+          "text": "Volcanic activity?",
+          "next_id": "sunharbor_about_volcano",
+          "set_flag": null
+        },
+        {
+          "text": "I'll deal with the serpents.",
+          "next_id": null,
+          "set_flag": "quest_sea_serpents_started"
+        }
+      ],
+      "portrait_id": "portrait_captain_stormwind"
+    },
+    {
+      "id": "sunharbor_about_volcano",
+      "text": "The volcanic crater has been more active lately. Fire elementals and demons have grown bolder. Some say a Fire Lord is awakening. The path there goes through the frozen tundra - ice and fire, side by side.",
+      "speaker": "Captain Stormwind",
+      "choices": [],
+      "portrait_id": "portrait_captain_stormwind"
+    },
+    {
+      "id": "riverside_innkeeper_intro",
+      "text": "Welcome to the Riverside Inn! Rest your weary bones and listen to tales from travelers. We've got warm beds and warmer stew.",
+      "speaker": "Martha the Innkeeper",
+      "choices": [
+        {
+          "text": "I'd like to rest.",
+          "next_id": null,
+          "set_flag": "rested_riverside"
+        },
+        {
+          "text": "Any news from travelers?",
+          "next_id": "riverside_inn_rumors",
+          "set_flag": null
+        },
+        {
+          "text": "Just passing through.",
+          "next_id": null,
+          "set_flag": null
+        }
+      ],
+      "portrait_id": "portrait_martha_innkeeper"
+    },
+    {
+      "id": "riverside_inn_rumors",
+      "text": "Heard tell of bandits on the road to Ironhold. And strange lights in the forest at night. Best be careful out there, traveler.",
+      "speaker": "Martha the Innkeeper",
+      "choices": [],
+      "portrait_id": "portrait_martha_innkeeper"
+    },
+    {
+      "id": "riverside_merchant_intro",
+      "text": "Gerald's General Goods at your service! I stock everything an adventurer needs - potions, torches, the essentials. Care to browse?",
+      "speaker": "Gerald the Trader",
+      "choices": [
+        {
+          "text": "Show me your wares.",
+          "next_id": null,
+          "set_flag": "met_gerald"
+        },
+        {
+          "text": "Maybe later.",
+          "next_id": null,
+          "set_flag": null
+        }
+      ],
+      "portrait_id": "portrait_gerald_trader"
+    },
+    {
+      "id": "hillcrest_innkeeper_intro",
+      "text": "Welcome to the Hillcrest Lodge! The mountain air does wonders for tired muscles. Would you like a room?",
+      "speaker": "Bertha the Innkeeper",
+      "choices": [
+        {
+          "text": "I need rest.",
+          "next_id": null,
+          "set_flag": "rested_hillcrest"
+        },
+        {
+          "text": "What's happening in town?",
+          "next_id": "hillcrest_inn_news",
+          "set_flag": null
+        },
+        {
+          "text": "Not right now.",
+          "next_id": null,
+          "set_flag": null
+        }
+      ],
+      "portrait_id": "portrait_bertha_innkeeper"
+    },
+    {
+      "id": "hillcrest_inn_news",
+      "text": "The miners have been finding strange crystals deep in the caves. Willow thinks they're magical. And there's been howling from the mountain pass at night...",
+      "speaker": "Bertha the Innkeeper",
+      "choices": [],
+      "portrait_id": "portrait_bertha_innkeeper"
+    },
+    {
+      "id": "hillcrest_baker_intro",
+      "text": "Fresh bread, warm pies, and sweet rolls! Nothing better after a long trek through the mountains. I use herbs from Willow's garden - best flavors in all the realm!",
+      "speaker": "Piper the Baker",
+      "choices": [
+        {
+          "text": "Smells delicious!",
+          "next_id": null,
+          "set_flag": null
+        },
+        {
+          "text": "Tell me about the town.",
+          "next_id": "hillcrest_baker_town",
+          "set_flag": null
+        }
+      ],
+      "portrait_id": "portrait_piper_baker"
+    },
+    {
+      "id": "hillcrest_baker_town",
+      "text": "Hillcrest is small but proud. The miners work hard, Willow tends her herbs, and I feed everyone. We're simple folk, but happy. Just watch for the creatures from the caves - they've been more active lately.",
+      "speaker": "Piper the Baker",
+      "choices": [],
+      "portrait_id": "portrait_piper_baker"
+    },
+    {
+      "id": "shadowfen_innkeeper_intro",
+      "text": "Eh? Another traveler braving the swamps? Well, come in then. The Murky Mug isn't fancy, but it's dry. That's more than you'll find outside.",
+      "speaker": "Grimsby the Innkeeper",
+      "choices": [
+        {
+          "text": "I need a room.",
+          "next_id": null,
+          "set_flag": "rested_shadowfen"
+        },
+        {
+          "text": "What can you tell me about this place?",
+          "next_id": "shadowfen_inn_info",
+          "set_flag": null
+        },
+        {
+          "text": "I'll manage.",
+          "next_id": null,
+          "set_flag": null
+        }
+      ],
+      "portrait_id": "portrait_grimsby_innkeeper"
+    },
+    {
+      "id": "shadowfen_inn_info",
+      "text": "Shadowfen survives where others would sink. The swamp provides - if you know where to look. Mordecai's potions keep us healthy, and Shade keeps the monsters at bay. Just don't wander at night.",
+      "speaker": "Grimsby the Innkeeper",
+      "choices": [],
+      "portrait_id": "portrait_grimsby_innkeeper"
+    },
+    {
+      "id": "shadowfen_potion_intro",
+      "text": "Potions, elixirs, remedies for what ails you! Hex has brewed them all. The swamp's ingredients make for... potent concoctions. Interested?",
+      "speaker": "Hex the Potion Seller",
+      "choices": [
+        {
+          "text": "Show me what you have.",
+          "next_id": null,
+          "set_flag": "met_hex"
+        },
+        {
+          "text": "What makes your potions special?",
+          "next_id": "shadowfen_potion_special",
+          "set_flag": null
+        },
+        {
+          "text": "I'll pass.",
+          "next_id": null,
+          "set_flag": null
+        }
+      ],
+      "portrait_id": "portrait_hex_potion"
+    },
+    {
+      "id": "shadowfen_potion_special",
+      "text": "The swamp's flora is unique - mushrooms that glow, roots that writhe, flowers that whisper. Most call it cursed. I call it useful. My antidotes are the strongest you'll find anywhere.",
+      "speaker": "Hex the Potion Seller",
+      "choices": [],
+      "portrait_id": "portrait_hex_potion"
+    },
+    {
+      "id": "ironhold_armorer_intro",
+      "text": "BRUTUS FORGES THE FINEST ARMOR! If you're heading to battle, you'll want my protection. Steel tempered in Ironhold's great forges - nothing breaks through it!",
+      "speaker": "Brutus the Armorer",
+      "choices": [
+        {
+          "text": "Let me see your armor.",
+          "next_id": null,
+          "set_flag": "met_brutus"
+        },
+        {
+          "text": "Tell me about Ironhold's forges.",
+          "next_id": "ironhold_forge_info",
+          "set_flag": null
+        },
+        {
+          "text": "Not today.",
+          "next_id": null,
+          "set_flag": null
+        }
+      ],
+      "portrait_id": "portrait_brutus_armorer"
+    },
+    {
+      "id": "ironhold_forge_info",
+      "text": "Our forges have burned for centuries! The heat comes from deep volcanic vents. Makes the strongest steel in the realm. Even the demons fear Ironhold-forged weapons!",
+      "speaker": "Brutus the Armorer",
+      "choices": [],
+      "portrait_id": "portrait_brutus_armorer"
+    },
+    {
+      "id": "ironhold_general_intro",
+      "text": "Welcome to Helena's Supplies! Every soldier needs provisions. I stock everything from potions to revival items. The Commander recommends all warriors visit before deployment.",
+      "speaker": "Helena the Shopkeeper",
+      "choices": [
+        {
+          "text": "I'll take a look.",
+          "next_id": null,
+          "set_flag": "met_helena"
+        },
+        {
+          "text": "What do soldiers usually buy?",
+          "next_id": "ironhold_soldier_supplies",
+          "set_flag": null
+        },
+        {
+          "text": "Maybe later.",
+          "next_id": null,
+          "set_flag": null
+        }
+      ],
+      "portrait_id": "portrait_helena_shopkeeper"
+    },
+    {
+      "id": "ironhold_soldier_supplies",
+      "text": "Potions are essential - you can never have too many. Phoenix Downs for the worst situations. And antidotes, because those swamp creatures are nasty. Stock up before you head north!",
+      "speaker": "Helena the Shopkeeper",
+      "choices": [],
+      "portrait_id": "portrait_helena_shopkeeper"
+    },
+    {
+      "id": "ironhold_tavern_intro",
+      "text": "Ha! Another warrior seeking liquid courage? Bruno's Battleaxe Tavern is the place! Soldiers, mercenaries, heroes - they all drink here. What'll it be?",
+      "speaker": "Bruno the Barkeep",
+      "choices": [
+        {
+          "text": "I need rest and a drink.",
+          "next_id": null,
+          "set_flag": "rested_ironhold"
+        },
+        {
+          "text": "What stories have you heard?",
+          "next_id": "ironhold_tavern_stories",
+          "set_flag": null
+        },
+        {
+          "text": "Just looking around.",
+          "next_id": null,
+          "set_flag": null
+        }
+      ],
+      "portrait_id": "portrait_bruno_barkeep"
+    },
+    {
+      "id": "ironhold_tavern_stories",
+      "text": "The demons are getting bolder - scouts report movement near the fortress. The Arena's had some fierce battles lately. And whispers say there's a dragon in the volcanic crater. Exciting times, eh?",
+      "speaker": "Bruno the Barkeep",
+      "choices": [],
+      "portrait_id": "portrait_bruno_barkeep"
+    },
+    {
+      "id": "crystalspire_magic_intro",
+      "text": "Welcome to Mystica's Arcane Emporium! I deal in magical equipment and potions for the discerning spellcaster. The Academy sends their students to me.",
+      "speaker": "Mystica the Enchantress",
+      "choices": [
+        {
+          "text": "Show me your magical wares.",
+          "next_id": null,
+          "set_flag": "met_mystica"
+        },
+        {
+          "text": "Tell me about the Academy.",
+          "next_id": "crystalspire_academy_info",
+          "set_flag": null
+        },
+        {
+          "text": "Perhaps another time.",
+          "next_id": null,
+          "set_flag": null
+        }
+      ],
+      "portrait_id": "portrait_mystica_enchantress"
+    },
+    {
+      "id": "crystalspire_academy_info",
+      "text": "The Crystalspire Academy is the premier institution for magical learning. Archmage Seraphina leads it. Students come from across the realm to study here. The ley lines beneath the city amplify all magic.",
+      "speaker": "Mystica the Enchantress",
+      "choices": [],
+      "portrait_id": "portrait_mystica_enchantress"
+    },
+    {
+      "id": "crystalspire_scroll_intro",
+      "text": "Papyrus the Scribe, keeper of knowledge! I transcribe magical texts and historical records. Looking for information? I might know something useful.",
+      "speaker": "Papyrus the Scribe",
+      "choices": [
+        {
+          "text": "What do you know about the ancient ruins?",
+          "next_id": "crystalspire_ruins_lore",
+          "set_flag": null
+        },
+        {
+          "text": "Tell me about the city.",
+          "next_id": "crystalspire_city_lore",
+          "set_flag": null
+        },
+        {
+          "text": "I should go.",
+          "next_id": null,
+          "set_flag": null
+        }
+      ],
+      "portrait_id": "portrait_papyrus_scribe"
+    },
+    {
+      "id": "crystalspire_ruins_lore",
+      "text": "The ancient ruins predate our civilization by millennia. The texts speak of a power source that once lit an entire empire. The Archmage seeks it still. Be wary - the ruins are guarded by constructs that never rest.",
+      "speaker": "Papyrus the Scribe",
+      "choices": [],
+      "portrait_id": "portrait_papyrus_scribe"
+    },
+    {
+      "id": "crystalspire_city_lore",
+      "text": "Crystalspire was built atop the convergence of magical ley lines. The great crystal spire channels this energy. It's why magic is stronger here, and why the Academy was founded in this place.",
+      "speaker": "Papyrus the Scribe",
+      "choices": [],
+      "portrait_id": "portrait_papyrus_scribe"
+    },
+    {
+      "id": "crystalspire_tavern_intro",
+      "text": "Welcome to the Starlight Lounge! A refined establishment for scholars and mages. Rest your mind as well as your body. We serve the finest crystalline wine.",
+      "speaker": "Celeste the Hostess",
+      "choices": [
+        {
+          "text": "I'd like to rest.",
+          "next_id": null,
+          "set_flag": "rested_crystalspire"
+        },
+        {
+          "text": "Who frequents this place?",
+          "next_id": "crystalspire_tavern_patrons",
+          "set_flag": null
+        },
+        {
+          "text": "Not now, thank you.",
+          "next_id": null,
+          "set_flag": null
+        }
+      ],
+      "portrait_id": "portrait_celeste_hostess"
+    },
+    {
+      "id": "crystalspire_tavern_patrons",
+      "text": "Academy students debating magical theory, visiting scholars from distant lands, enchanters discussing their latest creations. Sometimes even the Archmage herself stops by. Intellectual conversation flows as freely as the wine here.",
+      "speaker": "Celeste the Hostess",
+      "choices": [],
+      "portrait_id": "portrait_celeste_hostess"
+    },
+    {
+      "id": "nighthaven_black_market_intro",
+      "text": "Psst... You look like someone who appreciates... discretion. Vex deals in items you won't find in regular shops. Interested in the shadows?",
+      "speaker": "Vex the Dealer",
+      "choices": [
+        {
+          "text": "Show me what you've got.",
+          "next_id": null,
+          "set_flag": "met_vex"
+        },
+        {
+          "text": "What kind of items?",
+          "next_id": "nighthaven_black_market_items",
+          "set_flag": null
+        },
+        {
+          "text": "I don't deal in shadows.",
+          "next_id": null,
+          "set_flag": null
+        }
+      ],
+      "portrait_id": "portrait_vex_dealer"
+    },
+    {
+      "id": "nighthaven_black_market_items",
+      "text": "Daggers that strike from darkness. Smoke bombs for quick escapes. Tonics that boost your... capabilities. All untraceable, all effective. The Shadow Broker sends clients my way.",
+      "speaker": "Vex the Dealer",
+      "choices": [],
+      "portrait_id": "portrait_vex_dealer"
+    },
+    {
+      "id": "nighthaven_tavern_intro",
+      "text": "The Twilight Den welcomes you. In Nighthaven, we don't ask questions. A drink, a room, no judgments. What happens in the Den stays in the Den.",
+      "speaker": "Dusk the Barkeep",
+      "choices": [
+        {
+          "text": "I need a room.",
+          "next_id": null,
+          "set_flag": "rested_nighthaven"
+        },
+        {
+          "text": "What's the word on the streets?",
+          "next_id": "nighthaven_tavern_rumors",
+          "set_flag": null
+        },
+        {
+          "text": "Just passing through.",
+          "next_id": null,
+          "set_flag": null
+        }
+      ],
+      "portrait_id": "portrait_dusk_barkeep"
+    },
+    {
+      "id": "nighthaven_tavern_rumors",
+      "text": "The Shadow Broker's been busy - big jobs coming in. Whisper's got new merchandise. And there's talk of someone digging in the haunted crypt... looking for something powerful.",
+      "speaker": "Dusk the Barkeep",
+      "choices": [],
+      "portrait_id": "portrait_dusk_barkeep"
+    },
+    {
+      "id": "nighthaven_gambler_intro",
+      "text": "Hey there, friend! Lucky Lou's the name, games of chance are my game! Feeling lucky? I've got dice, cards, and wagers for the brave!",
+      "speaker": "Lucky Lou",
+      "choices": [
+        {
+          "text": "I might try my luck.",
+          "next_id": "nighthaven_gambler_game",
+          "set_flag": null
+        },
+        {
+          "text": "How do you stay lucky?",
+          "next_id": "nighthaven_gambler_secret",
+          "set_flag": null
+        },
+        {
+          "text": "I'll pass.",
+          "next_id": null,
+          "set_flag": null
+        }
+      ],
+      "portrait_id": "portrait_lucky_lou"
+    },
+    {
+      "id": "nighthaven_gambler_game",
+      "text": "A brave soul! I like that! Come back when you've got gold to spare, and we'll see if fortune favors you!",
+      "speaker": "Lucky Lou",
+      "choices": [],
+      "portrait_id": "portrait_lucky_lou"
+    },
+    {
+      "id": "nighthaven_gambler_secret",
+      "text": "Ha! A magician never reveals his secrets! But between you and me... it's all about reading people. In Nighthaven, that's the most valuable skill of all.",
+      "speaker": "Lucky Lou",
+      "choices": [],
+      "portrait_id": "portrait_lucky_lou"
+    },
+    {
+      "id": "sunharbor_exotic_intro",
+      "text": "Greetings, traveler! Zara brings treasures from across the seas! Rare elixirs, enchanted rings, items you won't find anywhere else in the realm!",
+      "speaker": "Zara the Exotic Trader",
+      "choices": [
+        {
+          "text": "Show me these exotic goods.",
+          "next_id": null,
+          "set_flag": "met_zara"
+        },
+        {
+          "text": "Where do you get these items?",
+          "next_id": "sunharbor_exotic_source",
+          "set_flag": null
+        },
+        {
+          "text": "Maybe another time.",
+          "next_id": null,
+          "set_flag": null
+        }
+      ],
+      "portrait_id": "portrait_zara_trader"
+    },
+    {
+      "id": "sunharbor_exotic_source",
+      "text": "Ships from distant continents dock here! I trade with merchants from lands you've never heard of. My Revival Crystals come from the Phoenix Isles. My elixirs from the Eternal Gardens. Only the best for Sunharbor!",
+      "speaker": "Zara the Exotic Trader",
+      "choices": [],
+      "portrait_id": "portrait_zara_trader"
+    },
+    {
+      "id": "sunharbor_tavern_intro",
+      "text": "Welcome to the Golden Anchor! The finest inn on the harbor! Sailors, merchants, adventurers - we serve them all. The sea breeze keeps our rooms cool.",
+      "speaker": "Marina the Hostess",
+      "choices": [
+        {
+          "text": "I need a room.",
+          "next_id": null,
+          "set_flag": "rested_sunharbor"
+        },
+        {
+          "text": "What's the talk of the harbor?",
+          "next_id": "sunharbor_tavern_news",
+          "set_flag": null
+        },
+        {
+          "text": "Not right now.",
+          "next_id": null,
+          "set_flag": null
+        }
+      ],
+      "portrait_id": "portrait_marina_hostess"
+    },
+    {
+      "id": "sunharbor_tavern_news",
+      "text": "The sea serpents have shipping worried. Captain Stormwind's been leading hunts. And there's been unusual activity near the volcanic crater - ships report glowing red skies at night.",
+      "speaker": "Marina the Hostess",
+      "choices": [],
+      "portrait_id": "portrait_marina_hostess"
+    },
+    {
+      "id": "sunharbor_dockworker_intro",
+      "text": "Arr! Barnacle Bill, they call me! Forty years on these docks, loading and unloading ships. I've seen it all - treasures from every corner of the world!",
+      "speaker": "Barnacle Bill",
+      "choices": [
+        {
+          "text": "What's the most interesting thing you've seen?",
+          "next_id": "sunharbor_dock_stories",
+          "set_flag": null
+        },
+        {
+          "text": "Tell me about the harbor.",
+          "next_id": "sunharbor_dock_info",
+          "set_flag": null
+        },
+        {
+          "text": "Keep up the good work.",
+          "next_id": null,
+          "set_flag": null
+        }
+      ],
+      "portrait_id": "portrait_barnacle_bill"
+    },
+    {
+      "id": "sunharbor_dock_stories",
+      "text": "Once saw a chest of gems from the Crystal Caves! Another time, a live baby dragon in a cage - Captain Stormwind made them throw it overboard! And lately, strange crates going to the temple - the High Priest's orders.",
+      "speaker": "Barnacle Bill",
+      "choices": [],
+      "portrait_id": "portrait_barnacle_bill"
+    },
+    {
+      "id": "sunharbor_dock_info",
+      "text": "Sunharbor's the busiest port in the realm! Ships come from everywhere. Merchant Prince Aurelius controls most of the trade. Good work if you can get it - honest pay for honest labor!",
+      "speaker": "Barnacle Bill",
+      "choices": [],
+      "portrait_id": "portrait_barnacle_bill"
+    },
+    {
+      "id": "mountain_traveler_intro",
+      "text": "The mountain pass is treacherous, but the view is worth it. Watch out for trolls ahead!",
+      "speaker": "Mountain Traveler",
+      "choices": [
+        {
+          "text": "Thanks for the warning.",
+          "next_id": null,
+          "set_flag": null
+        },
+        {
+          "text": "I'll be careful.",
+          "next_id": null,
+          "set_flag": null
+        }
+      ],
+      "portrait_id": "portrait_default"
+    },
+    {
+      "id": "desert_nomad_intro",
+      "text": "The desert is harsh, but the oasis provides respite. Bandits roam these sands - stay alert.",
+      "speaker": "Desert Nomad",
+      "choices": [
+        {
+          "text": "I'll keep that in mind.",
+          "next_id": null,
+          "set_flag": null
+        },
+        {
+          "text": "Thanks for the advice.",
+          "next_id": null,
+          "set_flag": null
+        }
+      ],
+      "portrait_id": "portrait_default"
+    },
+    {
+      "id": "shadow_recruit",
+      "text": "You found me. Most don't even know I'm here. The name's Shadow - I deal in secrets and swift blades. I've been watching you navigate these ruins. You have potential. Care for a partner who can strike before enemies even see her coming?",
+      "speaker": "Shadow",
+      "portrait_id": "portrait_shadow",
+      "choices": [
+        {
+          "text": "A rogue's skills would be invaluable. Welcome!",
+          "next_id": "shadow_joined",
+          "set_flag": "shadow_recruited"
+        },
+        {
+          "text": "I don't trust someone who hides in shadows.",
+          "next_id": "shadow_rejected",
+          "set_flag": null
+        }
+      ]
+    },
+    {
+      "id": "shadow_joined",
+      "text": "Smart choice. I'll watch your back - you'll never even know I'm there until an enemy falls. Let's move.",
+      "speaker": "Shadow",
+      "portrait_id": "portrait_shadow",
+      "choices": []
+    },
+    {
+      "id": "shadow_rejected",
+      "text": "Suit yourself. But remember - the shadows see everything. Perhaps our paths will cross again.",
+      "speaker": "Shadow",
+      "portrait_id": "portrait_shadow",
+      "choices": []
+    },
+    {
+      "id": "flint_recruit",
+      "text": "Hold there, traveler! I'm Flint, ranger of these mountains. Saw you handling those creatures below - not bad! I've been tracking something big through these peaks. Could use a capable ally. What do you say - care to team up?",
+      "speaker": "Flint",
+      "portrait_id": "portrait_flint",
+      "choices": [
+        {
+          "text": "A skilled archer would be a great addition. Let's do it!",
+          "next_id": "flint_joined",
+          "set_flag": "flint_recruited"
+        },
+        {
+          "text": "I'll manage on my own, thanks.",
+          "next_id": "flint_rejected",
+          "set_flag": null
+        }
+      ]
+    },
+    {
+      "id": "flint_joined",
+      "text": "Ha! Excellent! My arrows never miss their mark. Together, we'll handle whatever these mountains throw at us. Lead on, friend!",
+      "speaker": "Flint",
+      "portrait_id": "portrait_flint",
+      "choices": []
+    },
+    {
+      "id": "flint_rejected",
+      "text": "Independent type, eh? I respect that. If you change your mind, I'll be around. Good hunting!",
+      "speaker": "Flint",
+      "portrait_id": "portrait_flint",
+      "choices": []
+    },
+    {
+      "id": "thorne_recruit",
+      "text": "Halt! I am Thorne, once knight-captain of the realm's guard. I came to this swamp seeking a cure for a cursed blade wound. You... you've cleared the corruption here. I am in your debt. Allow me to repay it by serving as your shield.",
+      "speaker": "Thorne",
+      "portrait_id": "portrait_thorne",
+      "choices": [
+        {
+          "text": "A knight's protection would be most welcome. Join us!",
+          "next_id": "thorne_joined",
+          "set_flag": "thorne_recruited"
+        },
+        {
+          "text": "You owe me nothing. Rest and recover.",
+          "next_id": "thorne_rejected",
+          "set_flag": null
+        }
+      ]
+    },
+    {
+      "id": "thorne_joined",
+      "text": "You honor me. My shield will stand between you and any danger. By my oath as a knight, I will not fail you. Command me as you see fit.",
+      "speaker": "Thorne",
+      "portrait_id": "portrait_thorne",
+      "choices": []
+    },
+    {
+      "id": "thorne_rejected",
+      "text": "Your kindness speaks well of your character. Should you ever need a stalwart defender, seek me out. My blade is always at your service.",
+      "speaker": "Thorne",
+      "portrait_id": "portrait_thorne",
+      "choices": []
+    },
+    {
+      "id": "shop_closed_generic",
+      "text": "Sorry, I'm not open right now. Come back later!",
+      "choices": []
+    },
+    {
+      "id": "shop_closed_sleeping",
+      "text": "Zzz... (The shopkeeper is asleep)",
+      "choices": []
+    },
+    {
+      "id": "shop_closed_evening",
+      "text": "I'm off duty. Try me again tomorrow morning.",
+      "choices": []
+    },
+    {
+      "id": "merchant_off_duty",
+      "text": "Ah, traveler! I'm taking a break at the tavern. My shop is closed for the evening, but I'll be back on the forest path tomorrow morning. Come by then if you need supplies!",
+      "speaker": "Forest Merchant",
+      "portrait_id": "portrait_forest_merchant",
+      "choices": []
+    },
+    {
+      "id": "merchant_schedule_inquiry",
+      "text": "{npc_name} says: 'I tend my shop from morning until afternoon. You can find me at the tavern in the evenings.'",
+      "choices": []
+    },
+    {
+      "id": "guide_greeting_players",
+      "text": "Old Guide: 'Welcome, traveler. I'm keeping an eye on the path this morning. If you need direction, ask away.'",
+      "choices": []
+    },
+    {
+      "id": "guide_out_scouting",
+      "text": "Old Guide is away scouting new routes. He'll return once the roads are clear.",
+      "choices": []
+    },
+    {
+      "id": "guide_resting",
+      "text": "Old Guide: 'Long day on the trails. I'll be back at dawn if you need me.'",
+      "choices": []
+    },
+    {
+      "id": "innkeeper_off_duty",
+      "text": "Martha the innkeeper is closing her books for the night. Rooms are locked until morning.",
+      "choices": []
+    },
+    {
+      "id": "herbalist_gathering",
+      "text": "Willow is out gathering fresh herbs. She'll reopen her stall after she returns.",
+      "choices": []
+    },
+    {
+      "id": "herbalist_resting",
+      "text": "Willow wipes her hands clean: 'Shop's closed while I restock and rest. Check back tomorrow.'",
+      "choices": []
+    },
+    {
+      "id": "alchemist_out_gathering",
+      "text": "Mordecai is consulting with hunters for rare toxins. The lab is closed for now.",
+      "choices": []
+    },
+    {
+      "id": "alchemist_busy_research",
+      "text": "Mordecai barely looks up from bubbling vials: 'Not taking customers. Come back after my research cycle.'",
+      "choices": []
+    },
+    {
+      "id": "armorer_closed",
+      "text": "Brutus banks the forge: 'Shop's closed while I cool the flames. Return during daylight.'",
+      "choices": []
+    },
+    {
+      "id": "armorer_resting",
+      "text": "Brutus is resting in the barracks. The armory is closed until morning.",
+      "choices": []
+    },
+    {
+      "id": "magic_shop_meditating",
+      "text": "Mystica is deep in dawn meditation by the spring. Her shop opens after her ritual.",
+      "choices": []
+    },
+    {
+      "id": "magic_shop_closed_for_study",
+      "text": "Mystica has sealed the shop to study new wards. Return once her experiments conclude.",
+      "choices": []
+    },
+    {
+      "id": "magic_shop_closed",
+      "text": "Mystica whispers from behind the door: 'The shop is warded for the night. Visit in the daylight.'",
+      "choices": []
+    },
+    {
+      "id": "black_market_closed",
+      "text": "Vex isn't dealing in daylight. The black market only stirs after dusk.",
+      "choices": []
+    },
+    {
+      "id": "exotic_merchant_traveling",
+      "text": "Zara is traveling between caravans to gather wares. She'll reopen once she's back in port.",
+      "choices": []
+    },
+    {
+      "id": "exotic_merchant_closed",
+      "text": "Zara folds her stall: 'Docks are calling tonight. Trade resumes in the morning.'",
+      "choices": []
+    },
+    {
+      "id": "reset_puzzle_confirm",
+      "text": "Reset the puzzle to its starting position?",
+      "choices": [
+        {
+          "text": "Yes",
+          "next_id": null,
+          "set_flag": "_temp_reset_confirmed"
+        },
+        {
+          "text": "No",
+          "next_id": null
+        }
+      ]
+    },
+    {
+      "id": "gambler_intro",
+      "text": "Care to try your luck? I've got a few games if you're feeling brave...",
+      "speaker": "Shady Pete",
+      "portrait_id": null,
+      "choices": [
+        {
+          "text": "Blackjack (Min 50g)",
+          "next_id": null,
+          "set_flag": "_start_blackjack"
+        },
+        {
+          "text": "Dice (Min 20g)",
+          "next_id": null,
+          "set_flag": "_start_dice"
+        },
+        {
+          "text": "Slots (Min 10g)",
+          "next_id": null,
+          "set_flag": "_start_slots"
+        },
+        {
+          "text": "Cups Game (Min 30g)",
+          "next_id": null,
+          "set_flag": "_start_cups"
+        },
+        {
+          "text": "No thanks",
+          "next_id": null,
+          "set_flag": null
+        }
+      ]
+    },
+    {
+      "id": "arena_intro",
+      "text": "Welcome to the Monster Arena! Place your bets and watch the fiercest creatures battle it out!",
+      "speaker": "Arena Bookkeeper",
+      "portrait_id": "portrait_arena_bookkeeper",
+      "choices": [
+        {
+          "text": "View today's matches",
+          "next_id": null,
+          "set_flag": "_open_arena"
+        },
+        {
+          "text": "How does betting work?",
+          "next_id": "arena_tutorial",
+          "set_flag": null
+        },
+        {
+          "text": "Maybe later",
+          "next_id": null,
+          "set_flag": null
+        }
+      ]
+    },
+    {
+      "id": "arena_tutorial",
+      "text": "Betting is simple! Each fighter has odds that determine your payout. If you bet 100g on a fighter with 2.0 odds and they win, you get 200g back (100g bet + 100g profit). Higher odds mean bigger payouts, but the fighter is less likely to win. Odds change based on each fighter's win/loss record.",
+      "speaker": "Arena Bookkeeper",
+      "portrait_id": "portrait_arena_bookkeeper",
+      "choices": [
+        {
+          "text": "Got it, show me the matches",
+          "next_id": null,
+          "set_flag": "_open_arena"
+        },
+        {
+          "text": "Thanks for the explanation",
+          "next_id": null,
+          "set_flag": null
+        }
+      ]
+    },
+    {
+      "id": "miner_wyrm_rumor",
+      "text": "Been mining these mountains for forty years... Sometimes late at night, you can feel the ground shake. Something big's down there, I tell ya.",
+      "speaker": "Grizzled Miner",
+      "portrait_id": "portrait_miner",
+      "choices": [
+        {
+          "text": "What do you think it is?",
+          "next_id": null,
+          "set_flag": null
+        },
+        {
+          "text": "Thanks for the warning",
+          "next_id": null,
+          "set_flag": null
+        }
+      ],
+      "set_flags_after_choice": ["hint_wyrm_hint_1_discovered"]
+    },
+    {
+      "id": "shadow_rumor",
+      "text": "They say a throne of pure darkness exists where no light can reach... Only those who have proven themselves worthy may find it.",
+      "speaker": "Mysterious Wanderer",
+      "portrait_id": "portrait_wanderer",
+      "choices": [
+        {
+          "text": "Where might I find it?",
+          "next_id": null,
+          "set_flag": null
+        },
+        {
+          "text": "Interesting...",
+          "next_id": null,
+          "set_flag": null
+        }
+      ],
+      "set_flags_after_choice": ["hint_shadow_hint_1_discovered"]
+    },
+    {
+      "id": "void_rumor",
+      "text": "Scholars whisper of a gateway that exists between dimensions, accessible only to those who have mastered all puzzles. The Void Emperor awaits within.",
+      "speaker": "Ancient Scholar",
+      "portrait_id": "portrait_scholar",
+      "choices": [
+        {
+          "text": "Tell me more",
+          "next_id": null,
+          "set_flag": null
+        },
+        {
+          "text": "I'll keep that in mind",
+          "next_id": null,
+          "set_flag": null
+        }
+      ],
+      "set_flags_after_choice": ["hint_void_hint_1_discovered"]
+    },
+    {
+      "id": "mirror_rumor",
+      "text": "Legends speak of a Mirror of Truth that reflects not your image, but your very essence... Those who gaze into it face their greatest challenge: themselves.",
+      "speaker": "Wise Hermit",
+      "portrait_id": "portrait_hermit",
+      "choices": [
+        {
+          "text": "Where is this mirror?",
+          "next_id": null,
+          "set_flag": null
+        },
+        {
+          "text": "A mirror of truth...",
+          "next_id": null,
+          "set_flag": null
+        }
+      ],
+      "set_flags_after_choice": ["hint_mirror_hint_1_discovered"]
+    }
+  ]
+}

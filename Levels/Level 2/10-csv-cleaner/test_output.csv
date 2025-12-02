@@ -1,0 +1,11 @@
+name,age,email,salary,department,start_date,age_outlier
+John Doe,25.0,john.doe@email.com,50000.0,Engineering,2023-01-15,False
+Jane Smith,30.0,jane.smith@email.com,60000.0,Marketing,2023-02-20,False
+Bob Johnson,31.77777777777778,bob.johnson@email.com,55000.0,Engineering,2023-03-10,False
+Alice Brown,28.0,alice.brown@email.com,65555.55555555556,Sales,2023-04-05,False
+Charlie Wilson,35.0,charlie.wilson@email.com,70000.0,Engineering,2023-05-12,False
+Diana Prince,22.0,diana.prince@email.com,45000.0,HR,2023-06-01,False
+Bruce Wayne,40.0,bruce.wayne@email.com,80000.0,Engineering,2023-07-15,False
+Clark Kent,29.0,clark.kent@email.com,65000.0,Marketing,2023-08-20,False
+Tony Stark,45.0,tony.stark@email.com,90000.0,Engineering,2023-09-10,True
+Natasha Romanoff,32.0,natasha.romanoff@email.com,75000.0,Sales,2023-10-05,False

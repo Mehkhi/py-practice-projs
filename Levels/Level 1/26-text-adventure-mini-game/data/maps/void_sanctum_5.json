@@ -1,0 +1,1206 @@
+{
+  "map_id": "void_sanctum_5",
+  "width": 15,
+  "height": 15,
+  "tiles": [
+    [
+      {
+        "tile_id": "void_cracked",
+        "walkable": true,
+        "sprite_id": "void_cracked"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void_cracked",
+        "walkable": true,
+        "sprite_id": "void_cracked"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void_cracked",
+        "walkable": true,
+        "sprite_id": "void_cracked"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void_cracked",
+        "walkable": true,
+        "sprite_id": "void_cracked"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void_cracked",
+        "walkable": true,
+        "sprite_id": "void_cracked"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      }
+    ],
+    [
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void_cracked",
+        "walkable": true,
+        "sprite_id": "void_cracked"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void_cracked",
+        "walkable": true,
+        "sprite_id": "void_cracked"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void_cracked",
+        "walkable": true,
+        "sprite_id": "void_cracked"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void_cracked",
+        "walkable": true,
+        "sprite_id": "void_cracked"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void_cracked",
+        "walkable": true,
+        "sprite_id": "void_cracked"
+      }
+    ],
+    [
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void_cracked",
+        "walkable": true,
+        "sprite_id": "void_cracked"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void_cracked",
+        "walkable": true,
+        "sprite_id": "void_cracked"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void_cracked",
+        "walkable": true,
+        "sprite_id": "void_cracked"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void_cracked",
+        "walkable": true,
+        "sprite_id": "void_cracked"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void_cracked",
+        "walkable": true,
+        "sprite_id": "void_cracked"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      }
+    ],
+    [
+      {
+        "tile_id": "void_cracked",
+        "walkable": true,
+        "sprite_id": "void_cracked"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void_cracked",
+        "walkable": true,
+        "sprite_id": "void_cracked"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void_cracked",
+        "walkable": true,
+        "sprite_id": "void_cracked"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void_cracked",
+        "walkable": true,
+        "sprite_id": "void_cracked"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void_cracked",
+        "walkable": true,
+        "sprite_id": "void_cracked"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      }
+    ],
+    [
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void_cracked",
+        "walkable": true,
+        "sprite_id": "void_cracked"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void_cracked",
+        "walkable": true,
+        "sprite_id": "void_cracked"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void_cracked",
+        "walkable": true,
+        "sprite_id": "void_cracked"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void_cracked",
+        "walkable": true,
+        "sprite_id": "void_cracked"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void_cracked",
+        "walkable": true,
+        "sprite_id": "void_cracked"
+      }
+    ],
+    [
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void_cracked",
+        "walkable": true,
+        "sprite_id": "void_cracked"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void_cracked",
+        "walkable": true,
+        "sprite_id": "void_cracked"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void_cracked",
+        "walkable": true,
+        "sprite_id": "void_cracked"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void_cracked",
+        "walkable": true,
+        "sprite_id": "void_cracked"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void_cracked",
+        "walkable": true,
+        "sprite_id": "void_cracked"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      }
+    ],
+    [
+      {
+        "tile_id": "void_cracked",
+        "walkable": true,
+        "sprite_id": "void_cracked"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void_cracked",
+        "walkable": true,
+        "sprite_id": "void_cracked"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void_cracked",
+        "walkable": true,
+        "sprite_id": "void_cracked"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void_cracked",
+        "walkable": true,
+        "sprite_id": "void_cracked"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void_cracked",
+        "walkable": true,
+        "sprite_id": "void_cracked"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      }
+    ],
+    [
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void_cracked",
+        "walkable": true,
+        "sprite_id": "void_cracked"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void_cracked",
+        "walkable": true,
+        "sprite_id": "void_cracked"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void_cracked",
+        "walkable": true,
+        "sprite_id": "void_cracked"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void_cracked",
+        "walkable": true,
+        "sprite_id": "void_cracked"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void_cracked",
+        "walkable": true,
+        "sprite_id": "void_cracked"
+      }
+    ],
+    [
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void_cracked",
+        "walkable": true,
+        "sprite_id": "void_cracked"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void_cracked",
+        "walkable": true,
+        "sprite_id": "void_cracked"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void_cracked",
+        "walkable": true,
+        "sprite_id": "void_cracked"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void_cracked",
+        "walkable": true,
+        "sprite_id": "void_cracked"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void_cracked",
+        "walkable": true,
+        "sprite_id": "void_cracked"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      }
+    ],
+    [
+      {
+        "tile_id": "void_cracked",
+        "walkable": true,
+        "sprite_id": "void_cracked"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void_cracked",
+        "walkable": true,
+        "sprite_id": "void_cracked"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void_cracked",
+        "walkable": true,
+        "sprite_id": "void_cracked"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void_cracked",
+        "walkable": true,
+        "sprite_id": "void_cracked"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void_cracked",
+        "walkable": true,
+        "sprite_id": "void_cracked"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      }
+    ],
+    [
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void_cracked",
+        "walkable": true,
+        "sprite_id": "void_cracked"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void_cracked",
+        "walkable": true,
+        "sprite_id": "void_cracked"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void_cracked",
+        "walkable": true,
+        "sprite_id": "void_cracked"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void_cracked",
+        "walkable": true,
+        "sprite_id": "void_cracked"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void_cracked",
+        "walkable": true,
+        "sprite_id": "void_cracked"
+      }
+    ],
+    [
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void_cracked",
+        "walkable": true,
+        "sprite_id": "void_cracked"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void_cracked",
+        "walkable": true,
+        "sprite_id": "void_cracked"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void_cracked",
+        "walkable": true,
+        "sprite_id": "void_cracked"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void_cracked",
+        "walkable": true,
+        "sprite_id": "void_cracked"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void_cracked",
+        "walkable": true,
+        "sprite_id": "void_cracked"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      }
+    ],
+    [
+      {
+        "tile_id": "void_cracked",
+        "walkable": true,
+        "sprite_id": "void_cracked"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void_cracked",
+        "walkable": true,
+        "sprite_id": "void_cracked"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void_cracked",
+        "walkable": true,
+        "sprite_id": "void_cracked"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void_cracked",
+        "walkable": true,
+        "sprite_id": "void_cracked"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void_cracked",
+        "walkable": true,
+        "sprite_id": "void_cracked"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      }
+    ],
+    [
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void_cracked",
+        "walkable": true,
+        "sprite_id": "void_cracked"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void_cracked",
+        "walkable": true,
+        "sprite_id": "void_cracked"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void_cracked",
+        "walkable": true,
+        "sprite_id": "void_cracked"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void_cracked",
+        "walkable": true,
+        "sprite_id": "void_cracked"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void_cracked",
+        "walkable": true,
+        "sprite_id": "void_cracked"
+      }
+    ],
+    [
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void_cracked",
+        "walkable": true,
+        "sprite_id": "void_cracked"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void_cracked",
+        "walkable": true,
+        "sprite_id": "void_cracked"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void_cracked",
+        "walkable": true,
+        "sprite_id": "void_cracked"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void_cracked",
+        "walkable": true,
+        "sprite_id": "void_cracked"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      },
+      {
+        "tile_id": "void_cracked",
+        "walkable": true,
+        "sprite_id": "void_cracked"
+      },
+      {
+        "tile_id": "void",
+        "walkable": true,
+        "sprite_id": "void"
+      }
+    ]
+  ],
+  "warps": [
+    {
+      "x": 7,
+      "y": 0,
+      "target_map_id": "void_sanctum_4",
+      "target_x": 7,
+      "target_y": 14
+    }
+  ],
+  "triggers": [
+    {
+      "id": "void_encounter_5_1",
+      "x": 4,
+      "y": 6,
+      "trigger_type": "battle",
+      "data": {
+        "encounter_id": "void_creatures_5"
+      },
+      "once": true
+    },
+    {
+      "id": "void_encounter_5_2",
+      "x": 10,
+      "y": 8,
+      "trigger_type": "battle",
+      "data": {
+        "encounter_id": "void_creatures_5"
+      },
+      "once": true
+    },
+    {
+      "id": "void_entity",
+      "x": 7,
+      "y": 7,
+      "trigger_type": "battle",
+      "data": {
+        "encounter_id": "void_entity"
+      },
+      "once": true
+    }
+  ],
+  "entities": [],
+  "enemy_spawns": [],
+  "props": []
+}

@@ -1,0 +1,341 @@
+/* Button styles */
+.btn {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    padding: 12px 18px;
+    background: linear-gradient(135deg, var(--nord9) 0%, var(--nord10) 100%);
+    color: var(--nord6);
+    text-decoration: none;
+    border: 1px solid var(--nord10);
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 700;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 12px 24px rgba(129, 161, 193, 0.35);
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 16px 30px rgba(129, 161, 193, 0.45);
+}
+
+.btn:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(129, 161, 193, 0.35);
+}
+
+.btn:active {
+    transform: translateY(0);
+}
+
+.btn-danger {
+    background: linear-gradient(135deg, var(--nord11) 0%, var(--danger-dark) 100%);
+    border-color: var(--danger-dark);
+    box-shadow: 0 12px 24px rgba(191, 97, 106, 0.35);
+}
+
+.btn-success {
+    background: linear-gradient(135deg, var(--nord14) 0%, var(--success-dark) 100%);
+    border-color: var(--success-dark);
+    box-shadow: 0 12px 24px rgba(163, 190, 140, 0.35);
+}
+
+.btn-secondary {
+    background: linear-gradient(135deg, var(--nord3) 0%, var(--nord2) 100%);
+    border-color: var(--nord2);
+    color: var(--nord6);
+    box-shadow: 0 12px 24px rgba(76, 86, 106, 0.35);
+}
+
+/* Form styles */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 500;
+    color: var(--nord0);
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    font-size: 15px;
+    transition: all 0.2s ease;
+    background-color: #fff;
+    color: var(--nord0);
+    box-shadow: inset 0 1px 2px rgba(46, 52, 64, 0.06);
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: var(--nord9);
+    box-shadow: 0 0 0 3px rgba(129, 161, 193, 0.15);
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 110px;
+}
+
+/* Task list shell */
+.task-list {
+    background: transparent;
+    border: none;
+    padding: 0;
+    box-shadow: none;
+}
+
+/* Filters */
+/* Legacy filter fallback */
+.filters form {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    align-items: end;
+}
+
+.filters .form-group {
+    margin-bottom: 0;
+    flex: 1;
+    min-width: 180px;
+}
+
+/* Pagination */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.pagination a,
+.pagination span {
+    padding: 10px 15px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    text-decoration: none;
+    color: var(--nord0);
+    transition: all 0.2s ease;
+    font-weight: 700;
+    background: rgba(236, 239, 244, 0.85);
+}
+
+.pagination a:hover {
+    background-color: var(--nord9);
+    color: var(--nord6);
+    border-color: var(--nord9);
+    transform: translateY(-2px);
+}
+
+.pagination .current {
+    background: linear-gradient(135deg, var(--nord9) 0%, var(--nord10) 100%);
+    color: var(--nord6);
+    border-color: var(--nord9);
+}
+
+/* Card styles for forms */
+.card {
+    background: rgba(236, 239, 244, 0.95);
+    border-radius: 14px;
+    padding: 22px;
+    box-shadow: 0 16px 30px rgba(46, 52, 64, 0.08);
+    border: 1px solid var(--border);
+    margin: 12px 0;
+}
+
+.card h2 {
+    margin-bottom: 18px;
+    color: var(--nord0);
+    text-align: center;
+    font-weight: 700;
+}
+
+/* Empty state */
+.empty-state {
+    text-align: center;
+    color: var(--nord3);
+    padding: 40px 20px;
+    background: rgba(236, 239, 244, 0.9);
+    border-radius: 14px;
+    box-shadow: 0 12px 24px rgba(46, 52, 64, 0.08);
+    border: 1px solid var(--border);
+}
+
+.empty-state a {
+    color: var(--nord9);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.empty-state a:hover {
+    text-decoration: underline;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .task-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .task-actions {
+        width: 100%;
+        justify-content: flex-end;
+    }
+
+    .filters form {
+        flex-direction: column;
+    }
+
+    .filters .form-group {
+        width: 100%;
+        min-width: auto;
+    }
+
+    .card {
+        padding: 20px;
+        margin: 10px 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .task-actions {
+        flex-wrap: wrap;
+        gap: 5px;
+    }
+
+    .task-actions .btn {
+        font-size: 11px;
+        padding: 5px 10px;
+    }
+
+    .pagination {
+        gap: 5px;
+    }
+
+    .pagination a,
+    .pagination span {
+        padding: 8px 12px;
+        font-size: 14px;
+    }
+}
+
+/* Utility Classes */
+.mb-20 {
+    margin-bottom: 20px;
+}
+
+.mb-15 {
+    margin-bottom: 15px;
+}
+
+.mt-20 {
+    margin-top: 20px;
+}
+
+.mt-50 {
+    margin-top: 50px;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.max-width-400 {
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.max-width-600 {
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.font-size-12 {
+    font-size: 12px;
+}
+
+.flex-1 {
+    flex: 1;
+}
+
+.inline-form {
+    display: inline;
+}
+
+.flex-gap-10 {
+    display: flex;
+    gap: 10px;
+}
+
+.w-100 {
+    width: 100%;
+}
+
+.w-auto {
+    width: auto;
+}
+
+.mr-8 {
+    margin-right: 8px;
+}
+
+.mt-5 {
+    margin-top: 5px;
+}
+
+.d-block {
+    display: block;
+}
+
+.d-flex {
+    display: flex;
+}
+
+.align-items-center {
+    align-items: center;
+}
+
+.font-weight-normal {
+    font-weight: normal;
+}
+
+.text-muted {
+    color: var(--nord3);
+}
+
+.link-primary {
+    color: var(--nord9);
+    text-decoration: none;
+}
+
+.link-primary:hover {
+    text-decoration: underline;
+}
+
+.form-helper-text {
+    color: var(--nord3);
+    font-size: 12px;
+    margin-top: 5px;
+    display: block;
+}
+
+.font-weight-500 {
+    font-weight: 500;
+}

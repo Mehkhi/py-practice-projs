@@ -1,0 +1,57 @@
+/* Dashboard refinements */
+
+.hero-highlight .stat-card {
+    background: linear-gradient(135deg, rgba(129, 161, 193, 0.12), rgba(236, 239, 244, 0.92));
+}
+
+.hero-highlight .stat-card-icon {
+    background: rgba(129, 161, 193, 0.2);
+}
+
+.quick-actions {
+    margin-top: 6px;
+}
+
+.quick-action-btn {
+    background: linear-gradient(135deg, rgba(236, 239, 244, 0.95), rgba(216, 222, 233, 0.92));
+}
+
+.activity-section,
+.recent-activity {
+    border-radius: 16px;
+}
+
+.activity-day {
+    box-shadow: 0 12px 24px rgba(46, 52, 64, 0.06);
+}
+
+.activity-feed {
+    margin-top: 10px;
+}
+
+.activity-item {
+    box-shadow: 0 12px 24px rgba(46, 52, 64, 0.06);
+}
+
+.activity-title {
+    font-weight: 700;
+}
+
+.activity-meta {
+    color: var(--muted);
+}
+
+.progress-legend .mini {
+    color: var(--muted);
+    margin-top: 4px;
+}
+
+@media (max-width: 720px) {
+    .quick-actions {
+        flex-direction: column;
+    }
+
+    .quick-action-btn {
+        width: 100%;
+    }
+}

@@ -1,0 +1,1754 @@
+{
+  "encounters": {
+    "tutorial_battle": {
+      "enemies": [
+        {
+          "id": "tutorial_slime",
+          "name": "Practice Slime",
+          "sprite_id": "slime",
+          "type": "slime",
+          "level": 1,
+          "difficulty": "easy",
+          "max_hp": 50,
+          "hp": 50,
+          "max_sp": 10,
+          "sp": 10,
+          "attack": 3,
+          "defense": 1,
+          "magic": 2,
+          "speed": 4,
+          "luck": 1,
+          "weaknesses": ["fire"],
+          "resistances": ["physical"],
+          "immunities": [],
+          "absorbs": [],
+          "skills": [],
+          "items": {},
+          "ai_profile": {
+            "rules": [
+              {
+                "conditions": {
+                  "hp_percent": {"min": 0, "max": 100}
+                },
+                "action": {
+                  "type": "attack",
+                  "target_strategy": "random_enemy"
+                },
+                "weight": 10
+              }
+            ],
+            "fallback_action": {
+              "type": "attack",
+              "target_strategy": "random_enemy"
+            }
+          }
+        }
+      ],
+      "backdrop_id": "bg_forest",
+      "rewards": {
+        "items": {},
+        "flags": ["tutorial_completed"],
+        "exp": 25,
+        "gold": 10
+      }
+    },
+    "forest_slimes": {
+      "enemies": [
+        {
+          "id": "slime_1",
+          "name": "Green Slime",
+          "sprite_id": "slime",
+          "type": "slime",
+          "level": 1,
+          "difficulty": "normal",
+          "max_hp": 30,
+          "hp": 30,
+          "max_sp": 10,
+          "sp": 10,
+          "attack": 5,
+          "defense": 2,
+          "magic": 3,
+          "speed": 6,
+          "luck": 2,
+          "weaknesses": ["fire"],
+          "resistances": ["physical"],
+          "immunities": [],
+          "absorbs": [],
+          "skills": ["poison_strike"],
+          "items": {},
+          "ai_profile": {
+            "rules": [
+              {
+                "conditions": {
+                  "hp_percent": {"min": 50, "max": 100},
+                  "sp_percent": {"min": 80, "max": 100},
+                  "enemy_status_effects": {"none": ["poison"]}
+                },
+                "action": {
+                  "type": "skill",
+                  "skill_id": "poison_strike",
+                  "target_strategy": "weakest_enemy"
+                },
+                "weight": 7
+              },
+              {
+                "conditions": {
+                  "hp_percent": {"min": 0, "max": 100}
+                },
+                "action": {
+                  "type": "attack",
+                  "target_strategy": "random_enemy"
+                },
+                "weight": 10
+              }
+            ],
+            "fallback_action": {
+              "type": "attack",
+              "target_strategy": "random_enemy"
+            }
+          }
+        }
+      ],
+      "backdrop_id": "bg_forest",
+      "rewards": {
+        "items": { "health_potion": 1 },
+        "flags": ["forest_slimes_cleared"],
+        "exp": 40,
+        "gold": 15
+      }
+    },
+    "cave_goblins": {
+      "enemies": [
+        {
+          "id": "goblin_1",
+          "name": "Cave Goblin",
+          "sprite_id": "goblin",
+          "type": "goblin",
+          "level": 3,
+          "difficulty": "normal",
+          "max_hp": 50,
+          "hp": 50,
+          "max_sp": 15,
+          "sp": 15,
+          "attack": 8,
+          "defense": 4,
+          "magic": 5,
+          "speed": 8,
+          "luck": 3,
+          "weaknesses": ["holy"],
+          "resistances": ["fire"],
+          "immunities": [],
+          "absorbs": [],
+          "skills": ["fire_bolt"],
+          "items": {"health_potion": 1},
+          "ai_profile": {
+            "rules": [
+              {
+                "conditions": {
+                  "hp_percent": {"min": 0, "max": 30},
+                  "sp_percent": {"min": 50, "max": 100}
+                },
+                "action": {
+                  "type": "skill",
+                  "skill_id": "fire_bolt",
+                  "target_strategy": "highest_hp_enemy"
+                },
+                "weight": 8
+              },
+              {
+                "conditions": {
+                  "hp_percent": {"min": 0, "max": 25}
+                },
+                "action": {
+                  "type": "item",
+                  "item_id": "health_potion",
+                  "target_strategy": "self"
+                },
+                "weight": 12
+              },
+              {
+                "conditions": {
+                  "turn_number": {"min": 1, "max": 2}
+                },
+                "action": {
+                  "type": "guard",
+                  "target_strategy": "self"
+                },
+                "weight": 5
+              },
+              {
+                "conditions": {
+                  "hp_percent": {"min": 0, "max": 100}
+                },
+                "action": {
+                  "type": "attack",
+                  "target_strategy": "weakest_enemy"
+                },
+                "weight": 10
+              }
+            ],
+            "fallback_action": {
+              "type": "attack",
+              "target_strategy": "random_enemy"
+            }
+          }
+        }
+      ],
+      "backdrop_id": "bg_cave",
+      "rewards": {
+        "items": { "torch": 1 },
+        "flags": ["cave_cleared"],
+        "exp": 75,
+        "gold": 35
+      },
+      "music_id": "battle_cave_theme"
+    },
+    "final_boss": {
+      "enemies": [
+        {
+          "id": "boss_1",
+          "name": "Ancient Guardian",
+          "sprite_id": "boss",
+          "type": "boss",
+          "level": 8,
+          "difficulty": "boss",
+          "max_hp": 150,
+          "hp": 150,
+          "max_sp": 50,
+          "sp": 50,
+          "attack": 15,
+          "defense": 8,
+          "magic": 12,
+          "speed": 10,
+          "luck": 5,
+          "weaknesses": ["holy"],
+          "resistances": ["physical", "fire"],
+          "immunities": [],
+          "absorbs": [],
+          "skills": ["fire_bolt", "heal"],
+          "items": {"health_potion": 2},
+          "spareable": true,
+          "spare_threshold": 5,
+          "spare_hp_threshold": 50,
+          "spare_messages": {
+            "not_ready": "The Ancient Guardian ignores your words, eyes blazing with fury.",
+            "wavering": "The Guardian hesitates... its attacks seem less fierce.",
+            "ready": "The Guardian's light dims. It lowers its weapon, ancient sorrow in its eyes.",
+            "spared": "The Ancient Guardian kneels. 'You have shown mercy where none was expected. Go in peace.'"
+          },
+          "ai_profile": {
+            "behavior_type": "aggressive",
+            "phases": [
+              {
+                "name": "phase_1",
+                "hp_threshold": 70,
+                "rules": [
+                  {
+                    "conditions": {
+                      "hp_percent": {"min": 0, "max": 100},
+                      "sp_percent": {"min": 50, "max": 100}
+                    },
+                    "action": {
+                      "type": "skill",
+                      "skill_id": "fire_bolt",
+                      "target_strategy": "highest_hp_enemy"
+                    },
+                    "weight": 8
+                  },
+                  {
+                    "conditions": {
+                      "turn_number": {"min": 1, "max": 2}
+                    },
+                    "action": {
+                      "type": "attack",
+                      "target_strategy": "weakest_enemy"
+                    },
+                    "weight": 6
+                  }
+                ]
+              },
+              {
+                "name": "phase_2",
+                "hp_threshold": 40,
+                "rules": [
+                  {
+                    "conditions": {
+                      "hp_percent": {"min": 0, "max": 100},
+                      "sp_percent": {"min": 30, "max": 100}
+                    },
+                    "action": {
+                      "type": "skill",
+                      "skill_id": "fire_bolt",
+                      "target_strategy": "random_enemy"
+                    },
+                    "weight": 10
+                  },
+                  {
+                    "conditions": {
+                      "hp_percent": {"min": 0, "max": 50}
+                    },
+                    "action": {
+                      "type": "item",
+                      "item_id": "health_potion",
+                      "target_strategy": "self"
+                    },
+                    "weight": 5
+                  }
+                ]
+              },
+              {
+                "name": "phase_3",
+                "hp_threshold": 0,
+                "rules": [
+                  {
+                    "conditions": {
+                      "hp_percent": {"min": 0, "max": 30},
+                      "sp_percent": {"min": 20, "max": 100}
+                    },
+                    "action": {
+                      "type": "skill",
+                      "skill_id": "heal",
+                      "target_strategy": "self"
+                    },
+                    "weight": 7
+                  },
+                  {
+                    "conditions": {
+                      "hp_percent": {"min": 0, "max": 100}
+                    },
+                    "action": {
+                      "type": "attack",
+                      "target_strategy": "weakest_enemy"
+                    },
+                    "weight": 12
+                  }
+                ]
+              }
+            ],
+            "fallback_action": {
+              "type": "attack",
+              "target_strategy": "random_enemy"
+            }
+          }
+        }
+      ],
+      "backdrop_id": "bg_treasure_chamber",
+      "rewards": {
+        "items": { "magic_crystal": 1 },
+        "flags": ["final_boss_defeated"],
+        "exp": 200,
+        "gold": 150
+      },
+      "music_id": "final_boss_theme"
+    },
+    "forest_wolves": {
+      "enemies": [
+        {
+          "id": "wolf_1",
+          "name": "Forest Wolf",
+          "sprite_id": "wolf",
+          "type": "wolf",
+          "level": 2,
+          "difficulty": "normal",
+          "max_hp": 40,
+          "hp": 40,
+          "max_sp": 12,
+          "sp": 12,
+          "attack": 9,
+          "defense": 3,
+          "magic": 2,
+          "speed": 9,
+          "luck": 4,
+          "weaknesses": ["fire"],
+          "resistances": [],
+          "immunities": [],
+          "absorbs": [],
+          "skills": ["rending_bite"],
+          "items": {},
+          "ai_profile": {
+            "behavior_type": "aggressive",
+            "rules": [
+              {
+                "conditions": {
+                  "hp_percent": {"min": 35, "max": 100},
+                  "sp_percent": {"min": 40, "max": 100},
+                  "enemy_status_effects": {"none": ["bleed"]}
+                },
+                "action": {
+                  "type": "skill",
+                  "skill_id": "rending_bite",
+                  "target_strategy": "weakest_enemy"
+                },
+                "weight": 8
+              },
+              {
+                "conditions": {
+                  "hp_percent": {"min": 0, "max": 40}
+                },
+                "action": {
+                  "type": "guard",
+                  "target_strategy": "self"
+                },
+                "weight": 6
+              },
+              {
+                "conditions": {
+                  "hp_percent": {"min": 0, "max": 100}
+                },
+                "action": {
+                  "type": "attack",
+                  "target_strategy": "weakest_enemy"
+                },
+                "weight": 9
+              }
+            ],
+            "fallback_action": {
+              "type": "guard",
+              "target_strategy": "self"
+            }
+          }
+        },
+        {
+          "id": "wolf_2",
+          "name": "Alpha Wolf",
+          "sprite_id": "wolf",
+          "type": "wolf",
+          "level": 3,
+          "difficulty": "hard",
+          "max_hp": 45,
+          "hp": 45,
+          "max_sp": 12,
+          "sp": 12,
+          "attack": 11,
+          "defense": 4,
+          "magic": 2,
+          "speed": 10,
+          "luck": 5,
+          "weaknesses": ["fire"],
+          "resistances": ["physical"],
+          "immunities": [],
+          "absorbs": [],
+          "skills": ["rending_bite", "poison_strike"],
+          "items": {"health_potion": 1},
+          "ai_profile": {
+            "behavior_type": "aggressive",
+            "phases": [
+              {
+                "name": "pack_hunt",
+                "hp_threshold": 50,
+                "rules": [
+                  {
+                    "conditions": {
+                      "hp_percent": {"min": 0, "max": 100},
+                      "sp_percent": {"min": 40, "max": 100},
+                      "enemy_status_effects": {"none": ["poison"]}
+                    },
+                    "action": {
+                      "type": "skill",
+                      "skill_id": "poison_strike",
+                      "target_strategy": "weakest_enemy"
+                    },
+                    "weight": 9
+                  },
+                  {
+                    "conditions": {
+                      "hp_percent": {"min": 0, "max": 100}
+                    },
+                    "action": {
+                      "type": "attack",
+                      "target_strategy": "highest_hp_enemy"
+                    },
+                    "weight": 8
+                  }
+                ]
+              },
+              {
+                "name": "cornered_alpha",
+                "hp_threshold": 0,
+                "rules": [
+                  {
+                    "conditions": {
+                      "hp_percent": {"min": 0, "max": 45}
+                    },
+                    "action": {
+                      "type": "guard",
+                      "target_strategy": "self"
+                    },
+                    "weight": 7
+                  },
+                  {
+                    "conditions": {
+                      "hp_percent": {"min": 0, "max": 100},
+                      "sp_percent": {"min": 30, "max": 100}
+                    },
+                    "action": {
+                      "type": "skill",
+                      "skill_id": "rending_bite",
+                      "target_strategy": "weakest_enemy"
+                    },
+                    "weight": 8
+                  },
+                  {
+                    "conditions": {
+                      "hp_percent": {"min": 0, "max": 100},
+                      "enemy_status_effects": {"any": ["poison", "bleed"]}
+                    },
+                    "action": {
+                      "type": "attack",
+                      "target_strategy": "weakest_enemy"
+                    },
+                    "weight": 12
+                  }
+                ]
+              }
+            ],
+            "fallback_action": {
+              "type": "guard",
+              "target_strategy": "self"
+            }
+          }
+        }
+      ],
+      "backdrop_id": "bg_forest",
+      "rewards": {
+        "items": { "health_potion": 1 },
+        "flags": ["forest_wolves_cleared"],
+        "exp": 60,
+        "gold": 25
+      },
+      "music_id": "battle_forest_theme"
+    },
+    "goblin_warband": {
+      "enemies": [
+        {
+          "id": "goblin_chief",
+          "name": "Goblin Chief",
+          "sprite_id": "goblin",
+          "type": "goblin",
+          "level": 5,
+          "difficulty": "elite",
+          "max_hp": 80,
+          "hp": 80,
+          "max_sp": 25,
+          "sp": 25,
+          "attack": 12,
+          "defense": 6,
+          "magic": 8,
+          "speed": 7,
+          "luck": 4,
+          "weaknesses": ["holy"],
+          "resistances": ["fire"],
+          "immunities": [],
+          "absorbs": [],
+          "skills": ["fire_bolt", "war_cry"],
+          "items": {"health_potion": 2},
+          "ai_profile": {
+            "behavior_type": "aggressive",
+            "tactic_role": "alpha",
+            "phases": [
+              {
+                "name": "commanding",
+                "hp_threshold": 50,
+                "rules": [
+                  {
+                    "conditions": {
+                      "turn_number": {"min": 1, "max": 2},
+                      "sp_percent": {"min": 50, "max": 100}
+                    },
+                    "action": {
+                      "type": "skill",
+                      "skill_id": "war_cry",
+                      "target_strategy": "self"
+                    },
+                    "weight": 10
+                  },
+                  {
+                    "conditions": {
+                      "hp_percent": {"min": 0, "max": 100},
+                      "sp_percent": {"min": 40, "max": 100}
+                    },
+                    "action": {
+                      "type": "skill",
+                      "skill_id": "fire_bolt",
+                      "target_strategy": "highest_hp_enemy"
+                    },
+                    "weight": 8
+                  },
+                  {
+                    "conditions": {
+                      "hp_percent": {"min": 0, "max": 100}
+                    },
+                    "action": {
+                      "type": "attack",
+                      "target_strategy": "weakest_enemy"
+                    },
+                    "weight": 6
+                  }
+                ]
+              },
+              {
+                "name": "desperate",
+                "hp_threshold": 0,
+                "rules": [
+                  {
+                    "conditions": {
+                      "hp_percent": {"min": 0, "max": 40}
+                    },
+                    "action": {
+                      "type": "item",
+                      "item_id": "health_potion",
+                      "target_strategy": "self"
+                    },
+                    "weight": 12
+                  },
+                  {
+                    "conditions": {
+                      "hp_percent": {"min": 0, "max": 100}
+                    },
+                    "action": {
+                      "type": "attack",
+                      "target_strategy": "weakest_enemy"
+                    },
+                    "weight": 10
+                  }
+                ]
+              }
+            ],
+            "custom_tactics": [
+              {
+                "tactic_id": "goblin_rush",
+                "name": "Goblin Rush",
+                "required_roles": ["alpha", "dps", "dps"],
+                "min_enemies": 3,
+                "cooldown_turns": 3,
+                "trigger_conditions": {"turn_number": {"min": 1, "max": 3}},
+                "actions": {
+                  "alpha": {"type": "skill", "skill_id": "war_cry", "target_strategy": "self"},
+                  "dps": {"type": "attack", "target_strategy": "weakest_enemy"}
+                },
+                "combo_bonus": 1.4
+              }
+            ],
+            "fallback_action": {
+              "type": "attack",
+              "target_strategy": "random_enemy"
+            }
+          }
+        },
+        {
+          "id": "goblin_warrior_1",
+          "name": "Goblin Warrior",
+          "sprite_id": "goblin",
+          "type": "goblin",
+          "level": 4,
+          "difficulty": "normal",
+          "max_hp": 45,
+          "hp": 45,
+          "max_sp": 12,
+          "sp": 12,
+          "attack": 10,
+          "defense": 5,
+          "magic": 3,
+          "speed": 9,
+          "luck": 3,
+          "weaknesses": ["holy"],
+          "resistances": [],
+          "immunities": [],
+          "absorbs": [],
+          "skills": ["rending_bite"],
+          "items": {},
+          "ai_profile": {
+            "behavior_type": "aggressive",
+            "tactic_role": "dps",
+            "rules": [
+              {
+                "conditions": {
+                  "hp_percent": {"min": 40, "max": 100},
+                  "sp_percent": {"min": 50, "max": 100},
+                  "enemy_status_effects": {"none": ["bleed"]}
+                },
+                "action": {
+                  "type": "skill",
+                  "skill_id": "rending_bite",
+                  "target_strategy": "weakest_enemy"
+                },
+                "weight": 8
+              },
+              {
+                "conditions": {
+                  "hp_percent": {"min": 0, "max": 100}
+                },
+                "action": {
+                  "type": "attack",
+                  "target_strategy": "weakest_enemy"
+                },
+                "weight": 10
+              }
+            ],
+            "fallback_action": {
+              "type": "attack",
+              "target_strategy": "random_enemy"
+            }
+          }
+        },
+        {
+          "id": "goblin_warrior_2",
+          "name": "Goblin Warrior",
+          "sprite_id": "goblin",
+          "type": "goblin",
+          "level": 4,
+          "difficulty": "normal",
+          "max_hp": 45,
+          "hp": 45,
+          "max_sp": 12,
+          "sp": 12,
+          "attack": 10,
+          "defense": 5,
+          "magic": 3,
+          "speed": 8,
+          "luck": 3,
+          "weaknesses": ["holy"],
+          "resistances": [],
+          "immunities": [],
+          "absorbs": [],
+          "skills": ["poison_strike"],
+          "items": {},
+          "ai_profile": {
+            "behavior_type": "aggressive",
+            "tactic_role": "debuffer",
+            "rules": [
+              {
+                "conditions": {
+                  "hp_percent": {"min": 30, "max": 100},
+                  "sp_percent": {"min": 50, "max": 100},
+                  "enemy_status_effects": {"none": ["poison"]}
+                },
+                "action": {
+                  "type": "skill",
+                  "skill_id": "poison_strike",
+                  "target_strategy": "highest_hp_enemy"
+                },
+                "weight": 9
+              },
+              {
+                "conditions": {
+                  "hp_percent": {"min": 0, "max": 100}
+                },
+                "action": {
+                  "type": "attack",
+                  "target_strategy": "weakest_enemy"
+                },
+                "weight": 8
+              }
+            ],
+            "fallback_action": {
+              "type": "attack",
+              "target_strategy": "random_enemy"
+            }
+          }
+        },
+        {
+          "id": "goblin_shaman",
+          "name": "Goblin Shaman",
+          "sprite_id": "goblin",
+          "type": "goblin",
+          "level": 4,
+          "difficulty": "hard",
+          "max_hp": 35,
+          "hp": 35,
+          "max_sp": 30,
+          "sp": 30,
+          "attack": 5,
+          "defense": 3,
+          "magic": 12,
+          "speed": 6,
+          "luck": 5,
+          "weaknesses": ["physical"],
+          "resistances": ["fire"],
+          "immunities": [],
+          "absorbs": [],
+          "skills": ["heal", "fire_bolt"],
+          "items": {},
+          "ai_profile": {
+            "behavior_type": "support",
+            "tactic_role": "healer",
+            "rules": [
+              {
+                "conditions": {
+                  "ally_hp_percent": {"max": 50},
+                  "sp_percent": {"min": 30, "max": 100}
+                },
+                "action": {
+                  "type": "skill",
+                  "skill_id": "heal",
+                  "target_strategy": "weakest_ally"
+                },
+                "weight": 12
+              },
+              {
+                "conditions": {
+                  "hp_percent": {"min": 0, "max": 100},
+                  "sp_percent": {"min": 40, "max": 100}
+                },
+                "action": {
+                  "type": "skill",
+                  "skill_id": "fire_bolt",
+                  "target_strategy": "random_enemy"
+                },
+                "weight": 6
+              },
+              {
+                "conditions": {
+                  "hp_percent": {"min": 0, "max": 40}
+                },
+                "action": {
+                  "type": "guard",
+                  "target_strategy": "self"
+                },
+                "weight": 8
+              }
+            ],
+            "fallback_action": {
+              "type": "guard",
+              "target_strategy": "self"
+            }
+          }
+        }
+      ],
+      "backdrop_id": "bg_cave",
+      "rewards": {
+        "items": { "health_potion": 2, "magic_crystal": 1 },
+        "flags": ["goblin_warband_defeated"],
+        "exp": 150,
+        "gold": 100
+      },
+      "music_id": "battle_intense_theme"
+    },
+    "bandit_ambush": {
+      "enemies": [
+        {
+          "id": "bandit_leader",
+          "name": "Bandit Leader",
+          "sprite_id": "bandit",
+          "type": "human",
+          "level": 5,
+          "difficulty": "hard",
+          "max_hp": 70,
+          "hp": 70,
+          "max_sp": 20,
+          "sp": 20,
+          "attack": 14,
+          "defense": 7,
+          "magic": 4,
+          "speed": 11,
+          "luck": 6,
+          "weaknesses": [],
+          "resistances": ["physical"],
+          "immunities": [],
+          "absorbs": [],
+          "skills": ["rending_bite"],
+          "items": {"health_potion": 1},
+          "ai_profile": {
+            "behavior_type": "aggressive",
+            "tactic_role": "dps",
+            "rules": [
+              {
+                "conditions": {
+                  "hp_percent": {"min": 50, "max": 100},
+                  "sp_percent": {"min": 60, "max": 100}
+                },
+                "action": {
+                  "type": "skill",
+                  "skill_id": "rending_bite",
+                  "target_strategy": "weakest_enemy"
+                },
+                "weight": 10
+              },
+              {
+                "conditions": {
+                  "hp_percent": {"min": 0, "max": 100}
+                },
+                "action": {
+                  "type": "attack",
+                  "target_strategy": "weakest_enemy"
+                },
+                "weight": 8
+              }
+            ],
+            "fallback_action": {
+              "type": "attack",
+              "target_strategy": "random_enemy"
+            }
+          }
+        },
+        {
+          "id": "bandit_thug",
+          "name": "Bandit Thug",
+          "sprite_id": "bandit",
+          "type": "human",
+          "level": 4,
+          "difficulty": "normal",
+          "max_hp": 55,
+          "hp": 55,
+          "max_sp": 10,
+          "sp": 10,
+          "attack": 11,
+          "defense": 8,
+          "magic": 2,
+          "speed": 7,
+          "luck": 3,
+          "weaknesses": [],
+          "resistances": [],
+          "immunities": [],
+          "absorbs": [],
+          "skills": [],
+          "items": {},
+          "ai_profile": {
+            "behavior_type": "defensive",
+            "tactic_role": "tank",
+            "rules": [
+              {
+                "conditions": {
+                  "allies_alive": {"min": 2, "max": 99}
+                },
+                "action": {
+                  "type": "guard",
+                  "target_strategy": "self"
+                },
+                "weight": 8
+              },
+              {
+                "conditions": {
+                  "hp_percent": {"min": 0, "max": 100}
+                },
+                "action": {
+                  "type": "attack",
+                  "target_strategy": "random_enemy"
+                },
+                "weight": 6
+              }
+            ],
+            "fallback_action": {
+              "type": "guard",
+              "target_strategy": "self"
+            }
+          }
+        }
+      ],
+      "backdrop_id": "bg_forest",
+      "rewards": {
+        "items": { "health_potion": 1 },
+        "flags": ["bandit_ambush_survived"],
+        "exp": 85,
+        "gold": 50
+      },
+      "music_id": "battle_forest_theme"
+    },
+    "swamp_spiders": {
+      "enemies": [
+        {
+          "id": "spider_1",
+          "name": "Giant Spider",
+          "sprite_id": "spider",
+          "type": "spider",
+          "level": 4,
+          "difficulty": "normal",
+          "max_hp": 55,
+          "max_sp": 15,
+          "attack": 12,
+          "defense": 4,
+          "magic": 3,
+          "speed": 11,
+          "luck": 4,
+          "weaknesses": ["fire"],
+          "resistances": [],
+          "immunities": ["poison"],
+          "absorbs": [],
+          "skills": ["poison_strike"],
+          "items": {},
+          "ai_profile": {
+            "rules": [
+              {"conditions": {"hp_percent": {"min": 0, "max": 100}, "sp_percent": {"min": 40, "max": 100}}, "action": {"type": "skill", "skill_id": "poison_strike", "target_strategy": "random_enemy"}, "weight": 8},
+              {"conditions": {"hp_percent": {"min": 0, "max": 100}}, "action": {"type": "attack", "target_strategy": "weakest_enemy"}, "weight": 10}
+            ],
+            "fallback_action": {"type": "attack", "target_strategy": "random_enemy"}
+          }
+        },
+        {
+          "id": "spider_2",
+          "name": "Venomous Spider",
+          "sprite_id": "spider",
+          "type": "spider",
+          "level": 4,
+          "difficulty": "hard",
+          "max_hp": 45,
+          "max_sp": 20,
+          "attack": 10,
+          "defense": 3,
+          "magic": 6,
+          "speed": 13,
+          "luck": 5,
+          "weaknesses": ["fire"],
+          "resistances": [],
+          "immunities": ["poison"],
+          "absorbs": [],
+          "skills": ["poison_strike"],
+          "items": {},
+          "ai_profile": {
+            "rules": [
+              {"conditions": {"hp_percent": {"min": 0, "max": 100}, "enemy_status_effects": {"none": ["poison"]}}, "action": {"type": "skill", "skill_id": "poison_strike", "target_strategy": "highest_hp_enemy"}, "weight": 12},
+              {"conditions": {"hp_percent": {"min": 0, "max": 100}}, "action": {"type": "attack", "target_strategy": "weakest_enemy"}, "weight": 8}
+            ],
+            "fallback_action": {"type": "attack", "target_strategy": "random_enemy"}
+          }
+        }
+      ],
+      "backdrop_id": "bg_swamp",
+      "rewards": {"items": {"health_potion": 1}, "flags": ["swamp_spiders_cleared"], "exp": 90, "gold": 40}
+    },
+    "poison_mushrooms": {
+      "enemies": [
+        {
+          "id": "mushroom_1",
+          "name": "Toxic Mushroom",
+          "sprite_id": "mushroom",
+          "type": "plant",
+          "level": 3,
+          "difficulty": "normal",
+          "max_hp": 40,
+          "max_sp": 25,
+          "attack": 6,
+          "defense": 5,
+          "magic": 10,
+          "speed": 4,
+          "luck": 3,
+          "weaknesses": ["fire"],
+          "resistances": ["physical"],
+          "immunities": ["poison"],
+          "absorbs": [],
+          "skills": ["poison_strike"],
+          "items": {},
+          "ai_profile": {
+            "rules": [
+              {"conditions": {"hp_percent": {"min": 0, "max": 100}}, "action": {"type": "skill", "skill_id": "poison_strike", "target_strategy": "random_enemy"}, "weight": 10},
+              {"conditions": {"hp_percent": {"min": 0, "max": 100}}, "action": {"type": "attack", "target_strategy": "random_enemy"}, "weight": 6}
+            ],
+            "fallback_action": {"type": "attack", "target_strategy": "random_enemy"}
+          }
+        }
+      ],
+      "backdrop_id": "bg_swamp",
+      "rewards": {"items": {}, "flags": ["mushrooms_cleared"], "exp": 50, "gold": 20}
+    },
+    "swamp_witch": {
+      "enemies": [
+        {
+          "id": "witch_1",
+          "name": "Swamp Witch",
+          "sprite_id": "witch",
+          "type": "humanoid",
+          "level": 6,
+          "difficulty": "elite",
+          "max_hp": 100,
+          "max_sp": 60,
+          "attack": 8,
+          "defense": 5,
+          "magic": 18,
+          "speed": 8,
+          "luck": 7,
+          "weaknesses": ["holy"],
+          "resistances": ["fire", "ice"],
+          "immunities": ["poison"],
+          "absorbs": [],
+          "skills": ["fire_bolt", "poison_strike", "heal"],
+          "items": {"health_potion": 2},
+          "ai_profile": {
+            "phases": [
+              {"name": "offensive", "hp_threshold": 50, "rules": [
+                {"conditions": {"hp_percent": {"min": 0, "max": 100}, "sp_percent": {"min": 40, "max": 100}}, "action": {"type": "skill", "skill_id": "fire_bolt", "target_strategy": "highest_hp_enemy"}, "weight": 10},
+                {"conditions": {"enemy_status_effects": {"none": ["poison"]}}, "action": {"type": "skill", "skill_id": "poison_strike", "target_strategy": "random_enemy"}, "weight": 8}
+              ]},
+              {"name": "defensive", "hp_threshold": 0, "rules": [
+                {"conditions": {"hp_percent": {"min": 0, "max": 40}}, "action": {"type": "skill", "skill_id": "heal", "target_strategy": "self"}, "weight": 12},
+                {"conditions": {"hp_percent": {"min": 0, "max": 100}}, "action": {"type": "skill", "skill_id": "fire_bolt", "target_strategy": "weakest_enemy"}, "weight": 8}
+              ]}
+            ],
+            "fallback_action": {"type": "attack", "target_strategy": "random_enemy"}
+          }
+        }
+      ],
+      "backdrop_id": "bg_swamp",
+      "rewards": {"items": {"magic_crystal": 1}, "flags": ["swamp_witch_defeated"], "exp": 150, "gold": 80}
+    },
+    "mountain_bats": {
+      "enemies": [
+        {
+          "id": "bat_1", "name": "Cave Bat", "sprite_id": "bat", "type": "beast", "level": 3, "difficulty": "normal",
+          "max_hp": 25, "max_sp": 10, "attack": 8, "defense": 2, "magic": 2, "speed": 14, "luck": 6,
+          "weaknesses": ["fire"], "resistances": [], "immunities": [], "absorbs": [],
+          "skills": [], "items": {},
+          "ai_profile": {"rules": [{"conditions": {"hp_percent": {"min": 0, "max": 100}}, "action": {"type": "attack", "target_strategy": "random_enemy"}, "weight": 10}], "fallback_action": {"type": "attack", "target_strategy": "random_enemy"}}
+        },
+        {
+          "id": "bat_2", "name": "Cave Bat", "sprite_id": "bat", "type": "beast", "level": 3, "difficulty": "normal",
+          "max_hp": 25, "max_sp": 10, "attack": 8, "defense": 2, "magic": 2, "speed": 13, "luck": 6,
+          "weaknesses": ["fire"], "resistances": [], "immunities": [], "absorbs": [],
+          "skills": [], "items": {},
+          "ai_profile": {"rules": [{"conditions": {"hp_percent": {"min": 0, "max": 100}}, "action": {"type": "attack", "target_strategy": "weakest_enemy"}, "weight": 10}], "fallback_action": {"type": "attack", "target_strategy": "random_enemy"}}
+        },
+        {
+          "id": "bat_3", "name": "Vampire Bat", "sprite_id": "bat", "type": "beast", "level": 4, "difficulty": "hard",
+          "max_hp": 35, "max_sp": 15, "attack": 10, "defense": 3, "magic": 4, "speed": 15, "luck": 7,
+          "weaknesses": ["fire", "holy"], "resistances": [], "immunities": [], "absorbs": [],
+          "skills": ["rending_bite"], "items": {},
+          "ai_profile": {"rules": [{"conditions": {"sp_percent": {"min": 50, "max": 100}}, "action": {"type": "skill", "skill_id": "rending_bite", "target_strategy": "weakest_enemy"}, "weight": 8}, {"conditions": {"hp_percent": {"min": 0, "max": 100}}, "action": {"type": "attack", "target_strategy": "random_enemy"}, "weight": 10}], "fallback_action": {"type": "attack", "target_strategy": "random_enemy"}}
+        }
+      ],
+      "backdrop_id": "bg_mountain",
+      "rewards": {"items": {}, "flags": ["bats_cleared"], "exp": 70, "gold": 30}
+    },
+    "ice_elementals": {
+      "enemies": [
+        {
+          "id": "ice_elem_1", "name": "Ice Elemental", "sprite_id": "ice_elemental", "type": "elemental", "level": 5, "difficulty": "hard",
+          "max_hp": 70, "max_sp": 40, "attack": 10, "defense": 8, "magic": 14, "speed": 7, "luck": 4,
+          "weaknesses": ["fire"], "resistances": ["physical"], "immunities": ["ice"], "absorbs": [],
+          "skills": ["fire_bolt"], "items": {},
+          "ai_profile": {"rules": [{"conditions": {"sp_percent": {"min": 30, "max": 100}}, "action": {"type": "skill", "skill_id": "fire_bolt", "target_strategy": "random_enemy"}, "weight": 10}, {"conditions": {"hp_percent": {"min": 0, "max": 100}}, "action": {"type": "attack", "target_strategy": "random_enemy"}, "weight": 8}], "fallback_action": {"type": "attack", "target_strategy": "random_enemy"}}
+        }
+      ],
+      "backdrop_id": "bg_mountain",
+      "rewards": {"items": {"health_potion": 1}, "flags": ["ice_elementals_cleared"], "exp": 100, "gold": 50}
+    },
+    "mountain_troll": {
+      "enemies": [
+        {
+          "id": "troll_1", "name": "Mountain Troll", "sprite_id": "troll", "type": "giant", "level": 7, "difficulty": "elite",
+          "max_hp": 180, "max_sp": 20, "attack": 22, "defense": 12, "magic": 4, "speed": 5, "luck": 3,
+          "weaknesses": ["fire"], "resistances": ["physical", "ice"], "immunities": [], "absorbs": [],
+          "skills": ["rending_bite"], "items": {"health_potion": 2},
+          "ai_profile": {
+            "phases": [
+              {"name": "rage", "hp_threshold": 30, "rules": [{"conditions": {"hp_percent": {"min": 0, "max": 100}}, "action": {"type": "attack", "target_strategy": "weakest_enemy"}, "weight": 12}]},
+              {"name": "desperate", "hp_threshold": 0, "rules": [{"conditions": {"hp_percent": {"min": 0, "max": 30}}, "action": {"type": "item", "item_id": "health_potion", "target_strategy": "self"}, "weight": 15}, {"conditions": {"hp_percent": {"min": 0, "max": 100}}, "action": {"type": "attack", "target_strategy": "random_enemy"}, "weight": 10}]}
+            ],
+            "fallback_action": {"type": "attack", "target_strategy": "random_enemy"}
+          }
+        }
+      ],
+      "backdrop_id": "bg_mountain",
+      "rewards": {"items": {"health_potion": 2}, "flags": ["troll_defeated"], "exp": 180, "gold": 100}
+    },
+    "ruins_skeletons": {
+      "enemies": [
+        {
+          "id": "skeleton_1", "name": "Skeleton Warrior", "sprite_id": "skeleton", "type": "undead", "level": 5, "difficulty": "normal",
+          "max_hp": 50, "max_sp": 15, "attack": 12, "defense": 6, "magic": 3, "speed": 8, "luck": 3,
+          "weaknesses": ["holy", "fire"], "resistances": ["physical"], "immunities": ["poison"], "absorbs": [],
+          "skills": ["rending_bite"], "items": {},
+          "ai_profile": {"rules": [{"conditions": {"sp_percent": {"min": 50, "max": 100}}, "action": {"type": "skill", "skill_id": "rending_bite", "target_strategy": "weakest_enemy"}, "weight": 8}, {"conditions": {"hp_percent": {"min": 0, "max": 100}}, "action": {"type": "attack", "target_strategy": "random_enemy"}, "weight": 10}], "fallback_action": {"type": "attack", "target_strategy": "random_enemy"}}
+        },
+        {
+          "id": "skeleton_2", "name": "Skeleton Archer", "sprite_id": "skeleton", "type": "undead", "level": 5, "difficulty": "normal",
+          "max_hp": 40, "max_sp": 20, "attack": 14, "defense": 4, "magic": 5, "speed": 10, "luck": 4,
+          "weaknesses": ["holy", "fire"], "resistances": [], "immunities": ["poison"], "absorbs": [],
+          "skills": [], "items": {},
+          "ai_profile": {"rules": [{"conditions": {"hp_percent": {"min": 0, "max": 100}}, "action": {"type": "attack", "target_strategy": "highest_hp_enemy"}, "weight": 10}], "fallback_action": {"type": "attack", "target_strategy": "random_enemy"}}
+        }
+      ],
+      "backdrop_id": "bg_ruins",
+      "rewards": {"items": {}, "flags": ["skeletons_cleared"], "exp": 100, "gold": 45}
+    },
+    "haunted_spirits": {
+      "enemies": [
+        {
+          "id": "ghost_1", "name": "Restless Spirit", "sprite_id": "ghost", "type": "undead", "level": 6, "difficulty": "hard",
+          "max_hp": 60, "max_sp": 50, "attack": 8, "defense": 3, "magic": 16, "speed": 12, "luck": 8,
+          "weaknesses": ["holy"], "resistances": ["physical", "fire", "ice"], "immunities": ["poison"], "absorbs": [],
+          "skills": ["fire_bolt"], "items": {},
+          "ai_profile": {"rules": [{"conditions": {"sp_percent": {"min": 30, "max": 100}}, "action": {"type": "skill", "skill_id": "fire_bolt", "target_strategy": "random_enemy"}, "weight": 12}, {"conditions": {"hp_percent": {"min": 0, "max": 100}}, "action": {"type": "attack", "target_strategy": "random_enemy"}, "weight": 6}], "fallback_action": {"type": "attack", "target_strategy": "random_enemy"}}
+        }
+      ],
+      "backdrop_id": "bg_ruins",
+      "rewards": {"items": {"health_potion": 1}, "flags": ["spirits_cleared"], "exp": 110, "gold": 55}
+    },
+    "fire_elementals": {
+      "enemies": [
+        {
+          "id": "fire_elem_1", "name": "Fire Elemental", "sprite_id": "fire_elemental", "type": "elemental", "level": 6, "difficulty": "hard",
+          "max_hp": 75, "max_sp": 45, "attack": 12, "defense": 6, "magic": 16, "speed": 9, "luck": 5,
+          "weaknesses": ["ice"], "resistances": ["physical"], "immunities": ["fire"], "absorbs": [],
+          "skills": ["fire_bolt"], "items": {},
+          "ai_profile": {"rules": [{"conditions": {"sp_percent": {"min": 25, "max": 100}}, "action": {"type": "skill", "skill_id": "fire_bolt", "target_strategy": "highest_hp_enemy"}, "weight": 12}, {"conditions": {"hp_percent": {"min": 0, "max": 100}}, "action": {"type": "attack", "target_strategy": "random_enemy"}, "weight": 8}], "fallback_action": {"type": "attack", "target_strategy": "random_enemy"}}
+        }
+      ],
+      "backdrop_id": "bg_ruins",
+      "rewards": {"items": {}, "flags": ["fire_elementals_cleared"], "exp": 120, "gold": 60}
+    },
+    "ruins_guardian": {
+      "enemies": [
+        {
+          "id": "guardian_1", "name": "Ancient Guardian", "sprite_id": "boss", "type": "construct", "level": 9, "difficulty": "boss",
+          "max_hp": 200, "max_sp": 60, "attack": 18, "defense": 14, "magic": 14, "speed": 6, "luck": 5,
+          "weaknesses": ["holy"], "resistances": ["physical", "fire", "ice"], "immunities": ["poison"], "absorbs": [],
+          "skills": ["fire_bolt", "heal"], "items": {"health_potion": 3},
+          "ai_profile": {
+            "phases": [
+              {"name": "phase_1", "hp_threshold": 60, "rules": [
+                {"conditions": {"sp_percent": {"min": 40, "max": 100}}, "action": {"type": "skill", "skill_id": "fire_bolt", "target_strategy": "highest_hp_enemy"}, "weight": 10},
+                {"conditions": {"hp_percent": {"min": 0, "max": 100}}, "action": {"type": "attack", "target_strategy": "weakest_enemy"}, "weight": 8}
+              ]},
+              {"name": "phase_2", "hp_threshold": 30, "rules": [
+                {"conditions": {"hp_percent": {"min": 0, "max": 50}, "sp_percent": {"min": 30, "max": 100}}, "action": {"type": "skill", "skill_id": "heal", "target_strategy": "self"}, "weight": 12},
+                {"conditions": {"sp_percent": {"min": 30, "max": 100}}, "action": {"type": "skill", "skill_id": "fire_bolt", "target_strategy": "random_enemy"}, "weight": 10}
+              ]},
+              {"name": "phase_3", "hp_threshold": 0, "rules": [
+                {"conditions": {"hp_percent": {"min": 0, "max": 30}}, "action": {"type": "item", "item_id": "health_potion", "target_strategy": "self"}, "weight": 15},
+                {"conditions": {"hp_percent": {"min": 0, "max": 100}}, "action": {"type": "attack", "target_strategy": "weakest_enemy"}, "weight": 12}
+              ]}
+            ],
+            "fallback_action": {"type": "attack", "target_strategy": "random_enemy"}
+          }
+        }
+      ],
+      "backdrop_id": "bg_ruins",
+      "rewards": {"items": {"magic_crystal": 2}, "flags": ["ruins_guardian_defeated"], "exp": 250, "gold": 180}
+    },
+    "orc_raiders": {
+      "enemies": [
+        {"id": "orc_1", "name": "Orc Warrior", "sprite_id": "orc", "type": "orc", "level": 5, "difficulty": "normal", "max_hp": 70, "max_sp": 15, "attack": 16, "defense": 8, "magic": 3, "speed": 7, "luck": 3, "weaknesses": [], "resistances": ["physical"], "immunities": [], "absorbs": [], "skills": ["rending_bite"], "items": {}, "ai_profile": {"rules": [{"conditions": {"hp_percent": {"min": 0, "max": 100}}, "action": {"type": "attack", "target_strategy": "random_enemy"}, "weight": 10}], "fallback_action": {"type": "attack", "target_strategy": "random_enemy"}}},
+        {"id": "orc_2", "name": "Orc Berserker", "sprite_id": "orc", "type": "orc", "level": 6, "difficulty": "hard", "max_hp": 85, "max_sp": 10, "attack": 20, "defense": 5, "magic": 2, "speed": 9, "luck": 4, "weaknesses": ["fire"], "resistances": [], "immunities": [], "absorbs": [], "skills": [], "items": {}, "ai_profile": {"rules": [{"conditions": {"hp_percent": {"min": 0, "max": 100}}, "action": {"type": "attack", "target_strategy": "weakest_enemy"}, "weight": 12}], "fallback_action": {"type": "attack", "target_strategy": "random_enemy"}}}
+      ],
+      "backdrop_id": "bg_mountain", "rewards": {"items": {"health_potion": 2}, "flags": ["orcs_defeated"], "exp": 130, "gold": 70}
+    },
+    "vampire_coven": {
+      "enemies": [
+        {"id": "vampire_1", "name": "Vampire Lord", "sprite_id": "vampire", "type": "undead", "level": 8, "difficulty": "elite", "max_hp": 120, "max_sp": 50, "attack": 14, "defense": 8, "magic": 16, "speed": 12, "luck": 8, "weaknesses": ["holy", "fire"], "resistances": ["physical", "ice"], "immunities": ["poison"], "absorbs": [], "skills": ["fire_bolt", "heal"], "items": {"health_potion": 2}, "ai_profile": {"rules": [{"conditions": {"hp_percent": {"min": 0, "max": 40}}, "action": {"type": "skill", "skill_id": "heal", "target_strategy": "self"}, "weight": 12}, {"conditions": {"hp_percent": {"min": 0, "max": 100}}, "action": {"type": "attack", "target_strategy": "weakest_enemy"}, "weight": 8}], "fallback_action": {"type": "attack", "target_strategy": "random_enemy"}}}
+      ],
+      "backdrop_id": "bg_ruins", "rewards": {"items": {"magic_crystal": 1}, "flags": ["vampire_defeated"], "exp": 200, "gold": 120}
+    },
+    "werewolf_pack": {
+      "enemies": [
+        {"id": "werewolf_1", "name": "Young Werewolf", "sprite_id": "werewolf", "type": "beast", "level": 2, "difficulty": "normal", "max_hp": 45, "max_sp": 12, "attack": 9, "defense": 4, "magic": 2, "speed": 10, "luck": 4, "weaknesses": ["holy", "fire"], "resistances": [], "immunities": [], "absorbs": [], "skills": ["rending_bite"], "items": {}, "ai_profile": {"rules": [{"conditions": {"hp_percent": {"min": 0, "max": 100}}, "action": {"type": "attack", "target_strategy": "weakest_enemy"}, "weight": 10}], "fallback_action": {"type": "attack", "target_strategy": "random_enemy"}}},
+        {"id": "werewolf_2", "name": "Young Werewolf", "sprite_id": "werewolf", "type": "beast", "level": 2, "difficulty": "normal", "max_hp": 40, "max_sp": 10, "attack": 8, "defense": 3, "magic": 2, "speed": 9, "luck": 4, "weaknesses": ["holy", "fire"], "resistances": [], "immunities": [], "absorbs": [], "skills": [], "items": {}, "ai_profile": {"rules": [{"conditions": {"hp_percent": {"min": 0, "max": 100}}, "action": {"type": "attack", "target_strategy": "random_enemy"}, "weight": 10}], "fallback_action": {"type": "attack", "target_strategy": "random_enemy"}}}
+      ],
+      "backdrop_id": "bg_forest", "rewards": {"items": {"health_potion": 1}, "flags": ["werewolves_defeated"], "exp": 60, "gold": 30}
+    },
+    "mimic_trap": {
+      "enemies": [
+        {"id": "mimic_1", "name": "Treasure Mimic", "sprite_id": "mimic", "type": "monster", "level": 6, "difficulty": "hard", "max_hp": 90, "max_sp": 25, "attack": 16, "defense": 12, "magic": 6, "speed": 8, "luck": 10, "weaknesses": ["fire"], "resistances": ["physical"], "immunities": [], "absorbs": [], "skills": ["poison_strike"], "items": {}, "ai_profile": {"rules": [{"conditions": {"hp_percent": {"min": 0, "max": 100}}, "action": {"type": "attack", "target_strategy": "random_enemy"}, "weight": 10}], "fallback_action": {"type": "attack", "target_strategy": "random_enemy"}}}
+      ],
+      "backdrop_id": "bg_cave", "rewards": {"items": {"health_potion": 2, "magic_crystal": 1}, "flags": ["mimic_defeated"], "exp": 120, "gold": 150}
+    },
+    "stone_golems": {
+      "enemies": [
+        {"id": "golem_1", "name": "Stone Golem", "sprite_id": "golem", "type": "construct", "level": 7, "difficulty": "elite", "max_hp": 150, "max_sp": 10, "attack": 20, "defense": 18, "magic": 2, "speed": 3, "luck": 2, "weaknesses": ["ice"], "resistances": ["fire", "physical"], "immunities": ["poison"], "absorbs": [], "skills": [], "items": {}, "ai_profile": {"rules": [{"conditions": {"hp_percent": {"min": 0, "max": 100}}, "action": {"type": "attack", "target_strategy": "random_enemy"}, "weight": 10}], "fallback_action": {"type": "attack", "target_strategy": "random_enemy"}}}
+      ],
+      "backdrop_id": "bg_ruins", "rewards": {"items": {}, "flags": ["golem_defeated"], "exp": 140, "gold": 60}
+    },
+    "harpy_flock": {
+      "enemies": [
+        {"id": "harpy_1", "name": "Harpy", "sprite_id": "harpy", "type": "beast", "level": 4, "difficulty": "normal", "max_hp": 45, "max_sp": 20, "attack": 10, "defense": 4, "magic": 8, "speed": 15, "luck": 7, "weaknesses": ["ice"], "resistances": [], "immunities": [], "absorbs": [], "skills": [], "items": {}, "ai_profile": {"rules": [{"conditions": {"hp_percent": {"min": 0, "max": 100}}, "action": {"type": "attack", "target_strategy": "weakest_enemy"}, "weight": 10}], "fallback_action": {"type": "attack", "target_strategy": "random_enemy"}}},
+        {"id": "harpy_2", "name": "Harpy", "sprite_id": "harpy", "type": "beast", "level": 4, "difficulty": "normal", "max_hp": 45, "max_sp": 20, "attack": 10, "defense": 4, "magic": 8, "speed": 14, "luck": 7, "weaknesses": ["ice"], "resistances": [], "immunities": [], "absorbs": [], "skills": [], "items": {}, "ai_profile": {"rules": [{"conditions": {"hp_percent": {"min": 0, "max": 100}}, "action": {"type": "attack", "target_strategy": "random_enemy"}, "weight": 10}], "fallback_action": {"type": "attack", "target_strategy": "random_enemy"}}}
+      ],
+      "backdrop_id": "bg_mountain", "rewards": {"items": {"health_potion": 1}, "flags": ["harpies_defeated"], "exp": 90, "gold": 45}
+    },
+    "lizardman_tribe": {
+      "enemies": [
+        {"id": "lizard_1", "name": "Lizardman Warrior", "sprite_id": "lizardman", "type": "reptile", "level": 5, "difficulty": "normal", "max_hp": 65, "max_sp": 15, "attack": 14, "defense": 8, "magic": 4, "speed": 9, "luck": 4, "weaknesses": ["ice"], "resistances": ["fire"], "immunities": [], "absorbs": [], "skills": [], "items": {}, "ai_profile": {"rules": [{"conditions": {"hp_percent": {"min": 0, "max": 100}}, "action": {"type": "attack", "target_strategy": "weakest_enemy"}, "weight": 10}], "fallback_action": {"type": "attack", "target_strategy": "random_enemy"}}},
+        {"id": "lizard_2", "name": "Lizardman Shaman", "sprite_id": "lizardman", "type": "reptile", "level": 5, "difficulty": "hard", "max_hp": 50, "max_sp": 40, "attack": 8, "defense": 5, "magic": 14, "speed": 8, "luck": 5, "weaknesses": ["ice"], "resistances": ["fire"], "immunities": [], "absorbs": [], "skills": ["fire_bolt", "heal"], "items": {}, "ai_profile": {"rules": [{"conditions": {"sp_percent": {"min": 30, "max": 100}}, "action": {"type": "skill", "skill_id": "fire_bolt", "target_strategy": "random_enemy"}, "weight": 8}], "fallback_action": {"type": "attack", "target_strategy": "random_enemy"}}}
+      ],
+      "backdrop_id": "bg_swamp", "rewards": {"items": {"health_potion": 1}, "flags": ["lizardmen_defeated"], "exp": 120, "gold": 65}
+    },
+    "demon_invasion": {
+      "enemies": [
+        {"id": "demon_1", "name": "Lesser Demon", "sprite_id": "demon", "type": "demon", "level": 8, "difficulty": "elite", "max_hp": 130, "max_sp": 45, "attack": 18, "defense": 10, "magic": 16, "speed": 11, "luck": 6, "weaknesses": ["holy"], "resistances": ["fire"], "immunities": ["poison"], "absorbs": [], "skills": ["fire_bolt"], "items": {}, "ai_profile": {"rules": [{"conditions": {"hp_percent": {"min": 0, "max": 100}}, "action": {"type": "attack", "target_strategy": "weakest_enemy"}, "weight": 10}], "fallback_action": {"type": "attack", "target_strategy": "random_enemy"}}},
+        {"id": "imp_1", "name": "Imp", "sprite_id": "imp", "type": "demon", "level": 4, "difficulty": "normal", "max_hp": 35, "max_sp": 25, "attack": 8, "defense": 4, "magic": 10, "speed": 14, "luck": 8, "weaknesses": ["holy", "ice"], "resistances": ["fire"], "immunities": [], "absorbs": [], "skills": ["fire_bolt"], "items": {}, "ai_profile": {"rules": [{"conditions": {"hp_percent": {"min": 0, "max": 100}}, "action": {"type": "attack", "target_strategy": "random_enemy"}, "weight": 10}], "fallback_action": {"type": "attack", "target_strategy": "random_enemy"}}}
+      ],
+      "backdrop_id": "bg_ruins", "rewards": {"items": {"magic_crystal": 1}, "flags": ["demons_defeated"], "exp": 180, "gold": 100}
+    },
+    "necromancer_lair": {
+      "enemies": [
+        {"id": "necro_1", "name": "Necromancer", "sprite_id": "necromancer", "type": "humanoid", "level": 8, "difficulty": "elite", "max_hp": 90, "max_sp": 70, "attack": 8, "defense": 6, "magic": 20, "speed": 8, "luck": 7, "weaknesses": ["holy", "fire"], "resistances": ["ice"], "immunities": ["poison"], "absorbs": [], "skills": ["fire_bolt", "poison_strike"], "items": {"health_potion": 2}, "ai_profile": {"rules": [{"conditions": {"sp_percent": {"min": 40, "max": 100}}, "action": {"type": "skill", "skill_id": "fire_bolt", "target_strategy": "highest_hp_enemy"}, "weight": 10}], "fallback_action": {"type": "attack", "target_strategy": "random_enemy"}}},
+        {"id": "skeleton_minion", "name": "Skeleton Minion", "sprite_id": "skeleton", "type": "undead", "level": 4, "difficulty": "normal", "max_hp": 40, "max_sp": 10, "attack": 10, "defense": 5, "magic": 2, "speed": 7, "luck": 2, "weaknesses": ["holy", "fire"], "resistances": [], "immunities": ["poison"], "absorbs": [], "skills": [], "items": {}, "ai_profile": {"rules": [{"conditions": {"hp_percent": {"min": 0, "max": 100}}, "action": {"type": "attack", "target_strategy": "random_enemy"}, "weight": 10}], "fallback_action": {"type": "attack", "target_strategy": "random_enemy"}}}
+      ],
+      "backdrop_id": "bg_ruins", "rewards": {"items": {"magic_crystal": 2}, "flags": ["necromancer_defeated"], "exp": 200, "gold": 110}
+    },
+    "wraith_haunting": {
+      "enemies": [
+        {"id": "wraith_1", "name": "Wraith", "sprite_id": "wraith", "type": "undead", "level": 7, "difficulty": "hard", "max_hp": 70, "max_sp": 40, "attack": 12, "defense": 4, "magic": 18, "speed": 14, "luck": 9, "weaknesses": ["holy"], "resistances": ["physical", "fire", "ice"], "immunities": ["poison"], "absorbs": [], "skills": ["fire_bolt"], "items": {}, "ai_profile": {"rules": [{"conditions": {"hp_percent": {"min": 0, "max": 100}}, "action": {"type": "attack", "target_strategy": "random_enemy"}, "weight": 10}], "fallback_action": {"type": "attack", "target_strategy": "random_enemy"}}}
+      ],
+      "backdrop_id": "bg_ruins", "rewards": {"items": {"health_potion": 1}, "flags": ["wraiths_defeated"], "exp": 130, "gold": 70}
+    },
+    "cyclops_den": {
+      "enemies": [
+        {"id": "cyclops_1", "name": "Cyclops", "sprite_id": "cyclops", "type": "giant", "level": 9, "difficulty": "boss", "max_hp": 220, "max_sp": 15, "attack": 25, "defense": 14, "magic": 5, "speed": 4, "luck": 3, "weaknesses": ["fire"], "resistances": ["physical", "ice"], "immunities": [], "absorbs": [], "skills": [], "items": {"health_potion": 3}, "ai_profile": {"rules": [{"conditions": {"hp_percent": {"min": 0, "max": 100}}, "action": {"type": "attack", "target_strategy": "highest_hp_enemy"}, "weight": 12}], "fallback_action": {"type": "attack", "target_strategy": "random_enemy"}}}
+      ],
+      "backdrop_id": "bg_cave", "rewards": {"items": {"magic_crystal": 2}, "flags": ["cyclops_defeated"], "exp": 280, "gold": 200}
+    },
+    "dark_knight_duel": {
+      "enemies": [
+        {"id": "dark_knight_1", "name": "Dark Knight", "sprite_id": "dark_knight", "type": "undead", "level": 9, "difficulty": "boss", "max_hp": 180, "max_sp": 40, "attack": 22, "defense": 16, "magic": 10, "speed": 8, "luck": 6, "weaknesses": ["holy"], "resistances": ["physical", "fire", "ice"], "immunities": ["poison"], "absorbs": [], "skills": ["rending_bite", "fire_bolt"], "items": {"health_potion": 2}, "ai_profile": {"rules": [{"conditions": {"hp_percent": {"min": 0, "max": 100}}, "action": {"type": "attack", "target_strategy": "weakest_enemy"}, "weight": 10}], "fallback_action": {"type": "attack", "target_strategy": "random_enemy"}}}
+      ],
+      "backdrop_id": "bg_ruins", "rewards": {"items": {"magic_crystal": 2}, "flags": ["dark_knight_defeated"], "exp": 260, "gold": 180}
+    },
+    "river_creature": {
+      "enemies": [
+        {"id": "river_creature_1", "name": "River Lurker", "sprite_id": "slime", "type": "beast", "level": 4, "difficulty": "hard", "max_hp": 80, "max_sp": 20, "attack": 12, "defense": 6, "magic": 8, "speed": 10, "luck": 5, "weaknesses": ["fire", "holy"], "resistances": ["ice"], "immunities": ["poison"], "absorbs": [], "skills": ["poison_strike"], "items": {}, "ai_profile": {"rules": [{"conditions": {"hp_percent": {"min": 0, "max": 100}, "sp_percent": {"min": 40, "max": 100}}, "action": {"type": "skill", "skill_id": "poison_strike", "target_strategy": "random_enemy"}, "weight": 8}, {"conditions": {"hp_percent": {"min": 0, "max": 100}}, "action": {"type": "attack", "target_strategy": "weakest_enemy"}, "weight": 10}], "fallback_action": {"type": "attack", "target_strategy": "random_enemy"}}}
+      ],
+      "backdrop_id": "bg_cave", "rewards": {"items": {"health_potion": 2}, "flags": ["river_creature_defeated"], "exp": 100, "gold": 60}
+    },
+    "sea_serpents": {
+      "enemies": [
+        {"id": "serpent_1", "name": "Sea Serpent", "sprite_id": "snake", "type": "beast", "level": 6, "difficulty": "hard", "max_hp": 90, "max_sp": 25, "attack": 14, "defense": 7, "magic": 10, "speed": 12, "luck": 6, "weaknesses": ["ice", "holy"], "resistances": ["fire"], "immunities": ["poison"], "absorbs": [], "skills": ["rending_bite"], "items": {}, "ai_profile": {"rules": [{"conditions": {"hp_percent": {"min": 0, "max": 100}, "sp_percent": {"min": 50, "max": 100}}, "action": {"type": "skill", "skill_id": "rending_bite", "target_strategy": "weakest_enemy"}, "weight": 9}, {"conditions": {"hp_percent": {"min": 0, "max": 100}}, "action": {"type": "attack", "target_strategy": "random_enemy"}, "weight": 10}], "fallback_action": {"type": "attack", "target_strategy": "random_enemy"}}},
+        {"id": "serpent_2", "name": "Sea Serpent", "sprite_id": "snake", "type": "beast", "level": 6, "difficulty": "normal", "max_hp": 75, "max_sp": 20, "attack": 12, "defense": 6, "magic": 8, "speed": 11, "luck": 5, "weaknesses": ["ice", "holy"], "resistances": ["fire"], "immunities": ["poison"], "absorbs": [], "skills": [], "items": {}, "ai_profile": {"rules": [{"conditions": {"hp_percent": {"min": 0, "max": 100}}, "action": {"type": "attack", "target_strategy": "weakest_enemy"}, "weight": 10}], "fallback_action": {"type": "attack", "target_strategy": "random_enemy"}}}
+      ],
+      "backdrop_id": "bg_forest", "rewards": {"items": {"health_potion": 2}, "flags": ["sea_serpents_defeated"], "exp": 130, "gold": 80}
+    },
+    "secret_boss_ancient_wyrm": {
+      "enemies": [
+        {
+          "id": "ancient_wyrm",
+          "name": "Zyraxis, Ancient Wyrm",
+          "sprite_id": "boss_wyrm",
+          "type": "dragon",
+          "level": 50,
+          "difficulty": "secret",
+          "max_hp": 5000,
+          "hp": 5000,
+          "max_sp": 200,
+          "sp": 200,
+          "attack": 80,
+          "defense": 60,
+          "magic": 70,
+          "speed": 40,
+          "luck": 20,
+          "weaknesses": ["ice"],
+          "resistances": ["fire", "physical"],
+          "immunities": ["poison"],
+          "absorbs": [],
+          "skills": ["dragon_breath", "tail_sweep", "ancient_roar", "meteor_storm"],
+          "items": {},
+          "ai_profile": {
+            "behavior_type": "aggressive",
+            "phases": [
+              {
+                "name": "calm",
+                "hp_threshold": 70,
+                "rules": [
+                  {
+                    "conditions": {"hp_percent": {"min": 70, "max": 100}, "sp_percent": {"min": 50, "max": 100}},
+                    "action": {"type": "skill", "skill_id": "dragon_breath", "target_strategy": "all_enemies"},
+                    "weight": 8
+                  },
+                  {
+                    "conditions": {"hp_percent": {"min": 70, "max": 100}},
+                    "action": {"type": "attack", "target_strategy": "random_enemy"},
+                    "weight": 10
+                  }
+                ]
+              },
+              {
+                "name": "enraged",
+                "hp_threshold": 40,
+                "rules": [
+                  {
+                    "conditions": {"hp_percent": {"min": 40, "max": 70}, "sp_percent": {"min": 30, "max": 100}},
+                    "action": {"type": "skill", "skill_id": "meteor_storm", "target_strategy": "all_enemies"},
+                    "weight": 10
+                  },
+                  {
+                    "conditions": {"hp_percent": {"min": 40, "max": 70}, "sp_percent": {"min": 20, "max": 100}},
+                    "action": {"type": "skill", "skill_id": "tail_sweep", "target_strategy": "all_enemies"},
+                    "weight": 9
+                  },
+                  {
+                    "conditions": {"hp_percent": {"min": 40, "max": 70}},
+                    "action": {"type": "attack", "target_strategy": "weakest_enemy"},
+                    "weight": 8
+                  }
+                ]
+              },
+              {
+                "name": "desperate",
+                "hp_threshold": 15,
+                "rules": [
+                  {
+                    "conditions": {"hp_percent": {"min": 0, "max": 40}, "sp_percent": {"min": 10, "max": 100}},
+                    "action": {"type": "skill", "skill_id": "ancient_roar", "target_strategy": "all_enemies"},
+                    "weight": 12
+                  },
+                  {
+                    "conditions": {"hp_percent": {"min": 0, "max": 40}},
+                    "action": {"type": "attack", "target_strategy": "weakest_enemy"},
+                    "weight": 10
+                  }
+                ]
+              }
+            ],
+            "fallback_action": {"type": "attack", "target_strategy": "random_enemy"}
+          }
+        }
+      ],
+      "backdrop_id": "bg_wyrm_lair",
+      "rewards": {"items": {}, "flags": ["ancient_wyrm_defeated"], "exp": 15000, "gold": 10000},
+      "spareable": false
+    },
+    "secret_boss_shadow_sovereign": {
+      "enemies": [
+        {
+          "id": "shadow_sovereign",
+          "name": "Umbraxis, Shadow Sovereign",
+          "sprite_id": "boss_shadow",
+          "type": "shadow",
+          "level": 55,
+          "difficulty": "secret",
+          "max_hp": 6000,
+          "hp": 6000,
+          "max_sp": 250,
+          "sp": 250,
+          "attack": 90,
+          "defense": 50,
+          "magic": 85,
+          "speed": 60,
+          "luck": 30,
+          "weaknesses": ["holy", "fire"],
+          "resistances": ["physical", "ice"],
+          "immunities": ["poison", "dark"],
+          "absorbs": ["dark"],
+          "skills": ["shadow_blast", "void_strike", "darkness_embrace", "shadow_phase"],
+          "items": {},
+          "ai_profile": {
+            "behavior_type": "aggressive",
+            "phases": [
+              {
+                "name": "phase_1",
+                "hp_threshold": 60,
+                "rules": [
+                  {
+                    "conditions": {"hp_percent": {"min": 60, "max": 100}, "sp_percent": {"min": 40, "max": 100}},
+                    "action": {"type": "skill", "skill_id": "shadow_blast", "target_strategy": "random_enemy"},
+                    "weight": 9
+                  },
+                  {
+                    "conditions": {"hp_percent": {"min": 60, "max": 100}},
+                    "action": {"type": "attack", "target_strategy": "weakest_enemy"},
+                    "weight": 10
+                  }
+                ]
+              },
+              {
+                "name": "phase_2",
+                "hp_threshold": 30,
+                "rules": [
+                  {
+                    "conditions": {"hp_percent": {"min": 30, "max": 60}, "sp_percent": {"min": 30, "max": 100}},
+                    "action": {"type": "skill", "skill_id": "void_strike", "target_strategy": "all_enemies"},
+                    "weight": 10
+                  },
+                  {
+                    "conditions": {"hp_percent": {"min": 30, "max": 60}},
+                    "action": {"type": "skill", "skill_id": "shadow_phase", "target_strategy": "self"},
+                    "weight": 8
+                  }
+                ]
+              },
+              {
+                "name": "phase_3",
+                "hp_threshold": 0,
+                "rules": [
+                  {
+                    "conditions": {"hp_percent": {"min": 0, "max": 30}, "sp_percent": {"min": 20, "max": 100}},
+                    "action": {"type": "skill", "skill_id": "darkness_embrace", "target_strategy": "all_enemies"},
+                    "weight": 12
+                  },
+                  {
+                    "conditions": {"hp_percent": {"min": 0, "max": 30}},
+                    "action": {"type": "attack", "target_strategy": "weakest_enemy"},
+                    "weight": 10
+                  }
+                ]
+              }
+            ],
+            "fallback_action": {"type": "attack", "target_strategy": "random_enemy"}
+          }
+        }
+      ],
+      "backdrop_id": "bg_shadow_throne",
+      "rewards": {"items": {}, "flags": ["shadow_sovereign_defeated"], "exp": 20000, "gold": 15000},
+      "spareable": false
+    },
+    "secret_boss_true_final": {
+      "enemies": [
+        {
+          "id": "true_final_boss",
+          "name": "???",
+          "sprite_id": "boss_unknown",
+          "type": "cosmic",
+          "level": 99,
+          "difficulty": "secret",
+          "max_hp": 10000,
+          "hp": 10000,
+          "max_sp": 500,
+          "sp": 500,
+          "attack": 120,
+          "defense": 80,
+          "magic": 120,
+          "speed": 70,
+          "luck": 50,
+          "weaknesses": [],
+          "resistances": ["physical", "fire", "ice", "holy", "dark"],
+          "immunities": ["poison"],
+          "absorbs": [],
+          "skills": ["cosmic_blast", "reality_tear", "ultimate_judgment", "phase_shift"],
+          "items": {},
+          "ai_profile": {
+            "behavior_type": "aggressive",
+            "phases": [
+              {
+                "name": "phase_1",
+                "hp_threshold": 70,
+                "rules": [
+                  {
+                    "conditions": {"hp_percent": {"min": 70, "max": 100}, "sp_percent": {"min": 50, "max": 100}},
+                    "action": {"type": "skill", "skill_id": "cosmic_blast", "target_strategy": "all_enemies"},
+                    "weight": 9
+                  },
+                  {
+                    "conditions": {"hp_percent": {"min": 70, "max": 100}},
+                    "action": {"type": "attack", "target_strategy": "random_enemy"},
+                    "weight": 10
+                  }
+                ]
+              },
+              {
+                "name": "phase_2",
+                "hp_threshold": 40,
+                "rules": [
+                  {
+                    "conditions": {"hp_percent": {"min": 40, "max": 70}, "sp_percent": {"min": 40, "max": 100}},
+                    "action": {"type": "skill", "skill_id": "reality_tear", "target_strategy": "all_enemies"},
+                    "weight": 10
+                  },
+                  {
+                    "conditions": {"hp_percent": {"min": 40, "max": 70}},
+                    "action": {"type": "skill", "skill_id": "phase_shift", "target_strategy": "self"},
+                    "weight": 8
+                  }
+                ]
+              },
+              {
+                "name": "phase_3",
+                "hp_threshold": 15,
+                "rules": [
+                  {
+                    "conditions": {"hp_percent": {"min": 15, "max": 40}, "sp_percent": {"min": 30, "max": 100}},
+                    "action": {"type": "skill", "skill_id": "ultimate_judgment", "target_strategy": "all_enemies"},
+                    "weight": 12
+                  },
+                  {
+                    "conditions": {"hp_percent": {"min": 15, "max": 40}},
+                    "action": {"type": "attack", "target_strategy": "weakest_enemy"},
+                    "weight": 10
+                  }
+                ]
+              },
+              {
+                "name": "phase_4",
+                "hp_threshold": 0,
+                "rules": [
+                  {
+                    "conditions": {"hp_percent": {"min": 0, "max": 15}},
+                    "action": {"type": "skill", "skill_id": "ultimate_judgment", "target_strategy": "all_enemies"},
+                    "weight": 15
+                  }
+                ]
+              }
+            ],
+            "fallback_action": {"type": "attack", "target_strategy": "random_enemy"}
+          }
+        }
+      ],
+      "backdrop_id": "bg_beyond_realm",
+      "rewards": {"items": {}, "flags": ["true_final_boss_defeated"], "exp": 100000, "gold": 50000},
+      "spareable": false
+    },
+    "secret_boss_forgotten_champion": {
+      "enemies": [
+        {
+          "id": "forgotten_champion",
+          "name": "Sir Aldric, The Forgotten Champion",
+          "sprite_id": "boss_champion",
+          "type": "knight",
+          "level": 35,
+          "difficulty": "secret",
+          "max_hp": 3500,
+          "hp": 3500,
+          "max_sp": 150,
+          "sp": 150,
+          "attack": 70,
+          "defense": 65,
+          "magic": 40,
+          "speed": 50,
+          "luck": 25,
+          "weaknesses": ["magic"],
+          "resistances": ["physical"],
+          "immunities": ["stun"],
+          "absorbs": [],
+          "skills": ["champion_strike", "shield_bash", "oath_of_valor", "knight_charge"],
+          "items": {},
+          "ai_profile": {
+            "behavior_type": "aggressive",
+            "rules": [
+              {
+                "conditions": {"hp_percent": {"min": 50, "max": 100}, "sp_percent": {"min": 40, "max": 100}},
+                "action": {"type": "skill", "skill_id": "champion_strike", "target_strategy": "random_enemy"},
+                "weight": 8
+              },
+              {
+                "conditions": {"hp_percent": {"min": 0, "max": 100}},
+                "action": {"type": "attack", "target_strategy": "random_enemy"},
+                "weight": 10
+              }
+            ],
+            "fallback_action": {"type": "attack", "target_strategy": "random_enemy"}
+          }
+        }
+      ],
+      "backdrop_id": "bg_champions_rest",
+      "rewards": {"items": {}, "flags": ["forgotten_champion_defeated"], "exp": 12000, "gold": 8000},
+      "spareable": false
+    },
+    "secret_boss_void_emperor": {
+      "enemies": [
+        {
+          "id": "void_emperor",
+          "name": "Nullix, Emperor of the Void",
+          "sprite_id": "boss_void",
+          "type": "void",
+          "level": 45,
+          "difficulty": "secret",
+          "max_hp": 5500,
+          "hp": 5500,
+          "max_sp": 300,
+          "sp": 300,
+          "attack": 85,
+          "defense": 55,
+          "magic": 95,
+          "speed": 55,
+          "luck": 35,
+          "weaknesses": ["holy"],
+          "resistances": ["dark", "magic"],
+          "immunities": ["poison", "confusion"],
+          "absorbs": ["void"],
+          "skills": ["void_blast", "dimensional_rift", "nullify", "void_emperor_strike"],
+          "items": {},
+          "ai_profile": {
+            "behavior_type": "aggressive",
+            "rules": [
+              {
+                "conditions": {"hp_percent": {"min": 60, "max": 100}, "sp_percent": {"min": 50, "max": 100}},
+                "action": {"type": "skill", "skill_id": "void_blast", "target_strategy": "all_enemies"},
+                "weight": 9
+              },
+              {
+                "conditions": {"hp_percent": {"min": 30, "max": 60}, "sp_percent": {"min": 40, "max": 100}},
+                "action": {"type": "skill", "skill_id": "dimensional_rift", "target_strategy": "all_enemies"},
+                "weight": 10
+              },
+              {
+                "conditions": {"hp_percent": {"min": 0, "max": 100}},
+                "action": {"type": "attack", "target_strategy": "weakest_enemy"},
+                "weight": 10
+              }
+            ],
+            "fallback_action": {"type": "attack", "target_strategy": "random_enemy"}
+          }
+        }
+      ],
+      "backdrop_id": "bg_void_gateway",
+      "rewards": {"items": {}, "flags": ["void_emperor_defeated"], "exp": 25000, "gold": 20000},
+      "spareable": false
+    },
+    "secret_boss_primordial": {
+      "enemies": [
+        {
+          "id": "primordial_beast",
+          "name": "Gorakk, The Primordial Beast",
+          "sprite_id": "boss_primordial",
+          "type": "elemental",
+          "level": 40,
+          "difficulty": "secret",
+          "max_hp": 4500,
+          "hp": 4500,
+          "max_sp": 200,
+          "sp": 200,
+          "attack": 75,
+          "defense": 60,
+          "magic": 80,
+          "speed": 45,
+          "luck": 30,
+          "weaknesses": [],
+          "resistances": ["fire", "water", "earth", "wind"],
+          "immunities": ["poison", "burn", "frozen"],
+          "absorbs": [],
+          "skills": ["primal_roar", "elemental_storm", "nature_wrath", "beast_claw"],
+          "items": {},
+          "ai_profile": {
+            "behavior_type": "aggressive",
+            "rules": [
+              {
+                "conditions": {"hp_percent": {"min": 50, "max": 100}, "sp_percent": {"min": 40, "max": 100}},
+                "action": {"type": "skill", "skill_id": "elemental_storm", "target_strategy": "all_enemies"},
+                "weight": 9
+              },
+              {
+                "conditions": {"hp_percent": {"min": 0, "max": 100}},
+                "action": {"type": "attack", "target_strategy": "random_enemy"},
+                "weight": 10
+              }
+            ],
+            "fallback_action": {"type": "attack", "target_strategy": "random_enemy"}
+          }
+        }
+      ],
+      "backdrop_id": "bg_primal_grove",
+      "rewards": {"items": {}, "flags": ["primordial_beast_defeated"], "exp": 18000, "gold": 12000},
+      "spareable": false
+    },
+    "secret_boss_mirror": {
+      "enemies": [
+        {
+          "id": "mirror_self",
+          "name": "Shadow [Player]",
+          "sprite_id": "mirror_player",
+          "type": "mirror",
+          "level": 1,
+          "difficulty": "secret",
+          "max_hp": 100,
+          "hp": 100,
+          "max_sp": 10,
+          "sp": 10,
+          "attack": 10,
+          "defense": 5,
+          "magic": 10,
+          "speed": 5,
+          "luck": 1,
+          "weaknesses": [],
+          "resistances": [],
+          "immunities": [],
+          "absorbs": [],
+          "skills": [],
+          "items": {},
+          "ai_profile": {
+            "behavior_type": "adaptive",
+            "mirrors_player": true
+          }
+        }
+      ],
+      "backdrop_id": "bg_mirror_realm",
+      "rewards": {"items": {}, "flags": ["mirror_self_defeated"], "exp": 20000, "gold": 15000},
+      "spareable": false
+    }
+  }
+}

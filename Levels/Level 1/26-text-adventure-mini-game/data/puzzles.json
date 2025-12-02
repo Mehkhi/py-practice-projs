@@ -1,0 +1,425 @@
+{
+  "puzzles": {
+    "dark_cave_block_puzzle": {
+      "puzzle_id": "dark_cave_block_puzzle",
+      "map_id": "dark_cave",
+      "name": "Cave Block Puzzle",
+      "hint": "Push the blocks onto the marked tiles to open the door.",
+      "elements": {
+        "block_1": {
+          "element_id": "block_1",
+          "element_type": "pushable_block",
+          "x": 5,
+          "y": 7,
+          "sprite_id": "puzzle_block",
+          "solid": true
+        },
+        "block_2": {
+          "element_id": "block_2",
+          "element_type": "pushable_block",
+          "x": 8,
+          "y": 7,
+          "sprite_id": "puzzle_block",
+          "solid": true
+        },
+        "target_1": {
+          "element_id": "target_1",
+          "element_type": "pressure_plate",
+          "x": 6,
+          "y": 5,
+          "sprite_id": "pressure_plate",
+          "solid": false,
+          "linked_elements": ["main_door"]
+        },
+        "target_2": {
+          "element_id": "target_2",
+          "element_type": "pressure_plate",
+          "x": 7,
+          "y": 5,
+          "sprite_id": "pressure_plate",
+          "solid": false,
+          "linked_elements": ["main_door"]
+        },
+        "main_door": {
+          "element_id": "main_door",
+          "element_type": "door",
+          "x": 7,
+          "y": 3,
+          "state": "closed",
+          "sprite_id": "door_closed",
+          "solid": true,
+          "data": {
+            "open_sprite": "door_open",
+            "requires_all_links": true
+          }
+        }
+      },
+      "solution_conditions": [
+        {
+          "type": "element_state",
+          "element_id": "main_door",
+          "state": "open"
+        }
+      ],
+      "reward_trigger_id": "cave_puzzle_reward"
+    },
+    "puzzle_crypt_room1": {
+      "puzzle_id": "puzzle_crypt_room1",
+      "map_id": "puzzle_crypt",
+      "name": "Crypt Room 1 - Block Puzzle",
+      "hint": "Push the block onto the pressure plate to open the door.",
+      "elements": {
+        "block_1": {
+          "element_id": "block_1",
+          "element_type": "pushable_block",
+          "x": 5,
+          "y": 10,
+          "sprite_id": "puzzle_block",
+          "solid": true
+        },
+        "target_plate": {
+          "element_id": "target_plate",
+          "element_type": "pressure_plate",
+          "x": 7,
+          "y": 10,
+          "sprite_id": "pressure_plate",
+          "solid": false,
+          "linked_elements": ["room1_door"]
+        },
+        "room1_door": {
+          "element_id": "room1_door",
+          "element_type": "door",
+          "x": 10,
+          "y": 10,
+          "state": "closed",
+          "sprite_id": "door_closed",
+          "solid": true,
+          "data": {
+            "open_sprite": "door_open",
+            "requires_all_links": true
+          }
+        },
+        "reset_switch": {
+          "element_id": "reset_switch",
+          "element_type": "switch",
+          "x": 1,
+          "y": 1,
+          "sprite_id": "reset_switch",
+          "solid": false,
+          "data": {
+            "action": "reset_puzzle",
+            "confirmation_dialogue": "reset_puzzle_confirm"
+          }
+        }
+      },
+      "solution_conditions": [
+        {
+          "type": "element_state",
+          "element_id": "room1_door",
+          "state": "open"
+        }
+      ],
+      "reward_trigger_id": "crypt_room1_reward"
+    },
+    "puzzle_crypt_room2": {
+      "puzzle_id": "puzzle_crypt_room2",
+      "map_id": "puzzle_crypt",
+      "name": "Crypt Room 2 - Sequence Puzzle",
+      "hint": "Activate the switches in the correct order.",
+      "puzzle_type": "sequence",
+      "required_sequence": ["switch_1", "switch_2"],
+      "elements": {
+        "switch_1": {
+          "element_id": "switch_1",
+          "element_type": "switch",
+          "x": 5,
+          "y": 5,
+          "sprite_id": "switch",
+          "solid": false,
+          "state": "off",
+          "linked_elements": ["room2_door"]
+        },
+        "switch_2": {
+          "element_id": "switch_2",
+          "element_type": "switch",
+          "x": 8,
+          "y": 5,
+          "sprite_id": "switch",
+          "solid": false,
+          "state": "off",
+          "linked_elements": ["room2_door"]
+        },
+        "room2_door": {
+          "element_id": "room2_door",
+          "element_type": "door",
+          "x": 15,
+          "y": 5,
+          "state": "closed",
+          "sprite_id": "door_closed",
+          "solid": true,
+          "data": {
+            "open_sprite": "door_open"
+          }
+        },
+        "reset_switch": {
+          "element_id": "reset_switch",
+          "element_type": "switch",
+          "x": 1,
+          "y": 1,
+          "sprite_id": "reset_switch",
+          "solid": false,
+          "data": {
+            "action": "reset_puzzle",
+            "confirmation_dialogue": "reset_puzzle_confirm"
+          }
+        }
+      },
+      "solution_conditions": [
+        {
+          "type": "sequence_complete"
+        }
+      ],
+      "reward_trigger_id": "crypt_room2_reward"
+    },
+    "puzzle_crypt_room3": {
+      "puzzle_id": "puzzle_crypt_room3",
+      "map_id": "puzzle_crypt",
+      "name": "Crypt Room 3 - Torch Puzzle",
+      "hint": "Light the torches and activate the pressure plates.",
+      "elements": {
+        "torch_1": {
+          "element_id": "torch_1",
+          "element_type": "torch_holder",
+          "x": 5,
+          "y": 15,
+          "sprite_id": "torch_holder",
+          "solid": false,
+          "state": "unlit",
+          "linked_elements": ["gate_1"]
+        },
+        "torch_2": {
+          "element_id": "torch_2",
+          "element_type": "torch_holder",
+          "x": 10,
+          "y": 15,
+          "sprite_id": "torch_holder",
+          "solid": false,
+          "state": "unlit",
+          "linked_elements": ["gate_1"]
+        },
+        "plate_1": {
+          "element_id": "plate_1",
+          "element_type": "pressure_plate",
+          "x": 7,
+          "y": 15,
+          "sprite_id": "pressure_plate",
+          "solid": false,
+          "linked_elements": ["gate_1"]
+        },
+        "gate_1": {
+          "element_id": "gate_1",
+          "element_type": "gate",
+          "x": 20,
+          "y": 15,
+          "state": "closed",
+          "sprite_id": "gate_closed",
+          "solid": true,
+          "data": {
+            "conditions": [
+              {"element_id": "torch_1", "state": "lit"},
+              {"element_id": "torch_2", "state": "lit"},
+              {"element_id": "plate_1", "state": "activated"}
+            ]
+          }
+        },
+        "reset_switch": {
+          "element_id": "reset_switch",
+          "element_type": "switch",
+          "x": 1,
+          "y": 1,
+          "sprite_id": "reset_switch",
+          "solid": false,
+          "data": {
+            "action": "reset_puzzle",
+            "confirmation_dialogue": "reset_puzzle_confirm"
+          }
+        }
+      },
+      "solution_conditions": [
+        {
+          "type": "element_state",
+          "element_id": "gate_1",
+          "state": "open"
+        }
+      ],
+      "reward_trigger_id": "crypt_room3_reward"
+    },
+    "ice_cavern_sliding": {
+      "puzzle_id": "ice_cavern_sliding",
+      "map_id": "ice_cavern",
+      "name": "Ice Cavern Sliding Puzzle",
+      "hint": "Slide the blocks onto the targets. Watch out for ice!",
+      "elements": {
+        "block_1": {
+          "element_id": "block_1",
+          "element_type": "pushable_block",
+          "x": 5,
+          "y": 5,
+          "sprite_id": "puzzle_block",
+          "solid": true
+        },
+        "block_2": {
+          "element_id": "block_2",
+          "element_type": "pushable_block",
+          "x": 10,
+          "y": 5,
+          "sprite_id": "puzzle_block",
+          "solid": true
+        },
+        "ice_tile_1": {
+          "element_id": "ice_tile_1",
+          "element_type": "ice_tile",
+          "x": 7,
+          "y": 7,
+          "sprite_id": "ice_tile",
+          "solid": false
+        },
+        "ice_tile_2": {
+          "element_id": "ice_tile_2",
+          "element_type": "ice_tile",
+          "x": 8,
+          "y": 7,
+          "sprite_id": "ice_tile",
+          "solid": false
+        },
+        "target_1": {
+          "element_id": "target_1",
+          "element_type": "pressure_plate",
+          "x": 7,
+          "y": 10,
+          "sprite_id": "pressure_plate",
+          "solid": false,
+          "linked_elements": ["ice_door"]
+        },
+        "target_2": {
+          "element_id": "target_2",
+          "element_type": "pressure_plate",
+          "x": 8,
+          "y": 10,
+          "sprite_id": "pressure_plate",
+          "solid": false,
+          "linked_elements": ["ice_door"]
+        },
+        "ice_door": {
+          "element_id": "ice_door",
+          "element_type": "door",
+          "x": 15,
+          "y": 10,
+          "state": "closed",
+          "sprite_id": "door_closed",
+          "solid": true,
+          "data": {
+            "open_sprite": "door_open",
+            "requires_all_links": true
+          }
+        },
+        "reset_switch": {
+          "element_id": "reset_switch",
+          "element_type": "switch",
+          "x": 1,
+          "y": 1,
+          "sprite_id": "reset_switch",
+          "solid": false,
+          "data": {
+            "action": "reset_puzzle",
+            "confirmation_dialogue": "reset_puzzle_confirm"
+          }
+        }
+      },
+      "solution_conditions": [
+        {
+          "type": "element_state",
+          "element_id": "ice_door",
+          "state": "open"
+        }
+      ],
+      "reward_trigger_id": "ice_cavern_reward"
+    },
+    "crystal_maze_teleporter": {
+      "puzzle_id": "crystal_maze_teleporter",
+      "map_id": "crystal_maze",
+      "name": "Crystal Maze Teleporter Puzzle",
+      "hint": "Use the teleporters to move blocks to the correct positions.",
+      "elements": {
+        "block_1": {
+          "element_id": "block_1",
+          "element_type": "pushable_block",
+          "x": 5,
+          "y": 5,
+          "sprite_id": "puzzle_block",
+          "solid": true
+        },
+        "teleporter_1": {
+          "element_id": "teleporter_1",
+          "element_type": "teleporter",
+          "x": 10,
+          "y": 5,
+          "sprite_id": "teleporter",
+          "solid": false,
+          "linked_elements": ["teleporter_2"]
+        },
+        "teleporter_2": {
+          "element_id": "teleporter_2",
+          "element_type": "teleporter",
+          "x": 15,
+          "y": 15,
+          "sprite_id": "teleporter",
+          "solid": false,
+          "linked_elements": ["teleporter_1"]
+        },
+        "target_plate": {
+          "element_id": "target_plate",
+          "element_type": "pressure_plate",
+          "x": 20,
+          "y": 20,
+          "sprite_id": "pressure_plate",
+          "solid": false,
+          "linked_elements": ["maze_door"]
+        },
+        "maze_door": {
+          "element_id": "maze_door",
+          "element_type": "door",
+          "x": 22,
+          "y": 20,
+          "state": "closed",
+          "sprite_id": "door_closed",
+          "solid": true,
+          "data": {
+            "open_sprite": "door_open",
+            "requires_all_links": true
+          }
+        },
+        "reset_switch": {
+          "element_id": "reset_switch",
+          "element_type": "switch",
+          "x": 1,
+          "y": 1,
+          "sprite_id": "reset_switch",
+          "solid": false,
+          "data": {
+            "action": "reset_puzzle",
+            "confirmation_dialogue": "reset_puzzle_confirm"
+          }
+        }
+      },
+      "solution_conditions": [
+        {
+          "type": "element_state",
+          "element_id": "maze_door",
+          "state": "open"
+        }
+      ],
+      "reward_trigger_id": "crystal_maze_reward"
+    }
+  }
+}

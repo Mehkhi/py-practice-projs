@@ -1,0 +1,370 @@
+{
+  "map_id": "riverside_fisherman",
+  "name": "Riverside Fisherman",
+  "width": 8,
+  "height": 8,
+  "tiles": [
+    [
+      {
+        "tile_id": "stone_wall",
+        "walkable": false,
+        "sprite_id": "stone_wall"
+      },
+      {
+        "tile_id": "stone_wall",
+        "walkable": false,
+        "sprite_id": "stone_wall"
+      },
+      {
+        "tile_id": "stone_wall",
+        "walkable": false,
+        "sprite_id": "stone_wall"
+      },
+      {
+        "tile_id": "stone_wall",
+        "walkable": false,
+        "sprite_id": "stone_wall"
+      },
+      {
+        "tile_id": "stone_wall",
+        "walkable": false,
+        "sprite_id": "stone_wall"
+      },
+      {
+        "tile_id": "stone_wall",
+        "walkable": false,
+        "sprite_id": "stone_wall"
+      },
+      {
+        "tile_id": "stone_wall",
+        "walkable": false,
+        "sprite_id": "stone_wall"
+      },
+      {
+        "tile_id": "stone_wall",
+        "walkable": false,
+        "sprite_id": "stone_wall"
+      }
+    ],
+    [
+      {
+        "tile_id": "stone_wall",
+        "walkable": false,
+        "sprite_id": "stone_wall"
+      },
+      {
+        "tile_id": "stone_floor",
+        "walkable": true,
+        "sprite_id": "stone_floor"
+      },
+      {
+        "tile_id": "stone_floor",
+        "walkable": true,
+        "sprite_id": "stone_floor"
+      },
+      {
+        "tile_id": "stone_floor",
+        "walkable": true,
+        "sprite_id": "stone_floor"
+      },
+      {
+        "tile_id": "stone_floor",
+        "walkable": true,
+        "sprite_id": "stone_floor"
+      },
+      {
+        "tile_id": "stone_floor",
+        "walkable": true,
+        "sprite_id": "stone_floor"
+      },
+      {
+        "tile_id": "stone_floor",
+        "walkable": true,
+        "sprite_id": "stone_floor"
+      },
+      {
+        "tile_id": "stone_wall",
+        "walkable": false,
+        "sprite_id": "stone_wall"
+      }
+    ],
+    [
+      {
+        "tile_id": "stone_wall",
+        "walkable": false,
+        "sprite_id": "stone_wall"
+      },
+      {
+        "tile_id": "stone_floor",
+        "walkable": true,
+        "sprite_id": "stone_floor"
+      },
+      {
+        "tile_id": "stone_floor",
+        "walkable": true,
+        "sprite_id": "stone_floor"
+      },
+      {
+        "tile_id": "stone_floor",
+        "walkable": true,
+        "sprite_id": "stone_floor"
+      },
+      {
+        "tile_id": "stone_floor",
+        "walkable": true,
+        "sprite_id": "stone_floor"
+      },
+      {
+        "tile_id": "stone_floor",
+        "walkable": true,
+        "sprite_id": "stone_floor"
+      },
+      {
+        "tile_id": "stone_floor",
+        "walkable": true,
+        "sprite_id": "stone_floor"
+      },
+      {
+        "tile_id": "stone_wall",
+        "walkable": false,
+        "sprite_id": "stone_wall"
+      }
+    ],
+    [
+      {
+        "tile_id": "stone_wall",
+        "walkable": false,
+        "sprite_id": "stone_wall"
+      },
+      {
+        "tile_id": "stone_floor",
+        "walkable": true,
+        "sprite_id": "stone_floor"
+      },
+      {
+        "tile_id": "stone_floor",
+        "walkable": true,
+        "sprite_id": "stone_floor"
+      },
+      {
+        "tile_id": "stone_floor",
+        "walkable": true,
+        "sprite_id": "stone_floor"
+      },
+      {
+        "tile_id": "stone_floor",
+        "walkable": true,
+        "sprite_id": "stone_floor"
+      },
+      {
+        "tile_id": "stone_floor",
+        "walkable": true,
+        "sprite_id": "stone_floor"
+      },
+      {
+        "tile_id": "stone_floor",
+        "walkable": true,
+        "sprite_id": "stone_floor"
+      },
+      {
+        "tile_id": "stone_wall",
+        "walkable": false,
+        "sprite_id": "stone_wall"
+      }
+    ],
+    [
+      {
+        "tile_id": "stone_wall",
+        "walkable": false,
+        "sprite_id": "stone_wall"
+      },
+      {
+        "tile_id": "stone_floor",
+        "walkable": true,
+        "sprite_id": "stone_floor"
+      },
+      {
+        "tile_id": "stone_floor",
+        "walkable": true,
+        "sprite_id": "stone_floor"
+      },
+      {
+        "tile_id": "stone_floor",
+        "walkable": true,
+        "sprite_id": "stone_floor"
+      },
+      {
+        "tile_id": "stone_floor",
+        "walkable": true,
+        "sprite_id": "stone_floor"
+      },
+      {
+        "tile_id": "stone_floor",
+        "walkable": true,
+        "sprite_id": "stone_floor"
+      },
+      {
+        "tile_id": "stone_floor",
+        "walkable": true,
+        "sprite_id": "stone_floor"
+      },
+      {
+        "tile_id": "stone_wall",
+        "walkable": false,
+        "sprite_id": "stone_wall"
+      }
+    ],
+    [
+      {
+        "tile_id": "stone_wall",
+        "walkable": false,
+        "sprite_id": "stone_wall"
+      },
+      {
+        "tile_id": "stone_floor",
+        "walkable": true,
+        "sprite_id": "stone_floor"
+      },
+      {
+        "tile_id": "stone_floor",
+        "walkable": true,
+        "sprite_id": "stone_floor"
+      },
+      {
+        "tile_id": "stone_floor",
+        "walkable": true,
+        "sprite_id": "stone_floor"
+      },
+      {
+        "tile_id": "stone_floor",
+        "walkable": true,
+        "sprite_id": "stone_floor"
+      },
+      {
+        "tile_id": "stone_floor",
+        "walkable": true,
+        "sprite_id": "stone_floor"
+      },
+      {
+        "tile_id": "stone_floor",
+        "walkable": true,
+        "sprite_id": "stone_floor"
+      },
+      {
+        "tile_id": "stone_wall",
+        "walkable": false,
+        "sprite_id": "stone_wall"
+      }
+    ],
+    [
+      {
+        "tile_id": "stone_wall",
+        "walkable": false,
+        "sprite_id": "stone_wall"
+      },
+      {
+        "tile_id": "stone_floor",
+        "walkable": true,
+        "sprite_id": "stone_floor"
+      },
+      {
+        "tile_id": "stone_floor",
+        "walkable": true,
+        "sprite_id": "stone_floor"
+      },
+      {
+        "tile_id": "stone_floor",
+        "walkable": true,
+        "sprite_id": "stone_floor"
+      },
+      {
+        "tile_id": "stone_floor",
+        "walkable": true,
+        "sprite_id": "stone_floor"
+      },
+      {
+        "tile_id": "stone_floor",
+        "walkable": true,
+        "sprite_id": "stone_floor"
+      },
+      {
+        "tile_id": "stone_floor",
+        "walkable": true,
+        "sprite_id": "stone_floor"
+      },
+      {
+        "tile_id": "stone_wall",
+        "walkable": false,
+        "sprite_id": "stone_wall"
+      }
+    ],
+    [
+      {
+        "tile_id": "stone_wall",
+        "walkable": false,
+        "sprite_id": "stone_wall"
+      },
+      {
+        "tile_id": "stone_wall",
+        "walkable": false,
+        "sprite_id": "stone_wall"
+      },
+      {
+        "tile_id": "stone_wall",
+        "walkable": false,
+        "sprite_id": "stone_wall"
+      },
+      {
+        "tile_id": "stone_wall",
+        "walkable": false,
+        "sprite_id": "stone_wall"
+      },
+      {
+        "tile_id": "stone_wall",
+        "walkable": false,
+        "sprite_id": "stone_wall"
+      },
+      {
+        "tile_id": "stone_wall",
+        "walkable": false,
+        "sprite_id": "stone_wall"
+      },
+      {
+        "tile_id": "stone_wall",
+        "walkable": false,
+        "sprite_id": "stone_wall"
+      },
+      {
+        "tile_id": "stone_wall",
+        "walkable": false,
+        "sprite_id": "stone_wall"
+      }
+    ]
+  ],
+  "warps": [
+    {
+      "x": 3,
+      "y": 6,
+      "target_map_id": "riverside_town",
+      "target_x": 12,
+      "target_y": 11
+    },
+    {
+      "x": 4,
+      "y": 6,
+      "target_map_id": "riverside_town",
+      "target_x": 12,
+      "target_y": 11
+    }
+  ],
+  "triggers": [],
+  "entities": [
+    {
+      "entity_id": "riverside_fisherman",
+      "x": 4,
+      "y": 2
+    }
+  ],
+  "enemy_spawns": [],
+  "props": []
+}

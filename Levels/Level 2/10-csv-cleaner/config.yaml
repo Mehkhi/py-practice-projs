@@ -1,0 +1,30 @@
+# CSV Cleaner Configuration File
+# This file defines how the CSV cleaner should process your data
+
+missing_value_strategies:
+  drop: false  # Set to true to drop rows with missing values
+  fill_numeric: "mean"  # Options: mean, median, mode, or a specific number
+  fill_categorical: "mode"  # Options: mode or a specific string
+  fill_constant: "Unknown"  # Default value for constant filling
+
+column_normalization:
+  lowercase: true  # Convert column names to lowercase
+  strip_spaces: true  # Remove leading/trailing spaces
+  replace_spaces: "_"  # Replace spaces with this character
+
+type_detection:
+  auto_detect: true  # Automatically detect and convert data types
+  force_types:  # Force specific types for columns
+    # Example:
+    # "age": "int64"
+    # "price": "float64"
+    # "date": "datetime64"
+
+outlier_detection:
+  enabled: true  # Enable outlier detection
+  method: "iqr"  # Method: iqr (Interquartile Range)
+  threshold: 1.5  # Threshold multiplier for outlier detection
+
+export:
+  include_summary: true  # Generate summary report
+  include_error_log: true  # Export error log if any errors occur

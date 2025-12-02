@@ -1,0 +1,335 @@
+{
+  "skill_trees": [
+    {
+      "id": "warrior",
+      "name": "Warrior",
+      "description": "Master of physical combat and defense",
+      "nodes": [
+        {
+          "id": "warrior_strength_1",
+          "name": "Strength Training",
+          "description": "Basic strength conditioning",
+          "tier": 1,
+          "cost": 1,
+          "prerequisites": [],
+          "stat_bonuses": {"attack": 2}
+        },
+        {
+          "id": "warrior_defense_1",
+          "name": "Iron Skin",
+          "description": "Toughen your body against attacks",
+          "tier": 1,
+          "cost": 1,
+          "prerequisites": [],
+          "stat_bonuses": {"defense": 2}
+        },
+        {
+          "id": "warrior_hp_1",
+          "name": "Vitality",
+          "description": "Increase your life force",
+          "tier": 1,
+          "cost": 1,
+          "prerequisites": [],
+          "stat_bonuses": {"max_hp": 10}
+        },
+        {
+          "id": "warrior_power_strike",
+          "name": "Power Strike",
+          "description": "Learn a devastating physical attack",
+          "tier": 2,
+          "cost": 2,
+          "prerequisites": ["warrior_strength_1"],
+          "skill_id": "power_strike",
+          "stat_bonuses": {"attack": 1}
+        },
+        {
+          "id": "warrior_shield_bash",
+          "name": "Shield Bash",
+          "description": "A defensive attack that can stun",
+          "tier": 2,
+          "cost": 2,
+          "prerequisites": ["warrior_defense_1"],
+          "skill_id": "shield_bash",
+          "stat_bonuses": {"defense": 1}
+        },
+        {
+          "id": "warrior_endurance",
+          "name": "Endurance",
+          "description": "Greater stamina in battle",
+          "tier": 2,
+          "cost": 2,
+          "prerequisites": ["warrior_hp_1"],
+          "stat_bonuses": {"max_hp": 15, "max_sp": 5}
+        },
+        {
+          "id": "warrior_berserker",
+          "name": "Berserker Rage",
+          "description": "Unleash devastating fury",
+          "tier": 3,
+          "cost": 3,
+          "prerequisites": ["warrior_power_strike", "warrior_endurance"],
+          "skill_id": "berserker_rage",
+          "stat_bonuses": {"attack": 3}
+        },
+        {
+          "id": "warrior_fortress",
+          "name": "Living Fortress",
+          "description": "Become an immovable defender",
+          "tier": 3,
+          "cost": 3,
+          "prerequisites": ["warrior_shield_bash", "warrior_endurance"],
+          "stat_bonuses": {"defense": 4, "max_hp": 20}
+        }
+      ]
+    },
+    {
+      "id": "mage",
+      "name": "Mage",
+      "description": "Wielder of arcane and elemental magic",
+      "nodes": [
+        {
+          "id": "mage_magic_1",
+          "name": "Arcane Focus",
+          "description": "Sharpen your magical abilities",
+          "tier": 1,
+          "cost": 1,
+          "prerequisites": [],
+          "stat_bonuses": {"magic": 2}
+        },
+        {
+          "id": "mage_sp_1",
+          "name": "Mana Well",
+          "description": "Expand your magical reserves",
+          "tier": 1,
+          "cost": 1,
+          "prerequisites": [],
+          "stat_bonuses": {"max_sp": 10}
+        },
+        {
+          "id": "mage_speed_1",
+          "name": "Quick Cast",
+          "description": "Cast spells faster",
+          "tier": 1,
+          "cost": 1,
+          "prerequisites": [],
+          "stat_bonuses": {"speed": 2}
+        },
+        {
+          "id": "mage_fire_bolt",
+          "name": "Fire Mastery",
+          "description": "Master the element of fire",
+          "tier": 2,
+          "cost": 2,
+          "prerequisites": ["mage_magic_1"],
+          "skill_id": "fire_bolt",
+          "stat_bonuses": {"magic": 1}
+        },
+        {
+          "id": "mage_ice_shard",
+          "name": "Ice Mastery",
+          "description": "Command the cold",
+          "tier": 2,
+          "cost": 2,
+          "prerequisites": ["mage_magic_1"],
+          "skill_id": "ice_shard",
+          "stat_bonuses": {"magic": 1}
+        },
+        {
+          "id": "mage_meditation",
+          "name": "Deep Meditation",
+          "description": "Recover SP more efficiently",
+          "tier": 2,
+          "cost": 2,
+          "prerequisites": ["mage_sp_1"],
+          "stat_bonuses": {"max_sp": 15}
+        },
+        {
+          "id": "mage_arcane_blast",
+          "name": "Arcane Blast",
+          "description": "Unleash pure magical energy",
+          "tier": 3,
+          "cost": 3,
+          "prerequisites": ["mage_fire_bolt", "mage_ice_shard"],
+          "skill_id": "arcane_blast",
+          "stat_bonuses": {"magic": 3}
+        },
+        {
+          "id": "mage_archmage",
+          "name": "Archmage",
+          "description": "Reach the pinnacle of magical power",
+          "tier": 3,
+          "cost": 3,
+          "prerequisites": ["mage_meditation", "mage_arcane_blast"],
+          "stat_bonuses": {"magic": 5, "max_sp": 20}
+        }
+      ]
+    },
+    {
+      "id": "healer",
+      "name": "Healer",
+      "description": "Master of restoration and support",
+      "nodes": [
+        {
+          "id": "healer_holy_1",
+          "name": "Divine Touch",
+          "description": "Channel healing energy",
+          "tier": 1,
+          "cost": 1,
+          "prerequisites": [],
+          "stat_bonuses": {"magic": 1, "luck": 1}
+        },
+        {
+          "id": "healer_sp_1",
+          "name": "Spirit Bond",
+          "description": "Strengthen your connection to healing spirits",
+          "tier": 1,
+          "cost": 1,
+          "prerequisites": [],
+          "stat_bonuses": {"max_sp": 8}
+        },
+        {
+          "id": "healer_defense_1",
+          "name": "Sacred Shield",
+          "description": "Divine protection",
+          "tier": 1,
+          "cost": 1,
+          "prerequisites": [],
+          "stat_bonuses": {"defense": 1, "max_hp": 5}
+        },
+        {
+          "id": "healer_heal",
+          "name": "Healing Light",
+          "description": "Learn basic healing magic",
+          "tier": 2,
+          "cost": 2,
+          "prerequisites": ["healer_holy_1"],
+          "skill_id": "heal",
+          "stat_bonuses": {"magic": 1}
+        },
+        {
+          "id": "healer_cleanse",
+          "name": "Purify",
+          "description": "Remove harmful status effects",
+          "tier": 2,
+          "cost": 2,
+          "prerequisites": ["healer_holy_1"],
+          "skill_id": "cleanse",
+          "stat_bonuses": {"luck": 2}
+        },
+        {
+          "id": "healer_barrier",
+          "name": "Holy Barrier",
+          "description": "Protect allies with divine energy",
+          "tier": 2,
+          "cost": 2,
+          "prerequisites": ["healer_defense_1"],
+          "skill_id": "barrier",
+          "stat_bonuses": {"defense": 2}
+        },
+        {
+          "id": "healer_mass_heal",
+          "name": "Mass Restoration",
+          "description": "Heal all allies at once",
+          "tier": 3,
+          "cost": 3,
+          "prerequisites": ["healer_heal", "healer_sp_1"],
+          "skill_id": "mass_heal",
+          "stat_bonuses": {"magic": 2, "max_sp": 10}
+        },
+        {
+          "id": "healer_resurrection",
+          "name": "Divine Intervention",
+          "description": "Revive fallen allies",
+          "tier": 3,
+          "cost": 4,
+          "prerequisites": ["healer_mass_heal", "healer_barrier"],
+          "skill_id": "resurrection",
+          "stat_bonuses": {"magic": 3, "luck": 3}
+        }
+      ]
+    },
+    {
+      "id": "rogue",
+      "name": "Rogue",
+      "description": "Master of speed, stealth, and critical strikes",
+      "nodes": [
+        {
+          "id": "rogue_speed_1",
+          "name": "Fleet Foot",
+          "description": "Move with greater agility",
+          "tier": 1,
+          "cost": 1,
+          "prerequisites": [],
+          "stat_bonuses": {"speed": 3}
+        },
+        {
+          "id": "rogue_luck_1",
+          "name": "Fortune's Favor",
+          "description": "Luck is on your side",
+          "tier": 1,
+          "cost": 1,
+          "prerequisites": [],
+          "stat_bonuses": {"luck": 3}
+        },
+        {
+          "id": "rogue_attack_1",
+          "name": "Precise Strikes",
+          "description": "Hit where it hurts",
+          "tier": 1,
+          "cost": 1,
+          "prerequisites": [],
+          "stat_bonuses": {"attack": 2}
+        },
+        {
+          "id": "rogue_backstab",
+          "name": "Backstab",
+          "description": "Strike from the shadows",
+          "tier": 2,
+          "cost": 2,
+          "prerequisites": ["rogue_attack_1"],
+          "skill_id": "backstab",
+          "stat_bonuses": {"attack": 1}
+        },
+        {
+          "id": "rogue_evasion",
+          "name": "Evasion",
+          "description": "Dodge incoming attacks",
+          "tier": 2,
+          "cost": 2,
+          "prerequisites": ["rogue_speed_1"],
+          "stat_bonuses": {"speed": 2, "defense": 1}
+        },
+        {
+          "id": "rogue_poison",
+          "name": "Poison Mastery",
+          "description": "Apply deadly toxins to your weapons",
+          "tier": 2,
+          "cost": 2,
+          "prerequisites": ["rogue_luck_1"],
+          "skill_id": "poison_strike",
+          "stat_bonuses": {"luck": 1}
+        },
+        {
+          "id": "rogue_assassinate",
+          "name": "Assassinate",
+          "description": "A deadly finishing move",
+          "tier": 3,
+          "cost": 3,
+          "prerequisites": ["rogue_backstab", "rogue_poison"],
+          "skill_id": "assassinate",
+          "stat_bonuses": {"attack": 3, "luck": 2}
+        },
+        {
+          "id": "rogue_shadow_dance",
+          "name": "Shadow Dance",
+          "description": "Become one with the shadows",
+          "tier": 3,
+          "cost": 3,
+          "prerequisites": ["rogue_evasion", "rogue_assassinate"],
+          "skill_id": "shadow_dance",
+          "stat_bonuses": {"speed": 4, "luck": 2}
+        }
+      ]
+    }
+  ]
+}

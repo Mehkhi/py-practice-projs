@@ -1,0 +1,21 @@
+Dear {{customer_name}},
+
+Thank you for your order {{order_id}}.
+
+{{if premium}}
+As a premium member, you get:
+- Free shipping
+- Priority processing
+- 10% discount on future orders
+{{else}}
+Standard shipping applies. Consider upgrading to premium for benefits!
+{{endif}}
+
+Your items:
+{{if item1}}{{item1}}{{endif}}
+{{if item2}}{{item2}}{{endif}}
+
+Order total: ${{total}}
+
+Thank you for your business!
+{{company_name}}

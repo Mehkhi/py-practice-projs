@@ -1,0 +1,2072 @@
+{
+  "meta": {
+    "version": 1,
+    "timestamp": "2025-12-02T11:48:32.365179",
+    "play_time_seconds": 3.266999999999989
+  },
+  "world": {
+    "current_map_id": "forest_path",
+    "flags": {
+      "gold": 20,
+      "play_time_seconds": 3.266999999999989
+    },
+    "visited_maps": [
+      "forest_path"
+    ],
+    "runtime_state": {
+      "trigger_states": {},
+      "enemy_states": {}
+    }
+  },
+  "player": {
+    "entity_id": "player",
+    "name": "hi",
+    "x": 5,
+    "y": 5,
+    "inventory": {
+      "health_potion": 2,
+      "starter_sword": 1
+    },
+    "hotbar_slots": {},
+    "equipment": {
+      "weapon": "starter_sword",
+      "armor": null,
+      "accessory": null
+    },
+    "skills": [
+      "power_strike",
+      "arcane_blast"
+    ],
+    "learned_moves": [
+      "slash",
+      "tackle"
+    ],
+    "stats": {
+      "max_hp": 120,
+      "hp": 120,
+      "max_sp": 45,
+      "sp": 45,
+      "attack": 14,
+      "defense": 10,
+      "magic": 7,
+      "speed": 8,
+      "luck": 4,
+      "level": 1,
+      "exp": 0,
+      "status_effects": {}
+    },
+    "memory_value": 0,
+    "memory_stat_type": null,
+    "party": [],
+    "party_formation": {},
+    "formation_position": "front",
+    "skill_tree_progress": {
+      "skill_points": 0,
+      "skill_points_total": 0,
+      "unlocked_nodes": {}
+    },
+    "player_class": "warrior",
+    "player_subclass": "mage",
+    "crafting_progress": null,
+    "bestiary": {
+      "entries": {
+        "slime": {
+          "enemy_type": "slime",
+          "name": "Practice Slime",
+          "sprite_id": "slime",
+          "times_encountered": 0,
+          "times_defeated": 0,
+          "discovery_level": 0,
+          "base_hp": 50,
+          "base_sp": 10,
+          "base_attack": 3,
+          "base_defense": 1,
+          "base_magic": 2,
+          "base_speed": 4,
+          "weaknesses": [
+            "fire"
+          ],
+          "resistances": [
+            "physical"
+          ],
+          "immunities": [],
+          "absorbs": [],
+          "description": "A Easy threat encountered near Bg Forest. Field notes recommend exploiting elemental weaknesses when possible.",
+          "category": "monster",
+          "locations": [
+            "bg_forest"
+          ],
+          "observed_drops": [
+            "health_potion"
+          ]
+        },
+        "goblin": {
+          "enemy_type": "goblin",
+          "name": "Cave Goblin",
+          "sprite_id": "goblin",
+          "times_encountered": 0,
+          "times_defeated": 0,
+          "discovery_level": 0,
+          "base_hp": 50,
+          "base_sp": 15,
+          "base_attack": 8,
+          "base_defense": 4,
+          "base_magic": 5,
+          "base_speed": 8,
+          "weaknesses": [
+            "holy"
+          ],
+          "resistances": [
+            "fire"
+          ],
+          "immunities": [],
+          "absorbs": [],
+          "description": "A Normal threat encountered near Bg Cave. Field notes recommend exploiting elemental weaknesses when possible.",
+          "category": "monster",
+          "locations": [
+            "bg_cave"
+          ],
+          "observed_drops": [
+            "health_potion",
+            "magic_crystal",
+            "torch"
+          ]
+        },
+        "boss": {
+          "enemy_type": "boss",
+          "name": "Ancient Guardian",
+          "sprite_id": "boss",
+          "times_encountered": 0,
+          "times_defeated": 0,
+          "discovery_level": 0,
+          "base_hp": 150,
+          "base_sp": 50,
+          "base_attack": 15,
+          "base_defense": 8,
+          "base_magic": 12,
+          "base_speed": 10,
+          "weaknesses": [
+            "holy"
+          ],
+          "resistances": [
+            "physical",
+            "fire"
+          ],
+          "immunities": [],
+          "absorbs": [],
+          "description": "A Boss threat encountered near Bg Treasure Chamber. Field notes recommend exploiting elemental weaknesses when possible.",
+          "category": "monster",
+          "locations": [
+            "bg_treasure_chamber"
+          ],
+          "observed_drops": [
+            "health_potion",
+            "magic_crystal"
+          ]
+        },
+        "wolf": {
+          "enemy_type": "wolf",
+          "name": "Forest Wolf",
+          "sprite_id": "wolf",
+          "times_encountered": 0,
+          "times_defeated": 0,
+          "discovery_level": 0,
+          "base_hp": 40,
+          "base_sp": 12,
+          "base_attack": 9,
+          "base_defense": 3,
+          "base_magic": 2,
+          "base_speed": 9,
+          "weaknesses": [
+            "fire"
+          ],
+          "resistances": [
+            "physical"
+          ],
+          "immunities": [],
+          "absorbs": [],
+          "description": "A Normal threat encountered near Bg Forest. Field notes recommend exploiting elemental weaknesses when possible.",
+          "category": "monster",
+          "locations": [
+            "bg_forest"
+          ],
+          "observed_drops": [
+            "health_potion"
+          ]
+        },
+        "human": {
+          "enemy_type": "human",
+          "name": "Bandit Leader",
+          "sprite_id": "bandit",
+          "times_encountered": 0,
+          "times_defeated": 0,
+          "discovery_level": 0,
+          "base_hp": 70,
+          "base_sp": 20,
+          "base_attack": 14,
+          "base_defense": 7,
+          "base_magic": 4,
+          "base_speed": 11,
+          "weaknesses": [],
+          "resistances": [
+            "physical"
+          ],
+          "immunities": [],
+          "absorbs": [],
+          "description": "A Hard threat encountered near Bg Forest. Field notes recommend exploiting elemental weaknesses when possible.",
+          "category": "monster",
+          "locations": [
+            "bg_forest"
+          ],
+          "observed_drops": [
+            "health_potion"
+          ]
+        },
+        "spider": {
+          "enemy_type": "spider",
+          "name": "Giant Spider",
+          "sprite_id": "spider",
+          "times_encountered": 0,
+          "times_defeated": 0,
+          "discovery_level": 0,
+          "base_hp": 55,
+          "base_sp": 15,
+          "base_attack": 12,
+          "base_defense": 4,
+          "base_magic": 3,
+          "base_speed": 11,
+          "weaknesses": [
+            "fire"
+          ],
+          "resistances": [],
+          "immunities": [
+            "poison"
+          ],
+          "absorbs": [],
+          "description": "A Normal threat encountered near Bg Swamp. Field notes recommend exploiting elemental weaknesses when possible.",
+          "category": "monster",
+          "locations": [
+            "bg_swamp"
+          ],
+          "observed_drops": [
+            "health_potion"
+          ]
+        },
+        "plant": {
+          "enemy_type": "plant",
+          "name": "Toxic Mushroom",
+          "sprite_id": "mushroom",
+          "times_encountered": 0,
+          "times_defeated": 0,
+          "discovery_level": 0,
+          "base_hp": 40,
+          "base_sp": 25,
+          "base_attack": 6,
+          "base_defense": 5,
+          "base_magic": 10,
+          "base_speed": 4,
+          "weaknesses": [
+            "fire"
+          ],
+          "resistances": [
+            "physical"
+          ],
+          "immunities": [
+            "poison"
+          ],
+          "absorbs": [],
+          "description": "A Normal threat encountered near Bg Swamp. Field notes recommend exploiting elemental weaknesses when possible.",
+          "category": "monster",
+          "locations": [
+            "bg_swamp"
+          ],
+          "observed_drops": []
+        },
+        "humanoid": {
+          "enemy_type": "humanoid",
+          "name": "Swamp Witch",
+          "sprite_id": "witch",
+          "times_encountered": 0,
+          "times_defeated": 0,
+          "discovery_level": 0,
+          "base_hp": 100,
+          "base_sp": 60,
+          "base_attack": 8,
+          "base_defense": 5,
+          "base_magic": 18,
+          "base_speed": 8,
+          "weaknesses": [
+            "holy"
+          ],
+          "resistances": [
+            "fire",
+            "ice"
+          ],
+          "immunities": [
+            "poison"
+          ],
+          "absorbs": [],
+          "description": "A Elite threat encountered near Bg Swamp. Field notes recommend exploiting elemental weaknesses when possible.",
+          "category": "monster",
+          "locations": [
+            "bg_ruins",
+            "bg_swamp"
+          ],
+          "observed_drops": [
+            "health_potion",
+            "magic_crystal"
+          ]
+        },
+        "beast": {
+          "enemy_type": "beast",
+          "name": "Cave Bat",
+          "sprite_id": "bat",
+          "times_encountered": 0,
+          "times_defeated": 0,
+          "discovery_level": 0,
+          "base_hp": 25,
+          "base_sp": 10,
+          "base_attack": 8,
+          "base_defense": 2,
+          "base_magic": 2,
+          "base_speed": 14,
+          "weaknesses": [
+            "fire"
+          ],
+          "resistances": [
+            "fire",
+            "ice"
+          ],
+          "immunities": [
+            "poison"
+          ],
+          "absorbs": [],
+          "description": "A Normal threat encountered near Bg Mountain. Field notes recommend exploiting elemental weaknesses when possible.",
+          "category": "monster",
+          "locations": [
+            "bg_cave",
+            "bg_forest",
+            "bg_mountain"
+          ],
+          "observed_drops": [
+            "health_potion"
+          ]
+        },
+        "elemental": {
+          "enemy_type": "elemental",
+          "name": "Ice Elemental",
+          "sprite_id": "ice_elemental",
+          "times_encountered": 0,
+          "times_defeated": 0,
+          "discovery_level": 0,
+          "base_hp": 70,
+          "base_sp": 40,
+          "base_attack": 10,
+          "base_defense": 8,
+          "base_magic": 14,
+          "base_speed": 7,
+          "weaknesses": [
+            "fire"
+          ],
+          "resistances": [
+            "physical"
+          ],
+          "immunities": [
+            "ice"
+          ],
+          "absorbs": [],
+          "description": "A Hard threat encountered near Bg Mountain. Field notes recommend exploiting elemental weaknesses when possible.",
+          "category": "monster",
+          "locations": [
+            "bg_mountain",
+            "bg_primal_grove",
+            "bg_ruins"
+          ],
+          "observed_drops": [
+            "health_potion"
+          ]
+        },
+        "giant": {
+          "enemy_type": "giant",
+          "name": "Mountain Troll",
+          "sprite_id": "troll",
+          "times_encountered": 0,
+          "times_defeated": 0,
+          "discovery_level": 0,
+          "base_hp": 180,
+          "base_sp": 20,
+          "base_attack": 22,
+          "base_defense": 12,
+          "base_magic": 4,
+          "base_speed": 5,
+          "weaknesses": [
+            "fire"
+          ],
+          "resistances": [
+            "physical",
+            "ice"
+          ],
+          "immunities": [],
+          "absorbs": [],
+          "description": "A Elite threat encountered near Bg Mountain. Field notes recommend exploiting elemental weaknesses when possible.",
+          "category": "monster",
+          "locations": [
+            "bg_cave",
+            "bg_mountain"
+          ],
+          "observed_drops": [
+            "health_potion",
+            "magic_crystal"
+          ]
+        },
+        "undead": {
+          "enemy_type": "undead",
+          "name": "Skeleton Warrior",
+          "sprite_id": "skeleton",
+          "times_encountered": 0,
+          "times_defeated": 0,
+          "discovery_level": 0,
+          "base_hp": 50,
+          "base_sp": 15,
+          "base_attack": 12,
+          "base_defense": 6,
+          "base_magic": 3,
+          "base_speed": 8,
+          "weaknesses": [
+            "holy",
+            "fire"
+          ],
+          "resistances": [
+            "physical"
+          ],
+          "immunities": [
+            "poison"
+          ],
+          "absorbs": [],
+          "description": "A Normal threat encountered near Bg Ruins. Field notes recommend exploiting elemental weaknesses when possible.",
+          "category": "monster",
+          "locations": [
+            "bg_ruins"
+          ],
+          "observed_drops": [
+            "health_potion",
+            "magic_crystal"
+          ]
+        },
+        "construct": {
+          "enemy_type": "construct",
+          "name": "Ancient Guardian",
+          "sprite_id": "boss",
+          "times_encountered": 0,
+          "times_defeated": 0,
+          "discovery_level": 0,
+          "base_hp": 200,
+          "base_sp": 60,
+          "base_attack": 18,
+          "base_defense": 14,
+          "base_magic": 14,
+          "base_speed": 6,
+          "weaknesses": [
+            "holy"
+          ],
+          "resistances": [
+            "physical",
+            "fire",
+            "ice"
+          ],
+          "immunities": [
+            "poison"
+          ],
+          "absorbs": [],
+          "description": "A Boss threat encountered near Bg Ruins. Field notes recommend exploiting elemental weaknesses when possible.",
+          "category": "monster",
+          "locations": [
+            "bg_ruins"
+          ],
+          "observed_drops": [
+            "health_potion",
+            "magic_crystal"
+          ]
+        },
+        "orc": {
+          "enemy_type": "orc",
+          "name": "Orc Warrior",
+          "sprite_id": "orc",
+          "times_encountered": 0,
+          "times_defeated": 0,
+          "discovery_level": 0,
+          "base_hp": 70,
+          "base_sp": 15,
+          "base_attack": 16,
+          "base_defense": 8,
+          "base_magic": 3,
+          "base_speed": 7,
+          "weaknesses": [
+            "fire"
+          ],
+          "resistances": [
+            "physical"
+          ],
+          "immunities": [],
+          "absorbs": [],
+          "description": "A Normal threat encountered near Bg Mountain. Field notes recommend exploiting elemental weaknesses when possible.",
+          "category": "monster",
+          "locations": [
+            "bg_mountain"
+          ],
+          "observed_drops": [
+            "health_potion"
+          ]
+        },
+        "monster": {
+          "enemy_type": "monster",
+          "name": "Treasure Mimic",
+          "sprite_id": "mimic",
+          "times_encountered": 0,
+          "times_defeated": 0,
+          "discovery_level": 0,
+          "base_hp": 90,
+          "base_sp": 25,
+          "base_attack": 16,
+          "base_defense": 12,
+          "base_magic": 6,
+          "base_speed": 8,
+          "weaknesses": [
+            "fire"
+          ],
+          "resistances": [
+            "physical"
+          ],
+          "immunities": [],
+          "absorbs": [],
+          "description": "A Hard threat encountered near Bg Cave. Field notes recommend exploiting elemental weaknesses when possible.",
+          "category": "monster",
+          "locations": [
+            "bg_cave"
+          ],
+          "observed_drops": [
+            "health_potion",
+            "magic_crystal"
+          ]
+        },
+        "reptile": {
+          "enemy_type": "reptile",
+          "name": "Lizardman Warrior",
+          "sprite_id": "lizardman",
+          "times_encountered": 0,
+          "times_defeated": 0,
+          "discovery_level": 0,
+          "base_hp": 65,
+          "base_sp": 15,
+          "base_attack": 14,
+          "base_defense": 8,
+          "base_magic": 4,
+          "base_speed": 9,
+          "weaknesses": [
+            "ice"
+          ],
+          "resistances": [
+            "fire"
+          ],
+          "immunities": [],
+          "absorbs": [],
+          "description": "A Normal threat encountered near Bg Swamp. Field notes recommend exploiting elemental weaknesses when possible.",
+          "category": "monster",
+          "locations": [
+            "bg_swamp"
+          ],
+          "observed_drops": [
+            "health_potion"
+          ]
+        },
+        "demon": {
+          "enemy_type": "demon",
+          "name": "Lesser Demon",
+          "sprite_id": "demon",
+          "times_encountered": 0,
+          "times_defeated": 0,
+          "discovery_level": 0,
+          "base_hp": 130,
+          "base_sp": 45,
+          "base_attack": 18,
+          "base_defense": 10,
+          "base_magic": 16,
+          "base_speed": 11,
+          "weaknesses": [
+            "holy"
+          ],
+          "resistances": [
+            "fire"
+          ],
+          "immunities": [
+            "poison"
+          ],
+          "absorbs": [],
+          "description": "A Elite threat encountered near Bg Ruins. Field notes recommend exploiting elemental weaknesses when possible.",
+          "category": "monster",
+          "locations": [
+            "bg_ruins"
+          ],
+          "observed_drops": [
+            "magic_crystal"
+          ]
+        },
+        "dragon": {
+          "enemy_type": "dragon",
+          "name": "Zyraxis, Ancient Wyrm",
+          "sprite_id": "boss_wyrm",
+          "times_encountered": 0,
+          "times_defeated": 0,
+          "discovery_level": 0,
+          "base_hp": 5000,
+          "base_sp": 200,
+          "base_attack": 80,
+          "base_defense": 60,
+          "base_magic": 70,
+          "base_speed": 40,
+          "weaknesses": [
+            "ice"
+          ],
+          "resistances": [
+            "fire",
+            "physical"
+          ],
+          "immunities": [
+            "poison"
+          ],
+          "absorbs": [],
+          "description": "A Secret threat encountered near Bg Wyrm Lair. Field notes recommend exploiting elemental weaknesses when possible.",
+          "category": "monster",
+          "locations": [
+            "bg_wyrm_lair"
+          ],
+          "observed_drops": []
+        },
+        "shadow": {
+          "enemy_type": "shadow",
+          "name": "Umbraxis, Shadow Sovereign",
+          "sprite_id": "boss_shadow",
+          "times_encountered": 0,
+          "times_defeated": 0,
+          "discovery_level": 0,
+          "base_hp": 6000,
+          "base_sp": 250,
+          "base_attack": 90,
+          "base_defense": 50,
+          "base_magic": 85,
+          "base_speed": 60,
+          "weaknesses": [
+            "holy",
+            "fire"
+          ],
+          "resistances": [
+            "physical",
+            "ice"
+          ],
+          "immunities": [
+            "poison",
+            "dark"
+          ],
+          "absorbs": [
+            "dark"
+          ],
+          "description": "A Secret threat encountered near Bg Shadow Throne. Field notes recommend exploiting elemental weaknesses when possible.",
+          "category": "monster",
+          "locations": [
+            "bg_shadow_throne"
+          ],
+          "observed_drops": []
+        },
+        "cosmic": {
+          "enemy_type": "cosmic",
+          "name": "???",
+          "sprite_id": "boss_unknown",
+          "times_encountered": 0,
+          "times_defeated": 0,
+          "discovery_level": 0,
+          "base_hp": 10000,
+          "base_sp": 500,
+          "base_attack": 120,
+          "base_defense": 80,
+          "base_magic": 120,
+          "base_speed": 70,
+          "weaknesses": [],
+          "resistances": [
+            "physical",
+            "fire",
+            "ice",
+            "holy",
+            "dark"
+          ],
+          "immunities": [
+            "poison"
+          ],
+          "absorbs": [],
+          "description": "A Secret threat encountered near Bg Beyond Realm. Field notes recommend exploiting elemental weaknesses when possible.",
+          "category": "monster",
+          "locations": [
+            "bg_beyond_realm"
+          ],
+          "observed_drops": []
+        },
+        "knight": {
+          "enemy_type": "knight",
+          "name": "Sir Aldric, The Forgotten Champion",
+          "sprite_id": "boss_champion",
+          "times_encountered": 0,
+          "times_defeated": 0,
+          "discovery_level": 0,
+          "base_hp": 3500,
+          "base_sp": 150,
+          "base_attack": 70,
+          "base_defense": 65,
+          "base_magic": 40,
+          "base_speed": 50,
+          "weaknesses": [
+            "magic"
+          ],
+          "resistances": [
+            "physical"
+          ],
+          "immunities": [
+            "stun"
+          ],
+          "absorbs": [],
+          "description": "A Secret threat encountered near Bg Champions Rest. Field notes recommend exploiting elemental weaknesses when possible.",
+          "category": "monster",
+          "locations": [
+            "bg_champions_rest"
+          ],
+          "observed_drops": []
+        },
+        "void": {
+          "enemy_type": "void",
+          "name": "Nullix, Emperor of the Void",
+          "sprite_id": "boss_void",
+          "times_encountered": 0,
+          "times_defeated": 0,
+          "discovery_level": 0,
+          "base_hp": 5500,
+          "base_sp": 300,
+          "base_attack": 85,
+          "base_defense": 55,
+          "base_magic": 95,
+          "base_speed": 55,
+          "weaknesses": [
+            "holy"
+          ],
+          "resistances": [
+            "dark",
+            "magic"
+          ],
+          "immunities": [
+            "poison",
+            "confusion"
+          ],
+          "absorbs": [
+            "void"
+          ],
+          "description": "A Secret threat encountered near Bg Void Gateway. Field notes recommend exploiting elemental weaknesses when possible.",
+          "category": "monster",
+          "locations": [
+            "bg_void_gateway"
+          ],
+          "observed_drops": []
+        },
+        "mirror": {
+          "enemy_type": "mirror",
+          "name": "Shadow [Player]",
+          "sprite_id": "mirror_player",
+          "times_encountered": 0,
+          "times_defeated": 0,
+          "discovery_level": 0,
+          "base_hp": 100,
+          "base_sp": 10,
+          "base_attack": 10,
+          "base_defense": 5,
+          "base_magic": 10,
+          "base_speed": 5,
+          "weaknesses": [],
+          "resistances": [],
+          "immunities": [],
+          "absorbs": [],
+          "description": "A Secret threat encountered near Bg Mirror Realm. Field notes recommend exploiting elemental weaknesses when possible.",
+          "category": "monster",
+          "locations": [
+            "bg_mirror_realm"
+          ],
+          "observed_drops": []
+        }
+      }
+    }
+  },
+  "quests": {
+    "quests": [
+      {
+        "id": "tutorial_quest",
+        "status": "available",
+        "objectives": [
+          {
+            "id": "explore_forest",
+            "current_count": 0,
+            "completed": false
+          },
+          {
+            "id": "first_battle",
+            "current_count": 0,
+            "completed": false
+          }
+        ],
+        "tracked": false
+      },
+      {
+        "id": "cave_exploration",
+        "status": "locked",
+        "objectives": [
+          {
+            "id": "enter_cave",
+            "current_count": 0,
+            "completed": false
+          },
+          {
+            "id": "defeat_cave_enemies",
+            "current_count": 0,
+            "completed": false
+          },
+          {
+            "id": "find_treasure",
+            "current_count": 0,
+            "completed": false
+          }
+        ],
+        "tracked": false
+      },
+      {
+        "id": "garden_secrets",
+        "status": "locked",
+        "objectives": [
+          {
+            "id": "find_secret_garden",
+            "current_count": 0,
+            "completed": false
+          },
+          {
+            "id": "speak_garden_spirit",
+            "current_count": 0,
+            "completed": false
+          },
+          {
+            "id": "garden_trial",
+            "current_count": 0,
+            "completed": false
+          }
+        ],
+        "tracked": false
+      },
+      {
+        "id": "ruins_expedition",
+        "status": "locked",
+        "objectives": [
+          {
+            "id": "reach_ruins",
+            "current_count": 0,
+            "completed": false
+          },
+          {
+            "id": "defeat_ruins_guardian",
+            "current_count": 0,
+            "completed": false
+          },
+          {
+            "id": "discover_prophecy",
+            "current_count": 0,
+            "completed": false
+          }
+        ],
+        "tracked": false
+      },
+      {
+        "id": "treasure_hunt",
+        "status": "locked",
+        "objectives": [
+          {
+            "id": "enter_chamber",
+            "current_count": 0,
+            "completed": false
+          },
+          {
+            "id": "collect_ancient_relics",
+            "current_count": 0,
+            "completed": false
+          },
+          {
+            "id": "unseal_darkness",
+            "current_count": 0,
+            "completed": false
+          }
+        ],
+        "tracked": false
+      },
+      {
+        "id": "final_confrontation",
+        "status": "locked",
+        "objectives": [
+          {
+            "id": "prepare_battle",
+            "current_count": 0,
+            "completed": false
+          },
+          {
+            "id": "defeat_shadow_lord",
+            "current_count": 0,
+            "completed": false
+          }
+        ],
+        "tracked": false
+      },
+      {
+        "id": "herb_gathering",
+        "status": "available",
+        "objectives": [
+          {
+            "id": "collect_herbs",
+            "current_count": 0,
+            "completed": false
+          },
+          {
+            "id": "return_to_healer",
+            "current_count": 0,
+            "completed": false
+          }
+        ],
+        "tracked": false
+      },
+      {
+        "id": "secret_garden",
+        "status": "locked",
+        "objectives": [
+          {
+            "id": "find_garden",
+            "current_count": 0,
+            "completed": false
+          },
+          {
+            "id": "garden_flower",
+            "current_count": 0,
+            "completed": false
+          }
+        ],
+        "tracked": false
+      },
+      {
+        "id": "goblin_bounty",
+        "status": "locked",
+        "objectives": [
+          {
+            "id": "kill_goblins",
+            "current_count": 0,
+            "completed": false
+          }
+        ],
+        "tracked": false
+      },
+      {
+        "id": "iron_recovery",
+        "status": "locked",
+        "objectives": [
+          {
+            "id": "defeat_bandits",
+            "current_count": 0,
+            "completed": false
+          },
+          {
+            "id": "collect_ore",
+            "current_count": 0,
+            "completed": false
+          }
+        ],
+        "tracked": false
+      },
+      {
+        "id": "river_mystery",
+        "status": "locked",
+        "objectives": [
+          {
+            "id": "investigate_river",
+            "current_count": 0,
+            "completed": false
+          },
+          {
+            "id": "defeat_creature",
+            "current_count": 0,
+            "completed": false
+          }
+        ],
+        "tracked": false
+      },
+      {
+        "id": "moonpetal_gathering",
+        "status": "locked",
+        "objectives": [
+          {
+            "id": "collect_moonpetals",
+            "current_count": 0,
+            "completed": false
+          }
+        ],
+        "tracked": false
+      },
+      {
+        "id": "mine_clearing",
+        "status": "locked",
+        "objectives": [
+          {
+            "id": "kill_bats",
+            "current_count": 0,
+            "completed": false
+          }
+        ],
+        "tracked": false
+      },
+      {
+        "id": "venom_collection",
+        "status": "locked",
+        "objectives": [
+          {
+            "id": "collect_venom",
+            "current_count": 0,
+            "completed": false
+          }
+        ],
+        "tracked": false
+      },
+      {
+        "id": "shadow_hunt",
+        "status": "locked",
+        "objectives": [
+          {
+            "id": "track_beast",
+            "current_count": 0,
+            "completed": false
+          },
+          {
+            "id": "defeat_beast",
+            "current_count": 0,
+            "completed": false
+          }
+        ],
+        "tracked": false
+      },
+      {
+        "id": "demon_strike",
+        "status": "locked",
+        "objectives": [
+          {
+            "id": "defeat_demons",
+            "current_count": 0,
+            "completed": false
+          }
+        ],
+        "tracked": false
+      },
+      {
+        "id": "dragon_scales",
+        "status": "locked",
+        "objectives": [
+          {
+            "id": "reach_crater",
+            "current_count": 0,
+            "completed": false
+          },
+          {
+            "id": "collect_scales",
+            "current_count": 0,
+            "completed": false
+          }
+        ],
+        "tracked": false
+      },
+      {
+        "id": "arena_challenge",
+        "status": "locked",
+        "objectives": [
+          {
+            "id": "win_battles",
+            "current_count": 0,
+            "completed": false
+          }
+        ],
+        "tracked": false
+      },
+      {
+        "id": "arena_champion",
+        "status": "available",
+        "objectives": [
+          {
+            "id": "arena_wins",
+            "current_count": 0,
+            "completed": false
+          }
+        ],
+        "tracked": false
+      },
+      {
+        "id": "arcane_power",
+        "status": "locked",
+        "objectives": [
+          {
+            "id": "reach_ruins",
+            "current_count": 0,
+            "completed": false
+          },
+          {
+            "id": "retrieve_core",
+            "current_count": 0,
+            "completed": false
+          }
+        ],
+        "tracked": false
+      },
+      {
+        "id": "essence_crystals",
+        "status": "locked",
+        "objectives": [
+          {
+            "id": "collect_crystals",
+            "current_count": 0,
+            "completed": false
+          }
+        ],
+        "tracked": false
+      },
+      {
+        "id": "forbidden_grimoire",
+        "status": "locked",
+        "objectives": [
+          {
+            "id": "enter_crypt",
+            "current_count": 0,
+            "completed": false
+          },
+          {
+            "id": "recover_grimoire",
+            "current_count": 0,
+            "completed": false
+          }
+        ],
+        "tracked": false
+      },
+      {
+        "id": "artifact_retrieval",
+        "status": "locked",
+        "objectives": [
+          {
+            "id": "infiltrate",
+            "current_count": 0,
+            "completed": false
+          },
+          {
+            "id": "steal_artifact",
+            "current_count": 0,
+            "completed": false
+          }
+        ],
+        "tracked": false
+      },
+      {
+        "id": "fence_job",
+        "status": "locked",
+        "objectives": [
+          {
+            "id": "acquire_valuables",
+            "current_count": 0,
+            "completed": false
+          }
+        ],
+        "tracked": false
+      },
+      {
+        "id": "spy_mission",
+        "status": "locked",
+        "objectives": [
+          {
+            "id": "gather_intel",
+            "current_count": 0,
+            "completed": false
+          }
+        ],
+        "tracked": false
+      },
+      {
+        "id": "purify_crypt",
+        "status": "locked",
+        "objectives": [
+          {
+            "id": "enter_crypt",
+            "current_count": 0,
+            "completed": false
+          },
+          {
+            "id": "purify",
+            "current_count": 0,
+            "completed": false
+          }
+        ],
+        "tracked": false
+      },
+      {
+        "id": "caravan_guard",
+        "status": "locked",
+        "objectives": [
+          {
+            "id": "defeat_raiders",
+            "current_count": 0,
+            "completed": false
+          }
+        ],
+        "tracked": false
+      },
+      {
+        "id": "sea_serpents",
+        "status": "locked",
+        "objectives": [
+          {
+            "id": "defeat_serpents",
+            "current_count": 0,
+            "completed": false
+          }
+        ],
+        "tracked": false
+      }
+    ]
+  },
+  "day_night": {
+    "current_time": 363.2669999999992,
+    "day_count": 1,
+    "time_scale": 1.0,
+    "paused": false
+  },
+  "achievements": {
+    "achievements": [
+      {
+        "id": "first_blood",
+        "current_count": 0,
+        "unlocked": false,
+        "unlock_time": null,
+        "points": 10
+      },
+      {
+        "id": "warrior_initiate",
+        "current_count": 0,
+        "unlocked": false,
+        "unlock_time": null,
+        "points": 10
+      },
+      {
+        "id": "battle_hardened",
+        "current_count": 0,
+        "unlocked": false,
+        "unlock_time": null,
+        "points": 15
+      },
+      {
+        "id": "veteran_warrior",
+        "current_count": 0,
+        "unlocked": false,
+        "unlock_time": null,
+        "points": 25
+      },
+      {
+        "id": "legendary_fighter",
+        "current_count": 0,
+        "unlocked": false,
+        "unlock_time": null,
+        "points": 100
+      },
+      {
+        "id": "monster_slayer",
+        "current_count": 0,
+        "unlocked": false,
+        "unlock_time": null,
+        "points": 10
+      },
+      {
+        "id": "exterminator",
+        "current_count": 0,
+        "unlocked": false,
+        "unlock_time": null,
+        "points": 15
+      },
+      {
+        "id": "boss_hunter",
+        "current_count": 0,
+        "unlocked": false,
+        "unlock_time": null,
+        "points": 15
+      },
+      {
+        "id": "boss_slayer",
+        "current_count": 0,
+        "unlocked": false,
+        "unlock_time": null,
+        "points": 25
+      },
+      {
+        "id": "pacifist",
+        "current_count": 0,
+        "unlocked": false,
+        "unlock_time": null,
+        "points": 15
+      },
+      {
+        "id": "merciful_soul",
+        "current_count": 0,
+        "unlocked": false,
+        "unlock_time": null,
+        "points": 25
+      },
+      {
+        "id": "tactical_retreat",
+        "current_count": 0,
+        "unlocked": false,
+        "unlock_time": null,
+        "points": 10
+      },
+      {
+        "id": "coward",
+        "current_count": 0,
+        "unlocked": false,
+        "unlock_time": null,
+        "points": 15
+      },
+      {
+        "id": "first_steps",
+        "current_count": 0,
+        "unlocked": false,
+        "unlock_time": null,
+        "points": 10
+      },
+      {
+        "id": "explorer",
+        "current_count": 0,
+        "unlocked": false,
+        "unlock_time": null,
+        "points": 10
+      },
+      {
+        "id": "cartographer",
+        "current_count": 0,
+        "unlocked": false,
+        "unlock_time": null,
+        "points": 15
+      },
+      {
+        "id": "world_traveler",
+        "current_count": 0,
+        "unlocked": false,
+        "unlock_time": null,
+        "points": 25
+      },
+      {
+        "id": "forest_explorer",
+        "current_count": 0,
+        "unlocked": false,
+        "unlock_time": null,
+        "points": 10
+      },
+      {
+        "id": "cave_explorer",
+        "current_count": 0,
+        "unlocked": false,
+        "unlock_time": null,
+        "points": 10
+      },
+      {
+        "id": "mountain_explorer",
+        "current_count": 0,
+        "unlocked": false,
+        "unlock_time": null,
+        "points": 15
+      },
+      {
+        "id": "quest_starter",
+        "current_count": 0,
+        "unlocked": false,
+        "unlock_time": null,
+        "points": 10
+      },
+      {
+        "id": "adventurer",
+        "current_count": 0,
+        "unlocked": false,
+        "unlock_time": null,
+        "points": 10
+      },
+      {
+        "id": "hero_of_the_realm",
+        "current_count": 0,
+        "unlocked": false,
+        "unlock_time": null,
+        "points": 15
+      },
+      {
+        "id": "legendary_hero",
+        "current_count": 0,
+        "unlocked": false,
+        "unlock_time": null,
+        "points": 50
+      },
+      {
+        "id": "tutorial_complete",
+        "current_count": 0,
+        "unlocked": false,
+        "unlock_time": null,
+        "points": 10
+      },
+      {
+        "id": "collector",
+        "current_count": 0,
+        "unlocked": false,
+        "unlock_time": null,
+        "points": 10
+      },
+      {
+        "id": "hoarder",
+        "current_count": 0,
+        "unlocked": false,
+        "unlock_time": null,
+        "points": 15
+      },
+      {
+        "id": "potion_master",
+        "current_count": 0,
+        "unlocked": false,
+        "unlock_time": null,
+        "points": 10
+      },
+      {
+        "id": "first_craft",
+        "current_count": 0,
+        "unlocked": false,
+        "unlock_time": null,
+        "points": 10
+      },
+      {
+        "id": "master_crafter",
+        "current_count": 0,
+        "unlocked": false,
+        "unlock_time": null,
+        "points": 15
+      },
+      {
+        "id": "level_5",
+        "current_count": 0,
+        "unlocked": false,
+        "unlock_time": null,
+        "points": 10
+      },
+      {
+        "id": "level_10",
+        "current_count": 0,
+        "unlocked": false,
+        "unlock_time": null,
+        "points": 10
+      },
+      {
+        "id": "level_25",
+        "current_count": 0,
+        "unlocked": false,
+        "unlock_time": null,
+        "points": 15
+      },
+      {
+        "id": "level_50",
+        "current_count": 0,
+        "unlocked": false,
+        "unlock_time": null,
+        "points": 25
+      },
+      {
+        "id": "level_99",
+        "current_count": 0,
+        "unlocked": false,
+        "unlock_time": null,
+        "points": 100
+      },
+      {
+        "id": "skill_learner",
+        "current_count": 0,
+        "unlocked": false,
+        "unlock_time": null,
+        "points": 10
+      },
+      {
+        "id": "skill_master",
+        "current_count": 0,
+        "unlocked": false,
+        "unlock_time": null,
+        "points": 15
+      },
+      {
+        "id": "first_friend",
+        "current_count": 0,
+        "unlocked": false,
+        "unlock_time": null,
+        "points": 10
+      },
+      {
+        "id": "full_party",
+        "current_count": 0,
+        "unlocked": false,
+        "unlock_time": null,
+        "points": 15
+      },
+      {
+        "id": "social_butterfly",
+        "current_count": 0,
+        "unlocked": false,
+        "unlock_time": null,
+        "points": 10
+      },
+      {
+        "id": "diplomat",
+        "current_count": 0,
+        "unlocked": false,
+        "unlock_time": null,
+        "points": 15
+      },
+      {
+        "id": "wealthy",
+        "current_count": 0,
+        "unlocked": false,
+        "unlock_time": null,
+        "points": 15
+      },
+      {
+        "id": "rich",
+        "current_count": 0,
+        "unlocked": false,
+        "unlock_time": null,
+        "points": 25
+      },
+      {
+        "id": "millionaire",
+        "current_count": 0,
+        "unlocked": false,
+        "unlock_time": null,
+        "points": 50
+      },
+      {
+        "id": "first_death",
+        "current_count": 0,
+        "unlocked": false,
+        "unlock_time": null,
+        "points": 10
+      },
+      {
+        "id": "persistent",
+        "current_count": 0,
+        "unlocked": false,
+        "unlock_time": null,
+        "points": 15
+      },
+      {
+        "id": "true_ending",
+        "current_count": 0,
+        "unlocked": false,
+        "unlock_time": null,
+        "points": 100
+      },
+      {
+        "id": "bad_ending",
+        "current_count": 0,
+        "unlocked": false,
+        "unlock_time": null,
+        "points": 25
+      },
+      {
+        "id": "completionist",
+        "current_count": 0,
+        "unlocked": false,
+        "unlock_time": null,
+        "points": 100
+      },
+      {
+        "id": "cave_explorer_quest",
+        "current_count": 0,
+        "unlocked": false,
+        "unlock_time": null,
+        "points": 10
+      },
+      {
+        "id": "garden_secrets_quest",
+        "current_count": 0,
+        "unlocked": false,
+        "unlock_time": null,
+        "points": 10
+      },
+      {
+        "id": "ruins_expedition_quest",
+        "current_count": 0,
+        "unlocked": false,
+        "unlock_time": null,
+        "points": 15
+      },
+      {
+        "id": "treasure_hunt_quest",
+        "current_count": 0,
+        "unlocked": false,
+        "unlock_time": null,
+        "points": 15
+      },
+      {
+        "id": "final_confrontation_quest",
+        "current_count": 0,
+        "unlocked": false,
+        "unlock_time": null,
+        "points": 50
+      },
+      {
+        "id": "side_quest_master",
+        "current_count": 0,
+        "unlocked": false,
+        "unlock_time": null,
+        "points": 25
+      },
+      {
+        "id": "all_side_quests",
+        "current_count": 0,
+        "unlocked": false,
+        "unlock_time": null,
+        "points": 50
+      },
+      {
+        "id": "good_ending",
+        "current_count": 0,
+        "unlocked": false,
+        "unlock_time": null,
+        "points": 50
+      },
+      {
+        "id": "neutral_ending",
+        "current_count": 0,
+        "unlocked": false,
+        "unlock_time": null,
+        "points": 25
+      },
+      {
+        "id": "all_endings",
+        "current_count": 0,
+        "unlocked": false,
+        "unlock_time": null,
+        "points": 100
+      },
+      {
+        "id": "ng_plus_1",
+        "current_count": 0,
+        "unlocked": false,
+        "unlock_time": null,
+        "points": 25
+      },
+      {
+        "id": "ng_plus_2",
+        "current_count": 0,
+        "unlocked": false,
+        "unlock_time": null,
+        "points": 50
+      },
+      {
+        "id": "ng_plus_3",
+        "current_count": 0,
+        "unlocked": false,
+        "unlock_time": null,
+        "points": 100
+      },
+      {
+        "id": "total_kills_100",
+        "current_count": 0,
+        "unlocked": false,
+        "unlock_time": null,
+        "points": 15
+      },
+      {
+        "id": "total_kills_500",
+        "current_count": 0,
+        "unlocked": false,
+        "unlock_time": null,
+        "points": 25
+      },
+      {
+        "id": "gold_earned_5000",
+        "current_count": 0,
+        "unlocked": false,
+        "unlock_time": null,
+        "points": 25
+      },
+      {
+        "id": "gold_earned_10000",
+        "current_count": 0,
+        "unlocked": false,
+        "unlock_time": null,
+        "points": 50
+      },
+      {
+        "id": "quests_completed_20",
+        "current_count": 0,
+        "unlocked": false,
+        "unlock_time": null,
+        "points": 15
+      },
+      {
+        "id": "quests_completed_30",
+        "current_count": 0,
+        "unlocked": false,
+        "unlock_time": null,
+        "points": 25
+      },
+      {
+        "id": "first_catch",
+        "current_count": 0,
+        "unlocked": false,
+        "unlock_time": null,
+        "points": 10
+      },
+      {
+        "id": "amateur_angler",
+        "current_count": 0,
+        "unlocked": false,
+        "unlock_time": null,
+        "points": 15
+      },
+      {
+        "id": "master_fisher",
+        "current_count": 0,
+        "unlocked": false,
+        "unlock_time": null,
+        "points": 25
+      },
+      {
+        "id": "legendary_catch",
+        "current_count": 0,
+        "unlocked": false,
+        "unlock_time": null,
+        "points": 100
+      },
+      {
+        "id": "perfect_catch",
+        "current_count": 0,
+        "unlocked": false,
+        "unlock_time": null,
+        "points": 25
+      },
+      {
+        "id": "night_fisher",
+        "current_count": 0,
+        "unlocked": false,
+        "unlock_time": null,
+        "points": 15
+      },
+      {
+        "id": "puzzle_solver",
+        "current_count": 0,
+        "unlocked": false,
+        "unlock_time": null,
+        "points": 10
+      },
+      {
+        "id": "puzzle_master",
+        "current_count": 0,
+        "unlocked": false,
+        "unlock_time": null,
+        "points": 25
+      },
+      {
+        "id": "no_reset_clear",
+        "current_count": 0,
+        "unlocked": false,
+        "unlock_time": null,
+        "points": 15
+      },
+      {
+        "id": "high_roller",
+        "current_count": 0,
+        "unlocked": false,
+        "unlock_time": null,
+        "points": 25
+      },
+      {
+        "id": "lucky_seven",
+        "current_count": 0,
+        "unlocked": false,
+        "unlock_time": null,
+        "points": 15
+      },
+      {
+        "id": "jackpot",
+        "current_count": 0,
+        "unlocked": false,
+        "unlock_time": null,
+        "points": 50
+      },
+      {
+        "id": "card_shark",
+        "current_count": 0,
+        "unlocked": false,
+        "unlock_time": null,
+        "points": 15
+      },
+      {
+        "id": "arena_regular",
+        "current_count": 0,
+        "unlocked": false,
+        "unlock_time": null,
+        "points": 10
+      },
+      {
+        "id": "big_winner",
+        "current_count": 0,
+        "unlocked": false,
+        "unlock_time": null,
+        "points": 25
+      },
+      {
+        "id": "underdog_backer",
+        "current_count": 0,
+        "unlocked": false,
+        "unlock_time": null,
+        "points": 15
+      },
+      {
+        "id": "perfect_prediction",
+        "current_count": 0,
+        "unlocked": false,
+        "unlock_time": null,
+        "points": 50
+      },
+      {
+        "id": "jack_of_all_trades",
+        "current_count": 0,
+        "unlocked": false,
+        "unlock_time": null,
+        "points": 15
+      },
+      {
+        "id": "completionist_activities",
+        "current_count": 0,
+        "unlocked": false,
+        "unlock_time": null,
+        "points": 50
+      },
+      {
+        "id": "wyrm_slayer",
+        "current_count": 0,
+        "unlocked": false,
+        "unlock_time": null,
+        "points": 100
+      },
+      {
+        "id": "shadow_slayer",
+        "current_count": 0,
+        "unlocked": false,
+        "unlock_time": null,
+        "points": 100
+      },
+      {
+        "id": "secret_hunter",
+        "current_count": 0,
+        "unlocked": false,
+        "unlock_time": null,
+        "points": 50
+      },
+      {
+        "id": "true_champion",
+        "current_count": 0,
+        "unlocked": false,
+        "unlock_time": null,
+        "points": 100
+      },
+      {
+        "id": "master_of_all",
+        "current_count": 0,
+        "unlocked": false,
+        "unlock_time": null,
+        "points": 50
+      },
+      {
+        "id": "speed_demon",
+        "current_count": 0,
+        "unlocked": false,
+        "unlock_time": null,
+        "points": 25
+      },
+      {
+        "id": "pacifist_run",
+        "current_count": 0,
+        "unlocked": false,
+        "unlock_time": null,
+        "points": 25
+      }
+    ],
+    "daily_activities": {},
+    "challenge_dungeon_times": {},
+    "challenge_dungeon_pacifist": {}
+  },
+  "weather": {
+    "current_weather": "clear",
+    "transition_weather": null,
+    "transition_progress": 0.0,
+    "change_timer": 296.7330000000008,
+    "enabled": true,
+    "paused": false
+  },
+  "npc_schedules": {
+    "last_time_period": "morning",
+    "npc_positions": {
+      "forest_merchant": {
+        "map_id": "forest_path",
+        "x": 3,
+        "y": 4
+      },
+      "riverside_blacksmith": {
+        "map_id": "riverside_blacksmith",
+        "x": 4,
+        "y": 4
+      },
+      "riverside_fisherman": {
+        "map_id": "riverside_town",
+        "x": 10,
+        "y": 8
+      },
+      "tutorial_npc": {
+        "map_id": "forest_path",
+        "x": 6,
+        "y": 4
+      },
+      "riverside_innkeeper": {
+        "map_id": "riverside_inn",
+        "x": 5,
+        "y": 3
+      },
+      "hillcrest_herbalist": {
+        "map_id": "secret_garden",
+        "x": 4,
+        "y": 5
+      },
+      "shadowfen_alchemist": {
+        "map_id": "shadowfen_alchemist",
+        "x": 4,
+        "y": 4
+      },
+      "ironhold_armorer": {
+        "map_id": "ironhold_city",
+        "x": 10,
+        "y": 6
+      },
+      "crystalspire_magic_shop": {
+        "map_id": "crystalspire_city",
+        "x": 6,
+        "y": 10
+      },
+      "nighthaven_black_market": {
+        "map_id": "nighthaven_city",
+        "x": 11,
+        "y": 5
+      },
+      "sunharbor_exotic_merchant": {
+        "map_id": "sunharbor_city",
+        "x": 5,
+        "y": 6
+      }
+    }
+  },
+  "fishing": {
+    "player_records": {},
+    "total_catches": 0,
+    "catches_per_spot": {}
+  },
+  "brain_teasers": {
+    "solved_teasers": [],
+    "attempts": {}
+  },
+  "gambling": {
+    "total_wagered": 0,
+    "total_won": 0,
+    "total_lost": 0,
+    "games_played": 0,
+    "biggest_win": 0,
+    "biggest_loss": 0,
+    "current_streak": 0,
+    "best_streak": 0,
+    "worst_streak": 0,
+    "blackjack_wins": 0,
+    "dice_wins": 0,
+    "slots_wins": 0,
+    "cups_wins": 0
+  },
+  "arena": {
+    "fighters": {
+      "iron_golem": {
+        "wins": 0,
+        "losses": 0,
+        "odds": 1.8
+      },
+      "shadow_wolf": {
+        "wins": 0,
+        "losses": 0,
+        "odds": 2.2
+      },
+      "flame_drake": {
+        "wins": 0,
+        "losses": 0,
+        "odds": 1.5
+      },
+      "crystal_spider": {
+        "wins": 0,
+        "losses": 0,
+        "odds": 3.0
+      },
+      "thunder_bear": {
+        "wins": 0,
+        "losses": 0,
+        "odds": 1.6
+      },
+      "swamp_horror": {
+        "wins": 0,
+        "losses": 0,
+        "odds": 2.8
+      }
+    },
+    "current_matches": [],
+    "active_bets": [],
+    "match_history": []
+  },
+  "challenge_dungeons": {
+    "progress": {},
+    "active_dungeon_id": null,
+    "dungeon_start_time": 0.0,
+    "current_floor_start_time": 0.0,
+    "floor_time_limit": null
+  },
+  "secret_bosses": {
+    "discovered": [],
+    "defeated": [],
+    "available": []
+  },
+  "hints": {
+    "discovered_hints": []
+  },
+  "post_game": {
+    "final_boss_defeated": false,
+    "ending_achieved": null,
+    "post_game_time": 0.0,
+    "secret_bosses_defeated": 0,
+    "challenge_dungeons_cleared": 0,
+    "true_ending_unlocked": false,
+    "active_unlocks": []
+  },
+  "tutorial": {
+    "dismissed_tips": [],
+    "seen_tips": [],
+    "tips_enabled": true
+  }
+}

@@ -1,0 +1,121 @@
+{
+  "teasers": {
+    "sphinx_riddle_1": {
+      "teaser_id": "sphinx_riddle_1",
+      "teaser_type": "riddle",
+      "name": "The Sphinx's First Riddle",
+      "data": {
+        "riddle_id": "sphinx_1",
+        "question": "I have cities, but no houses live there. I have mountains, but no trees grow there. I have water, but no fish swim there. I have roads, but no cars drive there. What am I?",
+        "answer": "map",
+        "alternatives": ["a map"],
+        "hint": "You might use me to find your way."
+      },
+      "rewards": {
+        "gold": 100,
+        "items": {
+          "ancient_coin": 1
+        }
+      },
+      "attempts_allowed": 3
+    },
+    "ancient_lock": {
+      "teaser_id": "ancient_lock",
+      "teaser_type": "lock_combination",
+      "name": "Ancient Chest Lock",
+      "data": {
+        "puzzle_id": "ancient_lock_1",
+        "combination": [4, 7, 2],
+        "num_dials": 3,
+        "max_value": 9,
+        "clues": [
+          "The first number is half of eight.",
+          "The second number is the luckiest.",
+          "The third number is the only even prime."
+        ]
+      },
+      "rewards": {
+        "items": {
+          "rare_gem": 1
+        }
+      },
+      "attempts_allowed": 0
+    },
+    "memory_shrine": {
+      "teaser_id": "memory_shrine",
+      "teaser_type": "simon_says",
+      "name": "Shrine of Memory",
+      "data": {
+        "puzzle_id": "memory_1",
+        "sequence_length": 5,
+        "colors": ["red", "blue", "green", "yellow"]
+      },
+      "rewards": {
+        "flags": ["memory_shrine_complete"]
+      },
+      "attempts_allowed": 3
+    },
+    "scrambled_scroll": {
+      "teaser_id": "scrambled_scroll",
+      "teaser_type": "word_scramble",
+      "name": "Scrambled Scroll",
+      "data": {
+        "puzzle_id": "scramble_1",
+        "word": "potion",
+        "scrambled": "itpoon",
+        "hint": "Brewed in a cauldron."
+      },
+      "rewards": {
+        "items": {
+          "healing_potion": 2
+        }
+      },
+      "attempts_allowed": 3
+    },
+    "number_runes": {
+      "teaser_id": "number_runes",
+      "teaser_type": "number_sequence",
+      "name": "Runic Number Riddle",
+      "data": {
+        "puzzle_id": "sequence_1",
+        "sequence": [3, 6, 9, 12],
+        "answer": 15,
+        "pattern_description": "Multiples of three"
+      },
+      "rewards": {
+        "gold": 120
+      },
+      "attempts_allowed": 2
+    },
+    "mosaic_panel": {
+      "teaser_id": "mosaic_panel",
+      "teaser_type": "pattern_match",
+      "name": "Mosaic Panel",
+      "data": {
+        "puzzle_id": "pattern_1",
+        "grid": [["sun", "sun", "moon"], ["sun", "sun", "sun"], ["moon", "sun", "sun"]],
+        "answer_position": [2, 0],
+        "puzzle_type": "odd_one_out"
+      },
+      "rewards": {
+        "items": {
+          "ancient_coin": 2
+        }
+      },
+      "attempts_allowed": 3
+    },
+    "sliding_tablet": {
+      "teaser_id": "sliding_tablet",
+      "teaser_type": "sliding_tiles",
+      "name": "Sliding Rune Tablet",
+      "data": {
+        "puzzle_id": "sliding_1",
+        "solution": [["1", "2"], ["3", ""]]
+      },
+      "rewards": {
+        "flags": ["sliding_tablet_complete"]
+      },
+      "attempts_allowed": 5
+    }
+  }
+}

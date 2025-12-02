@@ -1,0 +1,12 @@
+# Rule-Based Chatbot Dependencies
+#
+# This project uses only Python standard library modules
+# No external dependencies required for basic functionality
+
+# Optional dependencies for enhanced functionality:
+# pyyaml>=6.0          # For YAML configuration file support
+# pytest>=7.0.0        # For running tests (development)
+# black>=22.0.0        # For code formatting (development)
+# ruff>=0.0.261        # For linting (development)
+
+# Note: The core chatbot works with Python 3.8+ standard library only

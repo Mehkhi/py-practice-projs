@@ -1,0 +1,625 @@
+{
+  "skills": [
+    {
+      "id": "fire_bolt",
+      "name": "Fire Bolt",
+      "power": 15,
+      "cost_sp": 10,
+      "element": "fire",
+      "target_pattern": "single_enemy",
+      "status_inflict_id": null,
+      "status_chance": 0.0
+    },
+    {
+      "id": "fireball",
+      "name": "Fireball",
+      "power": 22,
+      "cost_sp": 16,
+      "element": "fire",
+      "target_pattern": "all_enemies",
+      "status_inflict_id": "burn",
+      "status_chance": 0.25
+    },
+    {
+      "id": "heal",
+      "name": "Heal",
+      "power": 30,
+      "cost_sp": 15,
+      "element": "holy",
+      "target_pattern": "single_ally",
+      "status_inflict_id": null,
+      "status_chance": 0.0
+    },
+    {
+      "id": "cure",
+      "name": "Cure",
+      "power": 20,
+      "cost_sp": 10,
+      "element": "holy",
+      "target_pattern": "single_ally",
+      "status_inflict_id": null,
+      "status_chance": 0.0,
+      "removes_status": ["poison", "burn", "bleed"]
+    },
+    {
+      "id": "poison_strike",
+      "name": "Poison Strike",
+      "power": 10,
+      "cost_sp": 8,
+      "element": "physical",
+      "target_pattern": "single_enemy",
+      "status_inflict_id": "poison",
+      "status_chance": 0.5
+    },
+    {
+      "id": "rending_bite",
+      "name": "Rending Bite",
+      "power": 12,
+      "cost_sp": 6,
+      "element": "physical",
+      "target_pattern": "single_enemy",
+      "status_inflict_id": "bleed",
+      "status_chance": 0.65
+    },
+    {
+      "id": "power_strike",
+      "name": "Power Strike",
+      "power": 20,
+      "cost_sp": 8,
+      "element": "physical",
+      "target_pattern": "single_enemy",
+      "status_inflict_id": null,
+      "status_chance": 0.0
+    },
+    {
+      "id": "shield_bash",
+      "name": "Shield Bash",
+      "power": 12,
+      "cost_sp": 6,
+      "element": "physical",
+      "target_pattern": "single_enemy",
+      "status_inflict_id": "stun",
+      "status_chance": 0.3
+    },
+    {
+      "id": "berserker_rage",
+      "name": "Berserker Rage",
+      "power": 35,
+      "cost_sp": 20,
+      "element": "physical",
+      "target_pattern": "single_enemy",
+      "status_inflict_id": null,
+      "status_chance": 0.0
+    },
+    {
+      "id": "ice_shard",
+      "name": "Ice Shard",
+      "power": 14,
+      "cost_sp": 10,
+      "element": "ice",
+      "target_pattern": "single_enemy",
+      "status_inflict_id": "frozen",
+      "status_chance": 0.2
+    },
+    {
+      "id": "arcane_blast",
+      "name": "Arcane Blast",
+      "power": 25,
+      "cost_sp": 18,
+      "element": "arcane",
+      "target_pattern": "all_enemies",
+      "status_inflict_id": null,
+      "status_chance": 0.0
+    },
+    {
+      "id": "cleanse",
+      "name": "Cleanse",
+      "power": 0,
+      "cost_sp": 12,
+      "element": "holy",
+      "target_pattern": "single_ally",
+      "status_inflict_id": null,
+      "status_chance": 0.0
+    },
+    {
+      "id": "barrier",
+      "name": "Holy Barrier",
+      "power": 0,
+      "cost_sp": 15,
+      "element": "holy",
+      "target_pattern": "single_ally",
+      "status_inflict_id": "barrier",
+      "status_chance": 1.0
+    },
+    {
+      "id": "mass_heal",
+      "name": "Mass Heal",
+      "power": 25,
+      "cost_sp": 25,
+      "element": "holy",
+      "target_pattern": "all_allies",
+      "status_inflict_id": null,
+      "status_chance": 0.0
+    },
+    {
+      "id": "resurrection",
+      "name": "Resurrection",
+      "power": 50,
+      "cost_sp": 40,
+      "element": "holy",
+      "target_pattern": "single_ally",
+      "status_inflict_id": null,
+      "status_chance": 0.0
+    },
+    {
+      "id": "backstab",
+      "name": "Backstab",
+      "power": 18,
+      "cost_sp": 8,
+      "element": "physical",
+      "target_pattern": "single_enemy",
+      "status_inflict_id": null,
+      "status_chance": 0.0
+    },
+    {
+      "id": "assassinate",
+      "name": "Assassinate",
+      "power": 40,
+      "cost_sp": 25,
+      "element": "physical",
+      "target_pattern": "single_enemy",
+      "status_inflict_id": null,
+      "status_chance": 0.0
+    },
+    {
+      "id": "shadow_dance",
+      "name": "Shadow Dance",
+      "power": 15,
+      "cost_sp": 20,
+      "element": "physical",
+      "target_pattern": "all_enemies",
+      "status_inflict_id": null,
+      "status_chance": 0.0
+    },
+    {
+      "id": "lullaby",
+      "name": "Lullaby",
+      "power": 0,
+      "cost_sp": 12,
+      "element": "arcane",
+      "target_pattern": "single_enemy",
+      "status_inflict_id": "sleep",
+      "status_chance": 0.7
+    },
+    {
+      "id": "flame_burst",
+      "name": "Flame Burst",
+      "power": 18,
+      "cost_sp": 14,
+      "element": "fire",
+      "target_pattern": "single_enemy",
+      "status_inflict_id": "burn",
+      "status_chance": 0.4
+    },
+    {
+      "id": "blizzard",
+      "name": "Blizzard",
+      "power": 12,
+      "cost_sp": 16,
+      "element": "ice",
+      "target_pattern": "all_enemies",
+      "status_inflict_id": "frozen",
+      "status_chance": 0.25
+    },
+    {
+      "id": "mind_warp",
+      "name": "Mind Warp",
+      "power": 8,
+      "cost_sp": 10,
+      "element": "arcane",
+      "target_pattern": "single_enemy",
+      "status_inflict_id": "confusion",
+      "status_chance": 0.6
+    },
+    {
+      "id": "thunder_strike",
+      "name": "Thunder Strike",
+      "power": 22,
+      "cost_sp": 15,
+      "element": "lightning",
+      "target_pattern": "single_enemy",
+      "status_inflict_id": "stun",
+      "status_chance": 0.35
+    },
+    {
+      "id": "inferno",
+      "name": "Inferno",
+      "power": 25,
+      "cost_sp": 22,
+      "element": "fire",
+      "target_pattern": "all_enemies",
+      "status_inflict_id": "burn",
+      "status_chance": 0.3
+    },
+    {
+      "id": "deep_freeze",
+      "name": "Deep Freeze",
+      "power": 20,
+      "cost_sp": 18,
+      "element": "ice",
+      "target_pattern": "single_enemy",
+      "status_inflict_id": "frozen",
+      "status_chance": 0.5
+    },
+    {
+      "id": "chaos_bolt",
+      "name": "Chaos Bolt",
+      "power": 15,
+      "cost_sp": 14,
+      "element": "arcane",
+      "target_pattern": "single_enemy",
+      "status_inflict_id": "confusion",
+      "status_chance": 0.45
+    },
+    {
+      "id": "precise_shot",
+      "name": "Precise Shot",
+      "power": 16,
+      "cost_sp": 8,
+      "element": "physical",
+      "target_pattern": "single_enemy",
+      "status_inflict_id": null,
+      "status_chance": 0.0
+    },
+    {
+      "id": "multi_shot",
+      "name": "Multi-Shot",
+      "power": 10,
+      "cost_sp": 12,
+      "element": "physical",
+      "target_pattern": "all_enemies",
+      "status_inflict_id": null,
+      "status_chance": 0.0
+    },
+    {
+      "id": "smite",
+      "name": "Smite",
+      "power": 18,
+      "cost_sp": 12,
+      "element": "holy",
+      "target_pattern": "single_enemy",
+      "status_inflict_id": null,
+      "status_chance": 0.0
+    },
+    {
+      "id": "poison_blade",
+      "name": "Poison Blade",
+      "power": 12,
+      "cost_sp": 10,
+      "element": "physical",
+      "target_pattern": "single_enemy",
+      "status_inflict_id": "poison",
+      "status_chance": 0.6
+    },
+    {
+      "id": "war_cry",
+      "name": "War Cry",
+      "power": 0,
+      "cost_sp": 8,
+      "element": "physical",
+      "target_pattern": "self",
+      "status_inflict_id": "attack_up",
+      "status_chance": 1.0
+    },
+    {
+      "id": "divine_strike",
+      "name": "Divine Strike",
+      "power": 20,
+      "cost_sp": 14,
+      "element": "holy",
+      "target_pattern": "single_enemy",
+      "status_inflict_id": null,
+      "status_chance": 0.0
+    },
+    {
+      "id": "lay_on_hands",
+      "name": "Lay on Hands",
+      "power": 40,
+      "cost_sp": 18,
+      "element": "holy",
+      "target_pattern": "single_ally",
+      "status_inflict_id": null,
+      "status_chance": 0.0
+    },
+    {
+      "id": "drain_life",
+      "name": "Drain Life",
+      "power": 16,
+      "cost_sp": 12,
+      "element": "dark",
+      "target_pattern": "single_enemy",
+      "status_inflict_id": null,
+      "status_chance": 0.0
+    },
+    {
+      "id": "raise_undead",
+      "name": "Raise Undead",
+      "power": 0,
+      "cost_sp": 20,
+      "element": "dark",
+      "target_pattern": "self",
+      "status_inflict_id": "summon_skeleton",
+      "status_chance": 1.0
+    },
+    {
+      "id": "dark_bolt",
+      "name": "Dark Bolt",
+      "power": 14,
+      "cost_sp": 10,
+      "element": "dark",
+      "target_pattern": "single_enemy",
+      "status_inflict_id": null,
+      "status_chance": 0.0
+    },
+    {
+      "id": "ki_strike",
+      "name": "Ki Strike",
+      "power": 18,
+      "cost_sp": 8,
+      "element": "physical",
+      "target_pattern": "single_enemy",
+      "status_inflict_id": null,
+      "status_chance": 0.0
+    },
+    {
+      "id": "meditate",
+      "name": "Meditate",
+      "power": 0,
+      "cost_sp": 0,
+      "element": "holy",
+      "target_pattern": "self",
+      "status_inflict_id": "regen",
+      "status_chance": 1.0
+    },
+    {
+      "id": "flurry_of_blows",
+      "name": "Flurry of Blows",
+      "power": 8,
+      "cost_sp": 14,
+      "element": "physical",
+      "target_pattern": "single_enemy",
+      "status_inflict_id": null,
+      "status_chance": 0.0
+    },
+    {
+      "id": "inspiring_song",
+      "name": "Inspiring Song",
+      "power": 0,
+      "cost_sp": 12,
+      "element": "arcane",
+      "target_pattern": "all_allies",
+      "status_inflict_id": "attack_up",
+      "status_chance": 1.0
+    },
+    {
+      "id": "discordant_note",
+      "name": "Discordant Note",
+      "power": 12,
+      "cost_sp": 10,
+      "element": "arcane",
+      "target_pattern": "single_enemy",
+      "status_inflict_id": "confusion",
+      "status_chance": 0.4
+    },
+    {
+      "id": "summon_elemental",
+      "name": "Summon Elemental",
+      "power": 0,
+      "cost_sp": 25,
+      "element": "arcane",
+      "target_pattern": "self",
+      "status_inflict_id": "summon_elemental",
+      "status_chance": 1.0
+    },
+    {
+      "id": "spirit_link",
+      "name": "Spirit Link",
+      "power": 15,
+      "cost_sp": 14,
+      "element": "arcane",
+      "target_pattern": "single_enemy",
+      "status_inflict_id": null,
+      "status_chance": 0.0
+    },
+    {
+      "id": "shield_wall",
+      "name": "Shield Wall",
+      "power": 0,
+      "cost_sp": 10,
+      "element": "physical",
+      "target_pattern": "self",
+      "status_inflict_id": "defense_up",
+      "status_chance": 1.0
+    },
+    {
+      "id": "challenge",
+      "name": "Challenge",
+      "power": 10,
+      "cost_sp": 8,
+      "element": "physical",
+      "target_pattern": "single_enemy",
+      "status_inflict_id": "taunt",
+      "status_chance": 0.8
+    },
+    {
+      "id": "legendary_strike",
+      "name": "Legendary Strike",
+      "power": 50,
+      "cost_sp": 30,
+      "element": "physical",
+      "target_pattern": "single_enemy",
+      "status_inflict_id": null,
+      "status_chance": 0.0
+    },
+    {
+      "id": "dragon_breath",
+      "name": "Dragon Breath",
+      "power": 45,
+      "cost_sp": 35,
+      "element": "fire",
+      "target_pattern": "all_enemies",
+      "status_inflict_id": "burn",
+      "status_chance": 0.4
+    },
+    {
+      "id": "meteor_storm",
+      "name": "Meteor Storm",
+      "power": 60,
+      "cost_sp": 45,
+      "element": "fire",
+      "target_pattern": "all_enemies",
+      "status_inflict_id": "stun",
+      "status_chance": 0.3
+    },
+    {
+      "id": "tail_sweep",
+      "name": "Tail Sweep",
+      "power": 40,
+      "cost_sp": 25,
+      "element": "physical",
+      "target_pattern": "all_enemies",
+      "status_inflict_id": null,
+      "status_chance": 0.0
+    },
+    {
+      "id": "ancient_roar",
+      "name": "Ancient Roar",
+      "power": 55,
+      "cost_sp": 40,
+      "element": "arcane",
+      "target_pattern": "all_enemies",
+      "status_inflict_id": "confusion",
+      "status_chance": 0.5
+    },
+    {
+      "id": "shadow_blast",
+      "name": "Shadow Blast",
+      "power": 50,
+      "cost_sp": 30,
+      "element": "dark",
+      "target_pattern": "single_enemy",
+      "status_inflict_id": null,
+      "status_chance": 0.0
+    },
+    {
+      "id": "void_strike",
+      "name": "Void Strike",
+      "power": 55,
+      "cost_sp": 35,
+      "element": "dark",
+      "target_pattern": "all_enemies",
+      "status_inflict_id": null,
+      "status_chance": 0.0
+    },
+    {
+      "id": "shadow_phase",
+      "name": "Shadow Phase",
+      "power": 0,
+      "cost_sp": 20,
+      "element": "dark",
+      "target_pattern": "self",
+      "status_inflict_id": "evasion_up",
+      "status_chance": 1.0
+    },
+    {
+      "id": "darkness_embrace",
+      "name": "Darkness Embrace",
+      "power": 60,
+      "cost_sp": 40,
+      "element": "dark",
+      "target_pattern": "all_enemies",
+      "status_inflict_id": "poison",
+      "status_chance": 0.4
+    },
+    {
+      "id": "cosmic_blast",
+      "name": "Cosmic Blast",
+      "power": 65,
+      "cost_sp": 45,
+      "element": "arcane",
+      "target_pattern": "all_enemies",
+      "status_inflict_id": null,
+      "status_chance": 0.0
+    },
+    {
+      "id": "reality_tear",
+      "name": "Reality Tear",
+      "power": 70,
+      "cost_sp": 50,
+      "element": "arcane",
+      "target_pattern": "all_enemies",
+      "status_inflict_id": "confusion",
+      "status_chance": 0.5
+    },
+    {
+      "id": "phase_shift",
+      "name": "Phase Shift",
+      "power": 0,
+      "cost_sp": 25,
+      "element": "arcane",
+      "target_pattern": "self",
+      "status_inflict_id": "barrier",
+      "status_chance": 1.0
+    },
+    {
+      "id": "ultimate_judgment",
+      "name": "Ultimate Judgment",
+      "power": 80,
+      "cost_sp": 60,
+      "element": "holy",
+      "target_pattern": "all_enemies",
+      "status_inflict_id": null,
+      "status_chance": 0.0
+    },
+    {
+      "id": "champion_strike",
+      "name": "Champion Strike",
+      "power": 55,
+      "cost_sp": 30,
+      "element": "physical",
+      "target_pattern": "single_enemy",
+      "status_inflict_id": null,
+      "status_chance": 0.0
+    },
+    {
+      "id": "void_blast",
+      "name": "Void Blast",
+      "power": 60,
+      "cost_sp": 40,
+      "element": "dark",
+      "target_pattern": "all_enemies",
+      "status_inflict_id": null,
+      "status_chance": 0.0
+    },
+    {
+      "id": "dimensional_rift",
+      "name": "Dimensional Rift",
+      "power": 65,
+      "cost_sp": 45,
+      "element": "arcane",
+      "target_pattern": "all_enemies",
+      "status_inflict_id": "confusion",
+      "status_chance": 0.4
+    },
+    {
+      "id": "elemental_storm",
+      "name": "Elemental Storm",
+      "power": 70,
+      "cost_sp": 50,
+      "element": "arcane",
+      "target_pattern": "all_enemies",
+      "status_inflict_id": null,
+      "status_chance": 0.0
+    }
+  ]
+}

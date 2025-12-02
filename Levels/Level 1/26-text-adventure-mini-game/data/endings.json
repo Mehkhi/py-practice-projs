@@ -1,0 +1,123 @@
+{
+  "endings": [
+    {
+      "id": "good",
+      "priority": 1,
+      "conditions": {
+        "and": [
+          "final_boss_defeated",
+          "spared_crystal",
+          "pledged_to_garden",
+          "last_battle_spared",
+          {
+            "or": [
+              {
+                "and": [
+                  "river_creature_defeated",
+                  "sea_serpents_defeated"
+                ]
+              },
+              {
+                "and": [
+                  "dragon_scales_collected",
+                  "arcane_core_retrieved",
+                  "grimoire_recovered"
+                ]
+              },
+              "crypt_purified"
+            ]
+          }
+        ]
+      },
+      "title": "The Guardian's Path",
+      "blurb": "You chose compassion over power. By protecting the garden, completing the side quests, and showing mercy to all, you've brought peace to the realm. The spirits watch over you, and harmony reigns.",
+      "credits": "Thank you for playing!"
+    },
+    {
+      "id": "bad",
+      "priority": 2,
+      "conditions": {
+        "and": [
+          "final_boss_defeated",
+          {
+            "or": [
+              "took_crystal",
+              "ignored_garden_spirit",
+              {
+                "not": "last_battle_spared"
+              },
+              {
+                "and": [
+                  {
+                    "not": "river_creature_defeated"
+                  },
+                  {
+                    "not": "sea_serpents_defeated"
+                  },
+                  {
+                    "not": "dragon_scales_collected"
+                  },
+                  {
+                    "not": "arcane_core_retrieved"
+                  },
+                  {
+                    "not": "grimoire_recovered"
+                  },
+                  {
+                    "not": "crypt_purified"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "title": "The Path of Power",
+      "blurb": "Power consumed you. In taking what you wanted, ignoring the warnings of the spirits, and neglecting the side quests, you've gained strength but lost something precious. The realm remembers your choices.",
+      "credits": "Thank you for playing!"
+    },
+    {
+      "id": "neutral",
+      "priority": 3,
+      "conditions": {
+        "and": [
+          "final_boss_defeated",
+          {
+            "or": [
+              {
+                "and": [
+                  {
+                    "not": "spared_crystal"
+                  },
+                  {
+                    "not": "took_crystal"
+                  }
+                ]
+              },
+              {
+                "and": [
+                  {
+                    "or": [
+                      "river_creature_defeated",
+                      "sea_serpents_defeated",
+                      "dragon_scales_collected",
+                      "arcane_core_retrieved",
+                      "grimoire_recovered",
+                      "crypt_purified"
+                    ]
+                  },
+                  {
+                    "not": "last_battle_spared"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "title": "The Balanced Journey",
+      "blurb": "Your path was neither pure light nor deep shadow. You reached the end, completing some side quests but making mixed choices. The realm continues, changed but not transformed.",
+      "credits": "Thank you for playing!"
+    }
+  ]
+}

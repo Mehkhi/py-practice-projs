@@ -1,0 +1,238 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard - Flask To-Do App{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+{% endblock %}
+
+{% block content %}
+<section class="page-header hero-grid">
+    <div class="page-heading">
+        <p class="eyebrow">Control Center</p>
+        <h1>Welcome back, {{ current_user.username }}.</h1>
+        <p class="lede">Track habit streaks, ship tasks, and spot bottlenecks in one icy-clean dashboard.</p>
+        <div class="header-meta">
+            <span class="pill">Streak: {{ streak }} day{% if streak != 1 %}s{% endif %}</span>
+            <span class="pill subtle">Completion rate: {{ completion_rate }}%</span>
+            <span class="pill subtle">Total tasks: {{ total_tasks }}</span>
+        </div>
+        <div class="header-actions">
+            <a href="{{ url_for('tasks.new_task') }}" class="btn">Create a Task</a>
+            <a href="{{ url_for('tasks.list_tasks') }}" class="btn btn-secondary">Open Taskboard</a>
+        </div>
+    </div>
+    <div class="hero-highlight">
+        <div class="stat-card elevated">
+            <div class="stat-card-header">
+                <div>
+                    <div class="stat-card-title">Today</div>
+                    <div class="stat-card-subtitle">You are {{ today_stats.ratio }}% through your plan</div>
+                </div>
+                <div class="stat-card-icon">◎</div>
+            </div>
+            <div class="progress-ring-container condensed">
+                <div class="progress-ring" aria-live="polite">
+                    <svg width="140" height="140">
+                        <circle class="progress-ring-circle progress-ring-bg" cx="70" cy="70" r="60"></circle>
+                        <circle class="progress-ring-circle progress-ring-fill" cx="70" cy="70" r="60" id="progress-ring-circle"></circle>
+                    </svg>
+                    <div class="progress-ring-text">
+                        <div class="progress-ring-ratio">
+                            <span id="today-completed" class="progress-ring-number">{{ today_stats.completed }}</span>
+                            <span class="progress-ring-divider">/</span>
+                            <span id="today-total" class="progress-ring-number">{{ today_stats.total }}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="progress-legend">
+                    <span class="pill subtle">Momentum status</span>
+                    <p class="mini">Keep the streak alive—toggle anything done to lock it in.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="content-grid">
+    <section>
+        <div class="section-heading">
+            <div>
+                <p class="eyebrow">Momentum</p>
+                <h2>Performance Pulse</h2>
+            </div>
+            <div class="section-actions">
+                <a href="{{ url_for('tasks.list_tasks', completed='false') }}" class="pill actionable">View pending</a>
+            </div>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card" data-streak-card="true">
+                <div class="stat-card-header">
+                    <div>
+                        <div class="stat-card-title">Current Streak</div>
+                        <div class="stat-card-subtitle">Consecutive days of wins</div>
+                    </div>
+                    <div class="stat-card-icon">↺</div>
+                </div>
+                <div class="stat-card-value" data-target="{{ streak }}">0</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-card-header">
+                    <div>
+                        <div class="stat-card-title">Total Tasks</div>
+                        <div class="stat-card-subtitle">Across all lists</div>
+                    </div>
+                    <div class="stat-card-icon">☰</div>
+                </div>
+                <div class="stat-card-value" data-target="{{ total_tasks }}">0</div>
+                <div class="stat-card-subtitle">{{ completion_rate }}% completion rate</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-card-header">
+                    <div>
+                        <div class="stat-card-title">Completion Rate</div>
+                        <div class="stat-card-subtitle">Active vs. done</div>
+                    </div>
+                    <div class="stat-card-icon">✓</div>
+                </div>
+                <div class="stat-card-value" data-target="{{ completion_rate }}">0</div>
+                <div class="stat-card-subtitle">Percentage of tasks completed</div>
+            </div>
+        </div>
+
+        <div class="quick-actions">
+            <a href="{{ url_for('tasks.new_task') }}" class="quick-action-btn">
+                <span>New Task</span>
+            </a>
+            <a href="{{ url_for('tasks.list_tasks') }}" class="quick-action-btn">
+                <span>View All Tasks</span>
+            </a>
+            <a href="{{ url_for('tasks.list_tasks', completed='false') }}" class="quick-action-btn">
+                <span>Pending Tasks</span>
+            </a>
+        </div>
+    </section>
+
+    <section class="secondary-grid">
+        <div class="activity-section">
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow">Consistency Map</p>
+                    <h3>7-Day Activity</h3>
+                </div>
+                <span class="pill subtle">Updated live</span>
+            </div>
+            <div class="activity-calendar">
+                {% for day in weekly_activity %}
+                <div class="activity-day" title="{{ day.date.strftime('%B %d, %Y') }} - {{ day.completed }}/{{ day.total }} tasks">
+                    <div class="activity-day-header">{{ day.day_name }}</div>
+                    <div class="activity-day-indicator {% if day.completed == 0 %}none{% elif day.completed <= 2 %}low{% elif day.completed <= 5 %}medium{% else %}high{% endif %}">
+                        {{ day.completed }}
+                    </div>
+                    <div class="activity-day-stats">{{ day.total }} total</div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="recent-activity">
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow">Latest Moves</p>
+                    <h3>Recent Activity</h3>
+                </div>
+                <a href="{{ url_for('tasks.list_tasks') }}" class="pill actionable">Open tasks</a>
+            </div>
+
+            {% if recent_tasks %}
+            <ul class="activity-feed">
+                {% for task in recent_tasks %}
+                <li class="activity-item">
+                    <div class="activity-status {% if task.completed %}completed{% else %}pending{% endif %}"></div>
+                    <div class="activity-content">
+                        <div class="activity-title">{{ task.title }}</div>
+                        <div class="activity-meta">
+                            {% if task.description %}
+                                {{ task.description[:50] }}{% if task.description|length > 50 %}...{% endif %}
+                            {% else %}
+                                No description
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="activity-time">
+                        {{ task.updated_at.strftime('%b %d') if task.updated_at else task.created_at.strftime('%b %d') }}
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+            {% else %}
+            <div class="empty-state-dashboard">
+                <h3>No tasks yet</h3>
+                <p>Get started by creating your first task!</p>
+                <a href="{{ url_for('tasks.new_task') }}" class="btn">Create Task</a>
+            </div>
+            {% endif %}
+        </div>
+    </section>
+
+    <section class="secondary-grid">
+        <div class="card form-card">
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow">Burndown</p>
+                    <h3>7-Day trend</h3>
+                </div>
+            </div>
+            <div class="burndown-grid">
+                {% for point in burndown %}
+                    <div class="burndown-bar" title="{{ point.date.strftime('%b %d') }}: {{ point.remaining }} remaining">
+                        <div class="burndown-remaining" style="height: {{ (point.remaining + 1) * 6 }}px"></div>
+                        <div class="burndown-label">{{ point.date.strftime('%a') }}</div>
+                    </div>
+                {% endfor %}
+            </div>
+            <p class="mini muted">Remaining cards per day based on created vs completed timestamps.</p>
+        </div>
+
+        <div class="card form-card">
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow">Flow Metrics</p>
+                    <h3>Cycle health</h3>
+                </div>
+            </div>
+            <ul class="mini-list">
+                <li>Average lead time: {{ flow_metrics.average_lead_days }} days</li>
+                <li>Average cycle time: {{ flow_metrics.average_cycle_days }} days</li>
+                <li>Average blocked: {{ flow_metrics.average_blocked_minutes }} minutes</li>
+                <li>Critical path length: {{ dependency_overview.longest_chain_length }}</li>
+                <li>Dependencies: {{ dependency_overview.dependency_count }}</li>
+            </ul>
+        </div>
+
+        <div class="card form-card">
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow">Time Insights</p>
+                    <h3>Where focus goes</h3>
+                </div>
+            </div>
+            <p class="lede">{{ time_insights.total_minutes }} minutes logged across {{ time_insights.session_count }} sessions.</p>
+            <ul class="mini-list">
+                {% for item in time_insights.leaderboard %}
+                    <li>{{ item.title }} — {{ item.minutes }} minutes</li>
+                {% else %}
+                    <li class="muted">No time logged yet.</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </section>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+{% endblock %}

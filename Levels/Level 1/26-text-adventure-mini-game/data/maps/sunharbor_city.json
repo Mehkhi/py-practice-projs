@@ -1,0 +1,2120 @@
+{
+  "map_id": "sunharbor_city",
+  "name": "Sunharbor City",
+  "width": 20,
+  "height": 20,
+  "tiles": [
+    [
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "dirt_leaves",
+        "walkable": true,
+        "sprite_id": "dirt_leaves"
+      },
+      {
+        "tile_id": "grass_dark",
+        "walkable": true,
+        "sprite_id": "grass_dark"
+      },
+      {
+        "tile_id": "dirt_leaves",
+        "walkable": true,
+        "sprite_id": "dirt_leaves"
+      },
+      {
+        "tile_id": "flower_grass",
+        "walkable": true,
+        "sprite_id": "flower_grass"
+      },
+      {
+        "tile_id": "grass_dark",
+        "walkable": true,
+        "sprite_id": "grass_dark"
+      },
+      {
+        "tile_id": "grass_tall",
+        "walkable": true,
+        "sprite_id": "grass_tall"
+      },
+      {
+        "tile_id": "grass_flowers",
+        "walkable": true,
+        "sprite_id": "grass_flowers"
+      },
+      {
+        "tile_id": "dirt_leaves",
+        "walkable": true,
+        "sprite_id": "dirt_leaves"
+      },
+      {
+        "tile_id": "grass_tall",
+        "walkable": true,
+        "sprite_id": "grass_tall"
+      },
+      {
+        "tile_id": "grass_dark",
+        "walkable": true,
+        "sprite_id": "grass_dark"
+      },
+      {
+        "tile_id": "grass_dark",
+        "walkable": true,
+        "sprite_id": "grass_dark"
+      },
+      {
+        "tile_id": "dirt_leaves",
+        "walkable": true,
+        "sprite_id": "dirt_leaves"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass_tall",
+        "walkable": true,
+        "sprite_id": "grass_tall"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      }
+    ],
+    [
+      {
+        "tile_id": "grass_tall",
+        "walkable": true,
+        "sprite_id": "grass_tall"
+      },
+      {
+        "tile_id": "roots",
+        "walkable": true,
+        "sprite_id": "roots"
+      },
+      {
+        "tile_id": "grass_flowers",
+        "walkable": true,
+        "sprite_id": "grass_flowers"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "dirt_leaves",
+        "walkable": true,
+        "sprite_id": "dirt_leaves"
+      },
+      {
+        "tile_id": "grass_tall",
+        "walkable": true,
+        "sprite_id": "grass_tall"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass_dark",
+        "walkable": true,
+        "sprite_id": "grass_dark"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass_flowers",
+        "walkable": true,
+        "sprite_id": "grass_flowers"
+      },
+      {
+        "tile_id": "grass_dark",
+        "walkable": true,
+        "sprite_id": "grass_dark"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "dirt_leaves",
+        "walkable": true,
+        "sprite_id": "dirt_leaves"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "flower_grass",
+        "walkable": true,
+        "sprite_id": "flower_grass"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "dirt_leaves",
+        "walkable": true,
+        "sprite_id": "dirt_leaves"
+      }
+    ],
+    [
+      {
+        "tile_id": "grass_flowers",
+        "walkable": true,
+        "sprite_id": "grass_flowers"
+      },
+      {
+        "tile_id": "puddle",
+        "walkable": true,
+        "sprite_id": "puddle"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass_flowers",
+        "walkable": true,
+        "sprite_id": "grass_flowers"
+      },
+      {
+        "tile_id": "flower_grass",
+        "walkable": true,
+        "sprite_id": "flower_grass"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass_tall",
+        "walkable": true,
+        "sprite_id": "grass_tall"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "puddle",
+        "walkable": true,
+        "sprite_id": "puddle"
+      },
+      {
+        "tile_id": "grass_flowers",
+        "walkable": true,
+        "sprite_id": "grass_flowers"
+      },
+      {
+        "tile_id": "grass_flowers",
+        "walkable": true,
+        "sprite_id": "grass_flowers"
+      },
+      {
+        "tile_id": "grass_tall",
+        "walkable": true,
+        "sprite_id": "grass_tall"
+      },
+      {
+        "tile_id": "grass_dark",
+        "walkable": true,
+        "sprite_id": "grass_dark"
+      },
+      {
+        "tile_id": "grass_tall",
+        "walkable": true,
+        "sprite_id": "grass_tall"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      }
+    ],
+    [
+      {
+        "tile_id": "grass_tall",
+        "walkable": true,
+        "sprite_id": "grass_tall"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "roots",
+        "walkable": true,
+        "sprite_id": "roots"
+      },
+      {
+        "tile_id": "flower_grass",
+        "walkable": true,
+        "sprite_id": "flower_grass"
+      },
+      {
+        "tile_id": "flower_grass",
+        "walkable": true,
+        "sprite_id": "flower_grass"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "roots",
+        "walkable": true,
+        "sprite_id": "roots"
+      },
+      {
+        "tile_id": "puddle",
+        "walkable": true,
+        "sprite_id": "puddle"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass_tall",
+        "walkable": true,
+        "sprite_id": "grass_tall"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass_dark",
+        "walkable": true,
+        "sprite_id": "grass_dark"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass_tall",
+        "walkable": true,
+        "sprite_id": "grass_tall"
+      },
+      {
+        "tile_id": "grass_tall",
+        "walkable": true,
+        "sprite_id": "grass_tall"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass_flowers",
+        "walkable": true,
+        "sprite_id": "grass_flowers"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "roots",
+        "walkable": true,
+        "sprite_id": "roots"
+      }
+    ],
+    [
+      {
+        "tile_id": "grass_flowers",
+        "walkable": true,
+        "sprite_id": "grass_flowers"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass_flowers",
+        "walkable": true,
+        "sprite_id": "grass_flowers"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass_tall",
+        "walkable": true,
+        "sprite_id": "grass_tall"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass_tall",
+        "walkable": true,
+        "sprite_id": "grass_tall"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass_tall",
+        "walkable": true,
+        "sprite_id": "grass_tall"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass_tall",
+        "walkable": true,
+        "sprite_id": "grass_tall"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass_flowers",
+        "walkable": true,
+        "sprite_id": "grass_flowers"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "flower_grass",
+        "walkable": true,
+        "sprite_id": "flower_grass"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      }
+    ],
+    [
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass_tall",
+        "walkable": true,
+        "sprite_id": "grass_tall"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "dirt_leaves",
+        "walkable": true,
+        "sprite_id": "dirt_leaves"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass_dark",
+        "walkable": true,
+        "sprite_id": "grass_dark"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "roots",
+        "walkable": true,
+        "sprite_id": "roots"
+      },
+      {
+        "tile_id": "grass_dark",
+        "walkable": true,
+        "sprite_id": "grass_dark"
+      },
+      {
+        "tile_id": "grass_tall",
+        "walkable": true,
+        "sprite_id": "grass_tall"
+      },
+      {
+        "tile_id": "grass_flowers",
+        "walkable": true,
+        "sprite_id": "grass_flowers"
+      },
+      {
+        "tile_id": "grass_dark",
+        "walkable": true,
+        "sprite_id": "grass_dark"
+      }
+    ],
+    [
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass_tall",
+        "walkable": true,
+        "sprite_id": "grass_tall"
+      },
+      {
+        "tile_id": "grass_tall",
+        "walkable": true,
+        "sprite_id": "grass_tall"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass_flowers",
+        "walkable": true,
+        "sprite_id": "grass_flowers"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass_dark",
+        "walkable": true,
+        "sprite_id": "grass_dark"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass_tall",
+        "walkable": true,
+        "sprite_id": "grass_tall"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass_tall",
+        "walkable": true,
+        "sprite_id": "grass_tall"
+      },
+      {
+        "tile_id": "dirt_leaves",
+        "walkable": true,
+        "sprite_id": "dirt_leaves"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "flower_grass",
+        "walkable": true,
+        "sprite_id": "flower_grass"
+      },
+      {
+        "tile_id": "dirt_leaves",
+        "walkable": true,
+        "sprite_id": "dirt_leaves"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      }
+    ],
+    [
+      {
+        "tile_id": "grass_tall",
+        "walkable": true,
+        "sprite_id": "grass_tall"
+      },
+      {
+        "tile_id": "grass_tall",
+        "walkable": true,
+        "sprite_id": "grass_tall"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass_dark",
+        "walkable": true,
+        "sprite_id": "grass_dark"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass_flowers",
+        "walkable": true,
+        "sprite_id": "grass_flowers"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass_flowers",
+        "walkable": true,
+        "sprite_id": "grass_flowers"
+      },
+      {
+        "tile_id": "flower_grass",
+        "walkable": true,
+        "sprite_id": "flower_grass"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass_tall",
+        "walkable": true,
+        "sprite_id": "grass_tall"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass_dark",
+        "walkable": true,
+        "sprite_id": "grass_dark"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass_tall",
+        "walkable": true,
+        "sprite_id": "grass_tall"
+      },
+      {
+        "tile_id": "grass_tall",
+        "walkable": true,
+        "sprite_id": "grass_tall"
+      },
+      {
+        "tile_id": "grass_dark",
+        "walkable": true,
+        "sprite_id": "grass_dark"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      }
+    ],
+    [
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass_tall",
+        "walkable": true,
+        "sprite_id": "grass_tall"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "flower_grass",
+        "walkable": true,
+        "sprite_id": "flower_grass"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass_tall",
+        "walkable": true,
+        "sprite_id": "grass_tall"
+      },
+      {
+        "tile_id": "dirt_leaves",
+        "walkable": true,
+        "sprite_id": "dirt_leaves"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass_flowers",
+        "walkable": true,
+        "sprite_id": "grass_flowers"
+      },
+      {
+        "tile_id": "grass_flowers",
+        "walkable": true,
+        "sprite_id": "grass_flowers"
+      },
+      {
+        "tile_id": "dirt_leaves",
+        "walkable": true,
+        "sprite_id": "dirt_leaves"
+      },
+      {
+        "tile_id": "grass_flowers",
+        "walkable": true,
+        "sprite_id": "grass_flowers"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      }
+    ],
+    [
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "flower_grass",
+        "walkable": true,
+        "sprite_id": "flower_grass"
+      },
+      {
+        "tile_id": "grass_tall",
+        "walkable": true,
+        "sprite_id": "grass_tall"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass_dark",
+        "walkable": true,
+        "sprite_id": "grass_dark"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass_flowers",
+        "walkable": true,
+        "sprite_id": "grass_flowers"
+      },
+      {
+        "tile_id": "flower_grass",
+        "walkable": true,
+        "sprite_id": "flower_grass"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass_tall",
+        "walkable": true,
+        "sprite_id": "grass_tall"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass_dark",
+        "walkable": true,
+        "sprite_id": "grass_dark"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      }
+    ],
+    [
+      {
+        "tile_id": "grass_flowers",
+        "walkable": true,
+        "sprite_id": "grass_flowers"
+      },
+      {
+        "tile_id": "flower_grass",
+        "walkable": true,
+        "sprite_id": "flower_grass"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "roots",
+        "walkable": true,
+        "sprite_id": "roots"
+      },
+      {
+        "tile_id": "grass_tall",
+        "walkable": true,
+        "sprite_id": "grass_tall"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "dirt_leaves",
+        "walkable": true,
+        "sprite_id": "dirt_leaves"
+      },
+      {
+        "tile_id": "grass_flowers",
+        "walkable": true,
+        "sprite_id": "grass_flowers"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass_tall",
+        "walkable": true,
+        "sprite_id": "grass_tall"
+      },
+      {
+        "tile_id": "grass_tall",
+        "walkable": true,
+        "sprite_id": "grass_tall"
+      },
+      {
+        "tile_id": "grass_tall",
+        "walkable": true,
+        "sprite_id": "grass_tall"
+      },
+      {
+        "tile_id": "grass_tall",
+        "walkable": true,
+        "sprite_id": "grass_tall"
+      },
+      {
+        "tile_id": "grass_tall",
+        "walkable": true,
+        "sprite_id": "grass_tall"
+      },
+      {
+        "tile_id": "grass_tall",
+        "walkable": true,
+        "sprite_id": "grass_tall"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass_tall",
+        "walkable": true,
+        "sprite_id": "grass_tall"
+      }
+    ],
+    [
+      {
+        "tile_id": "grass_dark",
+        "walkable": true,
+        "sprite_id": "grass_dark"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass_dark",
+        "walkable": true,
+        "sprite_id": "grass_dark"
+      },
+      {
+        "tile_id": "grass_dark",
+        "walkable": true,
+        "sprite_id": "grass_dark"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "puddle",
+        "walkable": true,
+        "sprite_id": "puddle"
+      },
+      {
+        "tile_id": "dirt_leaves",
+        "walkable": true,
+        "sprite_id": "dirt_leaves"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      }
+    ],
+    [
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass_tall",
+        "walkable": true,
+        "sprite_id": "grass_tall"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass_flowers",
+        "walkable": true,
+        "sprite_id": "grass_flowers"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass_dark",
+        "walkable": true,
+        "sprite_id": "grass_dark"
+      },
+      {
+        "tile_id": "puddle",
+        "walkable": true,
+        "sprite_id": "puddle"
+      },
+      {
+        "tile_id": "grass_dark",
+        "walkable": true,
+        "sprite_id": "grass_dark"
+      },
+      {
+        "tile_id": "grass_flowers",
+        "walkable": true,
+        "sprite_id": "grass_flowers"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass_flowers",
+        "walkable": true,
+        "sprite_id": "grass_flowers"
+      },
+      {
+        "tile_id": "grass_dark",
+        "walkable": true,
+        "sprite_id": "grass_dark"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "flower_grass",
+        "walkable": true,
+        "sprite_id": "flower_grass"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      }
+    ],
+    [
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass_tall",
+        "walkable": true,
+        "sprite_id": "grass_tall"
+      },
+      {
+        "tile_id": "grass_tall",
+        "walkable": true,
+        "sprite_id": "grass_tall"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass_tall",
+        "walkable": true,
+        "sprite_id": "grass_tall"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass_tall",
+        "walkable": true,
+        "sprite_id": "grass_tall"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass_flowers",
+        "walkable": true,
+        "sprite_id": "grass_flowers"
+      },
+      {
+        "tile_id": "grass_flowers",
+        "walkable": true,
+        "sprite_id": "grass_flowers"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass_dark",
+        "walkable": true,
+        "sprite_id": "grass_dark"
+      }
+    ],
+    [
+      {
+        "tile_id": "roots",
+        "walkable": true,
+        "sprite_id": "roots"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass_dark",
+        "walkable": true,
+        "sprite_id": "grass_dark"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass_dark",
+        "walkable": true,
+        "sprite_id": "grass_dark"
+      },
+      {
+        "tile_id": "dirt_leaves",
+        "walkable": true,
+        "sprite_id": "dirt_leaves"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass_dark",
+        "walkable": true,
+        "sprite_id": "grass_dark"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass_dark",
+        "walkable": true,
+        "sprite_id": "grass_dark"
+      },
+      {
+        "tile_id": "grass_dark",
+        "walkable": true,
+        "sprite_id": "grass_dark"
+      },
+      {
+        "tile_id": "grass_dark",
+        "walkable": true,
+        "sprite_id": "grass_dark"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass_dark",
+        "walkable": true,
+        "sprite_id": "grass_dark"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass_dark",
+        "walkable": true,
+        "sprite_id": "grass_dark"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass_flowers",
+        "walkable": true,
+        "sprite_id": "grass_flowers"
+      }
+    ],
+    [
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass_dark",
+        "walkable": true,
+        "sprite_id": "grass_dark"
+      },
+      {
+        "tile_id": "grass_tall",
+        "walkable": true,
+        "sprite_id": "grass_tall"
+      },
+      {
+        "tile_id": "roots",
+        "walkable": true,
+        "sprite_id": "roots"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass_flowers",
+        "walkable": true,
+        "sprite_id": "grass_flowers"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass_tall",
+        "walkable": true,
+        "sprite_id": "grass_tall"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "dirt_leaves",
+        "walkable": true,
+        "sprite_id": "dirt_leaves"
+      },
+      {
+        "tile_id": "grass_tall",
+        "walkable": true,
+        "sprite_id": "grass_tall"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass_tall",
+        "walkable": true,
+        "sprite_id": "grass_tall"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "flower_grass",
+        "walkable": true,
+        "sprite_id": "flower_grass"
+      },
+      {
+        "tile_id": "flower_grass",
+        "walkable": true,
+        "sprite_id": "flower_grass"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      }
+    ],
+    [
+      {
+        "tile_id": "grass_tall",
+        "walkable": true,
+        "sprite_id": "grass_tall"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass_dark",
+        "walkable": true,
+        "sprite_id": "grass_dark"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass_dark",
+        "walkable": true,
+        "sprite_id": "grass_dark"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass_tall",
+        "walkable": true,
+        "sprite_id": "grass_tall"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass_tall",
+        "walkable": true,
+        "sprite_id": "grass_tall"
+      },
+      {
+        "tile_id": "dirt_leaves",
+        "walkable": true,
+        "sprite_id": "dirt_leaves"
+      },
+      {
+        "tile_id": "roots",
+        "walkable": true,
+        "sprite_id": "roots"
+      },
+      {
+        "tile_id": "grass_tall",
+        "walkable": true,
+        "sprite_id": "grass_tall"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      }
+    ],
+    [
+      {
+        "tile_id": "grass_tall",
+        "walkable": true,
+        "sprite_id": "grass_tall"
+      },
+      {
+        "tile_id": "grass_flowers",
+        "walkable": true,
+        "sprite_id": "grass_flowers"
+      },
+      {
+        "tile_id": "grass_dark",
+        "walkable": true,
+        "sprite_id": "grass_dark"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "roots",
+        "walkable": true,
+        "sprite_id": "roots"
+      },
+      {
+        "tile_id": "grass_dark",
+        "walkable": true,
+        "sprite_id": "grass_dark"
+      },
+      {
+        "tile_id": "grass_dark",
+        "walkable": true,
+        "sprite_id": "grass_dark"
+      },
+      {
+        "tile_id": "grass_dark",
+        "walkable": true,
+        "sprite_id": "grass_dark"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass_flowers",
+        "walkable": true,
+        "sprite_id": "grass_flowers"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "flower_grass",
+        "walkable": true,
+        "sprite_id": "flower_grass"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass_flowers",
+        "walkable": true,
+        "sprite_id": "grass_flowers"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      }
+    ],
+    [
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass_flowers",
+        "walkable": true,
+        "sprite_id": "grass_flowers"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass_dark",
+        "walkable": true,
+        "sprite_id": "grass_dark"
+      },
+      {
+        "tile_id": "puddle",
+        "walkable": true,
+        "sprite_id": "puddle"
+      },
+      {
+        "tile_id": "grass_tall",
+        "walkable": true,
+        "sprite_id": "grass_tall"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass_tall",
+        "walkable": true,
+        "sprite_id": "grass_tall"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "flower_grass",
+        "walkable": true,
+        "sprite_id": "flower_grass"
+      },
+      {
+        "tile_id": "grass_dark",
+        "walkable": true,
+        "sprite_id": "grass_dark"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      }
+    ],
+    [
+      {
+        "tile_id": "grass_flowers",
+        "walkable": true,
+        "sprite_id": "grass_flowers"
+      },
+      {
+        "tile_id": "grass_flowers",
+        "walkable": true,
+        "sprite_id": "grass_flowers"
+      },
+      {
+        "tile_id": "grass_tall",
+        "walkable": true,
+        "sprite_id": "grass_tall"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass_tall",
+        "walkable": true,
+        "sprite_id": "grass_tall"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass_tall",
+        "walkable": true,
+        "sprite_id": "grass_tall"
+      },
+      {
+        "tile_id": "grass_tall",
+        "walkable": true,
+        "sprite_id": "grass_tall"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass_tall",
+        "walkable": true,
+        "sprite_id": "grass_tall"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass_tall",
+        "walkable": true,
+        "sprite_id": "grass_tall"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass_dark",
+        "walkable": true,
+        "sprite_id": "grass_dark"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "flower_grass",
+        "walkable": true,
+        "sprite_id": "flower_grass"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass",
+        "walkable": true,
+        "sprite_id": "grass"
+      },
+      {
+        "tile_id": "grass_tall",
+        "walkable": true,
+        "sprite_id": "grass_tall"
+      }
+    ]
+  ],
+  "warps": [
+    {
+      "x": 10,
+      "y": 19,
+      "target_map_id": "desert_oasis",
+      "target_x": 7,
+      "target_y": 0
+    },
+    {
+      "x": 0,
+      "y": 10,
+      "target_map_id": "volcanic_crater",
+      "target_x": 14,
+      "target_y": 7
+    }
+  ],
+  "triggers": [],
+  "entities": [
+    {
+      "entity_id": "sunharbor_high_priest",
+      "x": 10,
+      "y": 5
+    },
+    {
+      "entity_id": "sunharbor_merchant_prince",
+      "x": 6,
+      "y": 12
+    },
+    {
+      "entity_id": "sunharbor_ship_captain",
+      "x": 15,
+      "y": 15
+    },
+    {
+      "entity_id": "sunharbor_exotic_merchant",
+      "x": 8,
+      "y": 10
+    },
+    {
+      "entity_id": "sunharbor_tavern",
+      "x": 12,
+      "y": 8
+    },
+    {
+      "entity_id": "sunharbor_dockworker",
+      "x": 16,
+      "y": 18
+    }
+  ],
+  "enemy_spawns": [
+    {
+      "spawn_id": "sea_serpent_1",
+      "x": 10,
+      "y": 15,
+      "encounter_id": "sea_serpents",
+      "sprite_id": "snake",
+      "facing": "up",
+      "detection_range": 5,
+      "move_interval": 1.8,
+      "patrol_radius": 3,
+      "once": true
+    }
+  ],
+  "props": [
+    {
+      "prop_id": "temple_altar_1",
+      "x": 10,
+      "y": 4,
+      "sprite_id": "prop_rock",
+      "solid": true
+    }
+  ]
+}

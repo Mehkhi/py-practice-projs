@@ -1,0 +1,57 @@
+{
+  "weather": {
+    "patterns": [
+      ".*(weather|temperature|rain|sunny|cloudy|forecast).*",
+      "^(what's the weather|how's the weather).*"
+    ],
+    "responses": [
+      "I don't have access to real-time weather data, but I hope it's nice where you are!",
+      "Weather is fascinating! You might want to check a weather app for current conditions.",
+      "I wish I could tell you the weather! Maybe try asking me about something else?"
+    ]
+  },
+  "jokes": {
+    "patterns": [
+      ".*(joke|funny|laugh|humor).*",
+      "^(tell me|do you know).*joke"
+    ],
+    "responses": [
+      "Why don't scientists trust atoms? Because they make up everything!",
+      "I would tell you a joke about construction, but I'm still working on it!",
+      "Why did the scarecrow win an award? He was outstanding in his field!"
+    ]
+  },
+  "compliments": {
+    "patterns": [
+      ".*(you're great|you're awesome|good bot|nice bot|thank you).*",
+      "^(you are|you're).*(smart|helpful|amazing|wonderful).*"
+    ],
+    "responses": [
+      "Thank you so much! That makes me happy! 😊",
+      "Aw, thanks! I'm here to help and it's great to be appreciated!",
+      "You're making me blush! Thanks for the kind words!"
+    ]
+  },
+  "complaints": {
+    "patterns": [
+      ".*(you're useless|stupid bot|bad bot|not helpful).*",
+      "^(this is|that's).*(terrible|awful|useless).*"
+    ],
+    "responses": [
+      "I'm sorry I'm not meeting your expectations. I'm still learning and trying to improve!",
+      "I apologize if I'm not being helpful. Is there something specific I can assist you with?",
+      "I understand your frustration. I'm doing my best within my capabilities!"
+    ]
+  },
+  "time_date": {
+    "patterns": [
+      ".*(what time|what date|what day).*",
+      "^(current time|date today|day today).*"
+    ],
+    "responses": [
+      "I don't have access to real-time information, but you can check your device's clock!",
+      "Time flies when you're having a good conversation! Check your device for the current time.",
+      "I wish I could tell you the time! Maybe ask me something else I can help with?"
+    ]
+  }
+}

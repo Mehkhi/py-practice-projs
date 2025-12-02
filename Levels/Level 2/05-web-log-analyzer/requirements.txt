@@ -1,0 +1,24 @@
+# Core dependencies
+argparse  # Built-in, but listed for clarity
+logging   # Built-in, but listed for clarity
+re        # Built-in, but listed for clarity
+csv       # Built-in, but listed for clarity
+json      # Built-in, but listed for clarity
+datetime  # Built-in, but listed for clarity
+collections  # Built-in, but listed for clarity
+pathlib   # Built-in, but listed for clarity
+sys       # Built-in, but listed for clarity
+
+# Optional dependencies for bonus features
+# Uncomment if implementing geo-IP lookups
+# requests>=2.25.0
+# geoip2>=4.5.0
+
+# Uncomment if implementing HTML dashboard
+# jinja2>=3.0.0
+# matplotlib>=3.5.0
+
+# Development dependencies
+pytest>=7.0.0
+black>=22.0.0
+ruff>=0.0.261

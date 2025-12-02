@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}{{ post.title }} - Microblog{% endblock %}
+
+{% block content %}
+    <div class="post">
+        <h2>{{ post.title }}</h2>
+        <div class="post-meta">
+            By <a href="{{ url_for('main.profile', username=post.author.username) }}">{{ post.author.username }}</a>
+            on {{ post.created_at.strftime('%B %d, %Y at %I:%M %p') }}
+            {% if post.updated_at != post.created_at %}
+                (updated {{ post.updated_at.strftime('%B %d, %Y at %I:%M %p') }})
+            {% endif %}
+        </div>
+        <div style="white-space: pre-wrap;">{{ post.content }}</div>
+    </div>
+
+    <p><a href="{{ url_for('main.index') }}" class="btn">← Back to Home</a></p>
+{% endblock %}

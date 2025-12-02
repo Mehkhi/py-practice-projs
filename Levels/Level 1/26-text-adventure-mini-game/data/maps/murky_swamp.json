@@ -1,0 +1,1295 @@
+{
+  "map_id": "murky_swamp",
+  "width": 15,
+  "height": 15,
+  "tiles": [
+    [
+      {
+        "tile_id": "swamp",
+        "walkable": true,
+        "sprite_id": "swamp"
+      },
+      {
+        "tile_id": "moss",
+        "walkable": true,
+        "sprite_id": "moss"
+      },
+      {
+        "tile_id": "water",
+        "walkable": false,
+        "sprite_id": "water"
+      },
+      {
+        "tile_id": "swamp",
+        "walkable": true,
+        "sprite_id": "swamp"
+      },
+      {
+        "tile_id": "moss",
+        "walkable": true,
+        "sprite_id": "moss"
+      },
+      {
+        "tile_id": "swamp",
+        "walkable": true,
+        "sprite_id": "swamp"
+      },
+      {
+        "tile_id": "water",
+        "walkable": false,
+        "sprite_id": "water"
+      },
+      {
+        "tile_id": "puddle",
+        "walkable": true,
+        "sprite_id": "puddle"
+      },
+      {
+        "tile_id": "puddle",
+        "walkable": true,
+        "sprite_id": "puddle"
+      },
+      {
+        "tile_id": "swamp",
+        "walkable": true,
+        "sprite_id": "swamp"
+      },
+      {
+        "tile_id": "water",
+        "walkable": false,
+        "sprite_id": "water"
+      },
+      {
+        "tile_id": "swamp",
+        "walkable": true,
+        "sprite_id": "swamp"
+      },
+      {
+        "tile_id": "swamp",
+        "walkable": true,
+        "sprite_id": "swamp"
+      },
+      {
+        "tile_id": "grass_dark",
+        "walkable": true,
+        "sprite_id": "grass_dark"
+      },
+      {
+        "tile_id": "swamp",
+        "walkable": true,
+        "sprite_id": "swamp"
+      }
+    ],
+    [
+      {
+        "tile_id": "swamp",
+        "walkable": true,
+        "sprite_id": "swamp"
+      },
+      {
+        "tile_id": "dirt_path",
+        "walkable": true,
+        "sprite_id": "dirt_path"
+      },
+      {
+        "tile_id": "dirt_path",
+        "walkable": true,
+        "sprite_id": "dirt_path"
+      },
+      {
+        "tile_id": "dirt_path",
+        "walkable": true,
+        "sprite_id": "dirt_path"
+      },
+      {
+        "tile_id": "swamp",
+        "walkable": true,
+        "sprite_id": "swamp"
+      },
+      {
+        "tile_id": "water",
+        "walkable": false,
+        "sprite_id": "water"
+      },
+      {
+        "tile_id": "swamp",
+        "walkable": true,
+        "sprite_id": "swamp"
+      },
+      {
+        "tile_id": "puddle",
+        "walkable": true,
+        "sprite_id": "puddle"
+      },
+      {
+        "tile_id": "dirt_path",
+        "walkable": true,
+        "sprite_id": "dirt_path"
+      },
+      {
+        "tile_id": "dirt_path",
+        "walkable": true,
+        "sprite_id": "dirt_path"
+      },
+      {
+        "tile_id": "swamp",
+        "walkable": true,
+        "sprite_id": "swamp"
+      },
+      {
+        "tile_id": "puddle",
+        "walkable": true,
+        "sprite_id": "puddle"
+      },
+      {
+        "tile_id": "water",
+        "walkable": false,
+        "sprite_id": "water"
+      },
+      {
+        "tile_id": "swamp",
+        "walkable": true,
+        "sprite_id": "swamp"
+      },
+      {
+        "tile_id": "swamp",
+        "walkable": true,
+        "sprite_id": "swamp"
+      }
+    ],
+    [
+      {
+        "tile_id": "water",
+        "walkable": false,
+        "sprite_id": "water"
+      },
+      {
+        "tile_id": "grass_dark",
+        "walkable": true,
+        "sprite_id": "grass_dark"
+      },
+      {
+        "tile_id": "swamp",
+        "walkable": true,
+        "sprite_id": "swamp"
+      },
+      {
+        "tile_id": "dirt_path",
+        "walkable": true,
+        "sprite_id": "dirt_path"
+      },
+      {
+        "tile_id": "swamp",
+        "walkable": true,
+        "sprite_id": "swamp"
+      },
+      {
+        "tile_id": "swamp",
+        "walkable": true,
+        "sprite_id": "swamp"
+      },
+      {
+        "tile_id": "swamp",
+        "walkable": true,
+        "sprite_id": "swamp"
+      },
+      {
+        "tile_id": "dirt_path",
+        "walkable": true,
+        "sprite_id": "dirt_path"
+      },
+      {
+        "tile_id": "dirt_path",
+        "walkable": true,
+        "sprite_id": "dirt_path"
+      },
+      {
+        "tile_id": "swamp",
+        "walkable": true,
+        "sprite_id": "swamp"
+      },
+      {
+        "tile_id": "swamp",
+        "walkable": true,
+        "sprite_id": "swamp"
+      },
+      {
+        "tile_id": "water",
+        "walkable": false,
+        "sprite_id": "water"
+      },
+      {
+        "tile_id": "grass_dark",
+        "walkable": true,
+        "sprite_id": "grass_dark"
+      },
+      {
+        "tile_id": "puddle",
+        "walkable": true,
+        "sprite_id": "puddle"
+      },
+      {
+        "tile_id": "water",
+        "walkable": false,
+        "sprite_id": "water"
+      }
+    ],
+    [
+      {
+        "tile_id": "moss",
+        "walkable": true,
+        "sprite_id": "moss"
+      },
+      {
+        "tile_id": "moss",
+        "walkable": true,
+        "sprite_id": "moss"
+      },
+      {
+        "tile_id": "water",
+        "walkable": false,
+        "sprite_id": "water"
+      },
+      {
+        "tile_id": "dirt_path",
+        "walkable": true,
+        "sprite_id": "dirt_path"
+      },
+      {
+        "tile_id": "dirt_path",
+        "walkable": true,
+        "sprite_id": "dirt_path"
+      },
+      {
+        "tile_id": "puddle",
+        "walkable": true,
+        "sprite_id": "puddle"
+      },
+      {
+        "tile_id": "dirt_path",
+        "walkable": true,
+        "sprite_id": "dirt_path"
+      },
+      {
+        "tile_id": "dirt_path",
+        "walkable": true,
+        "sprite_id": "dirt_path"
+      },
+      {
+        "tile_id": "puddle",
+        "walkable": true,
+        "sprite_id": "puddle"
+      },
+      {
+        "tile_id": "swamp",
+        "walkable": true,
+        "sprite_id": "swamp"
+      },
+      {
+        "tile_id": "swamp",
+        "walkable": true,
+        "sprite_id": "swamp"
+      },
+      {
+        "tile_id": "swamp",
+        "walkable": true,
+        "sprite_id": "swamp"
+      },
+      {
+        "tile_id": "swamp",
+        "walkable": true,
+        "sprite_id": "swamp"
+      },
+      {
+        "tile_id": "water",
+        "walkable": false,
+        "sprite_id": "water"
+      },
+      {
+        "tile_id": "moss",
+        "walkable": true,
+        "sprite_id": "moss"
+      }
+    ],
+    [
+      {
+        "tile_id": "swamp",
+        "walkable": true,
+        "sprite_id": "swamp"
+      },
+      {
+        "tile_id": "water",
+        "walkable": false,
+        "sprite_id": "water"
+      },
+      {
+        "tile_id": "puddle",
+        "walkable": true,
+        "sprite_id": "puddle"
+      },
+      {
+        "tile_id": "moss",
+        "walkable": true,
+        "sprite_id": "moss"
+      },
+      {
+        "tile_id": "dirt_path",
+        "walkable": true,
+        "sprite_id": "dirt_path"
+      },
+      {
+        "tile_id": "dirt_path",
+        "walkable": true,
+        "sprite_id": "dirt_path"
+      },
+      {
+        "tile_id": "dirt_path",
+        "walkable": true,
+        "sprite_id": "dirt_path"
+      },
+      {
+        "tile_id": "puddle",
+        "walkable": true,
+        "sprite_id": "puddle"
+      },
+      {
+        "tile_id": "swamp",
+        "walkable": true,
+        "sprite_id": "swamp"
+      },
+      {
+        "tile_id": "water",
+        "walkable": false,
+        "sprite_id": "water"
+      },
+      {
+        "tile_id": "grass_dark",
+        "walkable": true,
+        "sprite_id": "grass_dark"
+      },
+      {
+        "tile_id": "swamp",
+        "walkable": true,
+        "sprite_id": "swamp"
+      },
+      {
+        "tile_id": "roots",
+        "walkable": true,
+        "sprite_id": "roots"
+      },
+      {
+        "tile_id": "swamp",
+        "walkable": true,
+        "sprite_id": "swamp"
+      },
+      {
+        "tile_id": "moss",
+        "walkable": true,
+        "sprite_id": "moss"
+      }
+    ],
+    [
+      {
+        "tile_id": "moss",
+        "walkable": true,
+        "sprite_id": "moss"
+      },
+      {
+        "tile_id": "swamp",
+        "walkable": true,
+        "sprite_id": "swamp"
+      },
+      {
+        "tile_id": "moss",
+        "walkable": true,
+        "sprite_id": "moss"
+      },
+      {
+        "tile_id": "water",
+        "walkable": false,
+        "sprite_id": "water"
+      },
+      {
+        "tile_id": "swamp",
+        "walkable": true,
+        "sprite_id": "swamp"
+      },
+      {
+        "tile_id": "dirt_path",
+        "walkable": true,
+        "sprite_id": "dirt_path"
+      },
+      {
+        "tile_id": "moss",
+        "walkable": true,
+        "sprite_id": "moss"
+      },
+      {
+        "tile_id": "puddle",
+        "walkable": true,
+        "sprite_id": "puddle"
+      },
+      {
+        "tile_id": "water",
+        "walkable": false,
+        "sprite_id": "water"
+      },
+      {
+        "tile_id": "swamp",
+        "walkable": true,
+        "sprite_id": "swamp"
+      },
+      {
+        "tile_id": "moss",
+        "walkable": true,
+        "sprite_id": "moss"
+      },
+      {
+        "tile_id": "water",
+        "walkable": false,
+        "sprite_id": "water"
+      },
+      {
+        "tile_id": "puddle",
+        "walkable": true,
+        "sprite_id": "puddle"
+      },
+      {
+        "tile_id": "puddle",
+        "walkable": true,
+        "sprite_id": "puddle"
+      },
+      {
+        "tile_id": "swamp",
+        "walkable": true,
+        "sprite_id": "swamp"
+      }
+    ],
+    [
+      {
+        "tile_id": "water",
+        "walkable": false,
+        "sprite_id": "water"
+      },
+      {
+        "tile_id": "grass_dark",
+        "walkable": true,
+        "sprite_id": "grass_dark"
+      },
+      {
+        "tile_id": "puddle",
+        "walkable": true,
+        "sprite_id": "puddle"
+      },
+      {
+        "tile_id": "swamp",
+        "walkable": true,
+        "sprite_id": "swamp"
+      },
+      {
+        "tile_id": "dirt_path",
+        "walkable": true,
+        "sprite_id": "dirt_path"
+      },
+      {
+        "tile_id": "dirt_path",
+        "walkable": true,
+        "sprite_id": "dirt_path"
+      },
+      {
+        "tile_id": "swamp",
+        "walkable": true,
+        "sprite_id": "swamp"
+      },
+      {
+        "tile_id": "swamp",
+        "walkable": true,
+        "sprite_id": "swamp"
+      },
+      {
+        "tile_id": "puddle",
+        "walkable": true,
+        "sprite_id": "puddle"
+      },
+      {
+        "tile_id": "swamp",
+        "walkable": true,
+        "sprite_id": "swamp"
+      },
+      {
+        "tile_id": "water",
+        "walkable": false,
+        "sprite_id": "water"
+      },
+      {
+        "tile_id": "swamp",
+        "walkable": true,
+        "sprite_id": "swamp"
+      },
+      {
+        "tile_id": "swamp",
+        "walkable": true,
+        "sprite_id": "swamp"
+      },
+      {
+        "tile_id": "moss",
+        "walkable": true,
+        "sprite_id": "moss"
+      },
+      {
+        "tile_id": "grass_dark",
+        "walkable": true,
+        "sprite_id": "grass_dark"
+      }
+    ],
+    [
+      {
+        "tile_id": "grass_dark",
+        "walkable": true,
+        "sprite_id": "grass_dark"
+      },
+      {
+        "tile_id": "dirt_path",
+        "walkable": true,
+        "sprite_id": "dirt_path"
+      },
+      {
+        "tile_id": "dirt_path",
+        "walkable": true,
+        "sprite_id": "dirt_path"
+      },
+      {
+        "tile_id": "dirt_path",
+        "walkable": true,
+        "sprite_id": "dirt_path"
+      },
+      {
+        "tile_id": "dirt_path",
+        "walkable": true,
+        "sprite_id": "dirt_path"
+      },
+      {
+        "tile_id": "moss",
+        "walkable": true,
+        "sprite_id": "moss"
+      },
+      {
+        "tile_id": "moss",
+        "walkable": true,
+        "sprite_id": "moss"
+      },
+      {
+        "tile_id": "grass_dark",
+        "walkable": true,
+        "sprite_id": "grass_dark"
+      },
+      {
+        "tile_id": "roots",
+        "walkable": true,
+        "sprite_id": "roots"
+      },
+      {
+        "tile_id": "swamp",
+        "walkable": true,
+        "sprite_id": "swamp"
+      },
+      {
+        "tile_id": "grass_dark",
+        "walkable": true,
+        "sprite_id": "grass_dark"
+      },
+      {
+        "tile_id": "swamp",
+        "walkable": true,
+        "sprite_id": "swamp"
+      },
+      {
+        "tile_id": "dirt_path",
+        "walkable": true,
+        "sprite_id": "dirt_path"
+      },
+      {
+        "tile_id": "dirt_path",
+        "walkable": true,
+        "sprite_id": "dirt_path"
+      },
+      {
+        "tile_id": "dirt_path",
+        "walkable": true,
+        "sprite_id": "dirt_path"
+      }
+    ],
+    [
+      {
+        "tile_id": "swamp",
+        "walkable": true,
+        "sprite_id": "swamp"
+      },
+      {
+        "tile_id": "grass_dark",
+        "walkable": true,
+        "sprite_id": "grass_dark"
+      },
+      {
+        "tile_id": "moss",
+        "walkable": true,
+        "sprite_id": "moss"
+      },
+      {
+        "tile_id": "roots",
+        "walkable": true,
+        "sprite_id": "roots"
+      },
+      {
+        "tile_id": "puddle",
+        "walkable": true,
+        "sprite_id": "puddle"
+      },
+      {
+        "tile_id": "water",
+        "walkable": false,
+        "sprite_id": "water"
+      },
+      {
+        "tile_id": "roots",
+        "walkable": true,
+        "sprite_id": "roots"
+      },
+      {
+        "tile_id": "puddle",
+        "walkable": true,
+        "sprite_id": "puddle"
+      },
+      {
+        "tile_id": "grass_dark",
+        "walkable": true,
+        "sprite_id": "grass_dark"
+      },
+      {
+        "tile_id": "water",
+        "walkable": false,
+        "sprite_id": "water"
+      },
+      {
+        "tile_id": "swamp",
+        "walkable": true,
+        "sprite_id": "swamp"
+      },
+      {
+        "tile_id": "dirt_path",
+        "walkable": true,
+        "sprite_id": "dirt_path"
+      },
+      {
+        "tile_id": "dirt_path",
+        "walkable": true,
+        "sprite_id": "dirt_path"
+      },
+      {
+        "tile_id": "swamp",
+        "walkable": true,
+        "sprite_id": "swamp"
+      },
+      {
+        "tile_id": "puddle",
+        "walkable": true,
+        "sprite_id": "puddle"
+      }
+    ],
+    [
+      {
+        "tile_id": "swamp",
+        "walkable": true,
+        "sprite_id": "swamp"
+      },
+      {
+        "tile_id": "moss",
+        "walkable": true,
+        "sprite_id": "moss"
+      },
+      {
+        "tile_id": "water",
+        "walkable": false,
+        "sprite_id": "water"
+      },
+      {
+        "tile_id": "grass_dark",
+        "walkable": true,
+        "sprite_id": "grass_dark"
+      },
+      {
+        "tile_id": "swamp",
+        "walkable": true,
+        "sprite_id": "swamp"
+      },
+      {
+        "tile_id": "roots",
+        "walkable": true,
+        "sprite_id": "roots"
+      },
+      {
+        "tile_id": "roots",
+        "walkable": true,
+        "sprite_id": "roots"
+      },
+      {
+        "tile_id": "water",
+        "walkable": false,
+        "sprite_id": "water"
+      },
+      {
+        "tile_id": "puddle",
+        "walkable": true,
+        "sprite_id": "puddle"
+      },
+      {
+        "tile_id": "grass_dark",
+        "walkable": true,
+        "sprite_id": "grass_dark"
+      },
+      {
+        "tile_id": "dirt_path",
+        "walkable": true,
+        "sprite_id": "dirt_path"
+      },
+      {
+        "tile_id": "dirt_path",
+        "walkable": true,
+        "sprite_id": "dirt_path"
+      },
+      {
+        "tile_id": "puddle",
+        "walkable": true,
+        "sprite_id": "puddle"
+      },
+      {
+        "tile_id": "grass_dark",
+        "walkable": true,
+        "sprite_id": "grass_dark"
+      },
+      {
+        "tile_id": "water",
+        "walkable": false,
+        "sprite_id": "water"
+      }
+    ],
+    [
+      {
+        "tile_id": "moss",
+        "walkable": true,
+        "sprite_id": "moss"
+      },
+      {
+        "tile_id": "swamp",
+        "walkable": true,
+        "sprite_id": "swamp"
+      },
+      {
+        "tile_id": "roots",
+        "walkable": true,
+        "sprite_id": "roots"
+      },
+      {
+        "tile_id": "swamp",
+        "walkable": true,
+        "sprite_id": "swamp"
+      },
+      {
+        "tile_id": "grass_dark",
+        "walkable": true,
+        "sprite_id": "grass_dark"
+      },
+      {
+        "tile_id": "water",
+        "walkable": false,
+        "sprite_id": "water"
+      },
+      {
+        "tile_id": "moss",
+        "walkable": true,
+        "sprite_id": "moss"
+      },
+      {
+        "tile_id": "puddle",
+        "walkable": true,
+        "sprite_id": "puddle"
+      },
+      {
+        "tile_id": "grass_dark",
+        "walkable": true,
+        "sprite_id": "grass_dark"
+      },
+      {
+        "tile_id": "dirt_path",
+        "walkable": true,
+        "sprite_id": "dirt_path"
+      },
+      {
+        "tile_id": "dirt_path",
+        "walkable": true,
+        "sprite_id": "dirt_path"
+      },
+      {
+        "tile_id": "swamp",
+        "walkable": true,
+        "sprite_id": "swamp"
+      },
+      {
+        "tile_id": "swamp",
+        "walkable": true,
+        "sprite_id": "swamp"
+      },
+      {
+        "tile_id": "swamp",
+        "walkable": true,
+        "sprite_id": "swamp"
+      },
+      {
+        "tile_id": "swamp",
+        "walkable": true,
+        "sprite_id": "swamp"
+      }
+    ],
+    [
+      {
+        "tile_id": "water",
+        "walkable": false,
+        "sprite_id": "water"
+      },
+      {
+        "tile_id": "swamp",
+        "walkable": true,
+        "sprite_id": "swamp"
+      },
+      {
+        "tile_id": "moss",
+        "walkable": true,
+        "sprite_id": "moss"
+      },
+      {
+        "tile_id": "water",
+        "walkable": false,
+        "sprite_id": "water"
+      },
+      {
+        "tile_id": "grass_dark",
+        "walkable": true,
+        "sprite_id": "grass_dark"
+      },
+      {
+        "tile_id": "puddle",
+        "walkable": true,
+        "sprite_id": "puddle"
+      },
+      {
+        "tile_id": "swamp",
+        "walkable": true,
+        "sprite_id": "swamp"
+      },
+      {
+        "tile_id": "puddle",
+        "walkable": true,
+        "sprite_id": "puddle"
+      },
+      {
+        "tile_id": "dirt_path",
+        "walkable": true,
+        "sprite_id": "dirt_path"
+      },
+      {
+        "tile_id": "dirt_path",
+        "walkable": true,
+        "sprite_id": "dirt_path"
+      },
+      {
+        "tile_id": "grass_dark",
+        "walkable": true,
+        "sprite_id": "grass_dark"
+      },
+      {
+        "tile_id": "puddle",
+        "walkable": true,
+        "sprite_id": "puddle"
+      },
+      {
+        "tile_id": "water",
+        "walkable": false,
+        "sprite_id": "water"
+      },
+      {
+        "tile_id": "swamp",
+        "walkable": true,
+        "sprite_id": "swamp"
+      },
+      {
+        "tile_id": "swamp",
+        "walkable": true,
+        "sprite_id": "swamp"
+      }
+    ],
+    [
+      {
+        "tile_id": "moss",
+        "walkable": true,
+        "sprite_id": "moss"
+      },
+      {
+        "tile_id": "swamp",
+        "walkable": true,
+        "sprite_id": "swamp"
+      },
+      {
+        "tile_id": "swamp",
+        "walkable": true,
+        "sprite_id": "swamp"
+      },
+      {
+        "tile_id": "roots",
+        "walkable": true,
+        "sprite_id": "roots"
+      },
+      {
+        "tile_id": "swamp",
+        "walkable": true,
+        "sprite_id": "swamp"
+      },
+      {
+        "tile_id": "swamp",
+        "walkable": true,
+        "sprite_id": "swamp"
+      },
+      {
+        "tile_id": "water",
+        "walkable": false,
+        "sprite_id": "water"
+      },
+      {
+        "tile_id": "dirt_path",
+        "walkable": true,
+        "sprite_id": "dirt_path"
+      },
+      {
+        "tile_id": "dirt_path",
+        "walkable": true,
+        "sprite_id": "dirt_path"
+      },
+      {
+        "tile_id": "grass_dark",
+        "walkable": true,
+        "sprite_id": "grass_dark"
+      },
+      {
+        "tile_id": "swamp",
+        "walkable": true,
+        "sprite_id": "swamp"
+      },
+      {
+        "tile_id": "puddle",
+        "walkable": true,
+        "sprite_id": "puddle"
+      },
+      {
+        "tile_id": "puddle",
+        "walkable": true,
+        "sprite_id": "puddle"
+      },
+      {
+        "tile_id": "puddle",
+        "walkable": true,
+        "sprite_id": "puddle"
+      },
+      {
+        "tile_id": "swamp",
+        "walkable": true,
+        "sprite_id": "swamp"
+      }
+    ],
+    [
+      {
+        "tile_id": "grass_dark",
+        "walkable": true,
+        "sprite_id": "grass_dark"
+      },
+      {
+        "tile_id": "swamp",
+        "walkable": true,
+        "sprite_id": "swamp"
+      },
+      {
+        "tile_id": "water",
+        "walkable": false,
+        "sprite_id": "water"
+      },
+      {
+        "tile_id": "swamp",
+        "walkable": true,
+        "sprite_id": "swamp"
+      },
+      {
+        "tile_id": "swamp",
+        "walkable": true,
+        "sprite_id": "swamp"
+      },
+      {
+        "tile_id": "swamp",
+        "walkable": true,
+        "sprite_id": "swamp"
+      },
+      {
+        "tile_id": "dirt_path",
+        "walkable": true,
+        "sprite_id": "dirt_path"
+      },
+      {
+        "tile_id": "dirt_path",
+        "walkable": true,
+        "sprite_id": "dirt_path"
+      },
+      {
+        "tile_id": "moss",
+        "walkable": true,
+        "sprite_id": "moss"
+      },
+      {
+        "tile_id": "moss",
+        "walkable": true,
+        "sprite_id": "moss"
+      },
+      {
+        "tile_id": "water",
+        "walkable": false,
+        "sprite_id": "water"
+      },
+      {
+        "tile_id": "swamp",
+        "walkable": true,
+        "sprite_id": "swamp"
+      },
+      {
+        "tile_id": "swamp",
+        "walkable": true,
+        "sprite_id": "swamp"
+      },
+      {
+        "tile_id": "swamp",
+        "walkable": true,
+        "sprite_id": "swamp"
+      },
+      {
+        "tile_id": "puddle",
+        "walkable": true,
+        "sprite_id": "puddle"
+      }
+    ],
+    [
+      {
+        "tile_id": "moss",
+        "walkable": true,
+        "sprite_id": "moss"
+      },
+      {
+        "tile_id": "swamp",
+        "walkable": true,
+        "sprite_id": "swamp"
+      },
+      {
+        "tile_id": "swamp",
+        "walkable": true,
+        "sprite_id": "swamp"
+      },
+      {
+        "tile_id": "swamp",
+        "walkable": true,
+        "sprite_id": "swamp"
+      },
+      {
+        "tile_id": "water",
+        "walkable": false,
+        "sprite_id": "water"
+      },
+      {
+        "tile_id": "dirt_path",
+        "walkable": true,
+        "sprite_id": "dirt_path"
+      },
+      {
+        "tile_id": "dirt_path",
+        "walkable": true,
+        "sprite_id": "dirt_path"
+      },
+      {
+        "tile_id": "swamp",
+        "walkable": true,
+        "sprite_id": "swamp"
+      },
+      {
+        "tile_id": "swamp",
+        "walkable": true,
+        "sprite_id": "swamp"
+      },
+      {
+        "tile_id": "swamp",
+        "walkable": true,
+        "sprite_id": "swamp"
+      },
+      {
+        "tile_id": "swamp",
+        "walkable": true,
+        "sprite_id": "swamp"
+      },
+      {
+        "tile_id": "swamp",
+        "walkable": true,
+        "sprite_id": "swamp"
+      },
+      {
+        "tile_id": "moss",
+        "walkable": true,
+        "sprite_id": "moss"
+      },
+      {
+        "tile_id": "water",
+        "walkable": false,
+        "sprite_id": "water"
+      },
+      {
+        "tile_id": "ruins",
+        "walkable": true,
+        "sprite_id": "ruins"
+      }
+    ]
+  ],
+  "warps": [
+    {
+      "x": 0,
+      "y": 7,
+      "target_map_id": "dark_cave",
+      "target_x": 14,
+      "target_y": 7
+    },
+    {
+      "x": 14,
+      "y": 14,
+      "target_map_id": "ancient_ruins",
+      "target_x": 0,
+      "target_y": 7,
+      "requires_flag": "swamp_witch_defeated",
+      "fail_dialogue_id": "need_witch_defeated"
+    },
+    {
+      "x": 7,
+      "y": 0,
+      "target_map_id": "shadowfen_town",
+      "target_x": 7,
+      "target_y": 14
+    }
+  ],
+  "triggers": [
+    {
+      "id": "swamp_antidote",
+      "x": 5,
+      "y": 4,
+      "trigger_type": "item",
+      "data": {
+        "item_id": "antidote",
+        "unique": true
+      },
+      "once": true
+    },
+    {
+      "id": "swamp_health",
+      "x": 10,
+      "y": 6,
+      "trigger_type": "item",
+      "data": {
+        "item_id": "health_potion",
+        "unique": true
+      },
+      "once": true
+    },
+    {
+      "id": "swamp_poison_resist",
+      "x": 7,
+      "y": 12,
+      "trigger_type": "item",
+      "data": {
+        "item_id": "antidote",
+        "unique": true
+      },
+      "once": true
+    },
+    {
+      "id": "swamp_fishing_spot",
+      "trigger_type": "fishing",
+      "x": 8,
+      "y": 8,
+      "once": false,
+      "data": {
+        "spot_id": "murky_swamp_pool"
+      }
+    }
+  ],
+  "entities": [],
+  "enemy_spawns": [
+    {
+      "spawn_id": "spider_1",
+      "x": 5,
+      "y": 4,
+      "encounter_id": "swamp_spiders",
+      "sprite_id": "spider",
+      "facing": "down",
+      "detection_range": 3,
+      "move_interval": 1.5,
+      "patrol_radius": 2,
+      "once": true
+    },
+    {
+      "spawn_id": "mushroom_1",
+      "x": 10,
+      "y": 6,
+      "encounter_id": "poison_mushrooms",
+      "sprite_id": "mushroom",
+      "facing": "left",
+      "detection_range": 2,
+      "move_interval": 2.5,
+      "patrol_radius": 1,
+      "once": true
+    },
+    {
+      "spawn_id": "witch_1",
+      "x": 7,
+      "y": 12,
+      "encounter_id": "swamp_witch",
+      "sprite_id": "witch",
+      "facing": "up",
+      "detection_range": 4,
+      "move_interval": 2.0,
+      "patrol_radius": 2,
+      "once": true
+    },
+    {
+      "spawn_id": "lizardman_1",
+      "x": 3,
+      "y": 9,
+      "encounter_id": "lizardman_tribe",
+      "sprite_id": "lizardman",
+      "facing": "right",
+      "detection_range": 4,
+      "move_interval": 1.8,
+      "patrol_radius": 2,
+      "once": true
+    },
+    {
+      "spawn_id": "lizardman_2",
+      "x": 12,
+      "y": 3,
+      "encounter_id": "lizardman_tribe",
+      "sprite_id": "lizardman",
+      "facing": "down",
+      "detection_range": 4,
+      "move_interval": 1.6,
+      "patrol_radius": 2,
+      "once": true
+    }
+  ]
+}

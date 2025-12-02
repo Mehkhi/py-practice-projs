@@ -1,0 +1,331 @@
+{
+  "tips": [
+    {
+      "tip_id": "battle_basics",
+      "trigger": "FIRST_BATTLE",
+      "title": "Battle Basics",
+      "content": "Use ATTACK for basic damage, SKILLS for special moves (costs SP), GUARD to reduce damage, and ITEM to use consumables. Watch your HP!",
+      "priority": 10,
+      "category": "combat"
+    },
+    {
+      "tip_id": "low_hp_warning",
+      "trigger": "LOW_HP_WARNING",
+      "title": "Low HP",
+      "content": "Your HP is low! Use healing items or guard to survive.",
+      "priority": 9,
+      "category": "combat"
+    },
+    {
+      "tip_id": "low_sp_warning",
+      "trigger": "LOW_SP_WARNING",
+      "title": "Low SP",
+      "content": "Your SP is running low! Basic attacks don't cost SP.",
+      "priority": 7,
+      "category": "combat"
+    },
+    {
+      "tip_id": "status_effects_intro",
+      "trigger": "FIRST_STATUS_EFFECT",
+      "title": "Status Effects",
+      "content": "Poison, burn, and other effects can drain HP or weaken you. Use items or skills to cleanse them.",
+      "priority": 7,
+      "category": "combat"
+    },
+    {
+      "tip_id": "shop_navigation",
+      "trigger": "FIRST_SHOP_VISIT",
+      "title": "Shopping",
+      "content": "Use UP/DOWN to browse items, ENTER to buy/sell. Press ESC to exit. Shops may have limited stock and different hours!",
+      "priority": 8,
+      "category": "exploration"
+    },
+    {
+      "tip_id": "shop_closed",
+      "trigger": "SHOP_CLOSED",
+      "title": "Shop Hours",
+      "content": "Some shops close at night. Check back during the day or rest at an inn to advance time.",
+      "priority": 6,
+      "category": "exploration"
+    },
+    {
+      "tip_id": "fishing_intro",
+      "trigger": "FIRST_FISHING_SPOT",
+      "title": "Fishing Available",
+      "content": "You found a fishing spot! Press ENTER to cast your line. Watch for the bobber to dip, then press SPACE quickly to hook the fish. Use UP/DOWN to reel it in!",
+      "priority": 7,
+      "category": "activities"
+    },
+    {
+      "tip_id": "first_fish_caught",
+      "trigger": "FIRST_FISH_CAUGHT",
+      "title": "First Catch",
+      "content": "Nice catch! Fish can be sold or used in recipes. Try different spots for rare fish.",
+      "priority": 6,
+      "category": "activities"
+    },
+    {
+      "tip_id": "first_legendary_fish",
+      "trigger": "FIRST_LEGENDARY_FISH",
+      "title": "Legendary Catch",
+      "content": "A legendary fish! These rare catches are worth a fortune or have special uses.",
+      "priority": 7,
+      "category": "activities"
+    },
+    {
+      "tip_id": "inventory_basics",
+      "trigger": "FIRST_ITEM_PICKUP",
+      "title": "Inventory",
+      "content": "Press I to open inventory, ENTER to use items, and D to drop items. Consumables can heal or cure status effects.",
+      "priority": 7,
+      "category": "inventory"
+    },
+    {
+      "tip_id": "quest_log",
+      "trigger": "FIRST_QUEST_ACCEPTED",
+      "title": "Quest Log",
+      "content": "Quests track objectives and rewards. Open the Quest Log from the pause menu to see active tasks and where to go next.",
+      "priority": 6,
+      "category": "quests"
+    },
+    {
+      "tip_id": "level_up",
+      "trigger": "FIRST_LEVEL_UP",
+      "title": "Level Up",
+      "content": "Level ups boost your stats and can grant new skills. Check your skill tree and gear to stay ahead of tougher fights.",
+      "priority": 7,
+      "category": "system"
+    },
+    {
+      "tip_id": "party_member_joined",
+      "trigger": "FIRST_PARTY_MEMBER",
+      "title": "Party Members",
+      "content": "Party members bring unique skills and can be managed from the Party menu.",
+      "priority": 7,
+      "category": "general"
+    },
+    {
+      "tip_id": "equipment_change",
+      "trigger": "FIRST_EQUIPMENT_CHANGE",
+      "title": "Equipment",
+      "content": "Equip weapons and armor to boost stats. Compare items before equipping to keep your build balanced.",
+      "priority": 5,
+      "category": "equipment"
+    },
+    {
+      "tip_id": "skill_unlock_tip",
+      "trigger": "FIRST_SKILL_UNLOCK",
+      "title": "New Skill Unlocked",
+      "content": "Unlocked skills can be equipped and used in battle. Check your skill tree for more options!",
+      "priority": 7,
+      "category": "combat"
+    },
+    {
+      "tip_id": "crafting_intro_tip",
+      "trigger": "FIRST_CRAFTING",
+      "title": "Crafting Unlocked",
+      "content": "Crafting combines materials into useful items. Discover recipes through quests and exploration.",
+      "priority": 6,
+      "category": "activities"
+    },
+    {
+      "tip_id": "save_reminder",
+      "trigger": "FIRST_SAVE",
+      "title": "Saving",
+      "content": "Save at save points or from the pause menu. Saving frequently protects progress before tough encounters.",
+      "priority": 5,
+      "category": "system"
+    },
+    {
+      "tip_id": "death_tip",
+      "trigger": "FIRST_DEATH",
+      "title": "After Defeat",
+      "content": "If you fall in battle you'll reload your last save. Keep healing items handy and save often.",
+      "priority": 4,
+      "category": "system"
+    },
+    {
+      "tip_id": "night_warning",
+      "trigger": "NIGHT_TIME_FIRST",
+      "title": "Nightfall",
+      "content": "Nighttime brings tougher enemies and closed shops. Rest at inns or prepare supplies before exploring late.",
+      "priority": 6,
+      "category": "exploration"
+    },
+    {
+      "tip_id": "entered_town",
+      "trigger": "ENTERED_TOWN",
+      "title": "Welcome to Town",
+      "content": "Towns have shops, inns, and NPCs with quests. Explore and talk to everyone!",
+      "priority": 6,
+      "category": "exploration"
+    },
+    {
+      "tip_id": "entered_dungeon",
+      "trigger": "ENTERED_DUNGEON",
+      "title": "Entering a Dungeon",
+      "content": "Dungeons contain tougher enemies and valuable loot. Save before entering!",
+      "priority": 7,
+      "category": "exploration"
+    },
+    {
+      "tip_id": "gambling_intro",
+      "trigger": "FIRST_GAMBLING",
+      "title": "Gambling",
+      "content": "Gambling can win you gold, but be careful! Set limits and know when to walk away. Some games have better odds than others.",
+      "priority": 6,
+      "category": "activities"
+    },
+    {
+      "tip_id": "gambling_first_win",
+      "trigger": "FIRST_GAMBLING_WIN",
+      "title": "Winning a Bet",
+      "content": "Winner! Know when to walk away - the house always has an edge.",
+      "priority": 6,
+      "category": "activities"
+    },
+    {
+      "tip_id": "gambling_first_loss",
+      "trigger": "FIRST_GAMBLING_LOSS",
+      "title": "Loss at the Tables",
+      "content": "Tough luck! Set a budget and stick to it. There's always next time.",
+      "priority": 6,
+      "category": "activities"
+    },
+    {
+      "tip_id": "arena_intro",
+      "trigger": "FIRST_ARENA_VISIT",
+      "title": "Monster Arena",
+      "content": "Study fighter stats and records before betting. Odds reflect win rates - underdogs pay more but win less often!",
+      "priority": 6,
+      "category": "activities"
+    },
+    {
+      "tip_id": "arena_first_bet",
+      "trigger": "FIRST_ARENA_BET",
+      "title": "Arena Betting",
+      "content": "Bet placed! Watch the fight and collect your winnings if your pick wins.",
+      "priority": 6,
+      "category": "activities"
+    },
+    {
+      "tip_id": "puzzle_hint",
+      "trigger": "FIRST_DUNGEON_PUZZLE",
+      "title": "Dungeon Puzzle",
+      "content": "Push blocks onto pressure plates to open doors. If you get stuck, look for a reset switch near the entrance.",
+      "priority": 7,
+      "category": "exploration"
+    },
+    {
+      "tip_id": "puzzle_first_solved",
+      "trigger": "FIRST_PUZZLE_SOLVED",
+      "title": "Puzzle Solved",
+      "content": "Puzzle solved! Dungeons often have multiple puzzles blocking the way to treasure.",
+      "priority": 7,
+      "category": "exploration"
+    },
+    {
+      "tip_id": "brain_teaser_first",
+      "trigger": "FIRST_BRAIN_TEASER",
+      "title": "Brain Teaser",
+      "content": "Brain teasers test your wits! Take your time and think carefully.",
+      "priority": 6,
+      "category": "activities"
+    },
+    {
+      "tip_id": "post_game_intro",
+      "trigger": "POST_GAME_START",
+      "title": "Post-Game Content",
+      "content": "Congratulations on completing the story! All level restrictions are removed. Seek out secret bosses, complete challenge dungeons, and aim for 100% completion!",
+      "priority": 10,
+      "category": "general"
+    },
+    {
+      "tip_id": "completion_hint",
+      "trigger": "NEAR_COMPLETION",
+      "title": "Almost There!",
+      "content": "You're close to 100% completion! Check the Completion menu in Pause to see what's left.",
+      "priority": 5,
+      "category": "general"
+    }
+  ],
+  "help_entries": [
+    {
+      "entry_id": "controls_movement",
+      "title": "Movement",
+      "content": "Arrow Keys: Move\nENTER/SPACE: Interact\nESC: Menu/Back\nI: Inventory\nM: Map",
+      "category": "Controls",
+      "order": 1
+    },
+    {
+      "entry_id": "controls_battle",
+      "title": "Battle Controls",
+      "content": "UP/DOWN: Navigate menu\nENTER: Confirm action\nESC: Cancel\n1-4: Quick select action",
+      "category": "Controls",
+      "order": 2
+    },
+    {
+      "entry_id": "controls_inventory",
+      "title": "Inventory Controls",
+      "content": "I: Open inventory\nENTER: Use/Equip\nD: Drop item\nTAB: Sort items",
+      "category": "Controls",
+      "order": 3
+    },
+    {
+      "entry_id": "controls_shop",
+      "title": "Shop Controls",
+      "content": "UP/DOWN: Select item\nLEFT/RIGHT: Change quantity\nENTER: Buy/Sell\nESC: Exit shop",
+      "category": "Controls",
+      "order": 4
+    },
+    {
+      "entry_id": "help_battle_tips",
+      "title": "Battle Tips",
+      "content": "Exploit weaknesses with skills, guard when low on HP, and use items to remove status effects.",
+      "category": "Combat",
+      "order": 1
+    },
+    {
+      "entry_id": "help_quests",
+      "title": "Quests",
+      "content": "Track active quests from the pause menu. Some quests unlock new shops or party members when completed.",
+      "category": "Gameplay",
+      "order": 1
+    },
+    {
+      "entry_id": "help_crafting",
+      "title": "Crafting",
+      "content": "Crafting stations let you combine materials into gear or consumables. Recipes unlock from quests or discoveries.",
+      "category": "Activities",
+      "order": 1
+    },
+    {
+      "entry_id": "help_fishing",
+      "title": "Fishing Guide",
+      "content": "Find fishing spots near water (sparkles). Cast with ENTER, watch for bobber dip, press SPACE to hook. Reel in with UP, manage tension with timing. Premium spots have rarer fish!",
+      "category": "Activities",
+      "order": 1
+    },
+    {
+      "entry_id": "help_puzzles",
+      "title": "Puzzle Guide",
+      "content": "Push blocks with movement keys. Step on plates to trigger switches. Light torches with torch item. Look for reset switches if stuck.",
+      "category": "Activities",
+      "order": 2
+    },
+    {
+      "entry_id": "help_gambling",
+      "title": "Gambling Guide",
+      "content": "Blackjack: Get close to 21 without going over. Dice: Guess high (8+) or low (6-). Slots: Match symbols for payouts. Cups: Track the ball through shuffles.",
+      "category": "Activities",
+      "order": 3
+    },
+    {
+      "entry_id": "help_arena",
+      "title": "Arena Guide",
+      "content": "Watch monster battles and bet on outcomes. Study fighter stats and odds. Lower odds = favorite, higher odds = underdog. Odds update based on win rates.",
+      "category": "Activities",
+      "order": 4
+    }
+  ]
+}

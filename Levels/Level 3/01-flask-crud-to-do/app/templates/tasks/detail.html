@@ -1,0 +1,141 @@
+{% extends "base.html" %}
+
+{% block title %}Task Detail - Flask To-Do App{% endblock %}
+
+{% block content %}
+<section class="page-header slim">
+    <div>
+        <p class="eyebrow">Task Detail</p>
+        <h1>{{ task.title }}</h1>
+        <p class="lede">{{ task.description or 'No description provided' }}</p>
+        <div class="header-meta">
+            <span class="pill status-pill status-{{ task.status }}">{{ task.status|replace('_',' ')|title }}</span>
+            <span class="pill priority-pill priority-{{ task.priority }}">{{ task.priority|title }}</span>
+            {% if task.due_date %}
+                <span class="pill subtle">Due {{ task.due_date.strftime('%b %d, %Y') }}</span>
+            {% endif %}
+            <span class="pill subtle">Size {{ task.size_points }} pt</span>
+        </div>
+    </div>
+    <div class="header-actions">
+        <a href="{{ url_for('tasks.edit_task', task_id=task.id) }}" class="btn">Edit</a>
+        <a href="{{ url_for('tasks.board_view') }}" class="btn btn-secondary">Board</a>
+    </div>
+</section>
+
+<div class="content-grid">
+    <div class="card form-card">
+        <div class="section-heading">
+            <div>
+                <p class="eyebrow">Workflow</p>
+                <h3>Status & Recurrence</h3>
+            </div>
+        </div>
+        <ul class="mini-list">
+            <li>Status: {{ task.status|replace('_',' ')|title }}</li>
+            <li>Priority: {{ task.priority|title }}</li>
+            <li>Created: {{ task.created_at.strftime('%b %d, %Y') }}</li>
+            <li>Due: {{ task.due_date.strftime('%b %d, %Y') if task.due_date else 'TBD' }}</li>
+            {% if task.recurrence_interval_days %}
+                <li>Repeats every {{ task.recurrence_interval_days }}d{% if task.recurrence_end_date %} until {{ task.recurrence_end_date.strftime('%b %d, %Y') }}{% endif %}</li>
+            {% endif %}
+            {% if task.requires_approval %}
+                <li>Requires approval {% if task.approved_at %}(approved {{ task.approved_at.strftime('%b %d, %Y') }}){% endif %}</li>
+            {% endif %}
+        </ul>
+    </div>
+
+    <div class="secondary-grid">
+        <div class="card form-card">
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow">Dependencies</p>
+                    <h3>Blocking graph</h3>
+                </div>
+            </div>
+            <ul class="mini-list">
+                {% if dependencies %}
+                    {% for dep in dependencies %}
+                        <li class="{% if dep.id in critical_path_ids %}critical{% endif %}">
+                            <a href="{{ url_for('tasks.view_task', task_id=dep.id) }}">{{ dep.title }}</a>
+                        </li>
+                    {% endfor %}
+                {% else %}
+                    <li class="muted">No dependencies.</li>
+                {% endif %}
+            </ul>
+            <p class="mini muted">Dependents: {% if dependents %}{{ dependents|map(attribute='title')|join(', ') }}{% else %}None{% endif %}</p>
+        </div>
+
+        <div class="card form-card">
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow">Knowledge & Files</p>
+                    <h3>Notes & Attachments</h3>
+                </div>
+            </div>
+            <div class="knowledge-list">
+                {% for note in task.notes|sort(attribute='created_at', reverse=True) %}
+                    <div class="knowledge-item">
+                        <div class="knowledge-meta">
+                            <span class="pill subtle">{{ note.kind|title }}</span>
+                            <span class="pill subtle">{{ note.created_at.strftime('%b %d, %Y') }}</span>
+                        </div>
+                        <p>{{ note.content }}</p>
+                    </div>
+                {% endfor %}
+                {% for attachment in task.attachments %}
+                    <div class="knowledge-item attachment">
+                        <div class="knowledge-meta">
+                            <span class="pill subtle">Attachment</span>
+                            <span class="pill subtle">{{ attachment.created_at.strftime('%b %d, %Y') }}</span>
+                        </div>
+                        <a href="{{ attachment.url }}" target="_blank">{{ attachment.title }}</a>
+                    </div>
+                {% endfor %}
+                {% if task.notes|length == 0 and task.attachments|length == 0 %}
+                    <p class="muted">No notes or attachments yet.</p>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="card form-card">
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow">Time</p>
+                    <h3>Time tracking</h3>
+                </div>
+            </div>
+            {% set total_minutes = task.time_entries|map(attribute='duration_minutes')|select|sum %}
+            <p class="lede">Logged {{ total_minutes|default(0)|int }} minutes across {{ task.time_entries|length }} sessions.</p>
+            <ul class="mini-list">
+                {% for entry in time_entries|sort(attribute='started_at', reverse=True) %}
+                    <li>{{ entry.started_at.strftime('%b %d %H:%M') }} → {{ entry.ended_at.strftime('%H:%M') if entry.ended_at else 'running' }} ({{ entry.duration_minutes or '?' }}m)</li>
+                {% else %}
+                    <li class="muted">No time entries yet.</li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div class="card form-card">
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow">Audit</p>
+                    <h3>Collaboration log</h3>
+                </div>
+            </div>
+            <ul class="mini-list">
+                {% for log in task.audit_logs|sort(attribute='created_at', reverse=True) %}
+                    <li>
+                        <span class="pill subtle">{{ log.action }}</span>
+                        <span class="muted">{{ log.created_at.strftime('%b %d %H:%M') }}</span>
+                        <p class="mini">{{ log.details or '' }}</p>
+                    </li>
+                {% else %}
+                    <li class="muted">No audit entries yet.</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}

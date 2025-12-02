@@ -1,0 +1,8 @@
+name,age,email,salary,department,start_date
+John Doe,25.0,john.doe@email.com,50000.0,Engineering,2023-01-15
+Jane Smith,30.0,jane.smith@email.com,60000.0,Marketing,2023-02-20
+Diana Prince,22.0,diana.prince@email.com,45000.0,HR,2023-06-01
+Bruce Wayne,40.0,bruce.wayne@email.com,80000.0,Engineering,2023-07-15
+Clark Kent,29.0,clark.kent@email.com,65000.0,Marketing,2023-08-20
+Tony Stark,45.0,tony.stark@email.com,90000.0,Engineering,2023-09-10
+Natasha Romanoff,32.0,natasha.romanoff@email.com,75000.0,Sales,2023-10-05

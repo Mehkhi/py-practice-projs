@@ -1,0 +1,11 @@
+2025-10-06 21:11:34,359 - rule_based_chatbot.main - INFO - Chatbot initialized successfully
+2025-10-06 21:11:37,919 - rule_based_chatbot.main - INFO - Chatbot initialized successfully
+2025-10-06 21:11:40,889 - rule_based_chatbot.main - INFO - Chatbot initialized successfully
+2025-10-06 21:11:45,077 - rule_based_chatbot.main - INFO - Chatbot initialized successfully
+2025-10-06 21:11:48,572 - rule_based_chatbot.core - WARNING - Could not load config file rules.json: Expecting value: line 4 column 7 (char 41)
+2025-10-06 21:11:48,572 - rule_based_chatbot.main - INFO - Chatbot initialized successfully
+2025-10-06 21:12:54,191 - rule_based_chatbot.core - INFO - Loaded custom rules from rules.json
+2025-10-06 21:12:54,191 - rule_based_chatbot.main - INFO - Chatbot initialized successfully
+2025-10-06 21:14:30,242 - rule_based_chatbot.main - INFO - Chatbot initialized successfully
+2025-10-06 21:14:34,527 - rule_based_chatbot.core - INFO - Loaded custom rules from rules.json
+2025-10-06 21:14:34,527 - rule_based_chatbot.main - INFO - Chatbot initialized successfully

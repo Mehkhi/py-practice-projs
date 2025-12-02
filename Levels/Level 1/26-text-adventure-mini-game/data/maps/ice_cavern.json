@@ -1,0 +1,2050 @@
+{
+  "map_id": "ice_cavern",
+  "width": 20,
+  "height": 20,
+  "tiles": [
+    [
+      {
+        "tile_id": "ice_wall",
+        "walkable": false,
+        "sprite_id": "ice_wall"
+      },
+      {
+        "tile_id": "ice_wall",
+        "walkable": false,
+        "sprite_id": "ice_wall"
+      },
+      {
+        "tile_id": "ice_wall",
+        "walkable": false,
+        "sprite_id": "ice_wall"
+      },
+      {
+        "tile_id": "ice_wall",
+        "walkable": false,
+        "sprite_id": "ice_wall"
+      },
+      {
+        "tile_id": "ice_wall",
+        "walkable": false,
+        "sprite_id": "ice_wall"
+      },
+      {
+        "tile_id": "ice_wall",
+        "walkable": false,
+        "sprite_id": "ice_wall"
+      },
+      {
+        "tile_id": "ice_wall",
+        "walkable": false,
+        "sprite_id": "ice_wall"
+      },
+      {
+        "tile_id": "ice_wall",
+        "walkable": false,
+        "sprite_id": "ice_wall"
+      },
+      {
+        "tile_id": "ice_wall",
+        "walkable": false,
+        "sprite_id": "ice_wall"
+      },
+      {
+        "tile_id": "ice_wall",
+        "walkable": false,
+        "sprite_id": "ice_wall"
+      },
+      {
+        "tile_id": "ice_wall",
+        "walkable": false,
+        "sprite_id": "ice_wall"
+      },
+      {
+        "tile_id": "ice_wall",
+        "walkable": false,
+        "sprite_id": "ice_wall"
+      },
+      {
+        "tile_id": "ice_wall",
+        "walkable": false,
+        "sprite_id": "ice_wall"
+      },
+      {
+        "tile_id": "ice_wall",
+        "walkable": false,
+        "sprite_id": "ice_wall"
+      },
+      {
+        "tile_id": "ice_wall",
+        "walkable": false,
+        "sprite_id": "ice_wall"
+      },
+      {
+        "tile_id": "ice_wall",
+        "walkable": false,
+        "sprite_id": "ice_wall"
+      },
+      {
+        "tile_id": "ice_wall",
+        "walkable": false,
+        "sprite_id": "ice_wall"
+      },
+      {
+        "tile_id": "ice_wall",
+        "walkable": false,
+        "sprite_id": "ice_wall"
+      },
+      {
+        "tile_id": "ice_wall",
+        "walkable": false,
+        "sprite_id": "ice_wall"
+      },
+      {
+        "tile_id": "ice_wall",
+        "walkable": false,
+        "sprite_id": "ice_wall"
+      }
+    ],
+    [
+      {
+        "tile_id": "ice_wall",
+        "walkable": false,
+        "sprite_id": "ice_wall"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "ice_wall",
+        "walkable": false,
+        "sprite_id": "ice_wall"
+      }
+    ],
+    [
+      {
+        "tile_id": "ice_wall",
+        "walkable": false,
+        "sprite_id": "ice_wall"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "ice_wall",
+        "walkable": false,
+        "sprite_id": "ice_wall"
+      }
+    ],
+    [
+      {
+        "tile_id": "ice_wall",
+        "walkable": false,
+        "sprite_id": "ice_wall"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "ice_wall",
+        "walkable": false,
+        "sprite_id": "ice_wall"
+      }
+    ],
+    [
+      {
+        "tile_id": "ice_wall",
+        "walkable": false,
+        "sprite_id": "ice_wall"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "ice_wall",
+        "walkable": false,
+        "sprite_id": "ice_wall"
+      }
+    ],
+    [
+      {
+        "tile_id": "ice_wall",
+        "walkable": false,
+        "sprite_id": "ice_wall"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "ice_wall",
+        "walkable": false,
+        "sprite_id": "ice_wall"
+      }
+    ],
+    [
+      {
+        "tile_id": "ice_wall",
+        "walkable": false,
+        "sprite_id": "ice_wall"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "ice_wall",
+        "walkable": false,
+        "sprite_id": "ice_wall"
+      }
+    ],
+    [
+      {
+        "tile_id": "ice_wall",
+        "walkable": false,
+        "sprite_id": "ice_wall"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "ice_wall",
+        "walkable": false,
+        "sprite_id": "ice_wall"
+      }
+    ],
+    [
+      {
+        "tile_id": "ice_wall",
+        "walkable": false,
+        "sprite_id": "ice_wall"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "ice_wall",
+        "walkable": false,
+        "sprite_id": "ice_wall"
+      }
+    ],
+    [
+      {
+        "tile_id": "ice_wall",
+        "walkable": false,
+        "sprite_id": "ice_wall"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "ice_wall",
+        "walkable": false,
+        "sprite_id": "ice_wall"
+      }
+    ],
+    [
+      {
+        "tile_id": "ice_wall",
+        "walkable": false,
+        "sprite_id": "ice_wall"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "ice_wall",
+        "walkable": false,
+        "sprite_id": "ice_wall"
+      }
+    ],
+    [
+      {
+        "tile_id": "ice_wall",
+        "walkable": false,
+        "sprite_id": "ice_wall"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "ice_wall",
+        "walkable": false,
+        "sprite_id": "ice_wall"
+      }
+    ],
+    [
+      {
+        "tile_id": "ice_wall",
+        "walkable": false,
+        "sprite_id": "ice_wall"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "ice_wall",
+        "walkable": false,
+        "sprite_id": "ice_wall"
+      }
+    ],
+    [
+      {
+        "tile_id": "ice_wall",
+        "walkable": false,
+        "sprite_id": "ice_wall"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "ice_wall",
+        "walkable": false,
+        "sprite_id": "ice_wall"
+      }
+    ],
+    [
+      {
+        "tile_id": "ice_wall",
+        "walkable": false,
+        "sprite_id": "ice_wall"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "ice_wall",
+        "walkable": false,
+        "sprite_id": "ice_wall"
+      }
+    ],
+    [
+      {
+        "tile_id": "ice_wall",
+        "walkable": false,
+        "sprite_id": "ice_wall"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "ice_wall",
+        "walkable": false,
+        "sprite_id": "ice_wall"
+      }
+    ],
+    [
+      {
+        "tile_id": "ice_wall",
+        "walkable": false,
+        "sprite_id": "ice_wall"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "ice_wall",
+        "walkable": false,
+        "sprite_id": "ice_wall"
+      }
+    ],
+    [
+      {
+        "tile_id": "ice_wall",
+        "walkable": false,
+        "sprite_id": "ice_wall"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "ice_wall",
+        "walkable": false,
+        "sprite_id": "ice_wall"
+      }
+    ],
+    [
+      {
+        "tile_id": "ice_wall",
+        "walkable": false,
+        "sprite_id": "ice_wall"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "snow_floor",
+        "walkable": true,
+        "sprite_id": "snow_floor"
+      },
+      {
+        "tile_id": "ice_wall",
+        "walkable": false,
+        "sprite_id": "ice_wall"
+      }
+    ],
+    [
+      {
+        "tile_id": "ice_wall",
+        "walkable": false,
+        "sprite_id": "ice_wall"
+      },
+      {
+        "tile_id": "ice_wall",
+        "walkable": false,
+        "sprite_id": "ice_wall"
+      },
+      {
+        "tile_id": "ice_wall",
+        "walkable": false,
+        "sprite_id": "ice_wall"
+      },
+      {
+        "tile_id": "ice_wall",
+        "walkable": false,
+        "sprite_id": "ice_wall"
+      },
+      {
+        "tile_id": "ice_wall",
+        "walkable": false,
+        "sprite_id": "ice_wall"
+      },
+      {
+        "tile_id": "ice_wall",
+        "walkable": false,
+        "sprite_id": "ice_wall"
+      },
+      {
+        "tile_id": "ice_wall",
+        "walkable": false,
+        "sprite_id": "ice_wall"
+      },
+      {
+        "tile_id": "ice_wall",
+        "walkable": false,
+        "sprite_id": "ice_wall"
+      },
+      {
+        "tile_id": "ice_wall",
+        "walkable": false,
+        "sprite_id": "ice_wall"
+      },
+      {
+        "tile_id": "ice_wall",
+        "walkable": false,
+        "sprite_id": "ice_wall"
+      },
+      {
+        "tile_id": "ice_wall",
+        "walkable": false,
+        "sprite_id": "ice_wall"
+      },
+      {
+        "tile_id": "ice_wall",
+        "walkable": false,
+        "sprite_id": "ice_wall"
+      },
+      {
+        "tile_id": "ice_wall",
+        "walkable": false,
+        "sprite_id": "ice_wall"
+      },
+      {
+        "tile_id": "ice_wall",
+        "walkable": false,
+        "sprite_id": "ice_wall"
+      },
+      {
+        "tile_id": "ice_wall",
+        "walkable": false,
+        "sprite_id": "ice_wall"
+      },
+      {
+        "tile_id": "ice_wall",
+        "walkable": false,
+        "sprite_id": "ice_wall"
+      },
+      {
+        "tile_id": "ice_wall",
+        "walkable": false,
+        "sprite_id": "ice_wall"
+      },
+      {
+        "tile_id": "ice_wall",
+        "walkable": false,
+        "sprite_id": "ice_wall"
+      },
+      {
+        "tile_id": "ice_wall",
+        "walkable": false,
+        "sprite_id": "ice_wall"
+      },
+      {
+        "tile_id": "ice_wall",
+        "walkable": false,
+        "sprite_id": "ice_wall"
+      }
+    ]
+  ],
+  "warps": [],
+  "triggers": [],
+  "props": []
+}

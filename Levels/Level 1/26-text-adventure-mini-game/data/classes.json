@@ -1,0 +1,270 @@
+{
+  "classes": {
+    "warrior": {
+      "id": "warrior",
+      "name": "Warrior",
+      "description": "A stalwart fighter who excels in physical combat and defense.",
+      "stats": {
+        "max_hp": 120,
+        "hp": 120,
+        "max_sp": 30,
+        "sp": 30,
+        "attack": 14,
+        "defense": 10,
+        "magic": 4,
+        "speed": 8,
+        "luck": 4
+      },
+      "base_skills": ["power_strike"],
+      "starting_weapon": "starter_sword"
+    },
+    "mage": {
+      "id": "mage",
+      "name": "Mage",
+      "description": "A master of arcane arts who wields devastating magical spells.",
+      "stats": {
+        "max_hp": 70,
+        "hp": 70,
+        "max_sp": 80,
+        "sp": 80,
+        "attack": 4,
+        "defense": 4,
+        "magic": 16,
+        "speed": 8,
+        "luck": 6
+      },
+      "base_skills": ["fire_bolt", "ice_shard"],
+      "starting_weapon": "starter_staff"
+    },
+    "rogue": {
+      "id": "rogue",
+      "name": "Rogue",
+      "description": "A swift and cunning fighter who strikes from the shadows.",
+      "stats": {
+        "max_hp": 80,
+        "hp": 80,
+        "max_sp": 50,
+        "sp": 50,
+        "attack": 10,
+        "defense": 5,
+        "magic": 5,
+        "speed": 14,
+        "luck": 12
+      },
+      "base_skills": ["backstab", "poison_blade"],
+      "starting_weapon": "starter_dagger"
+    },
+    "cleric": {
+      "id": "cleric",
+      "name": "Cleric",
+      "description": "A holy warrior who heals allies and smites the wicked.",
+      "stats": {
+        "max_hp": 90,
+        "hp": 90,
+        "max_sp": 60,
+        "sp": 60,
+        "attack": 8,
+        "defense": 8,
+        "magic": 12,
+        "speed": 6,
+        "luck": 6
+      },
+      "base_skills": ["heal", "smite"],
+      "starting_weapon": "starter_mace"
+    },
+    "ranger": {
+      "id": "ranger",
+      "name": "Ranger",
+      "description": "A skilled hunter who strikes from a distance with deadly precision.",
+      "stats": {
+        "max_hp": 85,
+        "hp": 85,
+        "max_sp": 45,
+        "sp": 45,
+        "attack": 12,
+        "defense": 6,
+        "magic": 6,
+        "speed": 12,
+        "luck": 8
+      },
+      "base_skills": ["precise_shot", "multi_shot"],
+      "starting_weapon": "starter_bow"
+    },
+    "berserker": {
+      "id": "berserker",
+      "name": "Berserker",
+      "description": "A ferocious warrior who trades defense for overwhelming offense.",
+      "stats": {
+        "max_hp": 100,
+        "hp": 100,
+        "max_sp": 40,
+        "sp": 40,
+        "attack": 18,
+        "defense": 3,
+        "magic": 2,
+        "speed": 10,
+        "luck": 5
+      },
+      "base_skills": ["berserker_rage", "war_cry"],
+      "starting_weapon": "starter_axe"
+    },
+    "paladin": {
+      "id": "paladin",
+      "name": "Paladin",
+      "description": "A holy knight who combines martial prowess with divine magic.",
+      "stats": {
+        "max_hp": 110,
+        "hp": 110,
+        "max_sp": 45,
+        "sp": 45,
+        "attack": 11,
+        "defense": 9,
+        "magic": 9,
+        "speed": 6,
+        "luck": 5
+      },
+      "base_skills": ["divine_strike", "lay_on_hands"],
+      "starting_weapon": "starter_holy_sword"
+    },
+    "necromancer": {
+      "id": "necromancer",
+      "name": "Necromancer",
+      "description": "A dark mage who commands the forces of death and undeath.",
+      "stats": {
+        "max_hp": 65,
+        "hp": 65,
+        "max_sp": 85,
+        "sp": 85,
+        "attack": 3,
+        "defense": 3,
+        "magic": 15,
+        "speed": 7,
+        "luck": 8
+      },
+      "base_skills": ["drain_life", "raise_undead"],
+      "starting_weapon": "starter_skull_staff"
+    },
+    "monk": {
+      "id": "monk",
+      "name": "Monk",
+      "description": "A martial artist who channels inner energy into powerful strikes.",
+      "stats": {
+        "max_hp": 85,
+        "hp": 85,
+        "max_sp": 55,
+        "sp": 55,
+        "attack": 11,
+        "defense": 7,
+        "magic": 6,
+        "speed": 13,
+        "luck": 7
+      },
+      "base_skills": ["ki_strike", "meditate"],
+      "starting_weapon": "starter_fists"
+    },
+    "bard": {
+      "id": "bard",
+      "name": "Bard",
+      "description": "A charismatic performer whose music inspires allies and confounds foes.",
+      "stats": {
+        "max_hp": 75,
+        "hp": 75,
+        "max_sp": 65,
+        "sp": 65,
+        "attack": 6,
+        "defense": 5,
+        "magic": 10,
+        "speed": 10,
+        "luck": 14
+      },
+      "base_skills": ["inspiring_song", "discordant_note"],
+      "starting_weapon": "starter_lute"
+    },
+    "summoner": {
+      "id": "summoner",
+      "name": "Summoner",
+      "description": "A mystic who calls forth spirits and elementals to fight alongside them.",
+      "stats": {
+        "max_hp": 70,
+        "hp": 70,
+        "max_sp": 75,
+        "sp": 75,
+        "attack": 4,
+        "defense": 4,
+        "magic": 14,
+        "speed": 8,
+        "luck": 9
+      },
+      "base_skills": ["summon_elemental", "spirit_link"],
+      "starting_weapon": "starter_orb"
+    },
+    "knight": {
+      "id": "knight",
+      "name": "Knight",
+      "description": "An armored defender who protects allies and draws enemy attention.",
+      "stats": {
+        "max_hp": 115,
+        "hp": 115,
+        "max_sp": 35,
+        "sp": 35,
+        "attack": 10,
+        "defense": 12,
+        "magic": 3,
+        "speed": 5,
+        "luck": 5
+      },
+      "base_skills": ["shield_wall", "challenge"],
+      "starting_weapon": "starter_lance"
+    }
+  },
+  "subclass_bonuses": {
+    "warrior": {
+      "stats": { "attack": 2, "defense": 2, "max_hp": 15 },
+      "skills": ["shield_bash"]
+    },
+    "mage": {
+      "stats": { "magic": 3, "max_sp": 15 },
+      "skills": ["arcane_blast"]
+    },
+    "rogue": {
+      "stats": { "speed": 3, "luck": 2 },
+      "skills": ["shadow_dance"]
+    },
+    "cleric": {
+      "stats": { "magic": 2, "defense": 1, "max_sp": 10 },
+      "skills": ["barrier"]
+    },
+    "ranger": {
+      "stats": { "attack": 2, "speed": 2 },
+      "skills": ["poison_strike"]
+    },
+    "berserker": {
+      "stats": { "attack": 4, "max_hp": 10 },
+      "skills": ["power_strike"]
+    },
+    "paladin": {
+      "stats": { "attack": 2, "defense": 2, "magic": 1 },
+      "skills": ["smite"]
+    },
+    "necromancer": {
+      "stats": { "magic": 3, "max_sp": 10 },
+      "skills": ["drain_life"]
+    },
+    "monk": {
+      "stats": { "speed": 3, "attack": 1, "max_sp": 5 },
+      "skills": ["flurry_of_blows"]
+    },
+    "bard": {
+      "stats": { "luck": 3, "magic": 2 },
+      "skills": ["lullaby"]
+    },
+    "summoner": {
+      "stats": { "magic": 2, "max_sp": 12 },
+      "skills": ["fire_bolt"]
+    },
+    "knight": {
+      "stats": { "defense": 3, "max_hp": 15 },
+      "skills": ["shield_bash"]
+    }
+  }
+}

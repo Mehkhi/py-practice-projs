@@ -1,0 +1,6 @@
+2025-10-06 21:34:38,670 - rss_reader.core - INFO - Database initialized successfully
+2025-10-06 21:34:39,939 - rss_reader.core - INFO - Added feed: Test Feed
+2025-10-06 21:34:46,470 - rss_reader.core - INFO - Database initialized successfully
+2025-10-06 21:34:49,587 - rss_reader.core - INFO - Database initialized successfully
+2025-10-06 21:34:49,726 - rss_reader.core - INFO - Fetched 38 articles from feed 1
+2025-10-06 21:34:53,132 - rss_reader.core - INFO - Database initialized successfully

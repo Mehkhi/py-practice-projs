@@ -1,0 +1,53 @@
+{
+  "unlocks": {
+    "all_challenge_dungeons": {
+      "unlock_id": "all_challenge_dungeons",
+      "name": "Challenge Dungeons Unlocked",
+      "description": "All challenge dungeons are now accessible regardless of level.",
+      "unlock_type": "dungeon",
+      "requires_ending": null
+    },
+    "legendary_tier": {
+      "unlock_id": "legendary_tier",
+      "name": "Legendary Tier",
+      "description": "The most difficult challenges are now available.",
+      "unlock_type": "dungeon",
+      "requires_ending": null
+    },
+    "boss_rush_mode": {
+      "unlock_id": "boss_rush_mode",
+      "name": "Boss Rush Mode",
+      "description": "Fight all bosses in sequence. Accessible from title screen.",
+      "unlock_type": "feature",
+      "requires_ending": null
+    },
+    "hard_mode": {
+      "unlock_id": "hard_mode",
+      "name": "Hard Mode",
+      "description": "Start a new game with increased difficulty.",
+      "unlock_type": "difficulty",
+      "requires_ending": null
+    },
+    "gallery_mode": {
+      "unlock_id": "gallery_mode",
+      "name": "Gallery",
+      "description": "View all discovered sprites, music, and cutscenes.",
+      "unlock_type": "feature",
+      "requires_ending": null
+    },
+    "good_ending_bonus": {
+      "unlock_id": "good_ending_bonus",
+      "name": "Hero's Reward",
+      "description": "Bonus starting gold and items on NG+ for achieving the good ending.",
+      "unlock_type": "cosmetic",
+      "requires_ending": "good"
+    },
+    "true_ending_access": {
+      "unlock_id": "true_ending_access",
+      "name": "Path to Truth",
+      "description": "The ultimate secret boss is now discoverable.",
+      "unlock_type": "boss",
+      "requires_ending": "good"
+    }
+  }
+}

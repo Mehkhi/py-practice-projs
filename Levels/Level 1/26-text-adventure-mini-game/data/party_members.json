@@ -1,0 +1,175 @@
+{
+  "party_members": {
+    "luna": {
+      "entity_id": "luna",
+      "name": "Luna",
+      "sprite_id": "party_luna",
+      "role": "mage",
+      "portrait_id": "portrait_luna",
+      "base_skills": ["fireball", "heal"],
+      "formation_position": "back",
+      "stats": {
+        "max_hp": 80,
+        "hp": 80,
+        "max_sp": 50,
+        "sp": 50,
+        "attack": 5,
+        "defense": 4,
+        "magic": 12,
+        "speed": 8,
+        "luck": 6
+      },
+      "equipment": {},
+      "recruitment": {
+        "requires_flag": "forest_wolves_cleared",
+        "dialogue_id": "luna_recruit",
+        "location": "forest_path"
+      },
+      "description": "A wandering mage with powerful fire magic and healing abilities."
+    },
+    "brock": {
+      "entity_id": "brock",
+      "name": "Brock",
+      "sprite_id": "party_brock",
+      "role": "fighter",
+      "portrait_id": "portrait_brock",
+      "base_skills": ["power_strike"],
+      "formation_position": "front",
+      "stats": {
+        "max_hp": 120,
+        "hp": 120,
+        "max_sp": 25,
+        "sp": 25,
+        "attack": 14,
+        "defense": 10,
+        "magic": 2,
+        "speed": 5,
+        "luck": 4
+      },
+      "equipment": {
+        "weapon": "iron_sword"
+      },
+      "recruitment": {
+        "requires_flag": "cave_cleared",
+        "dialogue_id": "brock_recruit",
+        "location": "dark_cave"
+      },
+      "description": "A stalwart warrior who excels at dealing heavy physical damage."
+    },
+    "sage": {
+      "entity_id": "sage",
+      "name": "Sage",
+      "sprite_id": "party_sage",
+      "role": "healer",
+      "portrait_id": "portrait_sage",
+      "base_skills": ["heal", "cure"],
+      "formation_position": "back",
+      "stats": {
+        "max_hp": 70,
+        "hp": 70,
+        "max_sp": 60,
+        "sp": 60,
+        "attack": 4,
+        "defense": 5,
+        "magic": 10,
+        "speed": 7,
+        "luck": 8
+      },
+      "equipment": {},
+      "recruitment": {
+        "requires_flag": "garden_visited",
+        "dialogue_id": "sage_recruit",
+        "location": "secret_garden"
+      },
+      "description": "A gentle healer from the secret garden with restorative magic."
+    },
+    "shadow": {
+      "entity_id": "shadow",
+      "name": "Shadow",
+      "sprite_id": "party_shadow",
+      "role": "support",
+      "portrait_id": "portrait_shadow",
+      "base_skills": ["backstab", "shadow_dance"],
+      "formation_position": "middle",
+      "stats": {
+        "max_hp": 75,
+        "hp": 75,
+        "max_sp": 45,
+        "sp": 45,
+        "attack": 11,
+        "defense": 5,
+        "magic": 4,
+        "speed": 14,
+        "luck": 12
+      },
+      "equipment": {
+        "weapon": "starter_dagger"
+      },
+      "recruitment": {
+        "requires_flag": "ruins_explored",
+        "dialogue_id": "shadow_recruit",
+        "location": "ancient_ruins"
+      },
+      "description": "A mysterious rogue who strikes from the shadows with deadly precision."
+    },
+    "flint": {
+      "entity_id": "flint",
+      "name": "Flint",
+      "sprite_id": "party_flint",
+      "role": "fighter",
+      "portrait_id": "portrait_flint",
+      "base_skills": ["precise_shot", "multi_shot"],
+      "formation_position": "back",
+      "stats": {
+        "max_hp": 85,
+        "hp": 85,
+        "max_sp": 40,
+        "sp": 40,
+        "attack": 12,
+        "defense": 6,
+        "magic": 5,
+        "speed": 11,
+        "luck": 9
+      },
+      "equipment": {
+        "weapon": "starter_bow"
+      },
+      "recruitment": {
+        "requires_flag": "mountain_explored",
+        "dialogue_id": "flint_recruit",
+        "location": "mountain_pass"
+      },
+      "description": "A skilled ranger who never misses a shot from his trusted bow."
+    },
+    "thorne": {
+      "entity_id": "thorne",
+      "name": "Thorne",
+      "sprite_id": "party_thorne",
+      "role": "fighter",
+      "portrait_id": "portrait_thorne",
+      "base_skills": ["shield_bash", "shield_wall"],
+      "formation_position": "front",
+      "stats": {
+        "max_hp": 130,
+        "hp": 130,
+        "max_sp": 30,
+        "sp": 30,
+        "attack": 9,
+        "defense": 14,
+        "magic": 3,
+        "speed": 5,
+        "luck": 5
+      },
+      "equipment": {
+        "weapon": "starter_lance",
+        "armor": "leather_armor"
+      },
+      "recruitment": {
+        "requires_flag": "swamp_cleared",
+        "dialogue_id": "thorne_recruit",
+        "location": "murky_swamp"
+      },
+      "description": "An armored knight who protects allies and draws enemy attacks."
+    }
+  }
+}

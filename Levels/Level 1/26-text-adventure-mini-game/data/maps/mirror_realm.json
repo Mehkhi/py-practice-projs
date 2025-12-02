@@ -1,0 +1,802 @@
+{
+  "map_id": "mirror_realm",
+  "width": 15,
+  "height": 10,
+  "tiles": [
+    [
+      {
+        "tile_id": "crystal_wall",
+        "walkable": false,
+        "sprite_id": "crystal_wall"
+      },
+      {
+        "tile_id": "crystal_wall",
+        "walkable": false,
+        "sprite_id": "crystal_wall"
+      },
+      {
+        "tile_id": "crystal_wall",
+        "walkable": false,
+        "sprite_id": "crystal_wall"
+      },
+      {
+        "tile_id": "crystal_wall",
+        "walkable": false,
+        "sprite_id": "crystal_wall"
+      },
+      {
+        "tile_id": "crystal_wall",
+        "walkable": false,
+        "sprite_id": "crystal_wall"
+      },
+      {
+        "tile_id": "crystal_wall",
+        "walkable": false,
+        "sprite_id": "crystal_wall"
+      },
+      {
+        "tile_id": "crystal_wall",
+        "walkable": false,
+        "sprite_id": "crystal_wall"
+      },
+      {
+        "tile_id": "crystal_wall",
+        "walkable": false,
+        "sprite_id": "crystal_wall"
+      },
+      {
+        "tile_id": "crystal_wall",
+        "walkable": false,
+        "sprite_id": "crystal_wall"
+      },
+      {
+        "tile_id": "crystal_wall",
+        "walkable": false,
+        "sprite_id": "crystal_wall"
+      },
+      {
+        "tile_id": "crystal_wall",
+        "walkable": false,
+        "sprite_id": "crystal_wall"
+      },
+      {
+        "tile_id": "crystal_wall",
+        "walkable": false,
+        "sprite_id": "crystal_wall"
+      },
+      {
+        "tile_id": "crystal_wall",
+        "walkable": false,
+        "sprite_id": "crystal_wall"
+      },
+      {
+        "tile_id": "crystal_wall",
+        "walkable": false,
+        "sprite_id": "crystal_wall"
+      },
+      {
+        "tile_id": "crystal_wall",
+        "walkable": false,
+        "sprite_id": "crystal_wall"
+      }
+    ],
+    [
+      {
+        "tile_id": "crystal_wall",
+        "walkable": false,
+        "sprite_id": "crystal_wall"
+      },
+      {
+        "tile_id": "crystal_floor",
+        "walkable": true,
+        "sprite_id": "crystal_floor"
+      },
+      {
+        "tile_id": "crystal_floor",
+        "walkable": true,
+        "sprite_id": "crystal_floor"
+      },
+      {
+        "tile_id": "crystal_floor",
+        "walkable": true,
+        "sprite_id": "crystal_floor"
+      },
+      {
+        "tile_id": "crystal_floor",
+        "walkable": true,
+        "sprite_id": "crystal_floor"
+      },
+      {
+        "tile_id": "crystal_floor",
+        "walkable": true,
+        "sprite_id": "crystal_floor"
+      },
+      {
+        "tile_id": "crystal_floor",
+        "walkable": true,
+        "sprite_id": "crystal_floor"
+      },
+      {
+        "tile_id": "crystal_floor",
+        "walkable": true,
+        "sprite_id": "crystal_floor"
+      },
+      {
+        "tile_id": "crystal_floor",
+        "walkable": true,
+        "sprite_id": "crystal_floor"
+      },
+      {
+        "tile_id": "crystal_floor",
+        "walkable": true,
+        "sprite_id": "crystal_floor"
+      },
+      {
+        "tile_id": "crystal_floor",
+        "walkable": true,
+        "sprite_id": "crystal_floor"
+      },
+      {
+        "tile_id": "crystal_floor",
+        "walkable": true,
+        "sprite_id": "crystal_floor"
+      },
+      {
+        "tile_id": "crystal_floor",
+        "walkable": true,
+        "sprite_id": "crystal_floor"
+      },
+      {
+        "tile_id": "crystal_floor",
+        "walkable": true,
+        "sprite_id": "crystal_floor"
+      },
+      {
+        "tile_id": "crystal_wall",
+        "walkable": false,
+        "sprite_id": "crystal_wall"
+      }
+    ],
+    [
+      {
+        "tile_id": "crystal_wall",
+        "walkable": false,
+        "sprite_id": "crystal_wall"
+      },
+      {
+        "tile_id": "crystal_floor",
+        "walkable": true,
+        "sprite_id": "crystal_floor"
+      },
+      {
+        "tile_id": "crystal_floor",
+        "walkable": true,
+        "sprite_id": "crystal_floor"
+      },
+      {
+        "tile_id": "crystal_floor",
+        "walkable": true,
+        "sprite_id": "crystal_floor"
+      },
+      {
+        "tile_id": "crystal_floor",
+        "walkable": true,
+        "sprite_id": "crystal_floor"
+      },
+      {
+        "tile_id": "crystal_floor",
+        "walkable": true,
+        "sprite_id": "crystal_floor"
+      },
+      {
+        "tile_id": "crystal_floor",
+        "walkable": true,
+        "sprite_id": "crystal_floor"
+      },
+      {
+        "tile_id": "crystal_floor",
+        "walkable": true,
+        "sprite_id": "crystal_floor"
+      },
+      {
+        "tile_id": "crystal_floor",
+        "walkable": true,
+        "sprite_id": "crystal_floor"
+      },
+      {
+        "tile_id": "crystal_floor",
+        "walkable": true,
+        "sprite_id": "crystal_floor"
+      },
+      {
+        "tile_id": "crystal_floor",
+        "walkable": true,
+        "sprite_id": "crystal_floor"
+      },
+      {
+        "tile_id": "crystal_floor",
+        "walkable": true,
+        "sprite_id": "crystal_floor"
+      },
+      {
+        "tile_id": "crystal_floor",
+        "walkable": true,
+        "sprite_id": "crystal_floor"
+      },
+      {
+        "tile_id": "crystal_floor",
+        "walkable": true,
+        "sprite_id": "crystal_floor"
+      },
+      {
+        "tile_id": "crystal_wall",
+        "walkable": false,
+        "sprite_id": "crystal_wall"
+      }
+    ],
+    [
+      {
+        "tile_id": "crystal_wall",
+        "walkable": false,
+        "sprite_id": "crystal_wall"
+      },
+      {
+        "tile_id": "crystal_floor",
+        "walkable": true,
+        "sprite_id": "crystal_floor"
+      },
+      {
+        "tile_id": "crystal_floor",
+        "walkable": true,
+        "sprite_id": "crystal_floor"
+      },
+      {
+        "tile_id": "crystal_floor",
+        "walkable": true,
+        "sprite_id": "crystal_floor"
+      },
+      {
+        "tile_id": "crystal_floor",
+        "walkable": true,
+        "sprite_id": "crystal_floor"
+      },
+      {
+        "tile_id": "crystal_floor",
+        "walkable": true,
+        "sprite_id": "crystal_floor"
+      },
+      {
+        "tile_id": "crystal_floor",
+        "walkable": true,
+        "sprite_id": "crystal_floor"
+      },
+      {
+        "tile_id": "crystal_floor",
+        "walkable": true,
+        "sprite_id": "crystal_floor"
+      },
+      {
+        "tile_id": "crystal_floor",
+        "walkable": true,
+        "sprite_id": "crystal_floor"
+      },
+      {
+        "tile_id": "crystal_floor",
+        "walkable": true,
+        "sprite_id": "crystal_floor"
+      },
+      {
+        "tile_id": "crystal_floor",
+        "walkable": true,
+        "sprite_id": "crystal_floor"
+      },
+      {
+        "tile_id": "crystal_floor",
+        "walkable": true,
+        "sprite_id": "crystal_floor"
+      },
+      {
+        "tile_id": "crystal_floor",
+        "walkable": true,
+        "sprite_id": "crystal_floor"
+      },
+      {
+        "tile_id": "crystal_floor",
+        "walkable": true,
+        "sprite_id": "crystal_floor"
+      },
+      {
+        "tile_id": "crystal_wall",
+        "walkable": false,
+        "sprite_id": "crystal_wall"
+      }
+    ],
+    [
+      {
+        "tile_id": "crystal_wall",
+        "walkable": false,
+        "sprite_id": "crystal_wall"
+      },
+      {
+        "tile_id": "crystal_floor",
+        "walkable": true,
+        "sprite_id": "crystal_floor"
+      },
+      {
+        "tile_id": "crystal_floor",
+        "walkable": true,
+        "sprite_id": "crystal_floor"
+      },
+      {
+        "tile_id": "crystal_floor",
+        "walkable": true,
+        "sprite_id": "crystal_floor"
+      },
+      {
+        "tile_id": "crystal_floor",
+        "walkable": true,
+        "sprite_id": "crystal_floor"
+      },
+      {
+        "tile_id": "crystal_floor",
+        "walkable": true,
+        "sprite_id": "crystal_floor"
+      },
+      {
+        "tile_id": "crystal_floor",
+        "walkable": true,
+        "sprite_id": "crystal_floor"
+      },
+      {
+        "tile_id": "crystal_floor",
+        "walkable": true,
+        "sprite_id": "crystal_floor"
+      },
+      {
+        "tile_id": "crystal_floor",
+        "walkable": true,
+        "sprite_id": "crystal_floor"
+      },
+      {
+        "tile_id": "crystal_floor",
+        "walkable": true,
+        "sprite_id": "crystal_floor"
+      },
+      {
+        "tile_id": "crystal_floor",
+        "walkable": true,
+        "sprite_id": "crystal_floor"
+      },
+      {
+        "tile_id": "crystal_floor",
+        "walkable": true,
+        "sprite_id": "crystal_floor"
+      },
+      {
+        "tile_id": "crystal_floor",
+        "walkable": true,
+        "sprite_id": "crystal_floor"
+      },
+      {
+        "tile_id": "crystal_floor",
+        "walkable": true,
+        "sprite_id": "crystal_floor"
+      },
+      {
+        "tile_id": "crystal_wall",
+        "walkable": false,
+        "sprite_id": "crystal_wall"
+      }
+    ],
+    [
+      {
+        "tile_id": "crystal_wall",
+        "walkable": false,
+        "sprite_id": "crystal_wall"
+      },
+      {
+        "tile_id": "crystal_floor",
+        "walkable": true,
+        "sprite_id": "crystal_floor"
+      },
+      {
+        "tile_id": "crystal_floor",
+        "walkable": true,
+        "sprite_id": "crystal_floor"
+      },
+      {
+        "tile_id": "crystal_floor",
+        "walkable": true,
+        "sprite_id": "crystal_floor"
+      },
+      {
+        "tile_id": "crystal_floor",
+        "walkable": true,
+        "sprite_id": "crystal_floor"
+      },
+      {
+        "tile_id": "crystal_floor",
+        "walkable": true,
+        "sprite_id": "crystal_floor"
+      },
+      {
+        "tile_id": "crystal_floor",
+        "walkable": true,
+        "sprite_id": "crystal_floor"
+      },
+      {
+        "tile_id": "crystal_floor",
+        "walkable": true,
+        "sprite_id": "crystal_floor"
+      },
+      {
+        "tile_id": "crystal_floor",
+        "walkable": true,
+        "sprite_id": "crystal_floor"
+      },
+      {
+        "tile_id": "crystal_floor",
+        "walkable": true,
+        "sprite_id": "crystal_floor"
+      },
+      {
+        "tile_id": "crystal_floor",
+        "walkable": true,
+        "sprite_id": "crystal_floor"
+      },
+      {
+        "tile_id": "crystal_floor",
+        "walkable": true,
+        "sprite_id": "crystal_floor"
+      },
+      {
+        "tile_id": "crystal_floor",
+        "walkable": true,
+        "sprite_id": "crystal_floor"
+      },
+      {
+        "tile_id": "crystal_floor",
+        "walkable": true,
+        "sprite_id": "crystal_floor"
+      },
+      {
+        "tile_id": "crystal_wall",
+        "walkable": false,
+        "sprite_id": "crystal_wall"
+      }
+    ],
+    [
+      {
+        "tile_id": "crystal_wall",
+        "walkable": false,
+        "sprite_id": "crystal_wall"
+      },
+      {
+        "tile_id": "crystal_floor",
+        "walkable": true,
+        "sprite_id": "crystal_floor"
+      },
+      {
+        "tile_id": "crystal_floor",
+        "walkable": true,
+        "sprite_id": "crystal_floor"
+      },
+      {
+        "tile_id": "crystal_floor",
+        "walkable": true,
+        "sprite_id": "crystal_floor"
+      },
+      {
+        "tile_id": "crystal_floor",
+        "walkable": true,
+        "sprite_id": "crystal_floor"
+      },
+      {
+        "tile_id": "crystal_floor",
+        "walkable": true,
+        "sprite_id": "crystal_floor"
+      },
+      {
+        "tile_id": "crystal_floor",
+        "walkable": true,
+        "sprite_id": "crystal_floor"
+      },
+      {
+        "tile_id": "crystal_floor",
+        "walkable": true,
+        "sprite_id": "crystal_floor"
+      },
+      {
+        "tile_id": "crystal_floor",
+        "walkable": true,
+        "sprite_id": "crystal_floor"
+      },
+      {
+        "tile_id": "crystal_floor",
+        "walkable": true,
+        "sprite_id": "crystal_floor"
+      },
+      {
+        "tile_id": "crystal_floor",
+        "walkable": true,
+        "sprite_id": "crystal_floor"
+      },
+      {
+        "tile_id": "crystal_floor",
+        "walkable": true,
+        "sprite_id": "crystal_floor"
+      },
+      {
+        "tile_id": "crystal_floor",
+        "walkable": true,
+        "sprite_id": "crystal_floor"
+      },
+      {
+        "tile_id": "crystal_floor",
+        "walkable": true,
+        "sprite_id": "crystal_floor"
+      },
+      {
+        "tile_id": "crystal_wall",
+        "walkable": false,
+        "sprite_id": "crystal_wall"
+      }
+    ],
+    [
+      {
+        "tile_id": "crystal_wall",
+        "walkable": false,
+        "sprite_id": "crystal_wall"
+      },
+      {
+        "tile_id": "crystal_floor",
+        "walkable": true,
+        "sprite_id": "crystal_floor"
+      },
+      {
+        "tile_id": "crystal_floor",
+        "walkable": true,
+        "sprite_id": "crystal_floor"
+      },
+      {
+        "tile_id": "crystal_floor",
+        "walkable": true,
+        "sprite_id": "crystal_floor"
+      },
+      {
+        "tile_id": "crystal_floor",
+        "walkable": true,
+        "sprite_id": "crystal_floor"
+      },
+      {
+        "tile_id": "crystal_floor",
+        "walkable": true,
+        "sprite_id": "crystal_floor"
+      },
+      {
+        "tile_id": "crystal_floor",
+        "walkable": true,
+        "sprite_id": "crystal_floor"
+      },
+      {
+        "tile_id": "crystal_floor",
+        "walkable": true,
+        "sprite_id": "crystal_floor"
+      },
+      {
+        "tile_id": "crystal_floor",
+        "walkable": true,
+        "sprite_id": "crystal_floor"
+      },
+      {
+        "tile_id": "crystal_floor",
+        "walkable": true,
+        "sprite_id": "crystal_floor"
+      },
+      {
+        "tile_id": "crystal_floor",
+        "walkable": true,
+        "sprite_id": "crystal_floor"
+      },
+      {
+        "tile_id": "crystal_floor",
+        "walkable": true,
+        "sprite_id": "crystal_floor"
+      },
+      {
+        "tile_id": "crystal_floor",
+        "walkable": true,
+        "sprite_id": "crystal_floor"
+      },
+      {
+        "tile_id": "crystal_floor",
+        "walkable": true,
+        "sprite_id": "crystal_floor"
+      },
+      {
+        "tile_id": "crystal_wall",
+        "walkable": false,
+        "sprite_id": "crystal_wall"
+      }
+    ],
+    [
+      {
+        "tile_id": "crystal_wall",
+        "walkable": false,
+        "sprite_id": "crystal_wall"
+      },
+      {
+        "tile_id": "crystal_floor",
+        "walkable": true,
+        "sprite_id": "crystal_floor"
+      },
+      {
+        "tile_id": "crystal_floor",
+        "walkable": true,
+        "sprite_id": "crystal_floor"
+      },
+      {
+        "tile_id": "crystal_floor",
+        "walkable": true,
+        "sprite_id": "crystal_floor"
+      },
+      {
+        "tile_id": "crystal_floor",
+        "walkable": true,
+        "sprite_id": "crystal_floor"
+      },
+      {
+        "tile_id": "crystal_floor",
+        "walkable": true,
+        "sprite_id": "crystal_floor"
+      },
+      {
+        "tile_id": "crystal_floor",
+        "walkable": true,
+        "sprite_id": "crystal_floor"
+      },
+      {
+        "tile_id": "crystal_floor",
+        "walkable": true,
+        "sprite_id": "crystal_floor"
+      },
+      {
+        "tile_id": "crystal_floor",
+        "walkable": true,
+        "sprite_id": "crystal_floor"
+      },
+      {
+        "tile_id": "crystal_floor",
+        "walkable": true,
+        "sprite_id": "crystal_floor"
+      },
+      {
+        "tile_id": "crystal_floor",
+        "walkable": true,
+        "sprite_id": "crystal_floor"
+      },
+      {
+        "tile_id": "crystal_floor",
+        "walkable": true,
+        "sprite_id": "crystal_floor"
+      },
+      {
+        "tile_id": "crystal_floor",
+        "walkable": true,
+        "sprite_id": "crystal_floor"
+      },
+      {
+        "tile_id": "crystal_floor",
+        "walkable": true,
+        "sprite_id": "crystal_floor"
+      },
+      {
+        "tile_id": "crystal_wall",
+        "walkable": false,
+        "sprite_id": "crystal_wall"
+      }
+    ],
+    [
+      {
+        "tile_id": "crystal_wall",
+        "walkable": false,
+        "sprite_id": "crystal_wall"
+      },
+      {
+        "tile_id": "crystal_wall",
+        "walkable": false,
+        "sprite_id": "crystal_wall"
+      },
+      {
+        "tile_id": "crystal_wall",
+        "walkable": false,
+        "sprite_id": "crystal_wall"
+      },
+      {
+        "tile_id": "crystal_wall",
+        "walkable": false,
+        "sprite_id": "crystal_wall"
+      },
+      {
+        "tile_id": "crystal_wall",
+        "walkable": false,
+        "sprite_id": "crystal_wall"
+      },
+      {
+        "tile_id": "crystal_wall",
+        "walkable": false,
+        "sprite_id": "crystal_wall"
+      },
+      {
+        "tile_id": "crystal_wall",
+        "walkable": false,
+        "sprite_id": "crystal_wall"
+      },
+      {
+        "tile_id": "crystal_wall",
+        "walkable": false,
+        "sprite_id": "crystal_wall"
+      },
+      {
+        "tile_id": "crystal_wall",
+        "walkable": false,
+        "sprite_id": "crystal_wall"
+      },
+      {
+        "tile_id": "crystal_wall",
+        "walkable": false,
+        "sprite_id": "crystal_wall"
+      },
+      {
+        "tile_id": "crystal_wall",
+        "walkable": false,
+        "sprite_id": "crystal_wall"
+      },
+      {
+        "tile_id": "crystal_wall",
+        "walkable": false,
+        "sprite_id": "crystal_wall"
+      },
+      {
+        "tile_id": "crystal_wall",
+        "walkable": false,
+        "sprite_id": "crystal_wall"
+      },
+      {
+        "tile_id": "crystal_wall",
+        "walkable": false,
+        "sprite_id": "crystal_wall"
+      },
+      {
+        "tile_id": "crystal_wall",
+        "walkable": false,
+        "sprite_id": "crystal_wall"
+      }
+    ]
+  ],
+  "warps": [
+    {
+      "x": 7,
+      "y": 8,
+      "target_map_id": "forest_path",
+      "target_x": 7,
+      "target_y": 0
+    }
+  ],
+  "triggers": [
+    {
+      "id": "mirror_self_boss",
+      "x": 7,
+      "y": 3,
+      "trigger_type": "battle",
+      "data": {
+        "encounter_id": "secret_boss_mirror",
+        "boss_id": "mirror_self"
+      },
+      "once": false
+    }
+  ],
+  "entities": [],
+  "enemy_spawns": [],
+  "props": []
+}

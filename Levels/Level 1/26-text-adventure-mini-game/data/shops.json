@@ -1,0 +1,118 @@
+{
+  "shops": {
+    "village_general": {
+      "name": "Village General Store",
+      "shop_type": "general",
+      "restock_interval": 3,
+      "stock": {
+        "health_potion": 10,
+        "sp_potion": 5,
+        "torch": 5
+      }
+    },
+    "village_blacksmith": {
+      "name": "Village Blacksmith",
+      "shop_type": "blacksmith",
+      "restock_interval": 7,
+      "stock": {
+        "sword": 3,
+        "leather_armor": 3,
+        "starter_sword": 5,
+        "starter_dagger": 3
+      }
+    },
+    "city_weapon_shop": {
+      "name": "Steel & Edge Weaponry",
+      "shop_type": "weapon",
+      "restock_interval": 5,
+      "stock": {
+        "warriors_blade": 2,
+        "shadow_dagger": 2,
+        "hunters_bow": 2,
+        "berserker_axe": 1,
+        "mage_staff": 2
+      }
+    },
+    "city_armor_shop": {
+      "name": "Guardian's Armory",
+      "shop_type": "armor",
+      "restock_interval": 5,
+      "stock": {
+        "leather_armor": 5,
+        "knights_armor": 2,
+        "paladins_shield": 2,
+        "swift_ring": 3,
+        "holy_symbol": 2
+      }
+    },
+    "city_potion_shop": {
+      "name": "Mystic Brews",
+      "shop_type": "potion",
+      "restock_interval": 2,
+      "stock": {
+        "health_potion": 20,
+        "sp_potion": 15,
+        "elixir": 5
+      }
+    },
+    "mage_tower_shop": {
+      "name": "Arcane Emporium",
+      "shop_type": "weapon",
+      "restock_interval": 7,
+      "stock": {
+        "mage_staff": 3,
+        "arcane_focus": 2,
+        "necromancers_tome": 1,
+        "summoners_crystal": 2,
+        "bards_lyre": 2
+      }
+    },
+    "traveling_merchant": {
+      "name": "Wanderer's Wares",
+      "shop_type": "general",
+      "restock_interval": 10,
+      "stock": {
+        "health_potion": 5,
+        "elixir": 2,
+        "swift_ring": 1,
+        "monks_wraps": 1
+      }
+    },
+    "ironhold_general_shop": {
+      "name": "Helena's General Store",
+      "shop_type": "general",
+      "restock_interval": 3,
+      "stock": {
+        "health_potion": 10,
+        "hi_potion": 5,
+        "sp_potion": 5,
+        "antidote": 5,
+        "phoenix_down": 2
+      }
+    },
+    "nighthaven_black_market_shop": {
+      "name": "The Black Market",
+      "shop_type": "general",
+      "restock_interval": 7,
+      "stock": {
+        "shadow_dagger": 1,
+        "smoke_bomb": 10,
+        "attack_tonic": 5,
+        "speed_tonic": 5
+      }
+    },
+    "fisherman_shop": {
+      "name": "Fisherman's Supplies",
+      "shop_type": "fishing",
+      "restock_interval": 3,
+      "fish_buyer_bonus": 1.2,
+      "stock": {
+        "basic_fishing_rod": 5,
+        "improved_fishing_rod": 3,
+        "master_fishing_rod": 1,
+        "fishing_bait": 20,
+        "premium_bait": 5
+      }
+    }
+  }
+}

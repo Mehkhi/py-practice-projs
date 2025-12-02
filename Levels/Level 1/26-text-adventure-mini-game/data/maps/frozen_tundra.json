@@ -1,0 +1,1292 @@
+{
+  "map_id": "frozen_tundra",
+  "width": 15,
+  "height": 15,
+  "tiles": [
+    [
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "snow",
+        "walkable": true,
+        "sprite_id": "snow"
+      },
+      {
+        "tile_id": "snow",
+        "walkable": true,
+        "sprite_id": "snow"
+      },
+      {
+        "tile_id": "wall",
+        "walkable": false,
+        "sprite_id": "wall"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "snow",
+        "walkable": true,
+        "sprite_id": "snow"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "snow",
+        "walkable": true,
+        "sprite_id": "snow"
+      },
+      {
+        "tile_id": "snow",
+        "walkable": true,
+        "sprite_id": "snow"
+      },
+      {
+        "tile_id": "wall",
+        "walkable": false,
+        "sprite_id": "wall"
+      },
+      {
+        "tile_id": "snow",
+        "walkable": true,
+        "sprite_id": "snow"
+      },
+      {
+        "tile_id": "snow_footprints",
+        "walkable": true,
+        "sprite_id": "snow_footprints"
+      },
+      {
+        "tile_id": "snow",
+        "walkable": true,
+        "sprite_id": "snow"
+      },
+      {
+        "tile_id": "snow",
+        "walkable": true,
+        "sprite_id": "snow"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      }
+    ],
+    [
+      {
+        "tile_id": "snow_footprints",
+        "walkable": true,
+        "sprite_id": "snow_footprints"
+      },
+      {
+        "tile_id": "water",
+        "walkable": false,
+        "sprite_id": "water"
+      },
+      {
+        "tile_id": "snow",
+        "walkable": true,
+        "sprite_id": "snow"
+      },
+      {
+        "tile_id": "snow",
+        "walkable": true,
+        "sprite_id": "snow"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "wall",
+        "walkable": false,
+        "sprite_id": "wall"
+      },
+      {
+        "tile_id": "snow_footprints",
+        "walkable": true,
+        "sprite_id": "snow_footprints"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "snow_footprints",
+        "walkable": true,
+        "sprite_id": "snow_footprints"
+      },
+      {
+        "tile_id": "wall",
+        "walkable": false,
+        "sprite_id": "wall"
+      },
+      {
+        "tile_id": "snow",
+        "walkable": true,
+        "sprite_id": "snow"
+      },
+      {
+        "tile_id": "water",
+        "walkable": false,
+        "sprite_id": "water"
+      },
+      {
+        "tile_id": "snow",
+        "walkable": true,
+        "sprite_id": "snow"
+      }
+    ],
+    [
+      {
+        "tile_id": "snow_footprints",
+        "walkable": true,
+        "sprite_id": "snow_footprints"
+      },
+      {
+        "tile_id": "water",
+        "walkable": false,
+        "sprite_id": "water"
+      },
+      {
+        "tile_id": "water",
+        "walkable": false,
+        "sprite_id": "water"
+      },
+      {
+        "tile_id": "snow",
+        "walkable": true,
+        "sprite_id": "snow"
+      },
+      {
+        "tile_id": "snow_footprints",
+        "walkable": true,
+        "sprite_id": "snow_footprints"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "snow",
+        "walkable": true,
+        "sprite_id": "snow"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "water",
+        "walkable": false,
+        "sprite_id": "water"
+      },
+      {
+        "tile_id": "water",
+        "walkable": false,
+        "sprite_id": "water"
+      },
+      {
+        "tile_id": "snow",
+        "walkable": true,
+        "sprite_id": "snow"
+      }
+    ],
+    [
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "water",
+        "walkable": false,
+        "sprite_id": "water"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "stone_cracked",
+        "walkable": true,
+        "sprite_id": "stone_cracked"
+      },
+      {
+        "tile_id": "stone_floor",
+        "walkable": true,
+        "sprite_id": "stone_floor"
+      },
+      {
+        "tile_id": "stone_floor",
+        "walkable": true,
+        "sprite_id": "stone_floor"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "moss",
+        "walkable": true,
+        "sprite_id": "moss"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "water",
+        "walkable": false,
+        "sprite_id": "water"
+      },
+      {
+        "tile_id": "snow",
+        "walkable": true,
+        "sprite_id": "snow"
+      },
+      {
+        "tile_id": "snow",
+        "walkable": true,
+        "sprite_id": "snow"
+      }
+    ],
+    [
+      {
+        "tile_id": "wall",
+        "walkable": false,
+        "sprite_id": "wall"
+      },
+      {
+        "tile_id": "snow",
+        "walkable": true,
+        "sprite_id": "snow"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "stone_cracked",
+        "walkable": true,
+        "sprite_id": "stone_cracked"
+      },
+      {
+        "tile_id": "snow_footprints",
+        "walkable": true,
+        "sprite_id": "snow_footprints"
+      },
+      {
+        "tile_id": "snow_footprints",
+        "walkable": true,
+        "sprite_id": "snow_footprints"
+      },
+      {
+        "tile_id": "snow",
+        "walkable": true,
+        "sprite_id": "snow"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "wall",
+        "walkable": false,
+        "sprite_id": "wall"
+      }
+    ],
+    [
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "snow",
+        "walkable": true,
+        "sprite_id": "snow"
+      },
+      {
+        "tile_id": "stone_floor",
+        "walkable": true,
+        "sprite_id": "stone_floor"
+      },
+      {
+        "tile_id": "stone_floor",
+        "walkable": true,
+        "sprite_id": "stone_floor"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "snow_footprints",
+        "walkable": true,
+        "sprite_id": "snow_footprints"
+      },
+      {
+        "tile_id": "wall",
+        "walkable": false,
+        "sprite_id": "wall"
+      },
+      {
+        "tile_id": "wall",
+        "walkable": false,
+        "sprite_id": "wall"
+      },
+      {
+        "tile_id": "wall",
+        "walkable": false,
+        "sprite_id": "wall"
+      },
+      {
+        "tile_id": "snow",
+        "walkable": true,
+        "sprite_id": "snow"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "stone_floor",
+        "walkable": true,
+        "sprite_id": "stone_floor"
+      },
+      {
+        "tile_id": "snow_footprints",
+        "walkable": true,
+        "sprite_id": "snow_footprints"
+      },
+      {
+        "tile_id": "snow",
+        "walkable": true,
+        "sprite_id": "snow"
+      }
+    ],
+    [
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "stone_floor",
+        "walkable": true,
+        "sprite_id": "stone_floor"
+      },
+      {
+        "tile_id": "snow",
+        "walkable": true,
+        "sprite_id": "snow"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "wall",
+        "walkable": false,
+        "sprite_id": "wall"
+      },
+      {
+        "tile_id": "snow_footprints",
+        "walkable": true,
+        "sprite_id": "snow_footprints"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "snow",
+        "walkable": true,
+        "sprite_id": "snow"
+      },
+      {
+        "tile_id": "wall",
+        "walkable": false,
+        "sprite_id": "wall"
+      },
+      {
+        "tile_id": "snow",
+        "walkable": true,
+        "sprite_id": "snow"
+      },
+      {
+        "tile_id": "snow",
+        "walkable": true,
+        "sprite_id": "snow"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      }
+    ],
+    [
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "stone_floor",
+        "walkable": true,
+        "sprite_id": "stone_floor"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "snow_footprints",
+        "walkable": true,
+        "sprite_id": "snow_footprints"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "snow",
+        "walkable": true,
+        "sprite_id": "snow"
+      },
+      {
+        "tile_id": "snow",
+        "walkable": true,
+        "sprite_id": "snow"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "snow",
+        "walkable": true,
+        "sprite_id": "snow"
+      },
+      {
+        "tile_id": "snow",
+        "walkable": true,
+        "sprite_id": "snow"
+      },
+      {
+        "tile_id": "snow",
+        "walkable": true,
+        "sprite_id": "snow"
+      },
+      {
+        "tile_id": "snow",
+        "walkable": true,
+        "sprite_id": "snow"
+      },
+      {
+        "tile_id": "snow",
+        "walkable": true,
+        "sprite_id": "snow"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      }
+    ],
+    [
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "stone_cracked",
+        "walkable": true,
+        "sprite_id": "stone_cracked"
+      },
+      {
+        "tile_id": "snow",
+        "walkable": true,
+        "sprite_id": "snow"
+      },
+      {
+        "tile_id": "snow",
+        "walkable": true,
+        "sprite_id": "snow"
+      },
+      {
+        "tile_id": "wall",
+        "walkable": false,
+        "sprite_id": "wall"
+      },
+      {
+        "tile_id": "snow",
+        "walkable": true,
+        "sprite_id": "snow"
+      },
+      {
+        "tile_id": "snow_footprints",
+        "walkable": true,
+        "sprite_id": "snow_footprints"
+      },
+      {
+        "tile_id": "snow",
+        "walkable": true,
+        "sprite_id": "snow"
+      },
+      {
+        "tile_id": "wall",
+        "walkable": false,
+        "sprite_id": "wall"
+      },
+      {
+        "tile_id": "snow",
+        "walkable": true,
+        "sprite_id": "snow"
+      },
+      {
+        "tile_id": "snow",
+        "walkable": true,
+        "sprite_id": "snow"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "stone_cracked",
+        "walkable": true,
+        "sprite_id": "stone_cracked"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      }
+    ],
+    [
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "snow",
+        "walkable": true,
+        "sprite_id": "snow"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "snow",
+        "walkable": true,
+        "sprite_id": "snow"
+      },
+      {
+        "tile_id": "snow_footprints",
+        "walkable": true,
+        "sprite_id": "snow_footprints"
+      },
+      {
+        "tile_id": "wall",
+        "walkable": false,
+        "sprite_id": "wall"
+      },
+      {
+        "tile_id": "wall",
+        "walkable": false,
+        "sprite_id": "wall"
+      },
+      {
+        "tile_id": "wall",
+        "walkable": false,
+        "sprite_id": "wall"
+      },
+      {
+        "tile_id": "snow_footprints",
+        "walkable": true,
+        "sprite_id": "snow_footprints"
+      },
+      {
+        "tile_id": "snow",
+        "walkable": true,
+        "sprite_id": "snow"
+      },
+      {
+        "tile_id": "stone_cracked",
+        "walkable": true,
+        "sprite_id": "stone_cracked"
+      },
+      {
+        "tile_id": "stone_floor",
+        "walkable": true,
+        "sprite_id": "stone_floor"
+      },
+      {
+        "tile_id": "snow_footprints",
+        "walkable": true,
+        "sprite_id": "snow_footprints"
+      },
+      {
+        "tile_id": "snow",
+        "walkable": true,
+        "sprite_id": "snow"
+      }
+    ],
+    [
+      {
+        "tile_id": "wall",
+        "walkable": false,
+        "sprite_id": "wall"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "snow",
+        "walkable": true,
+        "sprite_id": "snow"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "snow_footprints",
+        "walkable": true,
+        "sprite_id": "snow_footprints"
+      },
+      {
+        "tile_id": "snow",
+        "walkable": true,
+        "sprite_id": "snow"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "moss",
+        "walkable": true,
+        "sprite_id": "moss"
+      },
+      {
+        "tile_id": "snow",
+        "walkable": true,
+        "sprite_id": "snow"
+      },
+      {
+        "tile_id": "snow_footprints",
+        "walkable": true,
+        "sprite_id": "snow_footprints"
+      },
+      {
+        "tile_id": "wall",
+        "walkable": false,
+        "sprite_id": "wall"
+      }
+    ],
+    [
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "snow_footprints",
+        "walkable": true,
+        "sprite_id": "snow_footprints"
+      },
+      {
+        "tile_id": "water",
+        "walkable": false,
+        "sprite_id": "water"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "stone_floor",
+        "walkable": true,
+        "sprite_id": "stone_floor"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "water",
+        "walkable": false,
+        "sprite_id": "water"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "snow",
+        "walkable": true,
+        "sprite_id": "snow"
+      }
+    ],
+    [
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "water",
+        "walkable": false,
+        "sprite_id": "water"
+      },
+      {
+        "tile_id": "water",
+        "walkable": false,
+        "sprite_id": "water"
+      },
+      {
+        "tile_id": "snow",
+        "walkable": true,
+        "sprite_id": "snow"
+      },
+      {
+        "tile_id": "snow_footprints",
+        "walkable": true,
+        "sprite_id": "snow_footprints"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "snow_footprints",
+        "walkable": true,
+        "sprite_id": "snow_footprints"
+      },
+      {
+        "tile_id": "snow",
+        "walkable": true,
+        "sprite_id": "snow"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "water",
+        "walkable": false,
+        "sprite_id": "water"
+      },
+      {
+        "tile_id": "water",
+        "walkable": false,
+        "sprite_id": "water"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      }
+    ],
+    [
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "water",
+        "walkable": false,
+        "sprite_id": "water"
+      },
+      {
+        "tile_id": "snow",
+        "walkable": true,
+        "sprite_id": "snow"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "snow_footprints",
+        "walkable": true,
+        "sprite_id": "snow_footprints"
+      },
+      {
+        "tile_id": "wall",
+        "walkable": false,
+        "sprite_id": "wall"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "snow",
+        "walkable": true,
+        "sprite_id": "snow"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "wall",
+        "walkable": false,
+        "sprite_id": "wall"
+      },
+      {
+        "tile_id": "snow_footprints",
+        "walkable": true,
+        "sprite_id": "snow_footprints"
+      },
+      {
+        "tile_id": "water",
+        "walkable": false,
+        "sprite_id": "water"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      }
+    ],
+    [
+      {
+        "tile_id": "snow",
+        "walkable": true,
+        "sprite_id": "snow"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "snow",
+        "walkable": true,
+        "sprite_id": "snow"
+      },
+      {
+        "tile_id": "wall",
+        "walkable": false,
+        "sprite_id": "wall"
+      },
+      {
+        "tile_id": "snow",
+        "walkable": true,
+        "sprite_id": "snow"
+      },
+      {
+        "tile_id": "snow",
+        "walkable": true,
+        "sprite_id": "snow"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "snow",
+        "walkable": true,
+        "sprite_id": "snow"
+      },
+      {
+        "tile_id": "snow_footprints",
+        "walkable": true,
+        "sprite_id": "snow_footprints"
+      },
+      {
+        "tile_id": "wall",
+        "walkable": false,
+        "sprite_id": "wall"
+      },
+      {
+        "tile_id": "snow_footprints",
+        "walkable": true,
+        "sprite_id": "snow_footprints"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "snow",
+        "walkable": true,
+        "sprite_id": "snow"
+      },
+      {
+        "tile_id": "snow",
+        "walkable": true,
+        "sprite_id": "snow"
+      },
+      {
+        "tile_id": "snow",
+        "walkable": true,
+        "sprite_id": "snow"
+      }
+    ]
+  ],
+  "warps": [
+    {
+      "x": 0,
+      "y": 7,
+      "target_map_id": "mountain_pass",
+      "target_x": 7,
+      "target_y": 0
+    },
+    {
+      "x": 14,
+      "y": 7,
+      "target_map_id": "volcanic_crater",
+      "target_x": 0,
+      "target_y": 7,
+      "requires_flag": "ice_queen_defeated",
+      "fail_dialogue_id": "need_ice_queen"
+    },
+    {
+      "x": 7,
+      "y": 14,
+      "target_map_id": "haunted_crypt",
+      "target_x": 14,
+      "target_y": 7
+    },
+    {
+      "x": 7,
+      "y": 0,
+      "target_map_id": "ironhold_city",
+      "target_x": 10,
+      "target_y": 19
+    }
+  ],
+  "triggers": [
+    {
+      "id": "tundra_thaw_tonic",
+      "x": 4,
+      "y": 4,
+      "trigger_type": "item",
+      "data": {
+        "item_id": "thaw_tonic",
+        "unique": true
+      },
+      "once": true
+    },
+    {
+      "id": "tundra_health",
+      "x": 10,
+      "y": 10,
+      "trigger_type": "item",
+      "data": {
+        "item_id": "hi_potion",
+        "unique": true
+      },
+      "once": true
+    },
+    {
+      "id": "tundra_ice_crystal",
+      "x": 7,
+      "y": 7,
+      "trigger_type": "item",
+      "data": {
+        "item_id": "magic_crystal",
+        "unique": true
+      },
+      "once": true
+    }
+  ],
+  "entities": [],
+  "enemy_spawns": [
+    {
+      "spawn_id": "ice_elem_1",
+      "x": 4,
+      "y": 4,
+      "encounter_id": "ice_elementals",
+      "sprite_id": "ice_elemental",
+      "facing": "down",
+      "detection_range": 4,
+      "move_interval": 2.0,
+      "patrol_radius": 2,
+      "once": true
+    },
+    {
+      "spawn_id": "ice_elem_2",
+      "x": 10,
+      "y": 4,
+      "encounter_id": "ice_elementals",
+      "sprite_id": "ice_elemental",
+      "facing": "down",
+      "detection_range": 4,
+      "move_interval": 2.2,
+      "patrol_radius": 2,
+      "once": true
+    },
+    {
+      "spawn_id": "werewolf_1",
+      "x": 3,
+      "y": 10,
+      "encounter_id": "werewolf_pack",
+      "sprite_id": "werewolf",
+      "facing": "right",
+      "detection_range": 5,
+      "move_interval": 1.2,
+      "patrol_radius": 3,
+      "once": true
+    },
+    {
+      "spawn_id": "werewolf_2",
+      "x": 11,
+      "y": 10,
+      "encounter_id": "werewolf_pack",
+      "sprite_id": "werewolf",
+      "facing": "left",
+      "detection_range": 5,
+      "move_interval": 1.0,
+      "patrol_radius": 3,
+      "once": true
+    },
+    {
+      "spawn_id": "golem_1",
+      "x": 7,
+      "y": 7,
+      "encounter_id": "stone_golems",
+      "sprite_id": "golem",
+      "facing": "down",
+      "detection_range": 3,
+      "move_interval": 3.0,
+      "patrol_radius": 1,
+      "once": true
+    }
+  ]
+}

@@ -1,0 +1,1427 @@
+{
+  "map_id": "haunted_crypt",
+  "width": 15,
+  "height": 15,
+  "tiles": [
+    [
+      {
+        "tile_id": "wall",
+        "walkable": false,
+        "sprite_id": "wall"
+      },
+      {
+        "tile_id": "wall",
+        "walkable": false,
+        "sprite_id": "wall"
+      },
+      {
+        "tile_id": "wall",
+        "walkable": false,
+        "sprite_id": "wall"
+      },
+      {
+        "tile_id": "wall",
+        "walkable": false,
+        "sprite_id": "wall"
+      },
+      {
+        "tile_id": "wall",
+        "walkable": false,
+        "sprite_id": "wall"
+      },
+      {
+        "tile_id": "wall",
+        "walkable": false,
+        "sprite_id": "wall"
+      },
+      {
+        "tile_id": "wall",
+        "walkable": false,
+        "sprite_id": "wall"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "wall",
+        "walkable": false,
+        "sprite_id": "wall"
+      },
+      {
+        "tile_id": "wall",
+        "walkable": false,
+        "sprite_id": "wall"
+      },
+      {
+        "tile_id": "wall",
+        "walkable": false,
+        "sprite_id": "wall"
+      },
+      {
+        "tile_id": "wall",
+        "walkable": false,
+        "sprite_id": "wall"
+      },
+      {
+        "tile_id": "wall",
+        "walkable": false,
+        "sprite_id": "wall"
+      },
+      {
+        "tile_id": "wall",
+        "walkable": false,
+        "sprite_id": "wall"
+      },
+      {
+        "tile_id": "wall",
+        "walkable": false,
+        "sprite_id": "wall"
+      }
+    ],
+    [
+      {
+        "tile_id": "wall",
+        "walkable": false,
+        "sprite_id": "wall"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "puddle",
+        "walkable": true,
+        "sprite_id": "puddle"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "wall",
+        "walkable": false,
+        "sprite_id": "wall"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "stone_cracked",
+        "walkable": true,
+        "sprite_id": "stone_cracked"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "moss",
+        "walkable": true,
+        "sprite_id": "moss"
+      },
+      {
+        "tile_id": "wall",
+        "walkable": false,
+        "sprite_id": "wall"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "stone_cracked",
+        "walkable": true,
+        "sprite_id": "stone_cracked"
+      },
+      {
+        "tile_id": "wall",
+        "walkable": false,
+        "sprite_id": "wall"
+      }
+    ],
+    [
+      {
+        "tile_id": "wall",
+        "walkable": false,
+        "sprite_id": "wall"
+      },
+      {
+        "tile_id": "moss",
+        "walkable": true,
+        "sprite_id": "moss"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "moss",
+        "walkable": true,
+        "sprite_id": "moss"
+      },
+      {
+        "tile_id": "wall",
+        "walkable": false,
+        "sprite_id": "wall"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "wall",
+        "walkable": false,
+        "sprite_id": "wall"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "wall",
+        "walkable": false,
+        "sprite_id": "wall"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "wall",
+        "walkable": false,
+        "sprite_id": "wall"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "stone_cracked",
+        "walkable": true,
+        "sprite_id": "stone_cracked"
+      },
+      {
+        "tile_id": "moss",
+        "walkable": true,
+        "sprite_id": "moss"
+      },
+      {
+        "tile_id": "wall",
+        "walkable": false,
+        "sprite_id": "wall"
+      }
+    ],
+    [
+      {
+        "tile_id": "wall",
+        "walkable": false,
+        "sprite_id": "wall"
+      },
+      {
+        "tile_id": "stone_cracked",
+        "walkable": true,
+        "sprite_id": "stone_cracked"
+      },
+      {
+        "tile_id": "stone_cracked",
+        "walkable": true,
+        "sprite_id": "stone_cracked"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "stone_cracked",
+        "walkable": true,
+        "sprite_id": "stone_cracked"
+      },
+      {
+        "tile_id": "stone_cracked",
+        "walkable": true,
+        "sprite_id": "stone_cracked"
+      },
+      {
+        "tile_id": "wall",
+        "walkable": false,
+        "sprite_id": "wall"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "wall",
+        "walkable": false,
+        "sprite_id": "wall"
+      },
+      {
+        "tile_id": "stone_cracked",
+        "walkable": true,
+        "sprite_id": "stone_cracked"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "moss",
+        "walkable": true,
+        "sprite_id": "moss"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "stone_cracked",
+        "walkable": true,
+        "sprite_id": "stone_cracked"
+      },
+      {
+        "tile_id": "wall",
+        "walkable": false,
+        "sprite_id": "wall"
+      }
+    ],
+    [
+      {
+        "tile_id": "wall",
+        "walkable": false,
+        "sprite_id": "wall"
+      },
+      {
+        "tile_id": "wall",
+        "walkable": false,
+        "sprite_id": "wall"
+      },
+      {
+        "tile_id": "wall",
+        "walkable": false,
+        "sprite_id": "wall"
+      },
+      {
+        "tile_id": "stone_cracked",
+        "walkable": true,
+        "sprite_id": "stone_cracked"
+      },
+      {
+        "tile_id": "wall",
+        "walkable": false,
+        "sprite_id": "wall"
+      },
+      {
+        "tile_id": "wall",
+        "walkable": false,
+        "sprite_id": "wall"
+      },
+      {
+        "tile_id": "wall",
+        "walkable": false,
+        "sprite_id": "wall"
+      },
+      {
+        "tile_id": "stone_cracked",
+        "walkable": true,
+        "sprite_id": "stone_cracked"
+      },
+      {
+        "tile_id": "wall",
+        "walkable": false,
+        "sprite_id": "wall"
+      },
+      {
+        "tile_id": "wall",
+        "walkable": false,
+        "sprite_id": "wall"
+      },
+      {
+        "tile_id": "wall",
+        "walkable": false,
+        "sprite_id": "wall"
+      },
+      {
+        "tile_id": "stone_cracked",
+        "walkable": true,
+        "sprite_id": "stone_cracked"
+      },
+      {
+        "tile_id": "wall",
+        "walkable": false,
+        "sprite_id": "wall"
+      },
+      {
+        "tile_id": "wall",
+        "walkable": false,
+        "sprite_id": "wall"
+      },
+      {
+        "tile_id": "wall",
+        "walkable": false,
+        "sprite_id": "wall"
+      }
+    ],
+    [
+      {
+        "tile_id": "wall",
+        "walkable": false,
+        "sprite_id": "wall"
+      },
+      {
+        "tile_id": "moss",
+        "walkable": true,
+        "sprite_id": "moss"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "moss",
+        "walkable": true,
+        "sprite_id": "moss"
+      },
+      {
+        "tile_id": "puddle",
+        "walkable": true,
+        "sprite_id": "puddle"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "stone_cracked",
+        "walkable": true,
+        "sprite_id": "stone_cracked"
+      },
+      {
+        "tile_id": "moss",
+        "walkable": true,
+        "sprite_id": "moss"
+      },
+      {
+        "tile_id": "puddle",
+        "walkable": true,
+        "sprite_id": "puddle"
+      },
+      {
+        "tile_id": "moss",
+        "walkable": true,
+        "sprite_id": "moss"
+      },
+      {
+        "tile_id": "moss",
+        "walkable": true,
+        "sprite_id": "moss"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "stone_cracked",
+        "walkable": true,
+        "sprite_id": "stone_cracked"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "wall",
+        "walkable": false,
+        "sprite_id": "wall"
+      }
+    ],
+    [
+      {
+        "tile_id": "wall",
+        "walkable": false,
+        "sprite_id": "wall"
+      },
+      {
+        "tile_id": "puddle",
+        "walkable": true,
+        "sprite_id": "puddle"
+      },
+      {
+        "tile_id": "wall",
+        "walkable": false,
+        "sprite_id": "wall"
+      },
+      {
+        "tile_id": "wall",
+        "walkable": false,
+        "sprite_id": "wall"
+      },
+      {
+        "tile_id": "wall",
+        "walkable": false,
+        "sprite_id": "wall"
+      },
+      {
+        "tile_id": "moss",
+        "walkable": true,
+        "sprite_id": "moss"
+      },
+      {
+        "tile_id": "wall",
+        "walkable": false,
+        "sprite_id": "wall"
+      },
+      {
+        "tile_id": "ruins",
+        "walkable": true,
+        "sprite_id": "ruins"
+      },
+      {
+        "tile_id": "wall",
+        "walkable": false,
+        "sprite_id": "wall"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "wall",
+        "walkable": false,
+        "sprite_id": "wall"
+      },
+      {
+        "tile_id": "wall",
+        "walkable": false,
+        "sprite_id": "wall"
+      },
+      {
+        "tile_id": "wall",
+        "walkable": false,
+        "sprite_id": "wall"
+      },
+      {
+        "tile_id": "stone_cracked",
+        "walkable": true,
+        "sprite_id": "stone_cracked"
+      },
+      {
+        "tile_id": "wall",
+        "walkable": false,
+        "sprite_id": "wall"
+      }
+    ],
+    [
+      {
+        "tile_id": "stone_cracked",
+        "walkable": true,
+        "sprite_id": "stone_cracked"
+      },
+      {
+        "tile_id": "moss",
+        "walkable": true,
+        "sprite_id": "moss"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "moss",
+        "walkable": true,
+        "sprite_id": "moss"
+      },
+      {
+        "tile_id": "moss",
+        "walkable": true,
+        "sprite_id": "moss"
+      },
+      {
+        "tile_id": "moss",
+        "walkable": true,
+        "sprite_id": "moss"
+      },
+      {
+        "tile_id": "stone_cracked",
+        "walkable": true,
+        "sprite_id": "stone_cracked"
+      },
+      {
+        "tile_id": "ruins",
+        "walkable": true,
+        "sprite_id": "ruins"
+      },
+      {
+        "tile_id": "stone_cracked",
+        "walkable": true,
+        "sprite_id": "stone_cracked"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      }
+    ],
+    [
+      {
+        "tile_id": "wall",
+        "walkable": false,
+        "sprite_id": "wall"
+      },
+      {
+        "tile_id": "puddle",
+        "walkable": true,
+        "sprite_id": "puddle"
+      },
+      {
+        "tile_id": "wall",
+        "walkable": false,
+        "sprite_id": "wall"
+      },
+      {
+        "tile_id": "wall",
+        "walkable": false,
+        "sprite_id": "wall"
+      },
+      {
+        "tile_id": "wall",
+        "walkable": false,
+        "sprite_id": "wall"
+      },
+      {
+        "tile_id": "stone_cracked",
+        "walkable": true,
+        "sprite_id": "stone_cracked"
+      },
+      {
+        "tile_id": "wall",
+        "walkable": false,
+        "sprite_id": "wall"
+      },
+      {
+        "tile_id": "ruins",
+        "walkable": true,
+        "sprite_id": "ruins"
+      },
+      {
+        "tile_id": "wall",
+        "walkable": false,
+        "sprite_id": "wall"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "wall",
+        "walkable": false,
+        "sprite_id": "wall"
+      },
+      {
+        "tile_id": "wall",
+        "walkable": false,
+        "sprite_id": "wall"
+      },
+      {
+        "tile_id": "wall",
+        "walkable": false,
+        "sprite_id": "wall"
+      },
+      {
+        "tile_id": "stone_cracked",
+        "walkable": true,
+        "sprite_id": "stone_cracked"
+      },
+      {
+        "tile_id": "wall",
+        "walkable": false,
+        "sprite_id": "wall"
+      }
+    ],
+    [
+      {
+        "tile_id": "wall",
+        "walkable": false,
+        "sprite_id": "wall"
+      },
+      {
+        "tile_id": "moss",
+        "walkable": true,
+        "sprite_id": "moss"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "stone_cracked",
+        "walkable": true,
+        "sprite_id": "stone_cracked"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "stone_cracked",
+        "walkable": true,
+        "sprite_id": "stone_cracked"
+      },
+      {
+        "tile_id": "stone_cracked",
+        "walkable": true,
+        "sprite_id": "stone_cracked"
+      },
+      {
+        "tile_id": "stone_cracked",
+        "walkable": true,
+        "sprite_id": "stone_cracked"
+      },
+      {
+        "tile_id": "stone_cracked",
+        "walkable": true,
+        "sprite_id": "stone_cracked"
+      },
+      {
+        "tile_id": "stone_cracked",
+        "walkable": true,
+        "sprite_id": "stone_cracked"
+      },
+      {
+        "tile_id": "stone_cracked",
+        "walkable": true,
+        "sprite_id": "stone_cracked"
+      },
+      {
+        "tile_id": "stone_cracked",
+        "walkable": true,
+        "sprite_id": "stone_cracked"
+      },
+      {
+        "tile_id": "wall",
+        "walkable": false,
+        "sprite_id": "wall"
+      }
+    ],
+    [
+      {
+        "tile_id": "wall",
+        "walkable": false,
+        "sprite_id": "wall"
+      },
+      {
+        "tile_id": "wall",
+        "walkable": false,
+        "sprite_id": "wall"
+      },
+      {
+        "tile_id": "wall",
+        "walkable": false,
+        "sprite_id": "wall"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "wall",
+        "walkable": false,
+        "sprite_id": "wall"
+      },
+      {
+        "tile_id": "wall",
+        "walkable": false,
+        "sprite_id": "wall"
+      },
+      {
+        "tile_id": "wall",
+        "walkable": false,
+        "sprite_id": "wall"
+      },
+      {
+        "tile_id": "stone_cracked",
+        "walkable": true,
+        "sprite_id": "stone_cracked"
+      },
+      {
+        "tile_id": "wall",
+        "walkable": false,
+        "sprite_id": "wall"
+      },
+      {
+        "tile_id": "wall",
+        "walkable": false,
+        "sprite_id": "wall"
+      },
+      {
+        "tile_id": "wall",
+        "walkable": false,
+        "sprite_id": "wall"
+      },
+      {
+        "tile_id": "stone_cracked",
+        "walkable": true,
+        "sprite_id": "stone_cracked"
+      },
+      {
+        "tile_id": "wall",
+        "walkable": false,
+        "sprite_id": "wall"
+      },
+      {
+        "tile_id": "wall",
+        "walkable": false,
+        "sprite_id": "wall"
+      },
+      {
+        "tile_id": "wall",
+        "walkable": false,
+        "sprite_id": "wall"
+      }
+    ],
+    [
+      {
+        "tile_id": "wall",
+        "walkable": false,
+        "sprite_id": "wall"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "stone_cracked",
+        "walkable": true,
+        "sprite_id": "stone_cracked"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "stone_cracked",
+        "walkable": true,
+        "sprite_id": "stone_cracked"
+      },
+      {
+        "tile_id": "moss",
+        "walkable": true,
+        "sprite_id": "moss"
+      },
+      {
+        "tile_id": "wall",
+        "walkable": false,
+        "sprite_id": "wall"
+      },
+      {
+        "tile_id": "stone_cracked",
+        "walkable": true,
+        "sprite_id": "stone_cracked"
+      },
+      {
+        "tile_id": "wall",
+        "walkable": false,
+        "sprite_id": "wall"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "stone_cracked",
+        "walkable": true,
+        "sprite_id": "stone_cracked"
+      },
+      {
+        "tile_id": "moss",
+        "walkable": true,
+        "sprite_id": "moss"
+      },
+      {
+        "tile_id": "stone_cracked",
+        "walkable": true,
+        "sprite_id": "stone_cracked"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "wall",
+        "walkable": false,
+        "sprite_id": "wall"
+      }
+    ],
+    [
+      {
+        "tile_id": "wall",
+        "walkable": false,
+        "sprite_id": "wall"
+      },
+      {
+        "tile_id": "stone_cracked",
+        "walkable": true,
+        "sprite_id": "stone_cracked"
+      },
+      {
+        "tile_id": "ruins",
+        "walkable": true,
+        "sprite_id": "ruins"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "wall",
+        "walkable": false,
+        "sprite_id": "wall"
+      },
+      {
+        "tile_id": "puddle",
+        "walkable": true,
+        "sprite_id": "puddle"
+      },
+      {
+        "tile_id": "wall",
+        "walkable": false,
+        "sprite_id": "wall"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "wall",
+        "walkable": false,
+        "sprite_id": "wall"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "wall",
+        "walkable": false,
+        "sprite_id": "wall"
+      },
+      {
+        "tile_id": "moss",
+        "walkable": true,
+        "sprite_id": "moss"
+      },
+      {
+        "tile_id": "moss",
+        "walkable": true,
+        "sprite_id": "moss"
+      },
+      {
+        "tile_id": "puddle",
+        "walkable": true,
+        "sprite_id": "puddle"
+      },
+      {
+        "tile_id": "wall",
+        "walkable": false,
+        "sprite_id": "wall"
+      }
+    ],
+    [
+      {
+        "tile_id": "wall",
+        "walkable": false,
+        "sprite_id": "wall"
+      },
+      {
+        "tile_id": "puddle",
+        "walkable": true,
+        "sprite_id": "puddle"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "moss",
+        "walkable": true,
+        "sprite_id": "moss"
+      },
+      {
+        "tile_id": "wall",
+        "walkable": false,
+        "sprite_id": "wall"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "stone_cracked",
+        "walkable": true,
+        "sprite_id": "stone_cracked"
+      },
+      {
+        "tile_id": "stone_cracked",
+        "walkable": true,
+        "sprite_id": "stone_cracked"
+      },
+      {
+        "tile_id": "stone_cracked",
+        "walkable": true,
+        "sprite_id": "stone_cracked"
+      },
+      {
+        "tile_id": "stone_cracked",
+        "walkable": true,
+        "sprite_id": "stone_cracked"
+      },
+      {
+        "tile_id": "wall",
+        "walkable": false,
+        "sprite_id": "wall"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "stone_cracked",
+        "walkable": true,
+        "sprite_id": "stone_cracked"
+      },
+      {
+        "tile_id": "stone_cracked",
+        "walkable": true,
+        "sprite_id": "stone_cracked"
+      },
+      {
+        "tile_id": "wall",
+        "walkable": false,
+        "sprite_id": "wall"
+      }
+    ],
+    [
+      {
+        "tile_id": "wall",
+        "walkable": false,
+        "sprite_id": "wall"
+      },
+      {
+        "tile_id": "wall",
+        "walkable": false,
+        "sprite_id": "wall"
+      },
+      {
+        "tile_id": "wall",
+        "walkable": false,
+        "sprite_id": "wall"
+      },
+      {
+        "tile_id": "wall",
+        "walkable": false,
+        "sprite_id": "wall"
+      },
+      {
+        "tile_id": "wall",
+        "walkable": false,
+        "sprite_id": "wall"
+      },
+      {
+        "tile_id": "wall",
+        "walkable": false,
+        "sprite_id": "wall"
+      },
+      {
+        "tile_id": "wall",
+        "walkable": false,
+        "sprite_id": "wall"
+      },
+      {
+        "tile_id": "moss",
+        "walkable": true,
+        "sprite_id": "moss"
+      },
+      {
+        "tile_id": "wall",
+        "walkable": false,
+        "sprite_id": "wall"
+      },
+      {
+        "tile_id": "wall",
+        "walkable": false,
+        "sprite_id": "wall"
+      },
+      {
+        "tile_id": "wall",
+        "walkable": false,
+        "sprite_id": "wall"
+      },
+      {
+        "tile_id": "wall",
+        "walkable": false,
+        "sprite_id": "wall"
+      },
+      {
+        "tile_id": "wall",
+        "walkable": false,
+        "sprite_id": "wall"
+      },
+      {
+        "tile_id": "wall",
+        "walkable": false,
+        "sprite_id": "wall"
+      },
+      {
+        "tile_id": "wall",
+        "walkable": false,
+        "sprite_id": "wall"
+      }
+    ]
+  ],
+  "warps": [
+    {
+      "x": 0,
+      "y": 7,
+      "target_map_id": "ancient_ruins",
+      "target_x": 7,
+      "target_y": 0
+    },
+    {
+      "x": 14,
+      "y": 7,
+      "target_map_id": "frozen_tundra",
+      "target_x": 0,
+      "target_y": 7,
+      "requires_flag": "crypt_cleared",
+      "fail_dialogue_id": "need_crypt_cleared"
+    },
+    {
+      "x": 7,
+      "y": 14,
+      "target_map_id": "desert_oasis",
+      "target_x": 14,
+      "target_y": 7
+    },
+    {
+      "x": 7,
+      "y": 0,
+      "target_map_id": "nighthaven_city",
+      "target_x": 10,
+      "target_y": 19
+    }
+  ],
+  "triggers": [
+    {
+      "id": "grimoire_recovery",
+      "x": 7,
+      "y": 7,
+      "trigger_type": "item",
+      "data": {
+        "item_id": "forbidden_grimoire",
+        "flag_name": "grimoire_recovered",
+        "flag_value": true,
+        "unique": true
+      },
+      "once": true
+    },
+    {
+      "id": "crypt_purification",
+      "x": 7,
+      "y": 8,
+      "trigger_type": "flag",
+      "data": {
+        "flag_name": "crypt_purified",
+        "flag_value": true
+      },
+      "once": true
+    },
+    {
+      "id": "crypt_health",
+      "x": 2,
+      "y": 2,
+      "trigger_type": "item",
+      "data": {
+        "item_id": "hi_potion",
+        "unique": true
+      },
+      "once": true
+    },
+    {
+      "id": "crypt_necromancer_tome",
+      "x": 12,
+      "y": 12,
+      "trigger_type": "item",
+      "data": {
+        "item_id": "necromancers_tome",
+        "unique": true
+      },
+      "once": true
+    }
+  ],
+  "entities": [],
+  "enemy_spawns": [
+    {
+      "spawn_id": "skeleton_1",
+      "x": 2,
+      "y": 2,
+      "encounter_id": "ruins_skeletons",
+      "sprite_id": "skeleton",
+      "facing": "down",
+      "detection_range": 4,
+      "move_interval": 1.8,
+      "patrol_radius": 2,
+      "once": true
+    },
+    {
+      "spawn_id": "skeleton_2",
+      "x": 12,
+      "y": 2,
+      "encounter_id": "ruins_skeletons",
+      "sprite_id": "skeleton",
+      "facing": "down",
+      "detection_range": 4,
+      "move_interval": 1.6,
+      "patrol_radius": 2,
+      "once": true
+    },
+    {
+      "spawn_id": "skeleton_3",
+      "x": 2,
+      "y": 12,
+      "encounter_id": "ruins_skeletons",
+      "sprite_id": "skeleton",
+      "facing": "up",
+      "detection_range": 4,
+      "move_interval": 1.7,
+      "patrol_radius": 2,
+      "once": true
+    },
+    {
+      "spawn_id": "skeleton_4",
+      "x": 12,
+      "y": 12,
+      "encounter_id": "ruins_skeletons",
+      "sprite_id": "skeleton",
+      "facing": "up",
+      "detection_range": 4,
+      "move_interval": 1.9,
+      "patrol_radius": 2,
+      "once": true
+    },
+    {
+      "spawn_id": "ghost_1",
+      "x": 5,
+      "y": 5,
+      "encounter_id": "haunted_spirits",
+      "sprite_id": "ghost",
+      "facing": "right",
+      "detection_range": 5,
+      "move_interval": 1.2,
+      "patrol_radius": 3,
+      "once": true
+    },
+    {
+      "spawn_id": "ghost_2",
+      "x": 9,
+      "y": 9,
+      "encounter_id": "haunted_spirits",
+      "sprite_id": "ghost",
+      "facing": "left",
+      "detection_range": 5,
+      "move_interval": 1.3,
+      "patrol_radius": 3,
+      "once": true
+    },
+    {
+      "spawn_id": "wraith_1",
+      "x": 7,
+      "y": 5,
+      "encounter_id": "wraith_haunting",
+      "sprite_id": "wraith",
+      "facing": "down",
+      "detection_range": 5,
+      "move_interval": 1.4,
+      "patrol_radius": 2,
+      "once": true
+    },
+    {
+      "spawn_id": "vampire_1",
+      "x": 7,
+      "y": 7,
+      "encounter_id": "vampire_coven",
+      "sprite_id": "vampire",
+      "facing": "down",
+      "detection_range": 5,
+      "move_interval": 2.0,
+      "patrol_radius": 1,
+      "once": true
+    }
+  ],
+  "props": [
+    {
+      "prop_id": "grave_1",
+      "x": 2,
+      "y": 4,
+      "sprite_id": "prop_grave",
+      "solid": true
+    },
+    {
+      "prop_id": "grave_2",
+      "x": 12,
+      "y": 4,
+      "sprite_id": "prop_grave",
+      "solid": true
+    },
+    {
+      "prop_id": "grave_3",
+      "x": 2,
+      "y": 10,
+      "sprite_id": "prop_grave",
+      "solid": true
+    },
+    {
+      "prop_id": "grave_4",
+      "x": 12,
+      "y": 10,
+      "sprite_id": "prop_grave",
+      "solid": true
+    },
+    {
+      "prop_id": "bones_1",
+      "x": 4,
+      "y": 3,
+      "sprite_id": "prop_bones",
+      "solid": false
+    },
+    {
+      "prop_id": "bones_2",
+      "x": 10,
+      "y": 11,
+      "sprite_id": "prop_bones",
+      "solid": false
+    },
+    {
+      "prop_id": "torch_1",
+      "x": 3,
+      "y": 7,
+      "sprite_id": "prop_torch",
+      "solid": true
+    },
+    {
+      "prop_id": "torch_2",
+      "x": 11,
+      "y": 7,
+      "sprite_id": "prop_torch",
+      "solid": true
+    },
+    {
+      "prop_id": "pillar_1",
+      "x": 5,
+      "y": 3,
+      "sprite_id": "prop_pillar",
+      "solid": true
+    },
+    {
+      "prop_id": "pillar_2",
+      "x": 9,
+      "y": 3,
+      "sprite_id": "prop_pillar",
+      "solid": true
+    },
+    {
+      "prop_id": "pillar_3",
+      "x": 5,
+      "y": 11,
+      "sprite_id": "prop_pillar",
+      "solid": true
+    },
+    {
+      "prop_id": "pillar_4",
+      "x": 9,
+      "y": 11,
+      "sprite_id": "prop_pillar",
+      "solid": true
+    }
+  ]
+}

@@ -1,0 +1,5 @@
+amount,from_currency,to_currency
+100,USD,EUR
+250,EUR,USD
+50,GBP,CAD
+1000,JPY,USD

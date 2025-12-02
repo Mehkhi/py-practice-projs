@@ -1,0 +1,114 @@
+{
+  "map_id": "hillcrest_inn",
+  "name": "Hillcrest Inn",
+  "width": 8,
+  "height": 8,
+  "tiles": [
+    [
+      {"tile_id": "stone_wall", "walkable": false, "sprite_id": "stone_wall"},
+      {"tile_id": "stone_wall", "walkable": false, "sprite_id": "stone_wall"},
+      {"tile_id": "stone_wall", "walkable": false, "sprite_id": "stone_wall"},
+      {"tile_id": "stone_wall", "walkable": false, "sprite_id": "stone_wall"},
+      {"tile_id": "stone_wall", "walkable": false, "sprite_id": "stone_wall"},
+      {"tile_id": "stone_wall", "walkable": false, "sprite_id": "stone_wall"},
+      {"tile_id": "stone_wall", "walkable": false, "sprite_id": "stone_wall"},
+      {"tile_id": "stone_wall", "walkable": false, "sprite_id": "stone_wall"}
+    ],
+    [
+      {"tile_id": "stone_wall", "walkable": false, "sprite_id": "stone_wall"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_wall", "walkable": false, "sprite_id": "stone_wall"}
+    ],
+    [
+      {"tile_id": "stone_wall", "walkable": false, "sprite_id": "stone_wall"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_wall", "walkable": false, "sprite_id": "stone_wall"}
+    ],
+    [
+      {"tile_id": "stone_wall", "walkable": false, "sprite_id": "stone_wall"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_wall", "walkable": false, "sprite_id": "stone_wall"}
+    ],
+    [
+      {"tile_id": "stone_wall", "walkable": false, "sprite_id": "stone_wall"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_wall", "walkable": false, "sprite_id": "stone_wall"}
+    ],
+    [
+      {"tile_id": "stone_wall", "walkable": false, "sprite_id": "stone_wall"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_wall", "walkable": false, "sprite_id": "stone_wall"}
+    ],
+    [
+      {"tile_id": "stone_wall", "walkable": false, "sprite_id": "stone_wall"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_wall", "walkable": false, "sprite_id": "stone_wall"}
+    ],
+    [
+      {"tile_id": "stone_wall", "walkable": false, "sprite_id": "stone_wall"},
+      {"tile_id": "stone_wall", "walkable": false, "sprite_id": "stone_wall"},
+      {"tile_id": "stone_wall", "walkable": false, "sprite_id": "stone_wall"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_floor", "walkable": true, "sprite_id": "stone_floor"},
+      {"tile_id": "stone_wall", "walkable": false, "sprite_id": "stone_wall"},
+      {"tile_id": "stone_wall", "walkable": false, "sprite_id": "stone_wall"},
+      {"tile_id": "stone_wall", "walkable": false, "sprite_id": "stone_wall"}
+    ]
+  ],
+  "warps": [
+    {
+      "x": 3,
+      "y": 7,
+      "target_map_id": "hillcrest_town",
+      "target_x": 7,
+      "target_y": 8
+    },
+    {
+      "x": 4,
+      "y": 7,
+      "target_map_id": "hillcrest_town",
+      "target_x": 7,
+      "target_y": 8
+    }
+  ],
+  "triggers": [],
+  "entities": [
+    {
+      "entity_id": "hillcrest_innkeeper",
+      "x": 4,
+      "y": 2
+    }
+  ],
+  "enemy_spawns": [],
+  "props": []
+}

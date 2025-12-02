@@ -1,0 +1,86 @@
+{
+  "fighters": {
+    "iron_golem": {
+      "fighter_id": "iron_golem",
+      "name": "Iron Golem",
+      "sprite_id": "golem",
+      "stats": {
+        "hp": 150,
+        "attack": 25,
+        "defense": 30,
+        "speed": 5
+      },
+      "skills": ["smash", "iron_defense"],
+      "odds": 1.8
+    },
+    "shadow_wolf": {
+      "fighter_id": "shadow_wolf",
+      "name": "Shadow Wolf",
+      "sprite_id": "wolf_dark",
+      "stats": {
+        "hp": 80,
+        "attack": 35,
+        "defense": 10,
+        "speed": 25
+      },
+      "skills": ["bite", "shadow_step"],
+      "odds": 2.2
+    },
+    "flame_drake": {
+      "fighter_id": "flame_drake",
+      "name": "Flame Drake",
+      "sprite_id": "drake_fire",
+      "stats": {
+        "hp": 100,
+        "attack": 40,
+        "defense": 15,
+        "speed": 15
+      },
+      "skills": ["fire_breath", "wing_buffet"],
+      "odds": 1.5
+    },
+    "crystal_spider": {
+      "fighter_id": "crystal_spider",
+      "name": "Crystal Spider",
+      "sprite_id": "spider_crystal",
+      "stats": {
+        "hp": 60,
+        "attack": 30,
+        "defense": 20,
+        "speed": 30
+      },
+      "skills": ["poison_bite", "web_trap"],
+      "odds": 3.0
+    },
+    "thunder_bear": {
+      "fighter_id": "thunder_bear",
+      "name": "Thunder Bear",
+      "sprite_id": "bear_thunder",
+      "stats": {
+        "hp": 120,
+        "attack": 35,
+        "defense": 25,
+        "speed": 8
+      },
+      "skills": ["thunder_swipe", "roar"],
+      "odds": 1.6
+    },
+    "swamp_horror": {
+      "fighter_id": "swamp_horror",
+      "name": "Swamp Horror",
+      "sprite_id": "horror_swamp",
+      "stats": {
+        "hp": 90,
+        "attack": 28,
+        "defense": 18,
+        "speed": 12
+      },
+      "skills": ["acid_spray", "tentacle_grab"],
+      "odds": 2.8
+    }
+  },
+  "arena_schedule": {
+    "match_times": ["MORNING", "AFTERNOON", "EVENING"],
+    "matches_per_day": 3
+  }
+}

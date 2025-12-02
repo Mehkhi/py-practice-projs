@@ -1,0 +1,1299 @@
+{
+  "map_id": "volcanic_crater",
+  "width": 15,
+  "height": 15,
+  "tiles": [
+    [
+      {
+        "tile_id": "lava_rock",
+        "walkable": true,
+        "sprite_id": "lava_rock"
+      },
+      {
+        "tile_id": "lava_rock",
+        "walkable": true,
+        "sprite_id": "lava_rock"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": false,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava_rock",
+        "walkable": true,
+        "sprite_id": "lava_rock"
+      },
+      {
+        "tile_id": "lava_rock",
+        "walkable": true,
+        "sprite_id": "lava_rock"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": false,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava_rock",
+        "walkable": true,
+        "sprite_id": "lava_rock"
+      },
+      {
+        "tile_id": "lava_rock",
+        "walkable": true,
+        "sprite_id": "lava_rock"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": false,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "stone_cracked",
+        "walkable": true,
+        "sprite_id": "stone_cracked"
+      },
+      {
+        "tile_id": "lava_rock",
+        "walkable": true,
+        "sprite_id": "lava_rock"
+      },
+      {
+        "tile_id": "lava_rock",
+        "walkable": false,
+        "sprite_id": "lava_rock"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      }
+    ],
+    [
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "lava_rock",
+        "walkable": false,
+        "sprite_id": "lava_rock"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": false,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava_rock",
+        "walkable": true,
+        "sprite_id": "lava_rock"
+      },
+      {
+        "tile_id": "lava_rock",
+        "walkable": true,
+        "sprite_id": "lava_rock"
+      },
+      {
+        "tile_id": "lava_rock",
+        "walkable": true,
+        "sprite_id": "lava_rock"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "lava_rock",
+        "walkable": true,
+        "sprite_id": "lava_rock"
+      },
+      {
+        "tile_id": "lava_rock",
+        "walkable": true,
+        "sprite_id": "lava_rock"
+      },
+      {
+        "tile_id": "stone_cracked",
+        "walkable": true,
+        "sprite_id": "stone_cracked"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "lava_rock",
+        "walkable": false,
+        "sprite_id": "lava_rock"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": false,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava_rock",
+        "walkable": true,
+        "sprite_id": "lava_rock"
+      }
+    ],
+    [
+      {
+        "tile_id": "lava",
+        "walkable": false,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava_rock",
+        "walkable": false,
+        "sprite_id": "lava_rock"
+      },
+      {
+        "tile_id": "stone_cracked",
+        "walkable": true,
+        "sprite_id": "stone_cracked"
+      },
+      {
+        "tile_id": "lava_rock",
+        "walkable": true,
+        "sprite_id": "lava_rock"
+      },
+      {
+        "tile_id": "lava_rock",
+        "walkable": true,
+        "sprite_id": "lava_rock"
+      },
+      {
+        "tile_id": "lava_rock",
+        "walkable": true,
+        "sprite_id": "lava_rock"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": false,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": false,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava_rock",
+        "walkable": false,
+        "sprite_id": "lava_rock"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "lava_rock",
+        "walkable": true,
+        "sprite_id": "lava_rock"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "lava_rock",
+        "walkable": true,
+        "sprite_id": "lava_rock"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": false,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava_rock",
+        "walkable": false,
+        "sprite_id": "lava_rock"
+      }
+    ],
+    [
+      {
+        "tile_id": "stone_cracked",
+        "walkable": true,
+        "sprite_id": "stone_cracked"
+      },
+      {
+        "tile_id": "lava_rock",
+        "walkable": true,
+        "sprite_id": "lava_rock"
+      },
+      {
+        "tile_id": "stone_cracked",
+        "walkable": true,
+        "sprite_id": "stone_cracked"
+      },
+      {
+        "tile_id": "stone_cracked",
+        "walkable": true,
+        "sprite_id": "stone_cracked"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": false,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava_rock",
+        "walkable": false,
+        "sprite_id": "lava_rock"
+      },
+      {
+        "tile_id": "lava_rock",
+        "walkable": false,
+        "sprite_id": "lava_rock"
+      },
+      {
+        "tile_id": "lava_rock",
+        "walkable": true,
+        "sprite_id": "lava_rock"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": false,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava_rock",
+        "walkable": false,
+        "sprite_id": "lava_rock"
+      },
+      {
+        "tile_id": "lava_rock",
+        "walkable": false,
+        "sprite_id": "lava_rock"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "lava_rock",
+        "walkable": true,
+        "sprite_id": "lava_rock"
+      },
+      {
+        "tile_id": "lava_rock",
+        "walkable": true,
+        "sprite_id": "lava_rock"
+      }
+    ],
+    [
+      {
+        "tile_id": "lava_rock",
+        "walkable": true,
+        "sprite_id": "lava_rock"
+      },
+      {
+        "tile_id": "stone_cracked",
+        "walkable": true,
+        "sprite_id": "stone_cracked"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "lava_rock",
+        "walkable": false,
+        "sprite_id": "lava_rock"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": false,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "lava_rock",
+        "walkable": true,
+        "sprite_id": "lava_rock"
+      },
+      {
+        "tile_id": "lava_rock",
+        "walkable": true,
+        "sprite_id": "lava_rock"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": false,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava_rock",
+        "walkable": false,
+        "sprite_id": "lava_rock"
+      },
+      {
+        "tile_id": "lava_rock",
+        "walkable": true,
+        "sprite_id": "lava_rock"
+      },
+      {
+        "tile_id": "lava_rock",
+        "walkable": true,
+        "sprite_id": "lava_rock"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      }
+    ],
+    [
+      {
+        "tile_id": "lava",
+        "walkable": false,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "lava_rock",
+        "walkable": true,
+        "sprite_id": "lava_rock"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": false,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "lava_rock",
+        "walkable": true,
+        "sprite_id": "lava_rock"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "lava_rock",
+        "walkable": true,
+        "sprite_id": "lava_rock"
+      },
+      {
+        "tile_id": "lava_rock",
+        "walkable": true,
+        "sprite_id": "lava_rock"
+      },
+      {
+        "tile_id": "lava_rock",
+        "walkable": true,
+        "sprite_id": "lava_rock"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": false,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "lava_rock",
+        "walkable": true,
+        "sprite_id": "lava_rock"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": false,
+        "sprite_id": "lava"
+      }
+    ],
+    [
+      {
+        "tile_id": "lava_rock",
+        "walkable": true,
+        "sprite_id": "lava_rock"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "lava_rock",
+        "walkable": false,
+        "sprite_id": "lava_rock"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "lava_rock",
+        "walkable": true,
+        "sprite_id": "lava_rock"
+      },
+      {
+        "tile_id": "stone_cracked",
+        "walkable": true,
+        "sprite_id": "stone_cracked"
+      },
+      {
+        "tile_id": "lava_rock",
+        "walkable": false,
+        "sprite_id": "lava_rock"
+      },
+      {
+        "tile_id": "lava_rock",
+        "walkable": false,
+        "sprite_id": "lava_rock"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": false,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava_rock",
+        "walkable": true,
+        "sprite_id": "lava_rock"
+      },
+      {
+        "tile_id": "lava_rock",
+        "walkable": true,
+        "sprite_id": "lava_rock"
+      },
+      {
+        "tile_id": "lava_rock",
+        "walkable": true,
+        "sprite_id": "lava_rock"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": false,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava_rock",
+        "walkable": true,
+        "sprite_id": "lava_rock"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      }
+    ],
+    [
+      {
+        "tile_id": "lava_rock",
+        "walkable": true,
+        "sprite_id": "lava_rock"
+      },
+      {
+        "tile_id": "lava_rock",
+        "walkable": true,
+        "sprite_id": "lava_rock"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "lava_rock",
+        "walkable": true,
+        "sprite_id": "lava_rock"
+      },
+      {
+        "tile_id": "lava_rock",
+        "walkable": true,
+        "sprite_id": "lava_rock"
+      },
+      {
+        "tile_id": "lava_rock",
+        "walkable": false,
+        "sprite_id": "lava_rock"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": false,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava_rock",
+        "walkable": true,
+        "sprite_id": "lava_rock"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "lava_rock",
+        "walkable": true,
+        "sprite_id": "lava_rock"
+      },
+      {
+        "tile_id": "stone_cracked",
+        "walkable": true,
+        "sprite_id": "stone_cracked"
+      },
+      {
+        "tile_id": "lava_rock",
+        "walkable": true,
+        "sprite_id": "lava_rock"
+      },
+      {
+        "tile_id": "lava_rock",
+        "walkable": true,
+        "sprite_id": "lava_rock"
+      }
+    ],
+    [
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "lava_rock",
+        "walkable": true,
+        "sprite_id": "lava_rock"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": false,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "lava_rock",
+        "walkable": true,
+        "sprite_id": "lava_rock"
+      },
+      {
+        "tile_id": "lava_rock",
+        "walkable": true,
+        "sprite_id": "lava_rock"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": false,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": false,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava_rock",
+        "walkable": false,
+        "sprite_id": "lava_rock"
+      },
+      {
+        "tile_id": "lava_rock",
+        "walkable": true,
+        "sprite_id": "lava_rock"
+      },
+      {
+        "tile_id": "lava_rock",
+        "walkable": true,
+        "sprite_id": "lava_rock"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": false,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava_rock",
+        "walkable": true,
+        "sprite_id": "lava_rock"
+      },
+      {
+        "tile_id": "lava_rock",
+        "walkable": true,
+        "sprite_id": "lava_rock"
+      }
+    ],
+    [
+      {
+        "tile_id": "lava_rock",
+        "walkable": false,
+        "sprite_id": "lava_rock"
+      },
+      {
+        "tile_id": "lava_rock",
+        "walkable": true,
+        "sprite_id": "lava_rock"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": false,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "stone_cracked",
+        "walkable": true,
+        "sprite_id": "stone_cracked"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "lava_rock",
+        "walkable": true,
+        "sprite_id": "lava_rock"
+      },
+      {
+        "tile_id": "lava_rock",
+        "walkable": true,
+        "sprite_id": "lava_rock"
+      },
+      {
+        "tile_id": "lava_rock",
+        "walkable": true,
+        "sprite_id": "lava_rock"
+      },
+      {
+        "tile_id": "lava_rock",
+        "walkable": true,
+        "sprite_id": "lava_rock"
+      },
+      {
+        "tile_id": "lava_rock",
+        "walkable": false,
+        "sprite_id": "lava_rock"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "lava_rock",
+        "walkable": true,
+        "sprite_id": "lava_rock"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": false,
+        "sprite_id": "lava"
+      }
+    ],
+    [
+      {
+        "tile_id": "lava_rock",
+        "walkable": true,
+        "sprite_id": "lava_rock"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "stone_cracked",
+        "walkable": true,
+        "sprite_id": "stone_cracked"
+      },
+      {
+        "tile_id": "lava_rock",
+        "walkable": false,
+        "sprite_id": "lava_rock"
+      },
+      {
+        "tile_id": "lava_rock",
+        "walkable": false,
+        "sprite_id": "lava_rock"
+      },
+      {
+        "tile_id": "lava_rock",
+        "walkable": true,
+        "sprite_id": "lava_rock"
+      },
+      {
+        "tile_id": "lava_rock",
+        "walkable": true,
+        "sprite_id": "lava_rock"
+      },
+      {
+        "tile_id": "lava_rock",
+        "walkable": true,
+        "sprite_id": "lava_rock"
+      },
+      {
+        "tile_id": "lava_rock",
+        "walkable": true,
+        "sprite_id": "lava_rock"
+      },
+      {
+        "tile_id": "lava_rock",
+        "walkable": true,
+        "sprite_id": "lava_rock"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": false,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava_rock",
+        "walkable": false,
+        "sprite_id": "lava_rock"
+      },
+      {
+        "tile_id": "lava_rock",
+        "walkable": true,
+        "sprite_id": "lava_rock"
+      },
+      {
+        "tile_id": "stone_cracked",
+        "walkable": true,
+        "sprite_id": "stone_cracked"
+      },
+      {
+        "tile_id": "lava_rock",
+        "walkable": true,
+        "sprite_id": "lava_rock"
+      }
+    ],
+    [
+      {
+        "tile_id": "lava_rock",
+        "walkable": true,
+        "sprite_id": "lava_rock"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "stone_cracked",
+        "walkable": true,
+        "sprite_id": "stone_cracked"
+      },
+      {
+        "tile_id": "lava_rock",
+        "walkable": true,
+        "sprite_id": "lava_rock"
+      },
+      {
+        "tile_id": "lava_rock",
+        "walkable": false,
+        "sprite_id": "lava_rock"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": false,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava_rock",
+        "walkable": false,
+        "sprite_id": "lava_rock"
+      },
+      {
+        "tile_id": "lava_rock",
+        "walkable": true,
+        "sprite_id": "lava_rock"
+      },
+      {
+        "tile_id": "lava_rock",
+        "walkable": false,
+        "sprite_id": "lava_rock"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": false,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": false,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "lava_rock",
+        "walkable": true,
+        "sprite_id": "lava_rock"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "lava_rock",
+        "walkable": true,
+        "sprite_id": "lava_rock"
+      }
+    ],
+    [
+      {
+        "tile_id": "lava",
+        "walkable": false,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": false,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "lava_rock",
+        "walkable": true,
+        "sprite_id": "lava_rock"
+      },
+      {
+        "tile_id": "lava_rock",
+        "walkable": true,
+        "sprite_id": "lava_rock"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": false,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": false,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava_rock",
+        "walkable": false,
+        "sprite_id": "lava_rock"
+      },
+      {
+        "tile_id": "lava_rock",
+        "walkable": true,
+        "sprite_id": "lava_rock"
+      },
+      {
+        "tile_id": "lava_rock",
+        "walkable": true,
+        "sprite_id": "lava_rock"
+      },
+      {
+        "tile_id": "lava_rock",
+        "walkable": true,
+        "sprite_id": "lava_rock"
+      },
+      {
+        "tile_id": "lava_rock",
+        "walkable": true,
+        "sprite_id": "lava_rock"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": false,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava_rock",
+        "walkable": false,
+        "sprite_id": "lava_rock"
+      }
+    ],
+    [
+      {
+        "tile_id": "lava_rock",
+        "walkable": true,
+        "sprite_id": "lava_rock"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": false,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava_rock",
+        "walkable": false,
+        "sprite_id": "lava_rock"
+      },
+      {
+        "tile_id": "lava_rock",
+        "walkable": true,
+        "sprite_id": "lava_rock"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "lava_rock",
+        "walkable": true,
+        "sprite_id": "lava_rock"
+      },
+      {
+        "tile_id": "lava_rock",
+        "walkable": true,
+        "sprite_id": "lava_rock"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "lava_rock",
+        "walkable": true,
+        "sprite_id": "lava_rock"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": false,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava_rock",
+        "walkable": false,
+        "sprite_id": "lava_rock"
+      },
+      {
+        "tile_id": "lava_rock",
+        "walkable": true,
+        "sprite_id": "lava_rock"
+      }
+    ],
+    [
+      {
+        "tile_id": "lava_rock",
+        "walkable": true,
+        "sprite_id": "lava_rock"
+      },
+      {
+        "tile_id": "lava_rock",
+        "walkable": true,
+        "sprite_id": "lava_rock"
+      },
+      {
+        "tile_id": "lava_rock",
+        "walkable": false,
+        "sprite_id": "lava_rock"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "lava_rock",
+        "walkable": false,
+        "sprite_id": "lava_rock"
+      },
+      {
+        "tile_id": "stone",
+        "walkable": true,
+        "sprite_id": "stone"
+      },
+      {
+        "tile_id": "lava_rock",
+        "walkable": true,
+        "sprite_id": "lava_rock"
+      },
+      {
+        "tile_id": "lava_rock",
+        "walkable": true,
+        "sprite_id": "lava_rock"
+      },
+      {
+        "tile_id": "lava_rock",
+        "walkable": false,
+        "sprite_id": "lava_rock"
+      },
+      {
+        "tile_id": "stone_cracked",
+        "walkable": true,
+        "sprite_id": "stone_cracked"
+      },
+      {
+        "tile_id": "lava_rock",
+        "walkable": true,
+        "sprite_id": "lava_rock"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": false,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava_rock",
+        "walkable": true,
+        "sprite_id": "lava_rock"
+      },
+      {
+        "tile_id": "lava_rock",
+        "walkable": true,
+        "sprite_id": "lava_rock"
+      }
+    ]
+  ],
+  "warps": [
+    {
+      "x": 0,
+      "y": 7,
+      "target_map_id": "frozen_tundra",
+      "target_x": 14,
+      "target_y": 7
+    },
+    {
+      "x": 14,
+      "y": 7,
+      "target_map_id": "demon_fortress",
+      "target_x": 0,
+      "target_y": 7,
+      "requires_flag": "fire_lord_defeated",
+      "fail_dialogue_id": "need_fire_lord"
+    },
+    {
+      "x": 7,
+      "y": 14,
+      "target_map_id": "sunharbor_city",
+      "target_x": 0,
+      "target_y": 10
+    }
+  ],
+  "triggers": [
+    {
+      "id": "dragon_scales_collection",
+      "x": 7,
+      "y": 7,
+      "trigger_type": "item",
+      "data": {
+        "item_id": "dragon_scale",
+        "flag_name": "dragon_scales_collected",
+        "flag_value": true,
+        "unique": true
+      },
+      "once": true
+    },
+    {
+      "id": "volcanic_fire_resist",
+      "x": 3,
+      "y": 3,
+      "trigger_type": "item",
+      "data": {
+        "item_id": "burn_salve",
+        "unique": true
+      },
+      "once": true
+    },
+    {
+      "id": "volcanic_health",
+      "x": 11,
+      "y": 11,
+      "trigger_type": "item",
+      "data": {
+        "item_id": "hi_potion",
+        "unique": true
+      },
+      "once": true
+    }
+  ],
+  "entities": [],
+  "enemy_spawns": [
+    {
+      "spawn_id": "fire_elem_1",
+      "x": 3,
+      "y": 3,
+      "encounter_id": "fire_elementals",
+      "sprite_id": "fire_elemental",
+      "facing": "down",
+      "detection_range": 4,
+      "move_interval": 1.8,
+      "patrol_radius": 2,
+      "once": true
+    },
+    {
+      "spawn_id": "fire_elem_2",
+      "x": 11,
+      "y": 3,
+      "encounter_id": "fire_elementals",
+      "sprite_id": "fire_elemental",
+      "facing": "down",
+      "detection_range": 4,
+      "move_interval": 2.0,
+      "patrol_radius": 2,
+      "once": true
+    },
+    {
+      "spawn_id": "fire_elem_3",
+      "x": 7,
+      "y": 11,
+      "encounter_id": "fire_elementals",
+      "sprite_id": "fire_elemental",
+      "facing": "up",
+      "detection_range": 4,
+      "move_interval": 1.6,
+      "patrol_radius": 2,
+      "once": true
+    },
+    {
+      "spawn_id": "demon_1",
+      "x": 4,
+      "y": 9,
+      "encounter_id": "demon_invasion",
+      "sprite_id": "demon",
+      "facing": "right",
+      "detection_range": 5,
+      "move_interval": 1.5,
+      "patrol_radius": 2,
+      "once": true
+    },
+    {
+      "spawn_id": "demon_2",
+      "x": 10,
+      "y": 9,
+      "encounter_id": "demon_invasion",
+      "sprite_id": "demon",
+      "facing": "left",
+      "detection_range": 5,
+      "move_interval": 1.5,
+      "patrol_radius": 2,
+      "once": true
+    },
+    {
+      "spawn_id": "imp_swarm",
+      "x": 7,
+      "y": 5,
+      "encounter_id": "demon_invasion",
+      "sprite_id": "imp",
+      "facing": "down",
+      "detection_range": 4,
+      "move_interval": 1.0,
+      "patrol_radius": 3,
+      "once": true
+    }
+  ]
+}

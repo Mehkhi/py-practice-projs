@@ -1,0 +1,21 @@
+Employee_ID,Name,Department,Position,Salary,Experience_Years,Performance_Score
+E001,John Smith,Engineering,Senior Developer,85000,5,4.2
+E002,Jane Doe,Marketing,Marketing Manager,72000,7,4.5
+E003,Bob Johnson,Engineering,Junior Developer,55000,2,3.8
+E004,Alice Brown,Sales,Sales Representative,48000,3,4.0
+E005,Charlie Wilson,HR,HR Specialist,52000,4,4.1
+E006,Diana Lee,Engineering,Tech Lead,95000,8,4.7
+E007,Frank Miller,Sales,Sales Manager,68000,6,4.3
+E008,Grace Taylor,Marketing,Content Writer,45000,2,3.9
+E009,Henry Davis,Finance,Financial Analyst,62000,5,4.4
+E010,Ivy Chen,Engineering,DevOps Engineer,78000,6,4.6
+E011,Jack Wilson,HR,Recruiter,50000,3,3.7
+E012,Karen White,Finance,Accountant,58000,4,4.2
+E013,Liam O'Brien,Engineering,Full Stack Developer,70000,4,4.1
+E014,Maya Patel,Marketing,Digital Marketing Specialist,50000,3,4.0
+E015,Nick Anderson,Sales,Account Executive,60000,5,4.3
+E016,Olivia Garcia,HR,HR Manager,75000,8,4.5
+E017,Paul Kim,Finance,Senior Financial Analyst,80000,7,4.6
+E018,Quinn Rodriguez,Engineering,Backend Developer,65000,3,3.9
+E019,Rachel Green,Marketing,Social Media Manager,48000,2,3.8
+E020,Sam Thompson,Sales,Regional Sales Manager,82000,9,4.7

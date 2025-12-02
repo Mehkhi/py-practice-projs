@@ -1,0 +1,384 @@
+{
+  "schedules": {
+    "forest_merchant": {
+      "default_map_id": "forest_path",
+      "default_x": 3,
+      "default_y": 4,
+      "entries": [
+        {
+          "time_periods": ["MORNING", "NOON", "AFTERNOON"],
+          "map_id": "forest_path",
+          "x": 3,
+          "y": 4,
+          "activity": "tending shop",
+          "shop_available": true
+        },
+        {
+          "time_periods": ["DUSK", "EVENING"],
+          "map_id": "riverside_inn",
+          "x": 4,
+          "y": 5,
+          "activity": "relaxing",
+          "shop_available": false,
+          "alternative_dialogue_id": "merchant_off_duty"
+        },
+        {
+          "time_periods": ["NIGHT", "MIDNIGHT", "DAWN"],
+          "map_id": "riverside_town",
+          "x": 8,
+          "y": 8,
+          "activity": "sleeping",
+          "shop_available": false,
+          "alternative_dialogue_id": "shop_closed_sleeping"
+        }
+      ]
+    },
+    "riverside_blacksmith": {
+      "default_map_id": "riverside_town",
+      "default_x": 3,
+      "default_y": 4,
+      "entries": [
+        {
+          "time_periods": ["DAWN", "MORNING", "NOON", "AFTERNOON"],
+          "map_id": "riverside_blacksmith",
+          "x": 4,
+          "y": 4,
+          "activity": "working at forge"
+        },
+        {
+          "time_periods": ["DUSK", "EVENING", "NIGHT", "MIDNIGHT"],
+          "map_id": "riverside_town",
+          "x": 3,
+          "y": 4,
+          "activity": "resting at home"
+        }
+      ]
+    },
+    "riverside_fisherman": {
+      "default_map_id": "riverside_town",
+      "default_x": 10,
+      "default_y": 8,
+      "entries": [
+        {
+          "time_periods": ["DAWN", "MORNING", "NOON"],
+          "map_id": "riverside_town",
+          "x": 10,
+          "y": 8,
+          "activity": "fishing"
+        },
+        {
+          "time_periods": ["AFTERNOON", "DUSK"],
+          "map_id": "riverside_town",
+          "x": 12,
+          "y": 6,
+          "activity": "selling catch"
+        },
+        {
+          "time_periods": ["EVENING", "NIGHT", "MIDNIGHT"],
+          "map_id": "riverside_inn",
+          "x": 3,
+          "y": 3,
+          "activity": "resting"
+        }
+      ]
+    },
+    "tutorial_npc": {
+      "default_map_id": "forest_path",
+      "default_x": 6,
+      "default_y": 4,
+      "entries": [
+        {
+          "time_periods": ["DAWN", "MORNING"],
+          "map_id": "forest_path",
+          "x": 6,
+          "y": 4,
+          "activity": "guiding new adventurers",
+          "shop_available": false,
+          "alternative_dialogue_id": "guide_greeting_players"
+        },
+        {
+          "time_periods": ["NOON", "AFTERNOON"],
+          "map_id": "hillcrest_town",
+          "x": 9,
+          "y": 6,
+          "activity": "scouting safe paths",
+          "shop_available": false,
+          "alternative_dialogue_id": "guide_out_scouting"
+        },
+        {
+          "time_periods": ["DUSK", "EVENING", "NIGHT", "MIDNIGHT"],
+          "map_id": "riverside_inn",
+          "x": 3,
+          "y": 2,
+          "activity": "resting by the hearth",
+          "shop_available": false,
+          "alternative_dialogue_id": "guide_resting"
+        }
+      ]
+    },
+    "riverside_innkeeper": {
+      "default_map_id": "riverside_inn",
+      "default_x": 5,
+      "default_y": 3,
+      "entries": [
+        {
+          "time_periods": ["DAWN", "MORNING", "NOON"],
+          "map_id": "riverside_inn",
+          "x": 5,
+          "y": 3,
+          "activity": "preparing rooms and breakfast",
+          "shop_available": true
+        },
+        {
+          "time_periods": ["AFTERNOON", "DUSK"],
+          "map_id": "riverside_inn",
+          "x": 6,
+          "y": 4,
+          "activity": "serving travelers",
+          "shop_available": true
+        },
+        {
+          "time_periods": ["EVENING", "NIGHT", "MIDNIGHT"],
+          "map_id": "riverside_town",
+          "x": 8,
+          "y": 6,
+          "activity": "closing accounts and locking up",
+          "shop_available": false,
+          "alternative_dialogue_id": "innkeeper_off_duty"
+        }
+      ]
+    },
+    "hillcrest_herbalist": {
+      "default_map_id": "hillcrest_town",
+      "default_x": 7,
+      "default_y": 3,
+      "entries": [
+        {
+          "time_periods": ["DAWN", "MORNING"],
+          "map_id": "secret_garden",
+          "x": 4,
+          "y": 5,
+          "activity": "foraging for fresh herbs",
+          "shop_available": false,
+          "alternative_dialogue_id": "herbalist_gathering"
+        },
+        {
+          "time_periods": ["NOON", "AFTERNOON"],
+          "map_id": "hillcrest_town",
+          "x": 7,
+          "y": 3,
+          "activity": "mixing remedies at her stall",
+          "shop_available": true
+        },
+        {
+          "time_periods": ["DUSK", "EVENING"],
+          "map_id": "hillcrest_inn",
+          "x": 3,
+          "y": 4,
+          "activity": "sharing tonics with travelers",
+          "shop_available": false,
+          "alternative_dialogue_id": "herbalist_resting"
+        },
+        {
+          "time_periods": ["NIGHT", "MIDNIGHT"],
+          "map_id": "hillcrest_town",
+          "x": 6,
+          "y": 2,
+          "activity": "restocking and closing shop",
+          "shop_available": false,
+          "alternative_dialogue_id": "herbalist_resting"
+        }
+      ]
+    },
+    "shadowfen_alchemist": {
+      "default_map_id": "shadowfen_alchemist",
+      "default_x": 4,
+      "default_y": 4,
+      "entries": [
+        {
+          "time_periods": ["DAWN", "MORNING"],
+          "map_id": "shadowfen_alchemist",
+          "x": 4,
+          "y": 4,
+          "activity": "preparing reagents",
+          "shop_available": true
+        },
+        {
+          "time_periods": ["NOON", "AFTERNOON"],
+          "map_id": "shadowfen_alchemist",
+          "x": 6,
+          "y": 3,
+          "activity": "testing volatile concoctions",
+          "shop_available": true
+        },
+        {
+          "time_periods": ["DUSK", "EVENING"],
+          "map_id": "shadowfen_inn",
+          "x": 2,
+          "y": 3,
+          "activity": "consulting hunters on rare toxins",
+          "shop_available": false,
+          "alternative_dialogue_id": "alchemist_out_gathering"
+        },
+        {
+          "time_periods": ["NIGHT", "MIDNIGHT"],
+          "map_id": "shadowfen_alchemist",
+          "x": 4,
+          "y": 5,
+          "activity": "researching by candlelight",
+          "shop_available": false,
+          "alternative_dialogue_id": "alchemist_busy_research"
+        }
+      ]
+    },
+    "ironhold_armorer": {
+      "default_map_id": "ironhold_city",
+      "default_x": 10,
+      "default_y": 6,
+      "entries": [
+        {
+          "time_periods": ["MORNING", "NOON", "AFTERNOON"],
+          "map_id": "ironhold_city",
+          "x": 10,
+          "y": 6,
+          "activity": "forging plate and shields",
+          "shop_available": true
+        },
+        {
+          "time_periods": ["DUSK"],
+          "map_id": "ironhold_city",
+          "x": 9,
+          "y": 8,
+          "activity": "banking the forge",
+          "shop_available": false,
+          "alternative_dialogue_id": "armorer_closed"
+        },
+        {
+          "time_periods": ["EVENING", "NIGHT", "MIDNIGHT", "DAWN"],
+          "map_id": "ironhold_city",
+          "x": 4,
+          "y": 9,
+          "activity": "resting in the barracks",
+          "shop_available": false,
+          "alternative_dialogue_id": "armorer_resting"
+        }
+      ]
+    },
+    "crystalspire_magic_shop": {
+      "default_map_id": "crystalspire_city",
+      "default_x": 6,
+      "default_y": 10,
+      "entries": [
+        {
+          "time_periods": ["DAWN"],
+          "map_id": "enchanted_spring",
+          "x": 5,
+          "y": 5,
+          "activity": "morning meditation",
+          "shop_available": false,
+          "alternative_dialogue_id": "magic_shop_meditating"
+        },
+        {
+          "time_periods": ["MORNING", "NOON", "AFTERNOON"],
+          "map_id": "crystalspire_city",
+          "x": 6,
+          "y": 10,
+          "activity": "selling enchanted curios",
+          "shop_available": true
+        },
+        {
+          "time_periods": ["DUSK", "EVENING"],
+          "map_id": "crystal_maze",
+          "x": 2,
+          "y": 2,
+          "activity": "practicing spellwork",
+          "shop_available": false,
+          "alternative_dialogue_id": "magic_shop_closed_for_study"
+        },
+        {
+          "time_periods": ["NIGHT", "MIDNIGHT"],
+          "map_id": "crystalspire_city",
+          "x": 6,
+          "y": 9,
+          "activity": "warding the storefront",
+          "shop_available": false,
+          "alternative_dialogue_id": "magic_shop_closed"
+        }
+      ]
+    },
+    "nighthaven_black_market": {
+      "default_map_id": "nighthaven_city",
+      "default_x": 11,
+      "default_y": 5,
+      "entries": [
+        {
+          "time_periods": ["DAWN", "MORNING", "NOON", "AFTERNOON"],
+          "map_id": "nighthaven_city",
+          "x": 11,
+          "y": 5,
+          "activity": "laying low and scouting customers",
+          "shop_available": false,
+          "alternative_dialogue_id": "black_market_closed"
+        },
+        {
+          "time_periods": ["DUSK", "EVENING", "NIGHT", "MIDNIGHT"],
+          "map_id": "nighthaven_city",
+          "x": 12,
+          "y": 7,
+          "activity": "running clandestine stalls",
+          "shop_available": true
+        }
+      ]
+    },
+    "sunharbor_exotic_merchant": {
+      "default_map_id": "sunharbor_city",
+      "default_x": 5,
+      "default_y": 6,
+      "entries": [
+        {
+          "time_periods": ["DAWN"],
+          "map_id": "desert_oasis",
+          "x": 4,
+          "y": 4,
+          "activity": "gathering rare spices",
+          "shop_available": false,
+          "alternative_dialogue_id": "exotic_merchant_traveling"
+        },
+        {
+          "time_periods": ["MORNING", "NOON"],
+          "map_id": "sunharbor_city",
+          "x": 5,
+          "y": 6,
+          "activity": "setting up market stall",
+          "shop_available": true
+        },
+        {
+          "time_periods": ["AFTERNOON", "DUSK"],
+          "map_id": "sunharbor_city",
+          "x": 8,
+          "y": 5,
+          "activity": "selling imported curios",
+          "shop_available": true
+        },
+        {
+          "time_periods": ["EVENING", "NIGHT"],
+          "map_id": "sunharbor_city",
+          "x": 3,
+          "y": 7,
+          "activity": "meeting caravans at the docks",
+          "shop_available": false,
+          "alternative_dialogue_id": "exotic_merchant_closed"
+        },
+        {
+          "time_periods": ["MIDNIGHT"],
+          "map_id": "sunharbor_city",
+          "x": 5,
+          "y": 6,
+          "activity": "resting aboard her ship",
+          "shop_available": false,
+          "alternative_dialogue_id": "exotic_merchant_closed"
+        }
+      ]
+    }
+  }
+}

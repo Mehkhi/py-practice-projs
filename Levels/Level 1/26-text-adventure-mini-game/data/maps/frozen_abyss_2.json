@@ -1,0 +1,1213 @@
+{
+  "map_id": "frozen_abyss_2",
+  "width": 15,
+  "height": 15,
+  "tiles": [
+    [
+      {
+        "tile_id": "ice_cracked",
+        "walkable": true,
+        "sprite_id": "ice_cracked"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice_cracked",
+        "walkable": true,
+        "sprite_id": "ice_cracked"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice_cracked",
+        "walkable": true,
+        "sprite_id": "ice_cracked"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice_cracked",
+        "walkable": true,
+        "sprite_id": "ice_cracked"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice_cracked",
+        "walkable": true,
+        "sprite_id": "ice_cracked"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      }
+    ],
+    [
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice_cracked",
+        "walkable": true,
+        "sprite_id": "ice_cracked"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice_cracked",
+        "walkable": true,
+        "sprite_id": "ice_cracked"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice_cracked",
+        "walkable": true,
+        "sprite_id": "ice_cracked"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice_cracked",
+        "walkable": true,
+        "sprite_id": "ice_cracked"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice_cracked",
+        "walkable": true,
+        "sprite_id": "ice_cracked"
+      }
+    ],
+    [
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice_cracked",
+        "walkable": true,
+        "sprite_id": "ice_cracked"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice_cracked",
+        "walkable": true,
+        "sprite_id": "ice_cracked"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice_cracked",
+        "walkable": true,
+        "sprite_id": "ice_cracked"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice_cracked",
+        "walkable": true,
+        "sprite_id": "ice_cracked"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice_cracked",
+        "walkable": true,
+        "sprite_id": "ice_cracked"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      }
+    ],
+    [
+      {
+        "tile_id": "ice_cracked",
+        "walkable": true,
+        "sprite_id": "ice_cracked"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice_cracked",
+        "walkable": true,
+        "sprite_id": "ice_cracked"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice_cracked",
+        "walkable": true,
+        "sprite_id": "ice_cracked"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice_cracked",
+        "walkable": true,
+        "sprite_id": "ice_cracked"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice_cracked",
+        "walkable": true,
+        "sprite_id": "ice_cracked"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      }
+    ],
+    [
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice_cracked",
+        "walkable": true,
+        "sprite_id": "ice_cracked"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice_cracked",
+        "walkable": true,
+        "sprite_id": "ice_cracked"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice_cracked",
+        "walkable": true,
+        "sprite_id": "ice_cracked"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice_cracked",
+        "walkable": true,
+        "sprite_id": "ice_cracked"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice_cracked",
+        "walkable": true,
+        "sprite_id": "ice_cracked"
+      }
+    ],
+    [
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice_cracked",
+        "walkable": true,
+        "sprite_id": "ice_cracked"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice_cracked",
+        "walkable": true,
+        "sprite_id": "ice_cracked"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice_cracked",
+        "walkable": true,
+        "sprite_id": "ice_cracked"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice_cracked",
+        "walkable": true,
+        "sprite_id": "ice_cracked"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice_cracked",
+        "walkable": true,
+        "sprite_id": "ice_cracked"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      }
+    ],
+    [
+      {
+        "tile_id": "ice_cracked",
+        "walkable": true,
+        "sprite_id": "ice_cracked"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice_cracked",
+        "walkable": true,
+        "sprite_id": "ice_cracked"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice_cracked",
+        "walkable": true,
+        "sprite_id": "ice_cracked"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice_cracked",
+        "walkable": true,
+        "sprite_id": "ice_cracked"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice_cracked",
+        "walkable": true,
+        "sprite_id": "ice_cracked"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      }
+    ],
+    [
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice_cracked",
+        "walkable": true,
+        "sprite_id": "ice_cracked"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice_cracked",
+        "walkable": true,
+        "sprite_id": "ice_cracked"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice_cracked",
+        "walkable": true,
+        "sprite_id": "ice_cracked"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice_cracked",
+        "walkable": true,
+        "sprite_id": "ice_cracked"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice_cracked",
+        "walkable": true,
+        "sprite_id": "ice_cracked"
+      }
+    ],
+    [
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice_cracked",
+        "walkable": true,
+        "sprite_id": "ice_cracked"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice_cracked",
+        "walkable": true,
+        "sprite_id": "ice_cracked"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice_cracked",
+        "walkable": true,
+        "sprite_id": "ice_cracked"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice_cracked",
+        "walkable": true,
+        "sprite_id": "ice_cracked"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice_cracked",
+        "walkable": true,
+        "sprite_id": "ice_cracked"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      }
+    ],
+    [
+      {
+        "tile_id": "ice_cracked",
+        "walkable": true,
+        "sprite_id": "ice_cracked"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice_cracked",
+        "walkable": true,
+        "sprite_id": "ice_cracked"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice_cracked",
+        "walkable": true,
+        "sprite_id": "ice_cracked"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice_cracked",
+        "walkable": true,
+        "sprite_id": "ice_cracked"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice_cracked",
+        "walkable": true,
+        "sprite_id": "ice_cracked"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      }
+    ],
+    [
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice_cracked",
+        "walkable": true,
+        "sprite_id": "ice_cracked"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice_cracked",
+        "walkable": true,
+        "sprite_id": "ice_cracked"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice_cracked",
+        "walkable": true,
+        "sprite_id": "ice_cracked"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice_cracked",
+        "walkable": true,
+        "sprite_id": "ice_cracked"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice_cracked",
+        "walkable": true,
+        "sprite_id": "ice_cracked"
+      }
+    ],
+    [
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice_cracked",
+        "walkable": true,
+        "sprite_id": "ice_cracked"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice_cracked",
+        "walkable": true,
+        "sprite_id": "ice_cracked"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice_cracked",
+        "walkable": true,
+        "sprite_id": "ice_cracked"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice_cracked",
+        "walkable": true,
+        "sprite_id": "ice_cracked"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice_cracked",
+        "walkable": true,
+        "sprite_id": "ice_cracked"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      }
+    ],
+    [
+      {
+        "tile_id": "ice_cracked",
+        "walkable": true,
+        "sprite_id": "ice_cracked"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice_cracked",
+        "walkable": true,
+        "sprite_id": "ice_cracked"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice_cracked",
+        "walkable": true,
+        "sprite_id": "ice_cracked"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice_cracked",
+        "walkable": true,
+        "sprite_id": "ice_cracked"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice_cracked",
+        "walkable": true,
+        "sprite_id": "ice_cracked"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      }
+    ],
+    [
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice_cracked",
+        "walkable": true,
+        "sprite_id": "ice_cracked"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice_cracked",
+        "walkable": true,
+        "sprite_id": "ice_cracked"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice_cracked",
+        "walkable": true,
+        "sprite_id": "ice_cracked"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice_cracked",
+        "walkable": true,
+        "sprite_id": "ice_cracked"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice_cracked",
+        "walkable": true,
+        "sprite_id": "ice_cracked"
+      }
+    ],
+    [
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice_cracked",
+        "walkable": true,
+        "sprite_id": "ice_cracked"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice_cracked",
+        "walkable": true,
+        "sprite_id": "ice_cracked"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice_cracked",
+        "walkable": true,
+        "sprite_id": "ice_cracked"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice_cracked",
+        "walkable": true,
+        "sprite_id": "ice_cracked"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      },
+      {
+        "tile_id": "ice_cracked",
+        "walkable": true,
+        "sprite_id": "ice_cracked"
+      },
+      {
+        "tile_id": "ice",
+        "walkable": true,
+        "sprite_id": "ice"
+      }
+    ]
+  ],
+  "warps": [
+    {
+      "x": 7,
+      "y": 0,
+      "target_map_id": "frozen_abyss_1",
+      "target_x": 7,
+      "target_y": 14
+    },
+    {
+      "x": 7,
+      "y": 14,
+      "target_map_id": "frozen_abyss_3",
+      "target_x": 7,
+      "target_y": 0
+    }
+  ],
+  "triggers": [
+    {
+      "id": "ice_encounter_2",
+      "x": 3,
+      "y": 7,
+      "trigger_type": "battle",
+      "data": {
+        "encounter_id": "ice_creatures_2"
+      },
+      "once": true
+    },
+    {
+      "id": "ice_encounter_3",
+      "x": 11,
+      "y": 7,
+      "trigger_type": "battle",
+      "data": {
+        "encounter_id": "ice_creatures_2"
+      },
+      "once": true
+    },
+    {
+      "id": "ice_encounter_4",
+      "x": 7,
+      "y": 10,
+      "trigger_type": "battle",
+      "data": {
+        "encounter_id": "ice_creatures_3"
+      },
+      "once": true
+    }
+  ],
+  "entities": [],
+  "enemy_spawns": [],
+  "props": []
+}

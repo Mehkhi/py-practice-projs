@@ -1,0 +1,117 @@
+{% extends "base.html" %}
+
+{% block title %}Create Task - Flask To-Do App{% endblock %}
+
+{% block content %}
+<section class="page-header slim">
+    <div>
+        <p class="eyebrow">New Task</p>
+        <h1>Capture a new card</h1>
+        <p class="lede">Keep it crisp and assign only what matters—your future self will thank you.</p>
+    </div>
+</section>
+
+<div class="form-layout">
+    <div class="card form-card">
+        <form method="POST" action="{{ url_for('tasks.create_task_route') }}">
+            <div class="form-group">
+                <label for="title">Title *</label>
+                <input type="text" id="title" name="title" required autofocus placeholder="What needs to get done?">
+                <span class="form-helper-text">Keep it actionable—start with a verb.</span>
+            </div>
+
+            <div class="form-group">
+                <label for="description">Description</label>
+                <textarea id="description" name="description" placeholder="Optional details, links, or acceptance criteria"></textarea>
+                <span class="form-helper-text">Skip the clutter. A crisp note beats a long essay.</span>
+            </div>
+
+            <div class="form-grid two-col">
+                <div class="form-group">
+                    <label for="status">Kanban lane</label>
+                    <select id="status" name="status">
+                        {% for status in statuses %}
+                            <option value="{{ status }}">{{ status|replace('_',' ')|title }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="priority">Priority</label>
+                    <select id="priority" name="priority">
+                        <option value="low">Low</option>
+                        <option value="medium" selected>Medium</option>
+                        <option value="high">High</option>
+                        <option value="urgent">Urgent</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-grid two-col">
+                <div class="form-group">
+                    <label for="due_date">Due date (smart scheduling will fill if left empty)</label>
+                    <input type="date" id="due_date" name="due_date">
+                </div>
+                <div class="form-group">
+                    <label for="size_points">Size (points)</label>
+                    <input type="number" id="size_points" name="size_points" value="1" min="1" max="13">
+                </div>
+            </div>
+
+            <div class="form-grid two-col">
+                <div class="form-group">
+                    <label for="recurrence_interval_days">Recurs every (days)</label>
+                    <input type="number" id="recurrence_interval_days" name="recurrence_interval_days" min="0" placeholder="e.g. 7">
+                </div>
+                <div class="form-group">
+                    <label for="recurrence_end_date">Recurrence end date</label>
+                    <input type="date" id="recurrence_end_date" name="recurrence_end_date">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="template_id">Start from template</label>
+                <select id="template_id" name="template_id">
+                    <option value="">None</option>
+                    {% for template in templates %}
+                        <option value="{{ template.id }}">{{ template.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="form-grid two-col">
+                <label class="checkbox">
+                    <input type="checkbox" name="requires_approval">
+                    <span>Requires approval before Done</span>
+                </label>
+                <label class="checkbox">
+                    <input type="checkbox" name="auto_triage" checked>
+                    <span>AI triage suggested priority & acceptance criteria</span>
+                </label>
+                <label class="checkbox">
+                    <input type="checkbox" name="auto_schedule" checked>
+                    <span>Smart scheduling suggests due date</span>
+                </label>
+            </div>
+
+            <div class="form-group">
+                <label for="blocked_reason">Blocked reason (optional)</label>
+                <textarea id="blocked_reason" name="blocked_reason" placeholder="If blocked, capture the policy or constraint."></textarea>
+            </div>
+
+            <div class="flex-gap-10">
+                <button type="submit" class="btn">Create Task</button>
+                <a href="{{ url_for('tasks.list_tasks') }}" class="btn btn-secondary">Cancel</a>
+            </div>
+        </form>
+    </div>
+    <aside class="card guide-card">
+        <p class="eyebrow">Tips</p>
+        <h3>Ship faster</h3>
+        <ul class="guide-list">
+            <li>Use templates for repeatable workflows (intake, QA, retro).</li>
+            <li>Estimated size keeps smart scheduling honest.</li>
+            <li>Turn on auto-triage to seed acceptance criteria and priorities.</li>
+        </ul>
+    </aside>
+</div>
+{% endblock %}

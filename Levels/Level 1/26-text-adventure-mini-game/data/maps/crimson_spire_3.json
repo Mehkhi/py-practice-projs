@@ -1,0 +1,1203 @@
+{
+  "map_id": "crimson_spire_3",
+  "width": 15,
+  "height": 15,
+  "tiles": [
+    [
+      {
+        "tile_id": "stone_red_cracked",
+        "walkable": true,
+        "sprite_id": "stone_red_cracked"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red_cracked",
+        "walkable": true,
+        "sprite_id": "stone_red_cracked"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red_cracked",
+        "walkable": true,
+        "sprite_id": "stone_red_cracked"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red_cracked",
+        "walkable": true,
+        "sprite_id": "stone_red_cracked"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red_cracked",
+        "walkable": true,
+        "sprite_id": "stone_red_cracked"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      }
+    ],
+    [
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red_cracked",
+        "walkable": true,
+        "sprite_id": "stone_red_cracked"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red_cracked",
+        "walkable": true,
+        "sprite_id": "stone_red_cracked"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red_cracked",
+        "walkable": true,
+        "sprite_id": "stone_red_cracked"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red_cracked",
+        "walkable": true,
+        "sprite_id": "stone_red_cracked"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red_cracked",
+        "walkable": true,
+        "sprite_id": "stone_red_cracked"
+      }
+    ],
+    [
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red_cracked",
+        "walkable": true,
+        "sprite_id": "stone_red_cracked"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red_cracked",
+        "walkable": true,
+        "sprite_id": "stone_red_cracked"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red_cracked",
+        "walkable": true,
+        "sprite_id": "stone_red_cracked"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red_cracked",
+        "walkable": true,
+        "sprite_id": "stone_red_cracked"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red_cracked",
+        "walkable": true,
+        "sprite_id": "stone_red_cracked"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      }
+    ],
+    [
+      {
+        "tile_id": "stone_red_cracked",
+        "walkable": true,
+        "sprite_id": "stone_red_cracked"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red_cracked",
+        "walkable": true,
+        "sprite_id": "stone_red_cracked"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red_cracked",
+        "walkable": true,
+        "sprite_id": "stone_red_cracked"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red_cracked",
+        "walkable": true,
+        "sprite_id": "stone_red_cracked"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red_cracked",
+        "walkable": true,
+        "sprite_id": "stone_red_cracked"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      }
+    ],
+    [
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red_cracked",
+        "walkable": true,
+        "sprite_id": "stone_red_cracked"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red_cracked",
+        "walkable": true,
+        "sprite_id": "stone_red_cracked"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red_cracked",
+        "walkable": true,
+        "sprite_id": "stone_red_cracked"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red_cracked",
+        "walkable": true,
+        "sprite_id": "stone_red_cracked"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red_cracked",
+        "walkable": true,
+        "sprite_id": "stone_red_cracked"
+      }
+    ],
+    [
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red_cracked",
+        "walkable": true,
+        "sprite_id": "stone_red_cracked"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red_cracked",
+        "walkable": true,
+        "sprite_id": "stone_red_cracked"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red_cracked",
+        "walkable": true,
+        "sprite_id": "stone_red_cracked"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red_cracked",
+        "walkable": true,
+        "sprite_id": "stone_red_cracked"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red_cracked",
+        "walkable": true,
+        "sprite_id": "stone_red_cracked"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      }
+    ],
+    [
+      {
+        "tile_id": "stone_red_cracked",
+        "walkable": true,
+        "sprite_id": "stone_red_cracked"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red_cracked",
+        "walkable": true,
+        "sprite_id": "stone_red_cracked"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red_cracked",
+        "walkable": true,
+        "sprite_id": "stone_red_cracked"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red_cracked",
+        "walkable": true,
+        "sprite_id": "stone_red_cracked"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red_cracked",
+        "walkable": true,
+        "sprite_id": "stone_red_cracked"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      }
+    ],
+    [
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red_cracked",
+        "walkable": true,
+        "sprite_id": "stone_red_cracked"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red_cracked",
+        "walkable": true,
+        "sprite_id": "stone_red_cracked"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red_cracked",
+        "walkable": true,
+        "sprite_id": "stone_red_cracked"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red_cracked",
+        "walkable": true,
+        "sprite_id": "stone_red_cracked"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red_cracked",
+        "walkable": true,
+        "sprite_id": "stone_red_cracked"
+      }
+    ],
+    [
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red_cracked",
+        "walkable": true,
+        "sprite_id": "stone_red_cracked"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red_cracked",
+        "walkable": true,
+        "sprite_id": "stone_red_cracked"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red_cracked",
+        "walkable": true,
+        "sprite_id": "stone_red_cracked"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red_cracked",
+        "walkable": true,
+        "sprite_id": "stone_red_cracked"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red_cracked",
+        "walkable": true,
+        "sprite_id": "stone_red_cracked"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      }
+    ],
+    [
+      {
+        "tile_id": "stone_red_cracked",
+        "walkable": true,
+        "sprite_id": "stone_red_cracked"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red_cracked",
+        "walkable": true,
+        "sprite_id": "stone_red_cracked"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red_cracked",
+        "walkable": true,
+        "sprite_id": "stone_red_cracked"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red_cracked",
+        "walkable": true,
+        "sprite_id": "stone_red_cracked"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red_cracked",
+        "walkable": true,
+        "sprite_id": "stone_red_cracked"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      }
+    ],
+    [
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red_cracked",
+        "walkable": true,
+        "sprite_id": "stone_red_cracked"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red_cracked",
+        "walkable": true,
+        "sprite_id": "stone_red_cracked"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red_cracked",
+        "walkable": true,
+        "sprite_id": "stone_red_cracked"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red_cracked",
+        "walkable": true,
+        "sprite_id": "stone_red_cracked"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red_cracked",
+        "walkable": true,
+        "sprite_id": "stone_red_cracked"
+      }
+    ],
+    [
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red_cracked",
+        "walkable": true,
+        "sprite_id": "stone_red_cracked"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red_cracked",
+        "walkable": true,
+        "sprite_id": "stone_red_cracked"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red_cracked",
+        "walkable": true,
+        "sprite_id": "stone_red_cracked"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red_cracked",
+        "walkable": true,
+        "sprite_id": "stone_red_cracked"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red_cracked",
+        "walkable": true,
+        "sprite_id": "stone_red_cracked"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      }
+    ],
+    [
+      {
+        "tile_id": "stone_red_cracked",
+        "walkable": true,
+        "sprite_id": "stone_red_cracked"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red_cracked",
+        "walkable": true,
+        "sprite_id": "stone_red_cracked"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red_cracked",
+        "walkable": true,
+        "sprite_id": "stone_red_cracked"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red_cracked",
+        "walkable": true,
+        "sprite_id": "stone_red_cracked"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red_cracked",
+        "walkable": true,
+        "sprite_id": "stone_red_cracked"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      }
+    ],
+    [
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red_cracked",
+        "walkable": true,
+        "sprite_id": "stone_red_cracked"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red_cracked",
+        "walkable": true,
+        "sprite_id": "stone_red_cracked"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red_cracked",
+        "walkable": true,
+        "sprite_id": "stone_red_cracked"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red_cracked",
+        "walkable": true,
+        "sprite_id": "stone_red_cracked"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red_cracked",
+        "walkable": true,
+        "sprite_id": "stone_red_cracked"
+      }
+    ],
+    [
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red_cracked",
+        "walkable": true,
+        "sprite_id": "stone_red_cracked"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red_cracked",
+        "walkable": true,
+        "sprite_id": "stone_red_cracked"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red_cracked",
+        "walkable": true,
+        "sprite_id": "stone_red_cracked"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red_cracked",
+        "walkable": true,
+        "sprite_id": "stone_red_cracked"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      },
+      {
+        "tile_id": "stone_red_cracked",
+        "walkable": true,
+        "sprite_id": "stone_red_cracked"
+      },
+      {
+        "tile_id": "stone_red",
+        "walkable": true,
+        "sprite_id": "stone_red"
+      }
+    ]
+  ],
+  "warps": [
+    {
+      "x": 7,
+      "y": 0,
+      "target_map_id": "crimson_spire_2",
+      "target_x": 7,
+      "target_y": 14
+    },
+    {
+      "x": 7,
+      "y": 14,
+      "target_map_id": "crimson_spire_4",
+      "target_x": 7,
+      "target_y": 0
+    }
+  ],
+  "triggers": [
+    {
+      "id": "vampire_encounter_3_1",
+      "x": 3,
+      "y": 7,
+      "trigger_type": "battle",
+      "data": {
+        "encounter_id": "vampire_floor_3"
+      },
+      "once": true
+    },
+    {
+      "id": "vampire_encounter_3_2",
+      "x": 11,
+      "y": 7,
+      "trigger_type": "battle",
+      "data": {
+        "encounter_id": "vampire_floor_3"
+      },
+      "once": true
+    }
+  ],
+  "entities": [],
+  "enemy_spawns": [],
+  "props": []
+}

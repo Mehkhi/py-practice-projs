@@ -1,0 +1,1297 @@
+{
+  "map_id": "treasure_chamber",
+  "width": 15,
+  "height": 15,
+  "tiles": [
+    [
+      {
+        "tile_id": "stone_floor",
+        "walkable": true,
+        "sprite_id": "stone_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "stone_floor",
+        "walkable": true,
+        "sprite_id": "stone_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "stone_floor",
+        "walkable": true,
+        "sprite_id": "stone_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "stone_floor",
+        "walkable": true,
+        "sprite_id": "stone_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      }
+    ],
+    [
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "stone_floor",
+        "walkable": true,
+        "sprite_id": "stone_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "stone_floor",
+        "walkable": true,
+        "sprite_id": "stone_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "stone_floor",
+        "walkable": true,
+        "sprite_id": "stone_floor"
+      },
+      {
+        "tile_id": "stone_floor",
+        "walkable": true,
+        "sprite_id": "stone_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      }
+    ],
+    [
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "stone_floor",
+        "walkable": true,
+        "sprite_id": "stone_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      }
+    ],
+    [
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "stone_floor",
+        "walkable": true,
+        "sprite_id": "stone_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "stone_floor",
+        "walkable": true,
+        "sprite_id": "stone_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      }
+    ],
+    [
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "stone_floor",
+        "walkable": true,
+        "sprite_id": "stone_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "stone_floor",
+        "walkable": true,
+        "sprite_id": "stone_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "stone_floor",
+        "walkable": true,
+        "sprite_id": "stone_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "stone_floor",
+        "walkable": true,
+        "sprite_id": "stone_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      }
+    ],
+    [
+      {
+        "tile_id": "stone_floor",
+        "walkable": true,
+        "sprite_id": "stone_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "stone_floor",
+        "walkable": true,
+        "sprite_id": "stone_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "stone_floor",
+        "walkable": true,
+        "sprite_id": "stone_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      }
+    ],
+    [
+      {
+        "tile_id": "stone_floor",
+        "walkable": true,
+        "sprite_id": "stone_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "stone_floor",
+        "walkable": true,
+        "sprite_id": "stone_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "stone_floor",
+        "walkable": true,
+        "sprite_id": "stone_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "stone_floor",
+        "walkable": true,
+        "sprite_id": "stone_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      }
+    ],
+    [
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "stone_floor",
+        "walkable": true,
+        "sprite_id": "stone_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "stone_floor",
+        "walkable": true,
+        "sprite_id": "stone_floor"
+      },
+      {
+        "tile_id": "stone_floor",
+        "walkable": true,
+        "sprite_id": "stone_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      }
+    ],
+    [
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      }
+    ],
+    [
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      }
+    ],
+    [
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "stone_floor",
+        "walkable": true,
+        "sprite_id": "stone_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "stone_floor",
+        "walkable": true,
+        "sprite_id": "stone_floor"
+      }
+    ],
+    [
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "stone_floor",
+        "walkable": true,
+        "sprite_id": "stone_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "stone_floor",
+        "walkable": true,
+        "sprite_id": "stone_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "stone_floor",
+        "walkable": true,
+        "sprite_id": "stone_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "stone_floor",
+        "walkable": true,
+        "sprite_id": "stone_floor"
+      },
+      {
+        "tile_id": "stone_floor",
+        "walkable": true,
+        "sprite_id": "stone_floor"
+      },
+      {
+        "tile_id": "stone_floor",
+        "walkable": true,
+        "sprite_id": "stone_floor"
+      }
+    ],
+    [
+      {
+        "tile_id": "stone_floor",
+        "walkable": true,
+        "sprite_id": "stone_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      }
+    ],
+    [
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "stone_floor",
+        "walkable": true,
+        "sprite_id": "stone_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      }
+    ],
+    [
+      {
+        "tile_id": "stone_floor",
+        "walkable": true,
+        "sprite_id": "stone_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "stone_floor",
+        "walkable": true,
+        "sprite_id": "stone_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "stone_floor",
+        "walkable": true,
+        "sprite_id": "stone_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "stone_floor",
+        "walkable": true,
+        "sprite_id": "stone_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "gold_floor",
+        "walkable": true,
+        "sprite_id": "gold_floor"
+      },
+      {
+        "tile_id": "stone_floor",
+        "walkable": true,
+        "sprite_id": "stone_floor"
+      }
+    ]
+  ],
+  "warps": [
+    {
+      "x": 7,
+      "y": 14,
+      "target_map_id": "dark_cave",
+      "target_x": 7,
+      "target_y": 0
+    },
+    {
+      "x": 0,
+      "y": 7,
+      "target_map_id": "ancient_ruins",
+      "target_x": 14,
+      "target_y": 7
+    },
+    {
+      "x": 14,
+      "y": 7,
+      "target_map_id": "demon_fortress",
+      "target_x": 0,
+      "target_y": 7
+    }
+  ],
+  "triggers": [
+    {
+      "id": "crystal_choice",
+      "x": 5,
+      "y": 7,
+      "trigger_type": "dialogue",
+      "data": {
+        "dialogue_id": "garden_choice"
+      },
+      "once": true,
+      "skip_if_flag": "crystal_choice_made"
+    },
+    {
+      "id": "win_condition",
+      "x": 7,
+      "y": 5,
+      "trigger_type": "flag",
+      "data": {
+        "flag_name": "final_boss_defeated",
+        "flag_value": true
+      },
+      "once": true
+    },
+    {
+      "id": "darkness_unsealed_trigger",
+      "x": 7,
+      "y": 7,
+      "trigger_type": "flag",
+      "data": {
+        "flag_name": "darkness_unsealed",
+        "flag_value": true
+      },
+      "once": true,
+      "requires_flag": "treasure_found"
+    },
+    {
+      "id": "final_preparation_trigger",
+      "x": 7,
+      "y": 6,
+      "trigger_type": "flag",
+      "data": {
+        "flag_name": "final_preparation_complete",
+        "flag_value": true
+      },
+      "once": true,
+      "requires_flag": "darkness_unsealed"
+    }
+  ],
+  "entities": [],
+  "enemy_spawns": [
+    {
+      "spawn_id": "ancient_guardian",
+      "x": 7,
+      "y": 7,
+      "encounter_id": "final_boss",
+      "sprite_id": "boss",
+      "facing": "down",
+      "detection_range": 5,
+      "move_interval": 3.0,
+      "turn_interval": 2.5,
+      "patrol_radius": 2,
+      "once": true
+    },
+    {
+      "spawn_id": "treasure_guardian_1",
+      "x": 3,
+      "y": 3,
+      "encounter_id": "ruins_skeletons",
+      "sprite_id": "skeleton",
+      "facing": "down",
+      "detection_range": 4,
+      "move_interval": 1.8,
+      "patrol_radius": 2,
+      "once": true
+    },
+    {
+      "spawn_id": "treasure_guardian_2",
+      "x": 11,
+      "y": 3,
+      "encounter_id": "ruins_skeletons",
+      "sprite_id": "skeleton",
+      "facing": "down",
+      "detection_range": 4,
+      "move_interval": 1.6,
+      "patrol_radius": 2,
+      "once": true
+    },
+    {
+      "spawn_id": "treasure_guardian_3",
+      "x": 3,
+      "y": 11,
+      "encounter_id": "stone_golems",
+      "sprite_id": "golem",
+      "facing": "up",
+      "detection_range": 3,
+      "move_interval": 3.0,
+      "patrol_radius": 1,
+      "once": true
+    },
+    {
+      "spawn_id": "treasure_guardian_4",
+      "x": 11,
+      "y": 11,
+      "encounter_id": "stone_golems",
+      "sprite_id": "golem",
+      "facing": "up",
+      "detection_range": 3,
+      "move_interval": 2.8,
+      "patrol_radius": 1,
+      "once": true
+    }
+  ]
+}
