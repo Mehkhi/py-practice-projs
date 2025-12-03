@@ -317,8 +317,15 @@ class EquipmentScene(BaseMenuScene):
                     self.manager.pop()
 
     def update(self, dt: float) -> None:
-        """Update scene state."""
-        pass
+        """Update scene state and drive menu/message animations."""
+        if self.member_menu:
+            self.member_menu.update(dt)
+        if self.slot_menu:
+            self.slot_menu.update(dt)
+        if self.item_menu:
+            self.item_menu.update(dt)
+        if self.message_box:
+            self.message_box.update(dt)
 
     def draw(self, surface: pygame.Surface) -> None:
         """Draw the equipment scene."""
