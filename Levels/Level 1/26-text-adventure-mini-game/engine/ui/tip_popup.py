@@ -5,6 +5,7 @@ from typing import Optional, Tuple, TYPE_CHECKING
 import pygame
 
 from ..theme import Colors, Fonts, Layout
+from .text_utils import wrap_text
 
 if TYPE_CHECKING:
     from core.tutorial_system import TutorialTip
@@ -122,27 +123,8 @@ class TipPopup:
                 self._fade_state = "none"
 
     def _wrap_text(self, text: str, font: pygame.font.Font, max_width: int) -> list:
-        """Wrap text to fit within max_width."""
-        if not text:
-            return []
-
-        words = text.split()
-        lines = []
-        current_line = []
-
-        for word in words:
-            test_line = " ".join(current_line + [word])
-            if font.size(test_line)[0] <= max_width:
-                current_line.append(word)
-            else:
-                if current_line:
-                    lines.append(" ".join(current_line))
-                current_line = [word]
-
-        if current_line:
-            lines.append(" ".join(current_line))
-
-        return lines
+        """Wrap text to fit within max_width using shared helper."""
+        return wrap_text(text, font, max_width)
 
     def draw(self, surface: pygame.Surface) -> None:
         """
@@ -173,7 +155,13 @@ class TipPopup:
 
         # Calculate popup height
         title_height = title_font.get_height()
-        content_height = sum(content_font.get_linesize() for _ in wrapped_content) + (Layout.ELEMENT_GAP_SMALL * (len(wrapped_content) - 1))
+        line_height = content_font.get_linesize()
+        if wrapped_content:
+            content_height = len(wrapped_content) * line_height + (
+                Layout.ELEMENT_GAP_SMALL * (len(wrapped_content) - 1)
+            )
+        else:
+            content_height = 0
         footer_height = footer_font.get_height()
         popup_height = (
             popup_padding * 2 +

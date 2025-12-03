@@ -398,8 +398,15 @@ class ShopScene(BaseMenuScene):
         self.comparison_panel.set_items(current_item, new_item)
 
     def update(self, dt: float) -> None:
-        """Shop scene has no per-frame logic."""
-        return
+        """Update shop UI animations and timers."""
+        if self.menu:
+            self.menu.update(dt)
+        if self.message_box:
+            self.message_box.update(dt)
+
+        # Keep comparison panel responsive to selection changes in buy mode
+        if self.mode == self.MODE_BUY and self.menu:
+            self._update_comparison_panel()
 
     def draw(self, surface: pygame.Surface) -> None:
         """Render shop menu and info."""

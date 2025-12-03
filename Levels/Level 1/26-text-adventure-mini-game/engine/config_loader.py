@@ -76,3 +76,15 @@ def load_config(config_path: str = "data/config.json") -> Dict[str, Any]:
             log_warning(f"Failed to load config from {config_path}: {exc}")
 
     return apply_debug_ai_override(config)
+
+
+def save_config(config: Dict[str, Any], config_path: str = "data/config.json") -> bool:
+    """Persist config to disk, stripping any env-only overrides."""
+    try:
+        os.makedirs(os.path.dirname(config_path) or ".", exist_ok=True)
+        with open(config_path, "w") as f:
+            json.dump(config, f, indent=2)
+        return True
+    except Exception as exc:
+        log_warning(f"Failed to save config to {config_path}: {exc}")
+        return False

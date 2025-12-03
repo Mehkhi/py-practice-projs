@@ -128,6 +128,9 @@ class TitleScene(BaseMenuScene):
         if self.menu_fade_in < 1.0:
             self.menu_fade_in = min(1.0, self.menu_fade_in + dt * 1.5)
 
+        # Update menu animations (cursor bounce) using dt-based path
+        self.menu.update(dt)
+
         # Update particles using centralized function
         update_particles(self.particles, dt, self.screen_width, self.screen_height)
 

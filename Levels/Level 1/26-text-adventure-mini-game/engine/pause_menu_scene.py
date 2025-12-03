@@ -376,11 +376,16 @@ class PauseMenuScene(BaseMenuScene):
 
     def update(self, dt: float) -> None:
         """Update scene state."""
+        # Drive menu animations with dt
+        self.menu.update(dt)
+
         if self.showing_save_message:
             self.save_message_timer += dt
             if self.save_message_timer >= self.save_message_duration:
                 self.showing_save_message = False
                 self.message_box = None
+            elif self.message_box:
+                self.message_box.update(dt)
 
     def draw(self, surface: pygame.Surface) -> None:
         """Draw the pause menu."""

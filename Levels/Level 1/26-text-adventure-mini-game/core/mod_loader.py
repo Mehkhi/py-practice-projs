@@ -5,7 +5,7 @@ import os
 from dataclasses import dataclass, field
 from typing import Any, Dict, List, Optional
 
-from .logging_utils import log_warning
+from .logging_utils import log_schema_warning, log_warning
 
 
 @dataclass
@@ -93,7 +93,17 @@ class ModLoader:
         in their manifest. Lists are concatenated, dictionaries are merged
         recursively, and scalar values overwrite base values.
         """
+        context = "mod loader"
         base_data = self._load_json(base_path, context=f"{data_key} (base)")
+        if not isinstance(base_data, dict):
+            log_schema_warning(
+                context,
+                f"expected dict for base '{data_key}', got {type(base_data).__name__}; treating as empty object",
+                section="base",
+                identifier=data_key,
+            )
+            base_data = {}
+
         merged: Dict[str, Any] = dict(base_data)
 
         for manifest in self.manifests:
@@ -110,8 +120,17 @@ class ModLoader:
                 continue
 
             override_data = self._load_json(override_path, context=f"{data_key} override for {manifest.mod_id}")
-            if override_data:
-                merged = self._merge_payload(merged, override_data)
+            if not override_data:
+                continue
+            if not isinstance(override_data, dict):
+                log_schema_warning(
+                    context,
+                    f"expected dict override for '{data_key}', got {type(override_data).__name__}; skipping {manifest.mod_id}",
+                    section="override",
+                    identifier=manifest.mod_id,
+                )
+                continue
+            merged = self._merge_payload(merged, override_data)
 
         return merged
 
@@ -135,7 +154,7 @@ class ModLoader:
                 merged[key] = value
         return merged
 
-    def _load_json(self, path: str, context: str = "mod data") -> Dict[str, Any]:
+    def _load_json(self, path: str, context: str = "mod data") -> Any:
         """Load a JSON file with graceful degradation."""
         if not os.path.exists(path):
             return {}

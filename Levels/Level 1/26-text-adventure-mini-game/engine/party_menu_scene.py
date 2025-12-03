@@ -58,6 +58,8 @@ class PartyMenuScene(BaseMenuScene):
         )
         self.pending_remove_index: Optional[int] = None
 
+        # Animation timers are dt-driven via menu/message box update methods
+
     def _get_all_members(self) -> List:
         """Get player + all party members as a list."""
         return [self.player] + list(self.player.party)
@@ -283,11 +285,19 @@ class PartyMenuScene(BaseMenuScene):
 
     def update(self, dt: float) -> None:
         """Update scene state."""
+        # Drive any open menus with dt-based animation
+        if self.action_menu:
+            self.action_menu.update(dt)
+        if self.formation_menu:
+            self.formation_menu.update(dt)
+
         if self.showing_message:
             self.message_timer += dt
             if self.message_timer >= self.message_duration:
                 self.showing_message = False
                 self.message_box = None
+            elif self.message_box:
+                self.message_box.update(dt)
 
     def draw(self, surface: pygame.Surface) -> None:
         """Draw the party menu."""

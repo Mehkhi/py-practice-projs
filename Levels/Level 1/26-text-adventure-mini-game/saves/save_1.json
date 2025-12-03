@@ -1,31 +1,70 @@
 {
   "meta": {
     "version": 1,
-    "timestamp": "2025-12-03T07:51:41.827317",
-    "play_time_seconds": 4.702999999999989
+    "timestamp": "2025-12-03T09:48:53.685599",
+    "play_time_seconds": 395.01199999993395
   },
   "world": {
     "current_map_id": "forest_path",
     "flags": {
-      "gold": 20,
-      "play_time_seconds": 4.702999999999989
+      "gold": 312,
+      "play_time_seconds": 395.01199999993395,
+      "battles_total": 6,
+      "battles_won": 6,
+      "battle_won": true,
+      "last_battle_spared": false,
+      "enemies_spared_total": 0,
+      "enemies_defeated_total": 9,
+      "last_battle_outcome": "victory",
+      "tutorial_completed": true,
+      "werewolves_defeated": true,
+      "swamp_spiders_cleared": true,
+      "forest_wolves_cleared": true,
+      "luna_recruited": true,
+      "luna_joined": true,
+      "forest_slimes_cleared": true,
+      "_tutorial_entered_dungeon": true,
+      "_tutorial_first_dungeon_puzzle": true,
+      "river_creature_defeated": true,
+      "garden_visited": true,
+      "sage_recruited": true,
+      "sage_joined": true
     },
     "visited_maps": [
-      "forest_path"
+      "dark_cave",
+      "desert_oasis",
+      "forest_path",
+      "secret_garden"
     ],
     "runtime_state": {
-      "trigger_states": {},
-      "enemy_states": {}
+      "trigger_states": {
+        "secret_garden": {
+          "garden_entry": true
+        }
+      },
+      "enemy_states": {
+        "desert_oasis": {
+          "spider_1": true
+        },
+        "dark_cave": {
+          "river_creature_1": true
+        },
+        "forest_path": {
+          "slime_patrol_1": true,
+          "wolf_patrol_1": true,
+          "werewolf_1": true
+        }
+      }
     }
   },
   "player": {
     "entity_id": "player",
     "name": "hi",
-    "x": 5,
-    "y": 5,
+    "x": 14,
+    "y": 7,
     "inventory": {
-      "health_potion": 2,
-      "starter_sword": 1
+      "starter_sword": 1,
+      "health_potion": 5
     },
     "hotbar_slots": {},
     "equipment": {
@@ -39,30 +78,136 @@
     ],
     "learned_moves": [
       "slash",
-      "tackle"
+      "tackle",
+      "power_slash"
     ],
     "stats": {
-      "max_hp": 120,
-      "hp": 120,
-      "max_sp": 45,
-      "sp": 45,
-      "attack": 14,
-      "defense": 10,
-      "magic": 7,
-      "speed": 8,
-      "luck": 4,
-      "level": 1,
-      "exp": 0,
-      "status_effects": {}
+      "max_hp": 150,
+      "hp": 150,
+      "max_sp": 60,
+      "sp": 60,
+      "attack": 20,
+      "defense": 16,
+      "magic": 13,
+      "speed": 11,
+      "luck": 7,
+      "level": 4,
+      "exp": 643,
+      "status_effects": {
+        "poison": {
+          "duration": 2,
+          "stacks": 1
+        }
+      }
     },
     "memory_value": 0,
     "memory_stat_type": null,
-    "party": [],
-    "party_formation": {},
+    "party": [
+      {
+        "entity_id": "luna",
+        "name": "Luna",
+        "x": 0,
+        "y": 0,
+        "sprite_id": "party_luna",
+        "equipment": {
+          "weapon": null,
+          "armor": null,
+          "accessory": null
+        },
+        "base_skills": [
+          "fireball",
+          "heal"
+        ],
+        "skills": [
+          "fireball",
+          "heal"
+        ],
+        "learned_moves": [
+          "fireball",
+          "heal"
+        ],
+        "role": "mage",
+        "portrait_id": "portrait_luna",
+        "formation_position": "back",
+        "stats": {
+          "max_hp": 100,
+          "hp": 100,
+          "max_sp": 60,
+          "sp": 60,
+          "attack": 9,
+          "defense": 8,
+          "magic": 16,
+          "speed": 10,
+          "luck": 8,
+          "level": 3,
+          "exp": 280,
+          "status_effects": {}
+        },
+        "memory_value": 0,
+        "memory_stat_type": null,
+        "skill_tree_progress": {
+          "skill_points": 2,
+          "skill_points_total": 2,
+          "unlocked_nodes": {}
+        }
+      },
+      {
+        "entity_id": "sage",
+        "name": "Sage",
+        "x": 0,
+        "y": 0,
+        "sprite_id": "party_sage",
+        "equipment": {
+          "weapon": null,
+          "armor": null,
+          "accessory": null
+        },
+        "base_skills": [
+          "heal",
+          "cure"
+        ],
+        "skills": [
+          "heal",
+          "cure"
+        ],
+        "learned_moves": [
+          "heal",
+          "cure"
+        ],
+        "role": "healer",
+        "portrait_id": "portrait_sage",
+        "formation_position": "back",
+        "stats": {
+          "max_hp": 70,
+          "hp": 70,
+          "max_sp": 60,
+          "sp": 60,
+          "attack": 4,
+          "defense": 5,
+          "magic": 10,
+          "speed": 7,
+          "luck": 8,
+          "level": 1,
+          "exp": 0,
+          "status_effects": {}
+        },
+        "memory_value": 0,
+        "memory_stat_type": null,
+        "skill_tree_progress": {
+          "skill_points": 0,
+          "skill_points_total": 0,
+          "unlocked_nodes": {}
+        }
+      }
+    ],
+    "party_formation": {
+      "luna": "back",
+      "sage": "back"
+    },
     "formation_position": "front",
     "skill_tree_progress": {
-      "skill_points": 0,
-      "skill_points_total": 0,
+      "skill_points": 3,
+      "skill_points_total": 3,
       "unlocked_nodes": {}
     },
     "player_class": "warrior",
@@ -74,9 +219,9 @@
           "enemy_type": "slime",
           "name": "Practice Slime",
           "sprite_id": "slime",
-          "times_encountered": 0,
-          "times_defeated": 0,
-          "discovery_level": 0,
+          "times_encountered": 2,
+          "times_defeated": 2,
+          "discovery_level": 2,
           "base_hp": 50,
           "base_sp": 10,
           "base_attack": 3,
@@ -94,7 +239,8 @@
           "description": "A Easy threat encountered near Bg Forest. Field notes recommend exploiting elemental weaknesses when possible.",
           "category": "monster",
           "locations": [
-            "bg_forest"
+            "bg_forest",
+            "forest_path"
           ],
           "observed_drops": [
             "health_potion"
@@ -168,9 +314,9 @@
           "enemy_type": "wolf",
           "name": "Forest Wolf",
           "sprite_id": "wolf",
-          "times_encountered": 0,
-          "times_defeated": 0,
-          "discovery_level": 0,
+          "times_encountered": 2,
+          "times_defeated": 2,
+          "discovery_level": 2,
           "base_hp": 40,
           "base_sp": 12,
           "base_attack": 9,
@@ -188,7 +334,8 @@
           "description": "A Normal threat encountered near Bg Forest. Field notes recommend exploiting elemental weaknesses when possible.",
           "category": "monster",
           "locations": [
-            "bg_forest"
+            "bg_forest",
+            "forest_path"
           ],
           "observed_drops": [
             "health_potion"
@@ -226,9 +373,9 @@
           "enemy_type": "spider",
           "name": "Giant Spider",
           "sprite_id": "spider",
-          "times_encountered": 0,
-          "times_defeated": 0,
-          "discovery_level": 0,
+          "times_encountered": 2,
+          "times_defeated": 2,
+          "discovery_level": 2,
           "base_hp": 55,
           "base_sp": 15,
           "base_attack": 12,
@@ -246,7 +393,8 @@
           "description": "A Normal threat encountered near Bg Swamp. Field notes recommend exploiting elemental weaknesses when possible.",
           "category": "monster",
           "locations": [
-            "bg_swamp"
+            "bg_swamp",
+            "desert_oasis"
           ],
           "observed_drops": [
             "health_potion"
@@ -321,9 +469,9 @@
           "enemy_type": "beast",
           "name": "Cave Bat",
           "sprite_id": "bat",
-          "times_encountered": 0,
-          "times_defeated": 0,
-          "discovery_level": 0,
+          "times_encountered": 3,
+          "times_defeated": 3,
+          "discovery_level": 2,
           "base_hp": 25,
           "base_sp": 10,
           "base_attack": 8,
@@ -346,7 +494,9 @@
           "locations": [
             "bg_cave",
             "bg_forest",
-            "bg_mountain"
+            "bg_mountain",
+            "forest_path",
+            "dark_cave"
           ],
           "observed_drops": [
             "health_potion"
@@ -1241,7 +1391,7 @@
     ]
   },
   "day_night": {
-    "current_time": 364.7029999999996,
+    "current_time": 755.0120000006482,
     "day_count": 1,
     "time_scale": 1.0,
     "paused": false
@@ -1250,49 +1400,49 @@
     "achievements": [
       {
         "id": "first_blood",
-        "current_count": 0,
-        "unlocked": false,
-        "unlock_time": null,
+        "current_count": 1,
+        "unlocked": true,
+        "unlock_time": "2025-12-03T09:42:40.300926",
         "points": 10
       },
       {
         "id": "warrior_initiate",
-        "current_count": 0,
+        "current_count": 6,
         "unlocked": false,
         "unlock_time": null,
         "points": 10
       },
       {
         "id": "battle_hardened",
-        "current_count": 0,
+        "current_count": 6,
         "unlocked": false,
         "unlock_time": null,
         "points": 15
       },
       {
         "id": "veteran_warrior",
-        "current_count": 0,
+        "current_count": 6,
         "unlocked": false,
         "unlock_time": null,
         "points": 25
       },
       {
         "id": "legendary_fighter",
-        "current_count": 0,
+        "current_count": 6,
         "unlocked": false,
         "unlock_time": null,
         "points": 100
       },
       {
         "id": "monster_slayer",
-        "current_count": 0,
+        "current_count": 9,
         "unlocked": false,
         "unlock_time": null,
         "points": 10
       },
       {
         "id": "exterminator",
-        "current_count": 0,
+        "current_count": 9,
         "unlocked": false,
         "unlock_time": null,
         "points": 15
@@ -1341,44 +1491,44 @@
       },
       {
         "id": "first_steps",
-        "current_count": 0,
-        "unlocked": false,
-        "unlock_time": null,
+        "current_count": 1,
+        "unlocked": true,
+        "unlock_time": "2025-12-03T09:42:52.260287",
         "points": 10
       },
       {
         "id": "explorer",
-        "current_count": 0,
-        "unlocked": false,
-        "unlock_time": null,
+        "current_count": 5,
+        "unlocked": true,
+        "unlock_time": "2025-12-03T09:48:13.837515",
         "points": 10
       },
       {
         "id": "cartographer",
-        "current_count": 0,
-        "unlocked": false,
-        "unlock_time": null,
+        "current_count": 10,
+        "unlocked": true,
+        "unlock_time": "2025-12-03T09:48:53.685520",
         "points": 15
       },
       {
         "id": "world_traveler",
-        "current_count": 0,
+        "current_count": 10,
         "unlocked": false,
         "unlock_time": null,
         "points": 25
       },
       {
         "id": "forest_explorer",
-        "current_count": 0,
-        "unlocked": false,
-        "unlock_time": null,
+        "current_count": 1,
+        "unlocked": true,
+        "unlock_time": "2025-12-03T09:43:51.686030",
         "points": 10
       },
       {
         "id": "cave_explorer",
-        "current_count": 0,
-        "unlocked": false,
-        "unlock_time": null,
+        "current_count": 1,
+        "unlocked": true,
+        "unlock_time": "2025-12-03T09:47:20.511099",
         "points": 10
       },
       {
@@ -1509,28 +1659,28 @@
       },
       {
         "id": "first_friend",
-        "current_count": 0,
-        "unlocked": false,
-        "unlock_time": null,
+        "current_count": 1,
+        "unlocked": true,
+        "unlock_time": "2025-12-03T09:44:12.520862",
         "points": 10
       },
       {
         "id": "full_party",
-        "current_count": 0,
+        "current_count": 2,
         "unlocked": false,
         "unlock_time": null,
         "points": 15
       },
       {
         "id": "social_butterfly",
-        "current_count": 0,
+        "current_count": 2,
         "unlocked": false,
         "unlock_time": null,
         "points": 10
       },
       {
         "id": "diplomat",
-        "current_count": 0,
+        "current_count": 2,
         "unlocked": false,
         "unlock_time": null,
         "points": 15
@@ -1912,15 +2062,15 @@
     "challenge_dungeon_pacifist": {}
   },
   "weather": {
-    "current_weather": "clear",
+    "current_weather": "fog",
     "transition_weather": null,
     "transition_progress": 0.0,
-    "change_timer": 295.2970000000004,
+    "change_timer": 458.47397070115284,
     "enabled": true,
     "paused": false
   },
   "npc_schedules": {
-    "last_time_period": "morning",
+    "last_time_period": "noon",
     "npc_positions": {
       "forest_merchant": {
         "map_id": "forest_path",
@@ -1938,9 +2088,9 @@
         "y": 8
       },
       "tutorial_npc": {
-        "map_id": "forest_path",
-        "x": 6,
-        "y": 4
+        "map_id": "hillcrest_town",
+        "x": 9,
+        "y": 6
       },
       "riverside_innkeeper": {
         "map_id": "riverside_inn",
@@ -1948,14 +2098,14 @@
         "y": 3
       },
       "hillcrest_herbalist": {
-        "map_id": "secret_garden",
-        "x": 4,
-        "y": 5
+        "map_id": "hillcrest_town",
+        "x": 7,
+        "y": 3
       },
       "shadowfen_alchemist": {
         "map_id": "shadowfen_alchemist",
-        "x": 4,
-        "y": 4
+        "x": 6,
+        "y": 3
       },
       "ironhold_armorer": {
         "map_id": "ironhold_city",
@@ -2066,7 +2216,16 @@
   },
   "tutorial": {
     "dismissed_tips": [],
-    "seen_tips": [],
+    "seen_tips": [
+      "puzzle_hint",
+      "low_sp_warning",
+      "party_member_joined",
+      "battle_basics",
+      "entered_dungeon",
+      "level_up",
+      "status_effects_intro",
+      "low_hp_warning"
+    ],
     "tips_enabled": true
   }
 }

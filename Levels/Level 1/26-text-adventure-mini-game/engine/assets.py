@@ -30,6 +30,7 @@ class AssetManager:
         self.sounds: Dict[str, pygame.mixer.Sound] = {}
         self.fonts: Dict[str, pygame.font.Font] = {}
         self.font_variants: Dict[Tuple[str, int], pygame.font.Font] = {}
+        self.font_base_sizes: Dict[str, int] = {}
 
         self._load_fonts()
         self._load_sprites()
@@ -85,6 +86,9 @@ class AssetManager:
             self.fonts["default"] = sys_font
             self.fonts["small"] = sys_font_small
             self.fonts["large"] = sys_font_large
+            self.font_base_sizes["default"] = 24
+            self.font_base_sizes["small"] = 16
+            self.font_base_sizes["large"] = 32
         except (pygame.error, OSError, Exception) as e:
             log_warning(f"Failed to load system fonts: {e}. Will use fallback.")
             # Fallback to default pygame fonts
@@ -92,6 +96,9 @@ class AssetManager:
                 self.fonts["default"] = pygame.font.Font(None, 24)
                 self.fonts["small"] = pygame.font.Font(None, 16)
                 self.fonts["large"] = pygame.font.Font(None, 32)
+                self.font_base_sizes["default"] = 24
+                self.font_base_sizes["small"] = 16
+                self.font_base_sizes["large"] = 32
             except Exception:
                 log_warning("Unable to create default font during initialization. Will attempt lazy creation on first use.")
 
@@ -106,6 +113,7 @@ class AssetManager:
                     path = os.path.join(fonts_dir, filename)
                     # Use default sizes; callers can request resized copies
                     self.fonts[font_id] = pygame.font.Font(path, 24)
+                    self.font_base_sizes[font_id] = 24
                     log_debug(f"Loaded bundled font: {font_id} from {filename}")
                 except (pygame.error, OSError, FileNotFoundError) as e:
                     log_warning(f"Failed to load bundled font {filename}: {e}")
@@ -268,6 +276,10 @@ class AssetManager:
 
     # --- Retrieval helpers ---
 
+    def has_image(self, sprite_id: str) -> bool:
+        """Check if an image exists (is loaded) without generating a placeholder."""
+        return sprite_id in self.images
+
     def get_image(self, sprite_id: str, size: Optional[Tuple[int, int]] = None) -> pygame.Surface:
         """
         Get an image by sprite ID. Creates a pixel-art placeholder if missing.
@@ -317,19 +329,23 @@ class AssetManager:
             size: Optional size override
             apply_accessibility: If True, applies accessibility text scaling
         """
-        # Apply accessibility scaling if enabled and size is specified
-        if apply_accessibility and size:
+        access_mgr = None
+        if apply_accessibility:
             try:
                 from .accessibility import get_accessibility_manager
-                size = get_accessibility_manager().scale_font_size(size)
+
+                access_mgr = get_accessibility_manager()
             except ImportError:
-                pass  # Accessibility module not available
+                access_mgr = None
+
+        # Apply accessibility scaling if enabled and size is specified
+        if access_mgr and size:
+            size = access_mgr.scale_font_size(size)
 
         base_font = self.fonts.get(font_name) or self.fonts.get("default")
 
         # If no base font found, try to create a fallback (lazy initialization)
         if not base_font:
-            # Ensure pygame.font is initialized before creating fallback font
             if not pygame.font.get_init():
                 try:
                     pygame.font.init()
@@ -340,51 +356,58 @@ class AssetManager:
             log_warning(f"Font '{font_name}' not found, using pygame default fallback")
             try:
                 base_font = pygame.font.Font(None, size or 24)
-                # Cache it as default for future use
                 if "default" not in self.fonts:
                     self.fonts["default"] = base_font
+                    self.font_base_sizes.setdefault("default", size or 24)
+                self.font_base_sizes.setdefault(font_name, size or 24)
             except Exception as e:
                 log_error(f"Failed to create fallback font: {e}")
                 return None
 
         # If size override requested, create or reuse a cached variant
         if base_font and size:
-            cache_key = (font_name, size)
-            if cache_key in self.font_variants:
-                return self.font_variants[cache_key]
-            try:
-                # Ensure pygame.font is initialized before creating variant
-                if not pygame.font.get_init():
-                    pygame.font.init()
+            return self._create_font_variant(font_name, base_font, size)
 
-                # Try to use the font's file path if available
-                font_path = getattr(base_font, "name", None)
-                if font_path:
-                    variant = pygame.font.Font(font_path, size)
-                else:
-                    # Fallback to creating from None (pygame default)
-                    variant = pygame.font.Font(None, size)
-                self.font_variants[cache_key] = variant
-                return variant
-            except (pygame.error, OSError) as e:
-                log_warning(f"Failed to create font size {size} from {font_name}: {e}. Using base font.")
-                try:
-                    # Ensure pygame.font is initialized before last resort attempt
-                    if not pygame.font.get_init():
-                        pygame.font.init()
-                    # Last resort: try pygame default at requested size
-                    fallback = pygame.font.Font(None, size)
-                    log_debug(f"Using pygame default fallback at size {size}")
-                    self.font_variants[cache_key] = fallback
-                    return fallback
-                except Exception:
-                    # Return base font as final fallback
-                    return base_font
-            except Exception as e:
-                log_warning(f"Unexpected error creating font size {size}: {e}. Using base font.")
-                return base_font
+        # If no size is provided, still respect accessibility scaling using the base size
+        if access_mgr and not size:
+            base_size = self.font_base_sizes.get(font_name) or self.font_base_sizes.get("default")
+            if base_size:
+                scaled_size = access_mgr.scale_font_size(base_size)
+                if scaled_size != base_size:
+                    return self._create_font_variant(font_name, base_font, scaled_size)
 
         return base_font
+
+    def _create_font_variant(self, font_name: str, base_font: pygame.font.Font, size: int) -> Optional[pygame.font.Font]:
+        """Create or return a cached font variant at a given size."""
+        cache_key = (font_name, size)
+        if cache_key in self.font_variants:
+            return self.font_variants[cache_key]
+        try:
+            if not pygame.font.get_init():
+                pygame.font.init()
+
+            font_path = getattr(base_font, "name", None)
+            if font_path:
+                variant = pygame.font.Font(font_path, size)
+            else:
+                variant = pygame.font.Font(None, size)
+            self.font_variants[cache_key] = variant
+            return variant
+        except (pygame.error, OSError) as e:
+            log_warning(f"Failed to create font size {size} from {font_name}: {e}. Using base font.")
+            try:
+                if not pygame.font.get_init():
+                    pygame.font.init()
+                fallback = pygame.font.Font(None, size)
+                log_debug(f"Using pygame default fallback at size {size}")
+                self.font_variants[cache_key] = fallback
+                return fallback
+            except Exception:
+                return base_font
+        except Exception as e:
+            log_warning(f"Unexpected error creating font size {size}: {e}. Using base font.")
+            return base_font
 
     def play_sound(self, sound_id: str) -> None:
         """Play a sound by ID."""

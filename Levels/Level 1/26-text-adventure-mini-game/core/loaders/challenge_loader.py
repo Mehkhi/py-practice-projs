@@ -2,12 +2,18 @@
 
 from typing import Dict, Tuple
 
-from core.loaders.base import load_json_file
-from core.logging_utils import log_warning
+from core.constants import CHALLENGE_DUNGEONS_JSON
+from core.loaders.base import (
+    ensure_dict,
+    ensure_list,
+    load_json_file,
+    validate_required_keys,
+)
+from core.logging_utils import log_schema_warning
 
 
 def load_challenge_dungeons(
-    filepath: str = "data/challenge_dungeons.json",
+    filepath: str = CHALLENGE_DUNGEONS_JSON,
 ) -> Tuple[Dict[str, "ChallengeDungeon"], Dict[str, "ChallengeModifier"]]:
     """Load challenge dungeons and modifiers from JSON file.
 
@@ -23,6 +29,7 @@ def load_challenge_dungeons(
         ChallengeTier,
     )
 
+    context = "challenge dungeons loader"
     data = load_json_file(
         filepath,
         default={"modifiers": {}, "dungeons": {}},
@@ -31,115 +38,104 @@ def load_challenge_dungeons(
     )
 
     modifiers: Dict[str, ChallengeModifier] = {}
-    modifiers_data = data.get("modifiers", {})
+    data = ensure_dict(data, context=context, section="root")
+    modifiers_data = ensure_dict(
+        data.get("modifiers", {}),
+        context=context,
+        section="modifiers",
+    )
 
     for modifier_id, modifier_data in modifiers_data.items():
-        # Validate required fields
-        if "modifier_id" not in modifier_data:
-            log_warning("Challenge modifier missing 'modifier_id', skipping")
-            continue
-        if "name" not in modifier_data:
-            log_warning(
-                f"Challenge modifier '{modifier_id}' missing 'name', skipping"
-            )
-            continue
-        if "description" not in modifier_data:
-            log_warning(
-                f"Challenge modifier '{modifier_id}' missing 'description', skipping"
-            )
-            continue
-        if "effect_type" not in modifier_data:
-            log_warning(
-                f"Challenge modifier '{modifier_id}' missing 'effect_type', skipping"
-            )
-            continue
-        if "effect_data" not in modifier_data:
-            log_warning(
-                f"Challenge modifier '{modifier_id}' missing 'effect_data', skipping"
-            )
+        modifier_data = ensure_dict(
+            modifier_data,
+            context=context,
+            section="modifier",
+            identifier=modifier_id,
+        )
+        if not validate_required_keys(
+            modifier_data,
+            ("modifier_id", "name", "description", "effect_type", "effect_data"),
+            context=context,
+            section="modifier",
+            identifier=modifier_id,
+        ):
             continue
 
+        effect_data = ensure_dict(
+            modifier_data.get("effect_data", {}),
+            context=context,
+            section="modifier.effect_data",
+            identifier=modifier_id,
+        )
         modifier = ChallengeModifier(
             modifier_id=modifier_data["modifier_id"],
             name=modifier_data["name"],
             description=modifier_data["description"],
             effect_type=modifier_data["effect_type"],
-            effect_data=modifier_data.get("effect_data", {}),
+            effect_data=effect_data,
         )
         modifiers[modifier_id] = modifier
 
     dungeons: Dict[str, ChallengeDungeon] = {}
-    dungeons_data = data.get("dungeons", {})
+    dungeons_data = ensure_dict(
+        data.get("dungeons", {}),
+        context=context,
+        section="dungeons",
+    )
 
     for dungeon_id, dungeon_data in dungeons_data.items():
-        # Validate required fields
-        if "dungeon_id" not in dungeon_data:
-            log_warning("Challenge dungeon missing 'dungeon_id', skipping")
-            continue
-        if "name" not in dungeon_data:
-            log_warning(
-                f"Challenge dungeon '{dungeon_id}' missing 'name', skipping"
-            )
-            continue
-        if "description" not in dungeon_data:
-            log_warning(
-                f"Challenge dungeon '{dungeon_id}' missing 'description', skipping"
-            )
-            continue
-        if "tier" not in dungeon_data:
-            log_warning(
-                f"Challenge dungeon '{dungeon_id}' missing 'tier', skipping"
-            )
-            continue
-        if "required_level" not in dungeon_data:
-            log_warning(
-                f"Challenge dungeon '{dungeon_id}' missing 'required_level', skipping"
-            )
-            continue
-        if "map_ids" not in dungeon_data:
-            log_warning(
-                f"Challenge dungeon '{dungeon_id}' missing 'map_ids', skipping"
-            )
-            continue
-        if "entry_map_id" not in dungeon_data:
-            log_warning(
-                f"Challenge dungeon '{dungeon_id}' missing 'entry_map_id', skipping"
-            )
-            continue
-        if "entry_x" not in dungeon_data:
-            log_warning(
-                f"Challenge dungeon '{dungeon_id}' missing 'entry_x', skipping"
-            )
-            continue
-        if "entry_y" not in dungeon_data:
-            log_warning(
-                f"Challenge dungeon '{dungeon_id}' missing 'entry_y', skipping"
-            )
-            continue
-        if "modifiers" not in dungeon_data:
-            log_warning(
-                f"Challenge dungeon '{dungeon_id}' missing 'modifiers', skipping"
-            )
-            continue
-        if "rewards" not in dungeon_data:
-            log_warning(
-                f"Challenge dungeon '{dungeon_id}' missing 'rewards', skipping"
-            )
-            continue
-        if "first_clear_rewards" not in dungeon_data:
-            log_warning(
-                f"Challenge dungeon '{dungeon_id}' missing 'first_clear_rewards', skipping"
-            )
+        dungeon_data = ensure_dict(
+            dungeon_data,
+            context=context,
+            section="dungeon",
+            identifier=dungeon_id,
+        )
+        if not validate_required_keys(
+            dungeon_data,
+            (
+                "dungeon_id",
+                "name",
+                "description",
+                "tier",
+                "required_level",
+                "map_ids",
+                "entry_map_id",
+                "entry_x",
+                "entry_y",
+                "modifiers",
+                "rewards",
+                "first_clear_rewards",
+            ),
+            context=context,
+            section="dungeon",
+            identifier=dungeon_id,
+        ):
             continue
 
-        # Convert tier string to enum
         try:
             tier = ChallengeTier(dungeon_data["tier"])
         except ValueError:
-            log_warning(
-                f"Challenge dungeon '{dungeon_id}': invalid tier '{dungeon_data['tier']}', skipping"
+            log_schema_warning(
+                context,
+                f"invalid tier '{dungeon_data['tier']}', skipping dungeon",
+                section="dungeon",
+                identifier=dungeon_id,
             )
             continue
+
+        modifiers_list = ensure_list(
+            dungeon_data.get("modifiers", []),
+            context=context,
+            section="dungeon.modifiers",
+            identifier=dungeon_id,
+        )
+
+        map_ids = ensure_list(
+            dungeon_data.get("map_ids", []),
+            context=context,
+            section="dungeon.map_ids",
+            identifier=dungeon_id,
+        )
 
         dungeon = ChallengeDungeon(
             dungeon_id=dungeon_data["dungeon_id"],
@@ -147,13 +143,23 @@ def load_challenge_dungeons(
             description=dungeon_data["description"],
             tier=tier,
             required_level=dungeon_data["required_level"],
-            map_ids=dungeon_data.get("map_ids", []),
+            map_ids=map_ids,
             entry_map_id=dungeon_data["entry_map_id"],
             entry_x=dungeon_data["entry_x"],
             entry_y=dungeon_data["entry_y"],
-            modifiers=dungeon_data.get("modifiers", []),
-            rewards=dungeon_data.get("rewards", {}),
-            first_clear_rewards=dungeon_data.get("first_clear_rewards", {}),
+            modifiers=modifiers_list,
+            rewards=ensure_dict(
+                dungeon_data.get("rewards", {}),
+                context=context,
+                section="dungeon.rewards",
+                identifier=dungeon_id,
+            ),
+            first_clear_rewards=ensure_dict(
+                dungeon_data.get("first_clear_rewards", {}),
+                context=context,
+                section="dungeon.first_clear_rewards",
+                identifier=dungeon_id,
+            ),
             time_limit=dungeon_data.get("time_limit"),
             no_save=dungeon_data.get("no_save", False),
             no_items=dungeon_data.get("no_items", False),

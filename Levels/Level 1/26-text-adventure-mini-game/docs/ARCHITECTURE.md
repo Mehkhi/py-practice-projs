@@ -354,7 +354,17 @@ Domain-specific JSON loading has been decomposed into focused loader modules und
 
 Engine code that needs domain data imports these functions from `core.loaders` (or the specific submodule), while legacy imports from `core.data_loader` are preserved via thin wrapper functions to ease incremental refactoring.
 
+#### Schema Policy and STRICT_SCHEMA
+
+All loader functions share a common schema policy defined in `core/loaders/base.py`:
+
+- By default, loaders are **tolerant**: malformed sections are logged via `log_schema_warning` and skipped while returning usable defaults.
+- Setting the environment variable `STRICT_SCHEMA=1` (or `true/yes/on`) **before importing** loader modules switches the policy to strict mode, causing schema issues to raise `ValueError`.
+
+Because `STRICT_SCHEMA` is evaluated once at import time, tests and tools that need strict validation should set the environment variable before running Python so that imports see the correct value.
+
 ### Dependency Direction
+
 
 **Critical Rule**: Engine depends on Core, Core never depends on Engine
 

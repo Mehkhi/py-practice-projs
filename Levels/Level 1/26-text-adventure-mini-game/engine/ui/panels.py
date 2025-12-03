@@ -5,6 +5,7 @@ from typing import Callable, List, Optional, Tuple
 import pygame
 
 from ..theme import Colors, Fonts, Layout
+from .animation_utils import advance_timer, sine_wave
 
 
 class ToastNotification:
@@ -173,40 +174,45 @@ class MessageBox:
         self.animation_timer = 0.0  # For blinking cursor
         self._last_font: Optional[pygame.font.Font] = None  # Track font for pagination calculations
 
+        # Track wrapping parameters so we can re-wrap when font or layout changes
+        self._wrap_font_id: Optional[int] = None
+        self._wrap_width: Optional[int] = None
+
+        # Animation update source tracking: when True, the timer has been
+        # advanced via ``update(dt)`` instead of within ``draw``.
+        self._animation_updated_externally: bool = False
+
     def set_text(self, text: str, font: Optional[pygame.font.Font] = None) -> None:
-        """Set the message text with automatic wrapping."""
+        """Set the message text with automatic wrapping.
+
+        If a font is provided, text is wrapped immediately. Otherwise, wrapping
+        will be performed the next time ``draw`` is called with a concrete
+        font.
+        """
         self.text = text
         self.current_page = 0
-        if font:
-            # Store font for pagination calculations
+        self.lines = []
+        self._wrap_font_id = None
+        self._wrap_width = None
+
+        if font is not None:
+            # Store font for pagination calculations and wrap immediately
             self._last_font = font
-
-            # Calculate available width
-            padding = Layout.MESSAGE_BOX_PADDING
-            portrait_width = 0
-            if self.portrait_surface:
-                portrait_width = self.portrait_surface.get_width() + Layout.MESSAGE_BOX_PORTRAIT_GAP
-
-            available_width = self.width - (padding * 2) - portrait_width
-            self.lines = self._wrap_text(text, font, available_width)
-
-            # Calculate lines per page now that we have the font
+            self._ensure_wrapped_lines(font)
             self.lines_per_page = self._calculate_lines_per_page(font)
-        else:
-            # Fallback if no font provided (will require re-wrapping in draw if font differs)
-            self.lines = text.split("\n")
 
     def advance(self) -> bool:
-        """Advance to the next page of text. Returns True if advanced, False if already at end."""
-        # Ensure lines_per_page is calculated before use
+        """Advance to the next page of text.
+
+        Returns True if advanced, False if already at the final page.
+        """
+        # Ensure we have a font to base pagination on
         if self._last_font is None:
-            # Use default font if no font has been stored yet
-            default_font = pygame.font.Font(None, Fonts.SIZE_BODY)
-            self._last_font = default_font
-            self.lines_per_page = self._calculate_lines_per_page(default_font)
-        else:
-            # Recalculate to ensure it's correct (may have been called before first draw)
-            self.lines_per_page = self._calculate_lines_per_page(self._last_font)
+            self._last_font = pygame.font.Font(None, Fonts.SIZE_BODY)
+
+        # Ensure wrapping and pagination are up to date
+        self._ensure_wrapped_lines(self._last_font)
+        self.lines_per_page = self._calculate_lines_per_page(self._last_font)
 
         total_pages = max(1, (len(self.lines) + self.lines_per_page - 1) // self.lines_per_page)
         if self.current_page < total_pages - 1:
@@ -216,18 +222,24 @@ class MessageBox:
 
     def is_finished(self) -> bool:
         """Return True if the last page of text is currently being displayed."""
-        # Ensure lines_per_page is calculated before use
         if self._last_font is None:
-            # Use default font if no font has been stored yet
-            default_font = pygame.font.Font(None, Fonts.SIZE_BODY)
-            self._last_font = default_font
-            self.lines_per_page = self._calculate_lines_per_page(default_font)
-        else:
-            # Recalculate to ensure it's correct (may have been called before first draw)
-            self.lines_per_page = self._calculate_lines_per_page(self._last_font)
+            self._last_font = pygame.font.Font(None, Fonts.SIZE_BODY)
+
+        # Ensure wrapping and pagination are up to date before checking
+        self._ensure_wrapped_lines(self._last_font)
+        self.lines_per_page = self._calculate_lines_per_page(self._last_font)
 
         total_pages = max(1, (len(self.lines) + self.lines_per_page - 1) // self.lines_per_page)
         return self.current_page >= total_pages - 1
+
+    def update(self, dt: float) -> None:
+        """Advance the message box animations using frame time ``dt``.
+
+        This currently drives the "more" indicator blink. When this method
+        is used, ``draw`` will not apply its own fixed-step timer.
+        """
+        self.animation_timer = advance_timer(self.animation_timer, dt, speed=2.0)
+        self._animation_updated_externally = True
 
     def _wrap_text(self, text: str, font: pygame.font.Font, max_width: int) -> List[str]:
         """Wrap text to fit within max_width."""
@@ -266,6 +278,33 @@ class MessageBox:
 
         return lines
 
+    def _get_available_width(self, font: pygame.font.Font) -> int:
+        """Calculate available text width based on current layout and portrait."""
+        padding = Layout.MESSAGE_BOX_PADDING
+        portrait_width = 0
+        if self.portrait_surface:
+            portrait_width = self.portrait_surface.get_width() + Layout.MESSAGE_BOX_PORTRAIT_GAP
+        return self.width - (padding * 2) - portrait_width
+
+    def _ensure_wrapped_lines(self, font: pygame.font.Font) -> None:
+        """Ensure ``self.lines`` is wrapped for the given font and width.
+
+        Re-wraps text when the font object or available width changes.
+        """
+        available_width = self._get_available_width(font)
+        wrap_font_id = id(font)
+
+        if self.lines and self._wrap_font_id == wrap_font_id and self._wrap_width == available_width:
+            return
+
+        if self.text:
+            self.lines = self._wrap_text(self.text, font, available_width)
+        else:
+            self.lines = []
+
+        self._wrap_font_id = wrap_font_id
+        self._wrap_width = available_width
+
     def _calculate_lines_per_page(self, font: pygame.font.Font) -> int:
         """Calculate how many lines fit per page based on font metrics and available height.
 
@@ -294,13 +333,9 @@ class MessageBox:
         if font is None:
             font = pygame.font.Font(None, Fonts.SIZE_BODY)
 
-        # Store font for pagination calculations
+        # Store font for pagination and wrapping calculations
         self._last_font = font
-
-        # Re-wrap text if it hasn't been wrapped with this font yet
-        # This checks if we likely need to re-wrap (simple heuristic)
-        if len(self.lines) == 1 and len(self.text) > 50 and font.size(self.lines[0])[0] > self.width:
-             self.set_text(self.text, font)
+        self._ensure_wrapped_lines(font)
 
         x, y = self.position
         padding = Layout.MESSAGE_BOX_PADDING
@@ -382,7 +417,14 @@ class MessageBox:
         # Draw "more" indicator if there are more pages
         if not self.is_finished():
             import math
-            self.animation_timer += 0.1
+
+            # When not driven externally, advance using a small fixed step
+            # so existing scenes continue to animate without needing update(dt).
+            if not self._animation_updated_externally:
+                self.animation_timer += 0.1
+            else:
+                self._animation_updated_externally = False
+
             # Blinking effect
             if math.sin(self.animation_timer) > -0.5:
                 indicator_x = x + self.width - padding - 12
@@ -641,9 +683,15 @@ class CombatLog:
 
         if self.scroll_offset < max_scroll:
             self.scroll_offset += 1
-
-        # Re-enable auto-scroll if we're at the bottom
-        if self.scroll_offset >= max_scroll:
+            # User-initiated scrolling disables auto-scroll until we reach
+            # the bottom again.
+            if self.scroll_offset < max_scroll:
+                self.auto_scroll = False
+            else:
+                self.auto_scroll = True
+        else:
+            # Already at bottom; keep auto-scroll enabled so new messages are
+            # followed automatically.
             self.auto_scroll = True
 
     def _scroll_to_bottom(self) -> None:

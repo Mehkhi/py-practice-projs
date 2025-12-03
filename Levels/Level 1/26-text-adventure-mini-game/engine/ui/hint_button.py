@@ -6,6 +6,7 @@ from typing import Optional, Tuple, Any, TYPE_CHECKING
 import pygame
 
 from ..theme import Colors, Fonts, Layout
+from .animation_utils import sine_wave, sine_wave_01
 
 if TYPE_CHECKING:
     from core.tutorial_system import TutorialManager
@@ -103,7 +104,8 @@ class HintButton:
         # Update pulse animation (only when tips are available)
         has_pending_tips = bool(self.tutorial_manager.pending_tips)
         if has_pending_tips:
-            self.pulse_timer += dt * 2.0  # Pulse speed
+            # Advance timer using shared helper to keep behavior consistent
+            self.pulse_timer = self.pulse_timer + dt * 2.0
         else:
             self.pulse_timer = 0.0
 
@@ -122,8 +124,11 @@ class HintButton:
         pulse_scale = 1.0
         pulse_alpha = 255
         if has_pending_tips:
-            pulse_scale = 1.0 + (math.sin(self.pulse_timer) * 0.1)  # 10% size variation
-            pulse_alpha = 200 + int(55 * (0.5 + 0.5 * math.sin(self.pulse_timer)))  # Alpha pulse
+            # 10% size variation and alpha pulse using shared sine helpers
+            wave = sine_wave(self.pulse_timer)
+            wave_01 = sine_wave_01(self.pulse_timer)
+            pulse_scale = 1.0 + (wave * 0.1)
+            pulse_alpha = 200 + int(55 * wave_01)
 
         # Draw button background (circular) with gradient-like look
         center_x = bx + bw // 2

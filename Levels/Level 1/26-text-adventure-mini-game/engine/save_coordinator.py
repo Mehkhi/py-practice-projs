@@ -23,14 +23,18 @@ class SaveCoordinator:
         from .save_slot_scene import SaveSlotScene
         from .assets import AssetManager
 
-        assets = AssetManager(
-            scale=self.game.scale,
-            tile_size=self.game.tile_size,
-            sprite_size=self.game.sprite_size,
-        )
+        current_scene = self.game.scene_manager.current() if self.game.scene_manager else None
+        assets = getattr(current_scene, "assets", None)
+        if assets is None:
+            assets = AssetManager(
+                scale=self.game.scale,
+                tile_size=self.game.tile_size,
+                sprite_size=self.game.sprite_size,
+                preload_common=False,
+            )
 
-        def on_load_complete(slot: int) -> None:
-            self.load_from_slot(slot)
+        def on_load_complete(slot: int) -> bool:
+            return self.load_from_slot(slot)
 
         load_scene = SaveSlotScene(
             self.game.scene_manager,
@@ -50,9 +54,8 @@ class SaveCoordinator:
         except Exception as exc:
             log_warning(f"Failed to create save profile for slot {self.game.save_slot}: {exc}")
 
-    def load_from_slot(self, slot: int) -> None:
+    def load_from_slot(self, slot: int) -> bool:
         """Load saved game from a specific slot and transition to world scene."""
-        from .assets import AssetManager
         from .world_scene import WorldScene
 
         try:
@@ -82,5 +85,7 @@ class SaveCoordinator:
                 encounters_data=self.game.encounters_data,
             )
             self.game.scene_manager.replace(world_scene)
+            return True
         except Exception as exc:
             log_warning(f"Failed to load save from slot {slot}: {exc}")
+            return False

@@ -60,9 +60,14 @@ class WorldRenderer:
             except Exception as exc:
                 log_warning(f"Failed to preload map sprite {sprite_id}: {exc}")
 
-    def get_current_entities(self) -> Tuple[Map, List["Entity"]]:
+    def get_current_entities(self) -> Tuple[Optional[Map], List["Entity"]]:
         """Return the current map and any instantiated entities on it."""
-        current_map = self.scene.world.get_current_map()
+        try:
+            current_map = self.scene.world.get_current_map()
+        except Exception as exc:
+            log_warning(f"Failed to load current map '{self.scene.world.current_map_id}': {exc}")
+            return None, []
+
         all_entities = getattr(self.scene.world, "map_entities", {}).get(current_map.map_id, [])
 
         visible_entities = []

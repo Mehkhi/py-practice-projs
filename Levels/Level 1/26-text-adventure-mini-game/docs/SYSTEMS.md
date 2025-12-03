@@ -20,6 +20,14 @@ It complements `ARCHITECTURE.md`, which focuses on the scene stack, core↔engin
 
 ---
 
+## Data Loading & Schema Policy
+
+- Loaders share helpers in `core/loaders/base.py` for type checks and required key validation. Messages flow through `[SCHEMA]` logs so issues are easy to spot.
+- Default behavior is **tolerant**: malformed sections are logged and skipped while returning usable defaults.
+- Set `STRICT_SCHEMA=1` in the environment to raise `ValueError` on schema violations (useful in development or CI).
+
+---
+
 ## Fishing System
 
 ### Core Logic (`core/fishing.py`)

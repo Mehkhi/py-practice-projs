@@ -59,3 +59,52 @@ def log_debug(message: str, *args, **kwargs) -> None:
     """Log a debug message."""
     logger = get_logger()
     logger.debug(message, *args, **kwargs)
+
+
+def format_schema_message(
+    context: str,
+    message: str,
+    section: Optional[str] = None,
+    identifier: Optional[str] = None,
+) -> str:
+    """
+    Create a consistently formatted schema validation message.
+
+    Args:
+        context: High-level loader context, e.g., "fishing loader"
+        message: Human-readable detail about the issue
+        section: Optional section name within the payload (e.g., "fish")
+        identifier: Optional identifier for the problematic entry
+
+    Returns:
+        String formatted with a SCHEMA prefix and contextual fields.
+    """
+    details = []
+    if section:
+        details.append(f"section={section}")
+    if identifier:
+        details.append(f"id={identifier}")
+    detail_suffix = f" ({', '.join(details)})" if details else ""
+    return f"[SCHEMA] {context}{detail_suffix}: {message}"
+
+
+def log_schema_warning(
+    context: str,
+    message: str,
+    *,
+    section: Optional[str] = None,
+    identifier: Optional[str] = None,
+) -> None:
+    """Log schema issues with a consistent SCHEMA prefix."""
+    log_warning(format_schema_message(context, message, section, identifier))
+
+
+def log_schema_error(
+    context: str,
+    message: str,
+    *,
+    section: Optional[str] = None,
+    identifier: Optional[str] = None,
+) -> None:
+    """Log schema issues at error level (reserved for fatal cases)."""
+    log_error(format_schema_message(context, message, section, identifier))

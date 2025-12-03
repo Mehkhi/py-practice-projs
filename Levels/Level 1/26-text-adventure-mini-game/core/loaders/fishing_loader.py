@@ -1,13 +1,19 @@
 """Fishing data loader."""
 
-from typing import Any, Dict, List, Tuple
+from typing import Dict, List, Tuple
 
-from core.loaders.base import load_json_file
-from core.logging_utils import log_warning
+from core.constants import FISHING_JSON
+from core.loaders.base import (
+    ensure_dict,
+    ensure_list,
+    load_json_file,
+    validate_required_keys,
+)
+from core.logging_utils import log_schema_warning
 
 
 def load_fishing_data(
-    filepath: str = "data/fishing.json",
+    filepath: str = FISHING_JSON,
 ) -> Tuple[Dict[str, "Fish"], Dict[str, "FishingSpot"]]:
     """Load fish and fishing spot definitions from JSON.
 
@@ -19,6 +25,7 @@ def load_fishing_data(
     """
     from core.fishing import Fish, FishingSpot, FishRarity, WaterType
 
+    context = "fishing loader"
     data = load_json_file(
         filepath,
         default={"fish": [], "spots": []},
@@ -26,141 +33,157 @@ def load_fishing_data(
         warn_on_missing=True,
     )
 
-    if not isinstance(data, dict):
-        raise ValueError("Fishing data must be a dictionary at the top level")
+    data = ensure_dict(data, context=context, section="root")
 
     fish_db: Dict[str, Fish] = {}
     spots: Dict[str, FishingSpot] = {}
 
-    fish_entries = data.get("fish", [])
-    if not isinstance(fish_entries, list):
-        raise ValueError("Fishing data 'fish' section must be a list")
+    fish_entries = ensure_list(
+        data.get("fish", []),
+        context=context,
+        section="fish",
+    )
 
     # Load fish
     for fish_data in fish_entries:
-        if not isinstance(fish_data, dict):
-            raise ValueError("Each fish entry must be a dictionary")
-        # Validate required fields
-        if "fish_id" not in fish_data:
-            log_warning("Fish missing 'fish_id', skipping")
-            continue
-        if "name" not in fish_data:
-            log_warning(
-                f"Fish '{fish_data.get('fish_id', 'unknown')}' missing 'name', skipping"
-            )
-            continue
-        if "rarity" not in fish_data:
-            log_warning(
-                f"Fish '{fish_data.get('fish_id', 'unknown')}' missing 'rarity', skipping"
-            )
-            continue
-        if "water_types" not in fish_data:
-            log_warning(
-                f"Fish '{fish_data.get('fish_id', 'unknown')}' missing 'water_types', skipping"
-            )
+        candidate_id = fish_data.get("fish_id") if isinstance(fish_data, dict) else None
+        fish_entry = ensure_dict(
+            fish_data,
+            context=context,
+            section="fish",
+            identifier=candidate_id,
+        )
+        fish_id = fish_entry.get("fish_id", candidate_id or "unknown")
+        if not validate_required_keys(
+            fish_entry,
+            ("fish_id", "name", "rarity", "water_types"),
+            context=context,
+            section="fish",
+            identifier=fish_id,
+        ):
             continue
 
         # Convert rarity string to enum
         try:
-            rarity = FishRarity(fish_data["rarity"])
+            rarity = FishRarity(fish_entry["rarity"])
         except ValueError:
-            log_warning(
-                f"Fish '{fish_data['fish_id']}': invalid rarity '{fish_data['rarity']}', skipping"
+            log_schema_warning(
+                context,
+                f"invalid rarity '{fish_entry['rarity']}', skipping fish",
+                section="fish",
+                identifier=fish_id,
             )
             continue
 
         # Convert water type strings to enums
         water_types: List[WaterType] = []
-        for water_str in fish_data.get("water_types", []):
+        water_type_values = ensure_list(
+            fish_entry.get("water_types", []),
+            context=context,
+            section="fish.water_types",
+            identifier=fish_id,
+        )
+        for water_str in water_type_values:
             try:
                 water_type = WaterType(water_str)
                 water_types.append(water_type)
             except ValueError:
-                log_warning(
-                    f"Fish '{fish_data['fish_id']}': invalid water type '{water_str}', skipping"
+                log_schema_warning(
+                    context,
+                    f"invalid water type '{water_str}', skipping value",
+                    section="fish.water_types",
+                    identifier=fish_id,
                 )
 
         if not water_types:
-            log_warning(
-                f"Fish '{fish_data['fish_id']}' has no valid water types, skipping"
+            log_schema_warning(
+                context,
+                "has no valid water types, skipping fish",
+                section="fish",
+                identifier=fish_id,
             )
             continue
 
         # Time periods are stored as strings (TimeOfDay enum names)
-        time_periods = fish_data.get("time_periods", [])
+        time_periods = ensure_list(
+            fish_entry.get("time_periods", []),
+            context=context,
+            section="fish.time_periods",
+            identifier=fish_id,
+        )
 
         fish = Fish(
-            fish_id=fish_data["fish_id"],
-            name=fish_data["name"],
+            fish_id=fish_entry["fish_id"],
+            name=fish_entry["name"],
             rarity=rarity,
-            base_value=fish_data.get("base_value", 0),
+            base_value=fish_entry.get("base_value", 0),
             water_types=water_types,
             time_periods=time_periods,
-            min_size=fish_data.get("min_size", 0.5),
-            max_size=fish_data.get("max_size", 1.0),
-            catch_difficulty=fish_data.get("catch_difficulty", 5),
-            description=fish_data.get("description", ""),
-            item_id=fish_data.get("item_id", ""),
+            min_size=fish_entry.get("min_size", 0.5),
+            max_size=fish_entry.get("max_size", 1.0),
+            catch_difficulty=fish_entry.get("catch_difficulty", 5),
+            description=fish_entry.get("description", ""),
+            item_id=fish_entry.get("item_id", ""),
         )
         fish_db[fish.fish_id] = fish
 
-    spots_entries = data.get("spots", [])
-    if not isinstance(spots_entries, list):
-        raise ValueError("Fishing data 'spots' section must be a list")
+    spots_entries = ensure_list(
+        data.get("spots", []),
+        context=context,
+        section="spots",
+    )
 
     # Load fishing spots
     for spot_data in spots_entries:
-        if not isinstance(spot_data, dict):
-            raise ValueError("Each fishing spot entry must be a dictionary")
-        # Validate required fields
-        if "spot_id" not in spot_data:
-            log_warning("Fishing spot missing 'spot_id', skipping")
-            continue
-        if "name" not in spot_data:
-            log_warning(
-                f"Fishing spot '{spot_data.get('spot_id', 'unknown')}' missing 'name', skipping"
-            )
-            continue
-        if "map_id" not in spot_data:
-            log_warning(
-                f"Fishing spot '{spot_data.get('spot_id', 'unknown')}' missing 'map_id', skipping"
-            )
-            continue
-        if "x" not in spot_data:
-            log_warning(
-                f"Fishing spot '{spot_data.get('spot_id', 'unknown')}' missing 'x', skipping"
-            )
-            continue
-        if "y" not in spot_data:
-            log_warning(
-                f"Fishing spot '{spot_data.get('spot_id', 'unknown')}' missing 'y', skipping"
-            )
-            continue
-        if "water_type" not in spot_data:
-            log_warning(
-                f"Fishing spot '{spot_data.get('spot_id', 'unknown')}' missing 'water_type', skipping"
-            )
+        candidate_id = spot_data.get("spot_id") if isinstance(spot_data, dict) else None
+        spot_entry = ensure_dict(
+            spot_data,
+            context=context,
+            section="spots",
+            identifier=candidate_id,
+        )
+        spot_id = spot_entry.get("spot_id", candidate_id or "unknown")
+        if not validate_required_keys(
+            spot_entry,
+            ("spot_id", "name", "map_id", "x", "y", "water_type"),
+            context=context,
+            section="spots",
+            identifier=spot_id,
+        ):
             continue
 
         # Convert water type string to enum
         try:
-            water_type = WaterType(spot_data["water_type"])
+            water_type = WaterType(spot_entry["water_type"])
         except ValueError:
-            log_warning(
-                f"Fishing spot '{spot_data['spot_id']}': invalid water_type '{spot_data['water_type']}', skipping"
+            log_schema_warning(
+                context,
+                f"invalid water_type '{spot_entry['water_type']}', skipping spot",
+                section="spots",
+                identifier=spot_id,
             )
             continue
 
         spot = FishingSpot(
-            spot_id=spot_data["spot_id"],
-            name=spot_data["name"],
-            map_id=spot_data["map_id"],
-            x=spot_data["x"],
-            y=spot_data["y"],
+            spot_id=spot_entry["spot_id"],
+            name=spot_entry["name"],
+            map_id=spot_entry["map_id"],
+            x=spot_entry["x"],
+            y=spot_entry["y"],
             water_type=water_type,
-            is_premium=spot_data.get("is_premium", False),
-            fish_pool=spot_data.get("fish_pool", []),
-            rarity_modifiers=spot_data.get("rarity_modifiers", {}),
+            is_premium=spot_entry.get("is_premium", False),
+            fish_pool=ensure_list(
+                spot_entry.get("fish_pool", []),
+                context=context,
+                section="spots.fish_pool",
+                identifier=spot_id,
+            ),
+            rarity_modifiers=ensure_dict(
+                spot_entry.get("rarity_modifiers", {}),
+                context=context,
+                section="spots.rarity_modifiers",
+                identifier=spot_id,
+            ),
         )
         spots[spot.spot_id] = spot
 

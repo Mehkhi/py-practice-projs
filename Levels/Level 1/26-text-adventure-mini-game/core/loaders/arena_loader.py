@@ -2,11 +2,11 @@
 
 from typing import Dict
 
-from core.loaders.base import load_json_file
-from core.logging_utils import log_warning
+from core.constants import ARENA_JSON
+from core.loaders.base import ensure_dict, ensure_list, load_json_file, validate_required_keys
 
 
-def load_arena_data(filepath: str = "data/arena.json") -> "ArenaManager":
+def load_arena_data(filepath: str = ARENA_JSON) -> "ArenaManager":
     """Load arena fighters and schedule from JSON file.
 
     Args:
@@ -17,6 +17,7 @@ def load_arena_data(filepath: str = "data/arena.json") -> "ArenaManager":
     """
     from core.arena import ArenaManager, ArenaFighter
 
+    context = "arena loader"
     data = load_json_file(
         filepath,
         default={"fighters": {}, "arena_schedule": {}},
@@ -24,52 +25,68 @@ def load_arena_data(filepath: str = "data/arena.json") -> "ArenaManager":
         warn_on_missing=True,
     )
 
+    data = ensure_dict(data, context=context, section="root")
     fighters: Dict[str, ArenaFighter] = {}
-    fighters_data = data.get("fighters", {})
+    fighters_data = ensure_dict(
+        data.get("fighters", {}),
+        context=context,
+        section="fighters",
+    )
 
     for fighter_id, fighter_data in fighters_data.items():
-        # Validate required fields
-        if "fighter_id" not in fighter_data:
-            log_warning("Arena fighter missing 'fighter_id', skipping")
-            continue
-        if "name" not in fighter_data:
-            log_warning(f"Arena fighter '{fighter_id}' missing 'name', skipping")
-            continue
-        if "sprite_id" not in fighter_data:
-            log_warning(f"Arena fighter '{fighter_id}' missing 'sprite_id', skipping")
-            continue
-        if "stats" not in fighter_data:
-            log_warning(f"Arena fighter '{fighter_id}' missing 'stats', skipping")
-            continue
-        if "skills" not in fighter_data:
-            log_warning(f"Arena fighter '{fighter_id}' missing 'skills', skipping")
-            continue
-        if "odds" not in fighter_data:
-            log_warning(f"Arena fighter '{fighter_id}' missing 'odds', skipping")
+        fighter_data = ensure_dict(
+            fighter_data,
+            context=context,
+            section="fighter",
+            identifier=fighter_id,
+        )
+        if not validate_required_keys(
+            fighter_data,
+            ("fighter_id", "name", "sprite_id", "stats", "skills", "odds"),
+            context=context,
+            section="fighter",
+            identifier=fighter_id,
+        ):
             continue
 
-        # Validate stats
-        stats = fighter_data.get("stats", {})
-        required_stats = ["hp", "attack", "defense", "speed"]
-        for stat in required_stats:
-            if stat not in stats:
-                log_warning(
-                    f"Arena fighter '{fighter_id}' missing stat '{stat}', skipping"
-                )
-                break
-        else:
-            fighter = ArenaFighter(
-                fighter_id=fighter_data["fighter_id"],
-                name=fighter_data["name"],
-                sprite_id=fighter_data["sprite_id"],
-                stats=stats,
-                skills=fighter_data.get("skills", []),
-                odds=float(fighter_data.get("odds", 2.0)),
-                wins=0,
-                losses=0,
-            )
-            fighters[fighter_id] = fighter
+        stats = ensure_dict(
+            fighter_data.get("stats", {}),
+            context=context,
+            section="stats",
+            identifier=fighter_id,
+        )
+        if not validate_required_keys(
+            stats,
+            ("hp", "attack", "defense", "speed"),
+            context=context,
+            section="stats",
+            identifier=fighter_id,
+        ):
+            continue
 
-    arena_schedule = data.get("arena_schedule", {})
+        skills = ensure_list(
+            fighter_data.get("skills", []),
+            context=context,
+            section="skills",
+            identifier=fighter_id,
+        )
+
+        fighter = ArenaFighter(
+            fighter_id=fighter_data["fighter_id"],
+            name=fighter_data["name"],
+            sprite_id=fighter_data["sprite_id"],
+            stats=stats,
+            skills=skills,
+            odds=float(fighter_data.get("odds", 2.0)),
+            wins=0,
+            losses=0,
+        )
+        fighters[fighter_id] = fighter
+
+    arena_schedule = ensure_dict(
+        data.get("arena_schedule", {}),
+        context=context,
+        section="arena_schedule",
+    )
     manager = ArenaManager(fighters, arena_schedule)
     return manager

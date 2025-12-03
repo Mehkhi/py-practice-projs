@@ -18,7 +18,7 @@ BIOME_TO_BACKDROP: Dict[str, str] = {
     "swamp": "bg_swamp",
     "treasure": "bg_treasure_chamber",
     "dungeon": "bg_cave",
-    "desert": "bg_ruins",  # Fallback for desert areas
+    "desert": "bg_desert",
 }
 
 # Biome-specific gradient colors for fallback backgrounds (top_color, bottom_color)

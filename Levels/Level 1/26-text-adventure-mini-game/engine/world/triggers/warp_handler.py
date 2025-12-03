@@ -92,6 +92,21 @@ class WarpHandler:
             )
             return False
 
+        block_key = f"warp_target_blocked_{target_map_id}_{target_x}_{target_y}"
+        entities = getattr(scene.world, "map_entities", {}).get(target_map_id, [])
+        has_blocking_entity = any(
+            getattr(entity, "solid", False) and entity.x == target_x and entity.y == target_y
+            for entity in entities
+        )
+        active_enemies = scene.world.get_active_overworld_enemies(target_map_id)
+        has_enemy = any(enemy.x == target_x and enemy.y == target_y for enemy in active_enemies)
+        if has_blocking_entity or has_enemy:
+            if scene._last_blocked_trigger != block_key:
+                scene._show_inline_message("Destination is occupied. Try again later.")
+            scene._last_blocked_trigger = block_key
+            return False
+
+        scene._last_blocked_trigger = None
         return True
 
     def _perform_warp(self, context: TriggerContext, map_id: str, x: int, y: int) -> None:

@@ -57,8 +57,19 @@ class TransitionManager:
         if self.timer >= self.duration:
             self.timer = self.duration
             self.active = False
-            if self.on_complete:
-                self.on_complete()
+
+            # Capture and clear callback before invoking it so that
+            # transitions triggered from within the callback can safely
+            # reconfigure this manager.
+            callback = self.on_complete
+            self.on_complete = None
+            if callback:
+                callback()
+
+            # If no new transition was started by the callback, clear the
+            # mode so draw() stops rendering the overlay.
+            if not self.active:
+                self.mode = "none"
 
     def draw(self, surface: pygame.Surface) -> None:
         if self.mode == "none":

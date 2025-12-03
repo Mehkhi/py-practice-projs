@@ -22,6 +22,18 @@ from core.post_game import PostGameManager
 from core.secret_bosses import SecretBossManager
 from engine.secret_boss_hints import HintManager
 from core.gambling import GamblingManager
+from core.constants import (
+    ACHIEVEMENTS_JSON,
+    ARENA_JSON,
+    BRAIN_TEASERS_JSON,
+    CHALLENGE_DUNGEONS_JSON,
+    FISHING_JSON,
+    NPC_SCHEDULES_JSON,
+    POST_GAME_UNLOCKS_JSON,
+    SECRET_BOSSES_JSON,
+    SECRET_BOSS_HINTS_JSON,
+    TUTORIAL_TIPS_JSON,
+)
 from core.data_loader import (
     load_fishing_data,
     load_brain_teasers,
@@ -119,9 +131,9 @@ def create_weather_system(config: Dict[str, Any]) -> WeatherSystem:
 def load_achievement_manager_safe(event_bus: Any) -> Optional[AchievementManager]:
     """Load achievement definitions and create achievement manager."""
     try:
-        return load_achievement_manager(os.path.join("data", "achievements.json"), event_bus=event_bus)
+        return load_achievement_manager(ACHIEVEMENTS_JSON, event_bus=event_bus)
     except Exception as exc:
-        log_warning(f"Failed to load achievement manager from data/achievements.json: {exc}")
+        log_warning(f"Failed to load achievement manager from {ACHIEVEMENTS_JSON}: {exc}")
         return None
 
 
@@ -155,10 +167,10 @@ def create_tutorial_manager() -> TutorialManager:
 def load_fishing_system() -> FishingSystem:
     """Load fishing data and create FishingSystem."""
     try:
-        fish_db, spots = load_fishing_data(os.path.join("data", "fishing.json"))
+        fish_db, spots = load_fishing_data(FISHING_JSON)
         return FishingSystem(fish_db, spots)
     except Exception as exc:
-        log_warning(f"Failed to load fishing system from data/fishing.json: {exc}")
+        log_warning(f"Failed to load fishing system from {FISHING_JSON}: {exc}")
         return FishingSystem({}, {})
 
 

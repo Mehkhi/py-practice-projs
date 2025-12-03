@@ -1,17 +1,16 @@
 """Post-game unlock data loader."""
 
-import os
 from typing import Dict, TYPE_CHECKING
 
-from core.loaders.base import load_json_file
-from core.logging_utils import log_warning
+from core.constants import POST_GAME_UNLOCKS_JSON
+from core.loaders.base import ensure_dict, load_json_file, validate_required_keys
 
 if TYPE_CHECKING:
     from core.post_game import PostGameUnlock
 
 
 def load_post_game_unlocks(
-    filepath: str = os.path.join("data", "post_game_unlocks.json"),
+    filepath: str = POST_GAME_UNLOCKS_JSON,
 ) -> Dict[str, "PostGameUnlock"]:
     """Load post-game unlock definitions from JSON file.
 
@@ -23,6 +22,7 @@ def load_post_game_unlocks(
     """
     from core.post_game import PostGameUnlock
 
+    context = "post-game unlock loader"
     data = load_json_file(
         filepath,
         default={"unlocks": {}},
@@ -31,33 +31,35 @@ def load_post_game_unlocks(
     )
 
     unlocks: Dict[str, PostGameUnlock] = {}
-    unlocks_data = data.get("unlocks", {})
+    data = ensure_dict(data, context=context, section="root")
+    unlocks_data = ensure_dict(
+        data.get("unlocks", {}),
+        context=context,
+        section="unlocks",
+    )
 
     for unlock_id, unlock_data in unlocks_data.items():
-        # Validate required fields
-        if "unlock_id" not in unlock_data:
-            log_warning("Post-game unlock missing 'unlock_id', skipping")
-            continue
-        if "name" not in unlock_data:
-            log_warning(f"Post-game unlock '{unlock_id}' missing 'name', skipping")
-            continue
-        if "description" not in unlock_data:
-            log_warning(
-                f"Post-game unlock '{unlock_id}' missing 'description', skipping"
-            )
-            continue
-        if "unlock_type" not in unlock_data:
-            log_warning(
-                f"Post-game unlock '{unlock_id}' missing 'unlock_type', skipping"
-            )
+        unlock_entry = ensure_dict(
+            unlock_data,
+            context=context,
+            section="unlock",
+            identifier=unlock_id,
+        )
+        if not validate_required_keys(
+            unlock_entry,
+            ("unlock_id", "name", "description", "unlock_type"),
+            context=context,
+            section="unlock",
+            identifier=unlock_id,
+        ):
             continue
 
         unlock = PostGameUnlock(
-            unlock_id=unlock_data["unlock_id"],
-            name=unlock_data["name"],
-            description=unlock_data["description"],
-            unlock_type=unlock_data["unlock_type"],
-            requires_ending=unlock_data.get("requires_ending"),
+            unlock_id=unlock_entry["unlock_id"],
+            name=unlock_entry["name"],
+            description=unlock_entry["description"],
+            unlock_type=unlock_entry["unlock_type"],
+            requires_ending=unlock_entry.get("requires_ending"),
         )
         unlocks[unlock.unlock_id] = unlock
 

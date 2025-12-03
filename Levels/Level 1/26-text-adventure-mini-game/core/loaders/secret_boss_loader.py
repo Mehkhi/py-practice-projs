@@ -2,8 +2,14 @@
 
 from typing import Dict, List, Tuple, TYPE_CHECKING
 
-from core.loaders.base import load_json_file
-from core.logging_utils import log_warning
+from core.constants import SECRET_BOSS_HINTS_JSON, SECRET_BOSSES_JSON
+from core.loaders.base import (
+    ensure_dict,
+    ensure_list,
+    load_json_file,
+    validate_required_keys,
+)
+from core.logging_utils import log_schema_warning
 
 if TYPE_CHECKING:
     from core.secret_boss_hints import BossHint
@@ -11,7 +17,7 @@ if TYPE_CHECKING:
 
 
 def load_secret_bosses(
-    filepath: str = "data/secret_bosses.json",
+    filepath: str = SECRET_BOSSES_JSON,
 ) -> Dict[str, "SecretBoss"]:
     """Load secret boss definitions from JSON file.
 
@@ -23,6 +29,7 @@ def load_secret_bosses(
     """
     from core.secret_bosses import SecretBoss, UnlockCondition, UnlockConditionType
 
+    context = "secret boss loader"
     data = load_json_file(
         filepath,
         default={"bosses": {}},
@@ -31,84 +38,90 @@ def load_secret_bosses(
     )
 
     bosses: Dict[str, SecretBoss] = {}
-    bosses_data = data.get("bosses", {})
+    data = ensure_dict(data, context=context, section="root")
+    bosses_data = ensure_dict(
+        data.get("bosses", {}),
+        context=context,
+        section="bosses",
+    )
 
     for boss_id, boss_data in bosses_data.items():
-        # Validate required fields
-        if "boss_id" not in boss_data:
-            log_warning("Secret boss missing 'boss_id', skipping")
-            continue
-        if "name" not in boss_data:
-            log_warning(f"Secret boss '{boss_id}' missing 'name', skipping")
-            continue
-        if "encounter_id" not in boss_data:
-            log_warning(f"Secret boss '{boss_id}' missing 'encounter_id', skipping")
-            continue
-        if "location_map_id" not in boss_data:
-            log_warning(
-                f"Secret boss '{boss_id}' missing 'location_map_id', skipping"
-            )
-            continue
-        if "unlock_conditions" not in boss_data:
-            log_warning(
-                f"Secret boss '{boss_id}' missing 'unlock_conditions', skipping"
-            )
+        boss_entry = ensure_dict(
+            boss_data,
+            context=context,
+            section="boss",
+            identifier=boss_id,
+        )
+        if not validate_required_keys(
+            boss_entry,
+            ("boss_id", "name", "encounter_id", "location_map_id", "unlock_conditions"),
+            context=context,
+            section="boss",
+            identifier=boss_id,
+        ):
             continue
 
         # Parse unlock conditions
         unlock_conditions: List[UnlockCondition] = []
-        for cond_data in boss_data.get("unlock_conditions", []):
-            if "condition_type" not in cond_data:
-                log_warning(
-                    f"Unlock condition in boss '{boss_id}' missing 'condition_type', skipping"
-                )
-                continue
-            if "data" not in cond_data:
-                log_warning(
-                    f"Unlock condition in boss '{boss_id}' missing 'data', skipping"
-                )
-                continue
-            if "description" not in cond_data:
-                log_warning(
-                    f"Unlock condition in boss '{boss_id}' missing 'description', skipping"
-                )
+        for cond_data in ensure_list(
+            boss_entry.get("unlock_conditions", []),
+            context=context,
+            section="boss.unlock_conditions",
+            identifier=boss_id,
+        ):
+            cond_entry = ensure_dict(
+                cond_data,
+                context=context,
+                section="unlock_condition",
+                identifier=boss_id,
+            )
+            if not validate_required_keys(
+                cond_entry,
+                ("condition_type", "data", "description"),
+                context=context,
+                section="unlock_condition",
+                identifier=boss_id,
+            ):
                 continue
 
             # Convert condition_type string to enum
             try:
-                condition_type = UnlockConditionType(cond_data["condition_type"])
+                condition_type = UnlockConditionType(cond_entry["condition_type"])
             except ValueError:
-                log_warning(
-                    f"Secret boss '{boss_id}': invalid condition_type '{cond_data['condition_type']}', skipping"
+                log_schema_warning(
+                    context,
+                    f"invalid condition_type '{cond_entry['condition_type']}', skipping condition",
+                    section="unlock_condition",
+                    identifier=boss_id,
                 )
                 continue
 
             condition = UnlockCondition(
                 condition_type=condition_type,
-                data=cond_data.get("data", {}),
-                description=cond_data.get("description", ""),
-                hidden=cond_data.get("hidden", False),
+                data=cond_entry.get("data", {}),
+                description=cond_entry.get("description", ""),
+                hidden=cond_entry.get("hidden", False),
             )
             unlock_conditions.append(condition)
 
         # Create SecretBoss
         boss = SecretBoss(
-            boss_id=boss_data["boss_id"],
-            name=boss_data.get("name", ""),
-            title=boss_data.get("title", ""),
-            description=boss_data.get("description", ""),
-            encounter_id=boss_data["encounter_id"],
-            location_map_id=boss_data["location_map_id"],
-            location_x=boss_data.get("location_x", 0),
-            location_y=boss_data.get("location_y", 0),
+            boss_id=boss_entry["boss_id"],
+            name=boss_entry.get("name", ""),
+            title=boss_entry.get("title", ""),
+            description=boss_entry.get("description", ""),
+            encounter_id=boss_entry["encounter_id"],
+            location_map_id=boss_entry["location_map_id"],
+            location_x=boss_entry.get("location_x", 0),
+            location_y=boss_entry.get("location_y", 0),
             unlock_conditions=unlock_conditions,
-            spawn_trigger_type=boss_data.get("spawn_trigger_type", "interact"),
-            lore_entries=boss_data.get("lore_entries", []),
-            rewards=boss_data.get("rewards", {}),
-            unique_drops=boss_data.get("unique_drops", []),
-            achievement_id=boss_data.get("achievement_id"),
-            rematch_available=boss_data.get("rematch_available", True),
-            post_game_only=boss_data.get("post_game_only", False),
+            spawn_trigger_type=boss_entry.get("spawn_trigger_type", "interact"),
+            lore_entries=boss_entry.get("lore_entries", []),
+            rewards=boss_entry.get("rewards", {}),
+            unique_drops=boss_entry.get("unique_drops", []),
+            achievement_id=boss_entry.get("achievement_id"),
+            rematch_available=boss_entry.get("rematch_available", True),
+            post_game_only=boss_entry.get("post_game_only", False),
         )
         bosses[boss_id] = boss
 
@@ -116,7 +129,7 @@ def load_secret_bosses(
 
 
 def load_secret_boss_hints(
-    filepath: str = "data/secret_boss_hints.json",
+    filepath: str = SECRET_BOSS_HINTS_JSON,
 ) -> Dict[str, "BossHint"]:
     """Load secret boss hint definitions from JSON file.
 
@@ -128,6 +141,7 @@ def load_secret_boss_hints(
     """
     from core.secret_boss_hints import BossHint, HintType
 
+    context = "secret boss hint loader"
     data = load_json_file(
         filepath,
         default={"hints": {}},
@@ -136,43 +150,52 @@ def load_secret_boss_hints(
     )
 
     hints: Dict[str, BossHint] = {}
-    hints_data = data.get("hints", {})
+    data = ensure_dict(data, context=context, section="root")
+    hints_data = ensure_dict(
+        data.get("hints", {}),
+        context=context,
+        section="hints",
+    )
 
     for hint_id, hint_data in hints_data.items():
-        # Validate required fields
-        if "hint_id" not in hint_data:
-            log_warning("Hint missing 'hint_id', skipping")
-            continue
-        if "boss_id" not in hint_data:
-            log_warning(f"Hint '{hint_id}' missing 'boss_id', skipping")
-            continue
-        if "hint_type" not in hint_data:
-            log_warning(f"Hint '{hint_id}' missing 'hint_type', skipping")
-            continue
-        if "content" not in hint_data:
-            log_warning(f"Hint '{hint_id}' missing 'content', skipping")
+        hint_entry = ensure_dict(
+            hint_data,
+            context=context,
+            section="hint",
+            identifier=hint_id,
+        )
+        if not validate_required_keys(
+            hint_entry,
+            ("hint_id", "boss_id", "hint_type", "content"),
+            context=context,
+            section="hint",
+            identifier=hint_id,
+        ):
             continue
 
         # Convert hint_type string to enum
         try:
-            hint_type = HintType(hint_data["hint_type"])
+            hint_type = HintType(hint_entry["hint_type"])
         except ValueError:
-            log_warning(
-                f"Hint '{hint_id}': invalid hint_type '{hint_data['hint_type']}', skipping"
+            log_schema_warning(
+                context,
+                f"invalid hint_type '{hint_entry['hint_type']}', skipping hint",
+                section="hint",
+                identifier=hint_id,
             )
             continue
 
         # Create BossHint
         hint = BossHint(
-            hint_id=hint_data["hint_id"],
-            boss_id=hint_data["boss_id"],
+            hint_id=hint_entry["hint_id"],
+            boss_id=hint_entry["boss_id"],
             hint_type=hint_type,
-            content=hint_data["content"],
-            location_map_id=hint_data.get("location_map_id"),
-            location_x=hint_data.get("location_x"),
-            location_y=hint_data.get("location_y"),
-            trigger_type=hint_data.get("trigger_type", "dialogue"),
-            reveal_level=hint_data.get("reveal_level", 1),
+            content=hint_entry["content"],
+            location_map_id=hint_entry.get("location_map_id"),
+            location_x=hint_entry.get("location_x"),
+            location_y=hint_entry.get("location_y"),
+            trigger_type=hint_entry.get("trigger_type", "dialogue"),
+            reveal_level=hint_entry.get("reveal_level", 1),
         )
         hints[hint_id] = hint
 

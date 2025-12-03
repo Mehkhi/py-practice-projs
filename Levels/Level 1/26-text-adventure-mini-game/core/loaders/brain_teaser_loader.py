@@ -2,12 +2,18 @@
 
 from typing import Dict
 
-from core.loaders.base import load_json_file
-from core.logging_utils import log_warning
+from core.constants import BRAIN_TEASERS_JSON
+from core.loaders.base import (
+    ensure_dict,
+    ensure_list,
+    load_json_file,
+    validate_required_keys,
+)
+from core.logging_utils import log_schema_warning
 
 
 def load_brain_teasers(
-    filepath: str = "data/brain_teasers.json",
+    filepath: str = BRAIN_TEASERS_JSON,
 ) -> Dict[str, "BrainTeaser"]:
     """Load brain teaser puzzles from JSON file.
 
@@ -28,6 +34,7 @@ def load_brain_teasers(
         LockCombination,
     )
 
+    context = "brain teaser loader"
     data = load_json_file(
         filepath,
         default={"teasers": {}},
@@ -35,53 +42,72 @@ def load_brain_teasers(
         warn_on_missing=True,
     )
 
-    if not isinstance(data, dict):
-        raise ValueError("Brain teaser data must be a dictionary at the top level")
+    data = ensure_dict(data, context=context, section="root")
 
     teasers: Dict[str, BrainTeaser] = {}
-    teasers_data = data.get("teasers", {})
-    if not isinstance(teasers_data, dict):
-        raise ValueError("Brain teaser data 'teasers' section must be a dictionary")
+    teasers_data = ensure_dict(
+        data.get("teasers", {}),
+        context=context,
+        section="teasers",
+    )
 
     for teaser_id, teaser_data in teasers_data.items():
-        if not isinstance(teaser_data, dict):
-            raise ValueError(f"Brain teaser '{teaser_id}' entry must be a dictionary")
-        # Validate required fields
-        if "teaser_id" not in teaser_data:
-            log_warning("Brain teaser missing 'teaser_id', skipping")
+        teaser_entry = ensure_dict(
+            teaser_data,
+            context=context,
+            section="teasers",
+            identifier=teaser_id,
+        )
+        if not validate_required_keys(
+            teaser_entry,
+            ("teaser_id", "teaser_type", "name", "data"),
+            context=context,
+            section="teasers",
+            identifier=teaser_id,
+        ):
             continue
-        if "teaser_type" not in teaser_data:
-            log_warning(
-                f"Brain teaser '{teaser_id}' missing 'teaser_type', skipping"
+
+        # Ensure JSON key and inner teaser_id agree, so future refactors
+        # cannot accidentally desync identifiers between content and code.
+        inner_id = str(teaser_entry.get("teaser_id", teaser_id))
+        if inner_id != teaser_id:
+            log_schema_warning(
+                context,
+                f"outer key '{teaser_id}' does not match inner teaser_id '{inner_id}', using inner id",
+                section="teasers",
+                identifier=teaser_id,
             )
-            continue
-        if "name" not in teaser_data:
-            log_warning(f"Brain teaser '{teaser_id}' missing 'name', skipping")
-            continue
-        if "data" not in teaser_data:
-            log_warning(f"Brain teaser '{teaser_id}' missing 'data', skipping")
-            continue
+
 
         # Convert teaser_type string to enum
         try:
-            teaser_type = BrainTeaserType(teaser_data["teaser_type"])
+            teaser_type = BrainTeaserType(teaser_entry["teaser_type"])
         except ValueError:
-            log_warning(
-                f"Brain teaser '{teaser_id}': invalid teaser_type '{teaser_data['teaser_type']}', skipping"
+            log_schema_warning(
+                context,
+                f"invalid teaser_type '{teaser_entry['teaser_type']}', skipping teaser",
+                section="teasers",
+                identifier=teaser_id,
             )
             continue
 
         # Parse puzzle data based on type
-        puzzle_data = teaser_data["data"]
-        if not isinstance(puzzle_data, dict):
-            raise ValueError(f"Brain teaser '{teaser_id}' data must be a dictionary")
+        puzzle_data = ensure_dict(
+            teaser_entry["data"],
+            context=context,
+            section="teaser.data",
+            identifier=teaser_id,
+        )
         puzzle_obj = None
 
         if teaser_type == BrainTeaserType.RIDDLE:
-            if "question" not in puzzle_data or "answer" not in puzzle_data:
-                log_warning(
-                    f"Riddle '{teaser_id}' missing required fields, skipping"
-                )
+            if not validate_required_keys(
+                puzzle_data,
+                ("question", "answer"),
+                context=context,
+                section="teaser.data",
+                identifier=teaser_id,
+            ):
                 continue
             puzzle_obj = Riddle(
                 riddle_id=puzzle_data.get("riddle_id", teaser_id),
@@ -93,10 +119,13 @@ def load_brain_teasers(
             )
 
         elif teaser_type == BrainTeaserType.WORD_SCRAMBLE:
-            if "word" not in puzzle_data or "scrambled" not in puzzle_data:
-                log_warning(
-                    f"Word scramble '{teaser_id}' missing required fields, skipping"
-                )
+            if not validate_required_keys(
+                puzzle_data,
+                ("word", "scrambled"),
+                context=context,
+                section="teaser.data",
+                identifier=teaser_id,
+            ):
                 continue
             puzzle_obj = WordScramble(
                 puzzle_id=puzzle_data.get("puzzle_id", teaser_id),
@@ -107,14 +136,22 @@ def load_brain_teasers(
             )
 
         elif teaser_type == BrainTeaserType.NUMBER_SEQUENCE:
-            if "sequence" not in puzzle_data or "answer" not in puzzle_data:
-                log_warning(
-                    f"Number sequence '{teaser_id}' missing required fields, skipping"
-                )
+            if not validate_required_keys(
+                puzzle_data,
+                ("sequence", "answer"),
+                context=context,
+                section="teaser.data",
+                identifier=teaser_id,
+            ):
                 continue
             puzzle_obj = NumberSequence(
                 puzzle_id=puzzle_data.get("puzzle_id", teaser_id),
-                sequence=puzzle_data["sequence"],
+                sequence=ensure_list(
+                    puzzle_data.get("sequence", []),
+                    context=context,
+                    section="teaser.data.sequence",
+                    identifier=teaser_id,
+                ),
                 answer=puzzle_data["answer"],
                 pattern_description=puzzle_data.get(
                     "pattern_description", ""
@@ -122,72 +159,122 @@ def load_brain_teasers(
             )
 
         elif teaser_type == BrainTeaserType.PATTERN_MATCH:
-            if "grid" not in puzzle_data or "answer_position" not in puzzle_data:
-                log_warning(
-                    f"Pattern match '{teaser_id}' missing required fields, skipping"
+            if not validate_required_keys(
+                puzzle_data,
+                ("grid", "answer_position"),
+                context=context,
+                section="teaser.data",
+                identifier=teaser_id,
+            ):
+                continue
+            answer_position = ensure_list(
+                puzzle_data.get("answer_position"),
+                context=context,
+                section="teaser.data.answer_position",
+                identifier=teaser_id,
+            )
+            if len(answer_position) != 2:
+                log_schema_warning(
+                    context,
+                    "answer_position must contain exactly 2 coordinates, skipping teaser",
+                    section="teaser.data.answer_position",
+                    identifier=teaser_id,
                 )
                 continue
+            grid_values = ensure_list(
+                puzzle_data.get("grid", []),
+                context=context,
+                section="teaser.data.grid",
+                identifier=teaser_id,
+            )
             puzzle_obj = PatternMatch(
                 puzzle_id=puzzle_data.get("puzzle_id", teaser_id),
-                grid=puzzle_data["grid"],
-                answer_position=tuple(puzzle_data["answer_position"]),
+                grid=grid_values,
+                answer_position=tuple(answer_position),
                 puzzle_type=puzzle_data.get("puzzle_type", "odd_one_out"),
             )
 
         elif teaser_type == BrainTeaserType.SIMON_SAYS:
-            if "sequence_length" not in puzzle_data:
-                log_warning(
-                    f"Simon Says '{teaser_id}' missing required fields, skipping"
-                )
+            if not validate_required_keys(
+                puzzle_data,
+                ("sequence_length",),
+                context=context,
+                section="teaser.data",
+                identifier=teaser_id,
+            ):
                 continue
             puzzle_obj = SimonSays(
                 puzzle_id=puzzle_data.get("puzzle_id", teaser_id),
                 sequence_length=puzzle_data["sequence_length"],
-                colors=puzzle_data.get(
-                    "colors", ["red", "blue", "green", "yellow"]
+                colors=ensure_list(
+                    puzzle_data.get("colors", ["red", "blue", "green", "yellow"]),
+                    context=context,
+                    section="teaser.data.colors",
+                    identifier=teaser_id,
                 ),
             )
 
         elif teaser_type == BrainTeaserType.LOCK_COMBINATION:
-            if "combination" not in puzzle_data:
-                log_warning(
-                    f"Lock combination '{teaser_id}' missing required fields, skipping"
-                )
+            if not validate_required_keys(
+                puzzle_data,
+                ("combination",),
+                context=context,
+                section="teaser.data",
+                identifier=teaser_id,
+            ):
                 continue
+            combination = ensure_list(
+                puzzle_data.get("combination", []),
+                context=context,
+                section="teaser.data.combination",
+                identifier=teaser_id,
+            )
             puzzle_obj = LockCombination(
                 puzzle_id=puzzle_data.get("puzzle_id", teaser_id),
-                combination=puzzle_data["combination"],
-                num_dials=puzzle_data.get(
-                    "num_dials", len(puzzle_data["combination"])
-                ),
+                combination=combination,
+                num_dials=puzzle_data.get("num_dials", len(combination)),
                 max_value=puzzle_data.get("max_value", 9),
-                clues=puzzle_data.get("clues", []),
+                clues=ensure_list(
+                    puzzle_data.get("clues", []),
+                    context=context,
+                    section="teaser.data.clues",
+                    identifier=teaser_id,
+                ),
             )
 
         elif teaser_type == BrainTeaserType.SLIDING_TILES:
-            if "solution" not in puzzle_data:
-                log_warning(
-                    f"Sliding tiles '{teaser_id}' missing solution grid, skipping"
-                )
+            if not validate_required_keys(
+                puzzle_data,
+                ("solution",),
+                context=context,
+                section="teaser.data",
+                identifier=teaser_id,
+            ):
                 continue
             puzzle_obj = {"solution": puzzle_data["solution"]}
 
         if not puzzle_obj:
-            log_warning(
-                f"Failed to create puzzle object for '{teaser_id}', skipping"
+            log_schema_warning(
+                context,
+                "failed to create puzzle object, skipping teaser",
+                section="teasers",
+                identifier=teaser_id,
             )
             continue
 
         # Create BrainTeaser wrapper
         teaser = BrainTeaser(
-            teaser_id=teaser_data["teaser_id"],
+            teaser_id=teaser_entry["teaser_id"],
             teaser_type=teaser_type,
-            name=teaser_data["name"],
+            name=teaser_entry["name"],
             data=puzzle_obj,
-            rewards=teaser_data.get("rewards", {}),
-            attempts_allowed=teaser_data.get("attempts_allowed", 3),
+            rewards=teaser_entry.get("rewards", {}),
+            attempts_allowed=teaser_entry.get("attempts_allowed", 3),
             solved=False,
         )
-        teasers[teaser_id] = teaser
+        # Use the inner teaser_id as the canonical key. This allows content
+        # authors to rename outer JSON keys while keeping stable identifiers,
+        # but we still log when they diverge.
+        teasers[teaser.teaser_id] = teaser
 
     return teasers

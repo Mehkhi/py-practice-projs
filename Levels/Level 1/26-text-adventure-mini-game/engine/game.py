@@ -37,6 +37,7 @@ from core.loaders import build_bestiary_metadata
 from core.tutorial_system import TipTrigger
 from core.time_system import TimeOfDay
 from engine.ui.panels import ToastNotification
+from core.constants import NPC_SCHEDULES_JSON
 from .game_loaders import (
     create_day_night_cycle,
     create_tutorial_manager,
@@ -80,7 +81,7 @@ class RpgGame:
         self.weather_system = create_weather_system(self.config)
         self.achievement_manager = load_achievement_manager_safe(self.event_bus)
         self.party_prototypes = load_party_prototypes(self.items_db)
-        self.schedule_manager = load_npc_schedules("data/npc_schedules.json")
+        self.schedule_manager = load_npc_schedules(NPC_SCHEDULES_JSON)
         self.tutorial_manager = create_tutorial_manager()
         self.fishing_system = load_fishing_system()
         self.brain_teaser_manager = load_brain_teaser_manager()

@@ -5,6 +5,7 @@ from typing import Dict, List, Optional, Tuple, TYPE_CHECKING
 import pygame
 
 from ..theme import Colors, Fonts, Layout
+from .text_utils import wrap_text
 
 if TYPE_CHECKING:
     from core.tutorial_system import TutorialManager, HelpEntry
@@ -83,7 +84,8 @@ class HelpOverlay:
                 self.scroll_offset += 1
                 return True
         elif event.type == pygame.MOUSEWHEEL:
-            # Scroll with mouse wheel
+            # Scroll with mouse wheel; positive y scrolls down for consistency with tests
+            # Clamp to 0 here; max scroll is enforced in draw().
             self.scroll_offset = max(0, self.scroll_offset + event.y)
             return True
 
@@ -95,27 +97,8 @@ class HelpOverlay:
         pass
 
     def _wrap_text(self, text: str, font: pygame.font.Font, max_width: int) -> List[str]:
-        """Wrap text to fit within max_width."""
-        if not text:
-            return []
-
-        words = text.split()
-        lines = []
-        current_line = []
-
-        for word in words:
-            test_line = " ".join(current_line + [word])
-            if font.size(test_line)[0] <= max_width:
-                current_line.append(word)
-            else:
-                if current_line:
-                    lines.append(" ".join(current_line))
-                current_line = [word]
-
-        if current_line:
-            lines.append(" ".join(current_line))
-
-        return lines
+        """Wrap text to fit within max_width using shared helper."""
+        return wrap_text(text, font, max_width)
 
     def draw(self, surface: pygame.Surface) -> None:
         """

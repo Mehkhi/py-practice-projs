@@ -53,7 +53,10 @@ class EnemySpawnManager:
 
     def update(self, dt: float) -> None:
         """Update all overworld enemies on the current map."""
-        current_map = self.scene.world.get_current_map()
+        try:
+            current_map = self.scene.world.get_current_map()
+        except Exception:
+            return
         active_enemies = self.scene.world.get_active_overworld_enemies(current_map.map_id)
 
         # Build set of blocked positions (player + NPCs + other enemies)

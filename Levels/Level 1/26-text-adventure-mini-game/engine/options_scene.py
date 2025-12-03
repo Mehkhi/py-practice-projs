@@ -9,6 +9,7 @@ from .assets import AssetManager
 from .ui import Menu, NineSlicePanel, draw_contextual_help
 from .input_manager import get_input_manager, get_key_name, BINDABLE_KEYS
 from .accessibility import get_accessibility_manager
+from .config_loader import save_config
 from .theme import Colors, Layout
 from .options import (
     OptionsAudioVideoMixin,
@@ -231,6 +232,39 @@ class OptionsScene(
             if self.manager and self.manager.tutorial_manager:
                 self.manager.tutorial_manager.tips_enabled = self.options_state["tips_enabled"]
 
+    def _apply_runtime_settings(self) -> None:
+        """Apply changes to live systems (audio, debug flags)."""
+        self._apply_audio_settings()
+
+        # Debug/tips/minimap toggles are propagated via config and manager links
+        if self.manager:
+            # Keep the SceneManager save_slot in sync if config contains it
+            if "save_slot" in self.config:
+                try:
+                    self.manager.save_slot = max(1, int(self.config["save_slot"]))
+                except Exception:
+                    pass
+
+    def _apply_audio_settings(self) -> None:
+        """Update pygame mixer volumes based on current options."""
+        if not pygame.mixer.get_init():
+            return
+
+        master = max(0, min(100, self.options_state.get("master_volume", 100))) / 100.0
+        music = max(0, min(100, self.options_state.get("music_volume", 100))) / 100.0
+        sfx = max(0, min(100, self.options_state.get("sfx_volume", 100))) / 100.0
+
+        try:
+            pygame.mixer.music.set_volume(master * music)
+        except Exception:
+            pass
+
+        for sound in self.assets.sounds.values():
+            try:
+                sound.set_volume(master * sfx)
+            except Exception:
+                continue
+
     def _go_back(self) -> None:
         """Return to previous scene, applying settings."""
         # Update config with new values
@@ -243,6 +277,13 @@ class OptionsScene(
             "debug_ai": self.options_state["debug_ai"],
             "tips_enabled": self.options_state["tips_enabled"],
         })
+
+        # Apply runtime changes where possible
+        self._apply_runtime_settings()
+
+        # Persist to disk so future sessions reflect the changes
+        save_config(self.config)
+
         # Update tutorial_manager if available
         if self.manager and self.manager.tutorial_manager:
             self.manager.tutorial_manager.tips_enabled = self.options_state["tips_enabled"]
@@ -257,6 +298,9 @@ class OptionsScene(
         # Update rebind flash timer
         if self.waiting_for_key:
             self.rebind_flash_timer += dt
+
+        # Drive menu animation with dt when available
+        self.menu.update(dt)
 
     def draw(self, surface: pygame.Surface) -> None:
         """Draw the options menu."""

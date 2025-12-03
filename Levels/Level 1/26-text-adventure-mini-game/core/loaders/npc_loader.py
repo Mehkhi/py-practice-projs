@@ -2,14 +2,15 @@
 
 from typing import Dict, List
 
-from core.loaders.base import load_json_file
-from core.logging_utils import log_warning
+from core.constants import NPC_SCHEDULES_JSON
+from core.loaders.base import ensure_dict, ensure_list, load_json_file, validate_required_keys
+from core.logging_utils import log_schema_warning
 from core.npc_schedules import NPCSchedule, ScheduleEntry, ScheduleManager
 from core.time_system import TimeOfDay
 
 
 def load_npc_schedules(
-    filepath: str = "data/npc_schedules.json",
+    filepath: str = NPC_SCHEDULES_JSON,
 ) -> ScheduleManager:
     """Load NPC schedules from JSON file.
 
@@ -19,6 +20,7 @@ def load_npc_schedules(
     Returns:
         ScheduleManager instance with loaded schedules, or empty manager if file missing
     """
+    context = "npc schedule loader"
     data = load_json_file(
         filepath,
         default={"schedules": {}},
@@ -26,76 +28,97 @@ def load_npc_schedules(
         warn_on_missing=True,
     )
 
+    data = ensure_dict(data, context=context, section="root")
     schedules: Dict[str, NPCSchedule] = {}
-    schedules_data = data.get("schedules", {})
+    schedules_data = ensure_dict(
+        data.get("schedules", {}),
+        context=context,
+        section="schedules",
+    )
 
     for npc_id, schedule_data in schedules_data.items():
-        # Validate required fields
-        if "default_map_id" not in schedule_data:
-            log_warning(
-                f"Schedule for NPC '{npc_id}' missing 'default_map_id', skipping"
-            )
-            continue
-        if "default_x" not in schedule_data:
-            log_warning(f"Schedule for NPC '{npc_id}' missing 'default_x', skipping")
-            continue
-        if "default_y" not in schedule_data:
-            log_warning(f"Schedule for NPC '{npc_id}' missing 'default_y', skipping")
+        schedule_entry = ensure_dict(
+            schedule_data,
+            context=context,
+            section="schedule",
+            identifier=npc_id,
+        )
+        if not validate_required_keys(
+            schedule_entry,
+            ("default_map_id", "default_x", "default_y"),
+            context=context,
+            section="schedule",
+            identifier=npc_id,
+        ):
             continue
 
         # Parse schedule entries
         entries: List[ScheduleEntry] = []
-        for entry_data in schedule_data.get("entries", []):
+        for entry_data in ensure_list(
+            schedule_entry.get("entries", []),
+            context=context,
+            section="schedule.entries",
+            identifier=npc_id,
+        ):
+            entry_entry = ensure_dict(
+                entry_data,
+                context=context,
+                section="schedule.entry",
+                identifier=npc_id,
+            )
             # Convert time period strings to TimeOfDay enum values
             time_periods: List[TimeOfDay] = []
-            for period_str in entry_data.get("time_periods", []):
+            for period_str in ensure_list(
+                entry_entry.get("time_periods", []),
+                context=context,
+                section="schedule.entry.time_periods",
+                identifier=npc_id,
+            ):
                 try:
                     period = TimeOfDay[period_str.upper()]
                     time_periods.append(period)
                 except KeyError:
-                    log_warning(
-                        f"Schedule for NPC '{npc_id}': invalid time period '{period_str}', skipping"
+                    log_schema_warning(
+                        context,
+                        f"invalid time period '{period_str}', skipping value",
+                        section="schedule.entry.time_periods",
+                        identifier=npc_id,
                     )
 
             if not time_periods:
-                log_warning(
-                    f"Schedule entry for NPC '{npc_id}' has no valid time periods, skipping"
+                log_schema_warning(
+                    context,
+                    "has no valid time periods, skipping entry",
+                    section="schedule.entry",
+                    identifier=npc_id,
                 )
                 continue
 
-            # Validate entry fields
-            if "map_id" not in entry_data:
-                log_warning(
-                    f"Schedule entry for NPC '{npc_id}' missing 'map_id', skipping"
-                )
-                continue
-            if "x" not in entry_data:
-                log_warning(
-                    f"Schedule entry for NPC '{npc_id}' missing 'x', skipping"
-                )
-                continue
-            if "y" not in entry_data:
-                log_warning(
-                    f"Schedule entry for NPC '{npc_id}' missing 'y', skipping"
-                )
+            if not validate_required_keys(
+                entry_entry,
+                ("map_id", "x", "y"),
+                context=context,
+                section="schedule.entry",
+                identifier=npc_id,
+            ):
                 continue
 
             entry = ScheduleEntry(
                 time_periods=time_periods,
-                map_id=entry_data["map_id"],
-                x=entry_data["x"],
-                y=entry_data["y"],
-                activity=entry_data.get("activity"),
-                shop_available=entry_data.get("shop_available", True),
-                alternative_dialogue_id=entry_data.get("alternative_dialogue_id"),
+                map_id=entry_entry["map_id"],
+                x=entry_entry["x"],
+                y=entry_entry["y"],
+                activity=entry_entry.get("activity"),
+                shop_available=entry_entry.get("shop_available", True),
+                alternative_dialogue_id=entry_entry.get("alternative_dialogue_id"),
             )
             entries.append(entry)
 
         schedule = NPCSchedule(
             npc_id=npc_id,
-            default_map_id=schedule_data["default_map_id"],
-            default_x=schedule_data["default_x"],
-            default_y=schedule_data["default_y"],
+            default_map_id=schedule_entry["default_map_id"],
+            default_x=schedule_entry["default_x"],
+            default_y=schedule_entry["default_y"],
             entries=entries,
         )
         schedules[npc_id] = schedule

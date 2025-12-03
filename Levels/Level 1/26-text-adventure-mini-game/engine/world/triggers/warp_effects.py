@@ -152,22 +152,31 @@ def handle_challenge_warp(
         return
 
     scene = context.scene
+    blocker_key = f"challenge_warp_{challenge_id}_{getattr(warp, 'target_map_id', 'unknown')}_{getattr(warp, 'target_x', 'x')}_{getattr(warp, 'target_y', 'y')}"
+    if scene._last_blocked_trigger == blocker_key:
+        return
+
     challenge_manager = scene.get_manager_attr("challenge_dungeon_manager", "_handle_warp")
     if not challenge_manager:
         log_warning("Challenge dungeon warp activated but no challenge_dungeon_manager available")
+        scene._last_blocked_trigger = blocker_key
+        scene._show_inline_message("Challenge entrance unavailable right now.")
         return
 
     post_game_manager = scene.get_manager_attr("post_game_manager", "_handle_warp")
     if not post_game_manager:
+        scene._last_blocked_trigger = blocker_key
         scene._show_inline_message("Post-game system not available")
         return
 
     player_level = scene.player.stats.level
     can_enter, reason = challenge_manager.can_enter(challenge_id, player_level, post_game_manager)
     if not can_enter:
+        scene._last_blocked_trigger = blocker_key
         scene._show_inline_message(f"Cannot enter: {reason}")
         return
 
+    scene._last_blocked_trigger = None
     _show_challenge_dungeon_prompt(challenge_id, warp, context, warp_fn)
 
 

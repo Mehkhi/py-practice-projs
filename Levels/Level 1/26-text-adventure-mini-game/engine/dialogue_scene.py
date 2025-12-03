@@ -222,9 +222,12 @@ class DialogueScene(BaseMenuScene):
                     self._close_dialogue()
 
     def update(self, dt: float) -> None:
-        """Update dialogue state (currently no timers needed)."""
-        # Placeholder for future animations or typing effects
-        return
+        """Update dialogue state and animations."""
+        # Advance message box animations (e.g., "more" indicator) and choice menu cursor
+        if self.message_box:
+            self.message_box.update(dt)
+        if self.choice_menu:
+            self.choice_menu.update(dt)
 
     def draw(self, surface: pygame.Surface) -> None:
         # Draw semi-transparent dark background

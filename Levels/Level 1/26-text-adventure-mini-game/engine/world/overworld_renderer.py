@@ -43,6 +43,20 @@ if TYPE_CHECKING:
     from core.entities import OverworldEnemy
 
 
+def format_location_name(map_id: str) -> str:
+    """Format a map ID into a nice display name.
+
+    Converts 'forest_path' to 'Forest Path', etc.
+
+    Args:
+        map_id: The map identifier (e.g., 'forest_path')
+
+    Returns:
+        Formatted display name (e.g., 'Forest Path')
+    """
+    return map_id.replace('_', ' ').title()
+
+
 def draw_rounded_panel(
     surface: pygame.Surface,
     rect: pygame.Rect,
@@ -172,6 +186,9 @@ class OverworldRenderer:
     def draw(self, surface: pygame.Surface) -> None:
         """Draw the overworld."""
         current_map, entities = self.scene.renderer.get_current_entities()
+        if not current_map:
+            return
+
         screen_width, screen_height = surface.get_size()
         map_height = len(current_map.tiles)
         map_width = len(current_map.tiles[0]) if current_map.tiles else 0
@@ -183,7 +200,8 @@ class OverworldRenderer:
 
         for y in range(start_tile_y, end_tile_y):
             row = current_map.tiles[y]
-            for x in range(start_tile_x, end_tile_x):
+            row_end = min(end_tile_x, len(row))
+            for x in range(start_tile_x, row_end):
                 tile = row[x]
 
                 # ------------------------------------------------------------------
@@ -313,11 +331,11 @@ class OverworldRenderer:
         hud_padding = Layout.PADDING_MD
 
         bar_width = 200
-        bar_height = Layout.BAR_HEIGHT
-        vertical_gap = Layout.ELEMENT_GAP_SMALL
+        bar_height = Layout.BAR_HEIGHT_LARGE
+        vertical_gap = Layout.ELEMENT_GAP
 
         # Measure text to size the panel based on content instead of magic numbers
-        map_name_text = current_map.map_id
+        map_name_text = format_location_name(current_map.map_id)
         gold_amount = 0
         try:
             gold_amount = int(self.scene.world.get_flag("gold", 0))

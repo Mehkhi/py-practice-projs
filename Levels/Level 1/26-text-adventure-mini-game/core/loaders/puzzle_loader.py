@@ -2,12 +2,18 @@
 
 from typing import Dict
 
-from core.loaders.base import load_json_file
-from core.logging_utils import log_warning
+from core.constants import PUZZLES_JSON
+from core.loaders.base import (
+    ensure_dict,
+    ensure_list,
+    load_json_file,
+    validate_required_keys,
+)
+from core.logging_utils import log_schema_warning
 
 
 def load_puzzles_from_json(
-    filepath: str = "data/puzzles.json",
+    filepath: str = PUZZLES_JSON,
 ) -> Dict[str, "DungeonPuzzle"]:
     """Load puzzles from JSON file.
 
@@ -26,110 +32,128 @@ def load_puzzles_from_json(
         warn_on_missing=True,
     )
 
-    if not isinstance(data, dict):
-        raise ValueError("Puzzle data must be a dictionary at the top level")
+    context = "puzzle loader"
+    data = ensure_dict(data, context=context, section="root")
 
     puzzles: Dict[str, DungeonPuzzle] = {}
-    puzzles_data = data.get("puzzles", {})
-    if not isinstance(puzzles_data, dict):
-        raise ValueError("Puzzle data 'puzzles' section must be a dictionary")
+    puzzles_data = ensure_dict(
+        data.get("puzzles", {}),
+        context=context,
+        section="puzzles",
+    )
 
     for puzzle_id, puzzle_data in puzzles_data.items():
-        if not isinstance(puzzle_data, dict):
-            raise ValueError(f"Puzzle '{puzzle_id}' entry must be a dictionary")
-        # Validate required fields
-        if "puzzle_id" not in puzzle_data:
-            log_warning("Puzzle missing 'puzzle_id', skipping")
-            continue
-        if "map_id" not in puzzle_data:
-            log_warning(f"Puzzle '{puzzle_id}' missing 'map_id', skipping")
-            continue
-        if "name" not in puzzle_data:
-            log_warning(f"Puzzle '{puzzle_id}' missing 'name', skipping")
-            continue
-        if "elements" not in puzzle_data:
-            log_warning(f"Puzzle '{puzzle_id}' missing 'elements', skipping")
+        puzzle_entry = ensure_dict(
+            puzzle_data,
+            context=context,
+            section="puzzle",
+            identifier=puzzle_id,
+        )
+        if not validate_required_keys(
+            puzzle_entry,
+            ("puzzle_id", "map_id", "name", "elements"),
+            context=context,
+            section="puzzle",
+            identifier=puzzle_id,
+        ):
             continue
 
         # Load elements
         elements: Dict[str, PuzzleElement] = {}
-        elements_data = puzzle_data.get("elements", {})
-        if not isinstance(elements_data, dict):
-            raise ValueError(f"Puzzle '{puzzle_id}' elements must be a dictionary")
+        elements_data = ensure_dict(
+            puzzle_entry.get("elements", {}),
+            context=context,
+            section="elements",
+            identifier=puzzle_id,
+        )
 
         for element_id, element_data in elements_data.items():
-            if not isinstance(element_data, dict):
-                raise ValueError(f"Puzzle '{puzzle_id}' element '{element_id}' must be a dictionary")
-            # Validate required element fields
-            if "element_id" not in element_data:
-                log_warning(
-                    f"Element in puzzle '{puzzle_id}' missing 'element_id', skipping"
-                )
-                continue
-            if "element_type" not in element_data:
-                log_warning(
-                    f"Element '{element_id}' in puzzle '{puzzle_id}' missing 'element_type', skipping"
-                )
-                continue
-            if "x" not in element_data:
-                log_warning(
-                    f"Element '{element_id}' in puzzle '{puzzle_id}' missing 'x', skipping"
-                )
-                continue
-            if "y" not in element_data:
-                log_warning(
-                    f"Element '{element_id}' in puzzle '{puzzle_id}' missing 'y', skipping"
-                )
+            element_entry = ensure_dict(
+                element_data,
+                context=context,
+                section="element",
+                identifier=element_id,
+            )
+            if not validate_required_keys(
+                element_entry,
+                ("element_id", "element_type", "x", "y"),
+                context=context,
+                section="element",
+                identifier=element_id,
+            ):
                 continue
 
             # Convert element_type string to enum
             try:
-                element_type = PuzzleElementType(element_data["element_type"])
+                element_type = PuzzleElementType(element_entry["element_type"])
             except ValueError:
-                log_warning(
-                    f"Element '{element_id}' in puzzle '{puzzle_id}': "
-                    f"invalid element_type '{element_data['element_type']}', skipping"
+                log_schema_warning(
+                    context,
+                    f"invalid element_type '{element_entry['element_type']}', skipping element",
+                    section="element",
+                    identifier=element_id,
                 )
                 continue
 
             element = PuzzleElement(
-                element_id=element_data["element_id"],
+                element_id=element_entry["element_id"],
                 element_type=element_type,
-                x=element_data["x"],
-                y=element_data["y"],
-                state=element_data.get("state", "default"),
-                linked_elements=element_data.get("linked_elements", []),
-                sprite_id=element_data.get("sprite_id", ""),
-                solid=element_data.get("solid", True),
-                data=element_data.get("data", {}),
+                x=element_entry["x"],
+                y=element_entry["y"],
+                state=element_entry.get("state", "default"),
+                linked_elements=ensure_list(
+                    element_entry.get("linked_elements", []),
+                    context=context,
+                    section="element.linked_elements",
+                    identifier=element_id,
+                ),
+                sprite_id=element_entry.get("sprite_id", ""),
+                solid=element_entry.get("solid", True),
+                data=ensure_dict(
+                    element_entry.get("data", {}),
+                    context=context,
+                    section="element.data",
+                    identifier=element_id,
+                ),
             )
             elements[element_id] = element
 
         # Create puzzle - check if it's a sequence puzzle
-        if puzzle_data.get("puzzle_type") == "sequence" or "required_sequence" in puzzle_data:
+        solution_conditions = ensure_list(
+            puzzle_entry.get("solution_conditions", []),
+            context=context,
+            section="puzzle.solution_conditions",
+            identifier=puzzle_id,
+        )
+        if puzzle_entry.get("puzzle_type") == "sequence" or "required_sequence" in puzzle_entry:
             puzzle = SequencePuzzle(
-                puzzle_id=puzzle_data["puzzle_id"],
-                map_id=puzzle_data["map_id"],
-                name=puzzle_data["name"],
+                puzzle_id=puzzle_entry["puzzle_id"],
+                map_id=puzzle_entry["map_id"],
+                name=puzzle_entry["name"],
                 elements=elements,
-                solution_conditions=puzzle_data.get("solution_conditions", []),
-                reward_trigger_id=puzzle_data.get("reward_trigger_id"),
+                solution_conditions=solution_conditions,
+                reward_trigger_id=puzzle_entry.get("reward_trigger_id"),
                 solved=False,
-                hint=puzzle_data.get("hint", ""),
-                required_sequence=puzzle_data.get("required_sequence", []),
+                hint=puzzle_entry.get("hint", ""),
+                required_sequence=ensure_list(
+                    puzzle_entry.get("required_sequence", []),
+                    context=context,
+                    section="puzzle.required_sequence",
+                    identifier=puzzle_id,
+                ),
                 current_sequence=[],
             )
         else:
             puzzle = DungeonPuzzle(
-                puzzle_id=puzzle_data["puzzle_id"],
-                map_id=puzzle_data["map_id"],
-                name=puzzle_data["name"],
+                puzzle_id=puzzle_entry["puzzle_id"],
+                map_id=puzzle_entry["map_id"],
+                name=puzzle_entry["name"],
                 elements=elements,
-                solution_conditions=puzzle_data.get("solution_conditions", []),
-                reward_trigger_id=puzzle_data.get("reward_trigger_id"),
+                solution_conditions=solution_conditions,
+                reward_trigger_id=puzzle_entry.get("reward_trigger_id"),
                 solved=False,
-                hint=puzzle_data.get("hint", ""),
+                hint=puzzle_entry.get("hint", ""),
             )
-        puzzles[puzzle_id] = puzzle
+        puzzles[puzzle.puzzle_id] = puzzle
 
     return puzzles

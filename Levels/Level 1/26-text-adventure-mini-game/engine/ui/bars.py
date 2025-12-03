@@ -31,18 +31,23 @@ def draw_hp_bar(surface: pygame.Surface, x: int, y: int, width: int, height: int
             # Draw main fill
             pygame.draw.rect(surface, color, hp_rect, border_radius=Layout.BAR_BORDER_RADIUS)
 
-    # Draw label
+    # Draw label centered in the bar
     if label and show_text:
         label_font = font or pygame.font.Font(None, Fonts.SIZE_SMALL)
         label_text = f"{label}: {current}/{maximum}"
 
-        # Shadow
+        # Calculate centered position
+        text_width, text_height = label_font.size(label_text)
+        text_x = x + (width - text_width) // 2
+        text_y = y + (height - text_height) // 2
+
+        # Shadow for readability
         text_shadow = label_font.render(label_text, True, Colors.BLACK, None)
-        surface.blit(text_shadow, (x + 1, y - 14))
+        surface.blit(text_shadow, (text_x + 1, text_y + 1))
 
         # Main text
-        text = label_font.render(label_text, True, Colors.TEXT_PRIMARY, None)
-        surface.blit(text, (x, y - 15))
+        text = label_font.render(label_text, True, Colors.WHITE, None)
+        surface.blit(text, (text_x, text_y))
 
 
 def draw_sp_bar(surface: pygame.Surface, x: int, y: int, width: int, height: int,
@@ -67,18 +72,23 @@ def draw_sp_bar(surface: pygame.Surface, x: int, y: int, width: int, height: int
             sp_color = Colors.get_sp_color()
             pygame.draw.rect(surface, sp_color, sp_rect, border_radius=Layout.BAR_BORDER_RADIUS)
 
-    # Draw label
+    # Draw label centered in the bar
     if label and show_text:
         label_font = font or pygame.font.Font(None, Fonts.SIZE_SMALL)
         label_text = f"{label}: {current}/{maximum}"
 
-        # Shadow
+        # Calculate centered position
+        text_width, text_height = label_font.size(label_text)
+        text_x = x + (width - text_width) // 2
+        text_y = y + (height - text_height) // 2
+
+        # Shadow for readability
         text_shadow = label_font.render(label_text, True, Colors.BLACK, None)
-        surface.blit(text_shadow, (x + 1, y - 14))
+        surface.blit(text_shadow, (text_x + 1, text_y + 1))
 
         # Main text
-        text = label_font.render(label_text, True, Colors.TEXT_PRIMARY, None)
-        surface.blit(text, (x, y - 15))
+        text = label_font.render(label_text, True, Colors.WHITE, None)
+        surface.blit(text, (text_x, text_y))
 
 
 def draw_status_icons(

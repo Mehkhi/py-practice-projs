@@ -256,11 +256,17 @@ class CraftingScene(BaseMenuScene):
             self.result_timer = 0.0
 
     def update(self, dt: float) -> None:
-        """Update scene state."""
+        """Update scene state and drive UI animations."""
+        if self.menu:
+            self.menu.update(dt)
+        if self.message_box:
+            self.message_box.update(dt)
+
         if self.result_message:
             self.result_timer += dt
             if self.result_timer >= self.result_duration:
                 self.result_message = None
+                self.result_timer = 0.0
 
     def draw(self, surface: pygame.Surface) -> None:
         """Render the crafting scene."""

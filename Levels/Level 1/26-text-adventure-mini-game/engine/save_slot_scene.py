@@ -8,6 +8,7 @@ from .assets import AssetManager
 from .ui import Menu, MessageBox, NineSlicePanel, ConfirmationDialog
 from .theme import Colors, Fonts, Layout
 from core.save_load import SaveManager, SaveContext
+from core.save import KNOWN_MANAGER_ATTRS
 from core.world import World
 from core.entities import Player
 from core.quests import QuestManager
@@ -156,7 +157,9 @@ class SaveSlotScene(BaseMenuScene):
                 return
             # Load the game - callback handles scene transition, so don't pop
             if self.on_complete:
-                self.on_complete(slot)
+                success = self.on_complete(slot)
+                if success is False:
+                    self._show_message("Failed to load this save slot.")
             # Note: Don't call pop() here - the on_complete callback replaces
             # this scene with WorldScene via scene_manager.replace()
 
@@ -184,14 +187,7 @@ class SaveSlotScene(BaseMenuScene):
 
             # Register managers from scene manager (if available)
             if self.manager:
-                for attr_name in [
-                    'day_night_cycle', 'achievement_manager', 'weather_system',
-                    'schedule_manager',
-                    'fishing_system', 'puzzle_manager', 'brain_teaser_manager',
-                    'gambling_manager', 'arena_manager', 'challenge_dungeon_manager',
-                    'secret_boss_manager', 'hint_manager', 'post_game_manager',
-                    'tutorial_manager',
-                ]:
+                for attr_name in KNOWN_MANAGER_ATTRS:
                     manager_obj = self.manager.get_manager(
                         attr_name, "save_slot_scene_do_save"
                     )

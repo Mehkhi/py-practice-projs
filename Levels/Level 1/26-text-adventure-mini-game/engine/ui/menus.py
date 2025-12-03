@@ -6,6 +6,8 @@ from typing import Dict, List, Optional, Sequence, Tuple
 import pygame
 
 from ..theme import Colors, Fonts, Layout
+from .animation_utils import advance_timer, sine_wave
+from .text_utils import wrap_text
 
 
 class Menu:
@@ -29,18 +31,42 @@ class Menu:
         # Animation state
         self._anim_timer = 0.0
         self._selection_lerp = 0.0  # Smooth highlight transition
+        # When True, animations are being advanced via update(dt) instead
+        # of implicitly in draw().
+        self._anim_updated_externally = False
 
     def move_selection(self, delta: int) -> None:
-        """Move selection up (negative) or down (positive)."""
+        """Move selection up (negative) or down (positive), skipping disabled options.
+
+        If all options are disabled, the selection index is left unchanged.
+        """
         if not self.options:
             return
-        self.selected_index = (self.selected_index + delta) % len(self.options)
+
+        original_index = self.selected_index
+        for _ in range(len(self.options)):
+            self.selected_index = (self.selected_index + delta) % len(self.options)
+            if self.options[self.selected_index] not in self.disabled:
+                break
+        else:
+            # All options appear to be disabled; restore original selection
+            self.selected_index = original_index
 
     def get_selected(self) -> Optional[str]:
         """Get the currently selected option."""
         if not self.options:
             return None
         return self.options[self.selected_index]
+
+    def update(self, dt: float) -> None:
+        """Advance menu animations using a frame time ``dt``.
+
+        Scenes that call this every frame will get frame-rate independent
+        cursor motion. When this is used, ``draw`` will stop applying its
+        internal fixed-step timer and rely on this instead.
+        """
+        self._anim_timer = advance_timer(self._anim_timer, dt, speed=1.0)
+        self._anim_updated_externally = True
 
     def draw(
         self,
@@ -58,8 +84,14 @@ class Menu:
         if line_height is None:
             line_height = Layout.MENU_ITEM_HEIGHT_COMPACT if self.compact else Layout.MENU_ITEM_HEIGHT
 
-        # Update animation
-        self._anim_timer += 0.08
+        # Update animation timer when not driven externally via update(dt).
+        if not self._anim_updated_externally:
+            self._anim_timer += 0.08
+        else:
+            # Reset flag so the next frame can decide again; scenes that
+            # call update(dt) each frame will keep this path active.
+            self._anim_updated_externally = False
+
 
         colors = theme or {}
         color_active = colors.get("active", Colors.TEXT_HIGHLIGHT)
@@ -122,7 +154,7 @@ class Menu:
                 surface.blit(highlight_surface, highlight_rect)
 
                 # Draw animated cursor with smooth motion
-                cursor_bounce = math.sin(self._anim_timer * 2.5) * 3
+                cursor_bounce = sine_wave(self._anim_timer, frequency=2.5) * 3
                 cursor_x = x - cursor_width + 4 + cursor_bounce
                 cursor_center_y = row_y + line_height // 2
 
@@ -260,7 +292,7 @@ class Tooltip:
         content_width = self.max_width - 2 * self.padding
 
         # Wrap description text
-        wrapped_desc = self._wrap_text(self.description, font, content_width)
+        wrapped_desc = wrap_text(self.description, font, content_width)
 
         # Calculate total height
         total_height = self.padding * 2
@@ -323,23 +355,5 @@ class Tooltip:
         surface.blit(tooltip_surface, (x, y))
 
     def _wrap_text(self, text: str, font: pygame.font.Font, max_width: int) -> List[str]:
-        if not text:
-            return []
-
-        words = text.split()
-        lines = []
-        current_line = []
-
-        for word in words:
-            test_line = " ".join(current_line + [word])
-            if font.size(test_line)[0] <= max_width:
-                current_line.append(word)
-            else:
-                if current_line:
-                    lines.append(" ".join(current_line))
-                current_line = [word]
-
-        if current_line:
-            lines.append(" ".join(current_line))
-
-        return lines
+        """Backward-compatible wrapper around shared wrap_text helper."""
+        return wrap_text(text, font, max_width)

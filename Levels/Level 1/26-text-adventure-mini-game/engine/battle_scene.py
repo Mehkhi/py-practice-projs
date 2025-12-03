@@ -38,6 +38,7 @@ from core.weather import WeatherType, WEATHER_TINTS, get_biome_for_map
 from core.logging_utils import log_warning, log_error
 from core.tutorial_system import TipTrigger
 from engine.battle.phases import BattlePhaseManager
+from engine.battle.background import BattleBackgroundRenderer
 
 if TYPE_CHECKING:
     from .scene import SceneManager
@@ -111,6 +112,9 @@ class BattleScene(
 
         # Phase manager for update flow
         self.phase_manager = BattlePhaseManager(self)
+
+        # Background renderer
+        self.background_renderer: Optional[BattleBackgroundRenderer] = None
 
     def _default_rewards(self) -> Dict[str, Any]:
         """Return base rewards structure when none is provided."""
@@ -535,6 +539,21 @@ class BattleScene(
         backdrop_id = self._get_backdrop_id()
         biome = self._get_biome()
 
+        # Initialize or update background renderer if needed
+        if self.background_renderer is None or \
+           self.background_renderer.width != width or \
+           self.background_renderer.height != height:
+            self.background_renderer = BattleBackgroundRenderer(width, height)
+
+        # Generate/Get background surface
+        # If backdrop_id is provided and valid image exists, we could still use assets.
+        # But let's let the renderer handle it or fallback.
+        # Actually, the renderer handles procedural generation.
+        # If we have a static image asset, we should probably prioritize that here
+        # OR let the renderer handle image loading too?
+        # For now, let's keep the image loading logic here for backward compatibility
+        # and use renderer as fallback/enhancement.
+
         # Cache key to detect when we need to regenerate the background
         cache_key = (backdrop_id, biome, width, height)
 
@@ -545,7 +564,7 @@ class BattleScene(
             backdrop_loaded = False
 
             # Try to load backdrop image
-            if backdrop_id:
+            if backdrop_id and self.assets.has_image(backdrop_id):
                 try:
                     # Get the backdrop image scaled to screen size
                     backdrop = self.assets.get_image(backdrop_id, (width // self.scale, height // self.scale))
@@ -558,28 +577,11 @@ class BattleScene(
                     log_warning(f"Failed to load backdrop '{backdrop_id}': {e}")
                     backdrop_loaded = False
 
-            # Fallback to gradient if no backdrop loaded
+            # Fallback to procedural background if no backdrop loaded
             if not backdrop_loaded:
-                # Use biome-specific gradient if available
-                if biome and biome in BIOME_GRADIENTS:
-                    top_color, bottom_color = BIOME_GRADIENTS[biome]
-                else:
-                    top_color = Colors.BG_DARK
-                    bottom_color = Colors.BG_MAIN
-
-                Gradients.vertical(self._bg_surface, top_color, bottom_color)
-
-                # Add subtle atmospheric grid pattern
-                grid_surface = pygame.Surface((width, height), pygame.SRCALPHA)
-                grid_alpha = 8  # Very subtle
-                grid_color = (255, 255, 255, grid_alpha)
-
-                for x in range(0, width, 40):
-                    pygame.draw.line(grid_surface, grid_color, (x, 0), (x, height))
-                for y in range(0, height, 40):
-                    pygame.draw.line(grid_surface, grid_color, (0, y), (width, y))
-
-                self._bg_surface.blit(grid_surface, (0, 0))
+                # Use the new background renderer
+                procedural_bg = self.background_renderer.draw(biome, backdrop_id)
+                self._bg_surface.blit(procedural_bg, (0, 0))
 
         # Draw the cached background with shake offset
         surface.blit(self._bg_surface, (shake_x, shake_y))
