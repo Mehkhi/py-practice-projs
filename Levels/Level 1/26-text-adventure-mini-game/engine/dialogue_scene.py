@@ -241,7 +241,7 @@ class DialogueScene(BaseMenuScene):
                 name_x = self.message_box.position[0]
                 name_y = self.message_box.position[1] - 36
 
-                # Draw name tag background
+                # Draw name tag background using gold-bordered panel when available
                 name_padding_x = 12
                 name_padding_y = 6
                 name_bg_rect = pygame.Rect(
@@ -251,14 +251,27 @@ class DialogueScene(BaseMenuScene):
                     name_surface.get_height() + name_padding_y * 2
                 )
 
-                # Create semi-transparent surface for name tag
-                name_tag_surface = pygame.Surface((name_bg_rect.width, name_bg_rect.height), pygame.SRCALPHA)
-                bg_color = (*Colors.BG_PANEL[:3], 220)
-                pygame.draw.rect(name_tag_surface, bg_color, (0, 0, name_bg_rect.width, name_bg_rect.height), border_radius=Layout.CORNER_RADIUS_SMALL)
-                # Border
-                accent_color = (*Colors.ACCENT[:3], 220)
-                pygame.draw.rect(name_tag_surface, accent_color, (0, 0, name_bg_rect.width, name_bg_rect.height), 1, border_radius=Layout.CORNER_RADIUS_SMALL)
-                surface.blit(name_tag_surface, name_bg_rect.topleft)
+                if self.panel:
+                    self.panel.draw(surface, name_bg_rect)
+                else:
+                    # Fallback semi-transparent style
+                    name_tag_surface = pygame.Surface((name_bg_rect.width, name_bg_rect.height), pygame.SRCALPHA)
+                    bg_color = (*Colors.BG_PANEL[:3], 220)
+                    pygame.draw.rect(
+                        name_tag_surface,
+                        bg_color,
+                        (0, 0, name_bg_rect.width, name_bg_rect.height),
+                        border_radius=Layout.CORNER_RADIUS_SMALL,
+                    )
+                    accent_color = (*Colors.ACCENT[:3], 220)
+                    pygame.draw.rect(
+                        name_tag_surface,
+                        accent_color,
+                        (0, 0, name_bg_rect.width, name_bg_rect.height),
+                        1,
+                        border_radius=Layout.CORNER_RADIUS_SMALL,
+                    )
+                    surface.blit(name_tag_surface, name_bg_rect.topleft)
 
                 # Text centered in tag
                 surface.blit(name_surface, (name_x + name_padding_x, name_y + name_padding_y))
@@ -283,13 +296,27 @@ class DialogueScene(BaseMenuScene):
                     max_w = max(max_w, font.size(opt)[0])
                 menu_rect.width = max_w + Layout.PADDING_MD * 2 + 40 # Extra for cursor
 
-            # Draw menu background with semi-transparent surface
-            menu_surface = pygame.Surface((menu_rect.width, menu_rect.height), pygame.SRCALPHA)
-            bg_color = (*Colors.BG_PANEL[:3], 220)
-            pygame.draw.rect(menu_surface, bg_color, (0, 0, menu_rect.width, menu_rect.height), border_radius=Layout.CORNER_RADIUS)
-            border_color = (*Colors.BORDER[:3], 220)
-            pygame.draw.rect(menu_surface, border_color, (0, 0, menu_rect.width, menu_rect.height), Layout.BORDER_WIDTH, border_radius=Layout.CORNER_RADIUS)
-            surface.blit(menu_surface, menu_rect.topleft)
+            # Draw menu background using gold-bordered panel when available
+            if self.panel:
+                self.panel.draw(surface, menu_rect)
+            else:
+                menu_surface = pygame.Surface((menu_rect.width, menu_rect.height), pygame.SRCALPHA)
+                bg_color = (*Colors.BG_PANEL[:3], 220)
+                pygame.draw.rect(
+                    menu_surface,
+                    bg_color,
+                    (0, 0, menu_rect.width, menu_rect.height),
+                    border_radius=Layout.CORNER_RADIUS,
+                )
+                border_color = (*Colors.BORDER[:3], 220)
+                pygame.draw.rect(
+                    menu_surface,
+                    border_color,
+                    (0, 0, menu_rect.width, menu_rect.height),
+                    Layout.BORDER_WIDTH,
+                    border_radius=Layout.CORNER_RADIUS,
+                )
+                surface.blit(menu_surface, menu_rect.topleft)
 
             self.choice_menu.draw(
                 surface,

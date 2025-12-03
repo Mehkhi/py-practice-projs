@@ -59,7 +59,7 @@ class InventoryScene(BaseMenuScene):
             width=self.LAYOUT["message_box_width"],
             height=self.LAYOUT["message_box_height"],
         )
-        self.message_box.set_text("Press S to sort, F to filter, H to assign hotbar, ESC to close.")
+        self.message_box.set_text("Press S to sort, F to filter, H to assign hotbar, U to use, ESC to close.")
 
         # Build item list
         self._refresh_item_list()
@@ -113,6 +113,53 @@ class InventoryScene(BaseMenuScene):
             return None
         return self.player.inventory.get_slot_for_item(item_id)
 
+    def _use_fishing_rod(self, item_id: str) -> None:
+        """Use a fishing rod to start fishing if at a fishing spot."""
+        # Check if player has the fishing rod
+        if not self.player.inventory or not self.player.inventory.has(item_id, 1):
+            self.message_box.set_text("You don't have a fishing rod!")
+            return
+
+        # Get fishing system
+        fishing_system = self.get_manager_attr("fishing_system", "_use_fishing_rod")
+        if not fishing_system:
+            self.message_box.set_text("Fishing system not available.")
+            return
+
+        # Get current map and player position
+        current_map = self.world.get_current_map()
+        map_id = self.world.current_map_id
+        player_x = self.player.x
+        player_y = self.player.y
+
+        # Check if there's a fishing spot at current location
+        spot = fishing_system.get_spot_at(map_id, player_x, player_y)
+        if not spot:
+            self.message_box.set_text("You need to be at a body of water to fish.")
+            return
+
+        # Trigger tutorial tip if needed
+        tutorial_manager = self.get_manager_attr("tutorial_manager", "_use_fishing_rod")
+        if tutorial_manager:
+            from core.tutorial_system import TipTrigger
+            tutorial_manager.trigger_tip(TipTrigger.FIRST_FISHING_SPOT)
+
+        # Create and push fishing scene
+        from engine.fishing_scene import FishingScene
+
+        fishing_scene = FishingScene(
+            self.manager,
+            fishing_system,
+            spot,
+            self.player,
+            self.world,
+            assets=self.assets,
+            scale=self.scale,
+        )
+        self.manager.push(fishing_scene)
+        # Close inventory scene
+        self.manager.pop()
+
     def handle_event(self, event: pygame.event.Event) -> None:
         """Handle input events."""
         if event.type != pygame.KEYDOWN:
@@ -138,7 +185,7 @@ class InventoryScene(BaseMenuScene):
             elif event.key == pygame.K_ESCAPE:
                 self.mode = "items"
                 self.hotbar_slot_selected = None
-                self.message_box.set_text("Press S to sort, F to filter, H to assign hotbar, ESC to close.")
+                self.message_box.set_text("Press S to sort, F to filter, H to assign hotbar, U to use, ESC to close.")
             return
 
         if event.key == pygame.K_ESCAPE:
@@ -178,6 +225,32 @@ class InventoryScene(BaseMenuScene):
                     self.message_box.set_text("Only consumable items can be assigned to hotbar.")
             else:
                 self.message_box.set_text("No item selected.")
+        elif event.key == pygame.K_u:
+            # Use selected item
+            selected = self._get_selected_item()
+            if not selected:
+                self.message_box.set_text("No item selected.")
+                return
+
+            item_id, quantity = selected
+            if quantity <= 0:
+                self.message_box.set_text("You don't have any of this item.")
+                return
+
+            item = self.items_db.get(item_id)
+            if not item:
+                self.message_box.set_text("Item not found.")
+                return
+
+            # Check if it's a fishing rod (check effect_id or rod_quality attribute)
+            is_fishing_rod = (
+                item.effect_id == "fishing_rod" or
+                (hasattr(item, "rod_quality") and getattr(item, "rod_quality", None) is not None)
+            )
+            if is_fishing_rod:
+                self._use_fishing_rod(item_id)
+            else:
+                self.message_box.set_text(f"{item.name} cannot be used from inventory.")
 
     def update(self, dt: float) -> None:
         """Update scene state."""
@@ -437,6 +510,6 @@ class InventoryScene(BaseMenuScene):
         if self.mode == "hotbar":
             help_text = "1-9: Assign to Slot  |  ESC: Cancel"
         else:
-            help_text = "Up/Down: Select  |  S: Sort  |  F: Filter  |  H: Hotbar  |  ESC: Close"
+            help_text = "Up/Down: Select  |  S: Sort  |  F: Filter  |  H: Hotbar  |  U: Use  |  ESC: Close"
 
         draw_contextual_help(surface, help_text, font, margin_bottom=Layout.SCREEN_MARGIN)

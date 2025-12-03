@@ -393,21 +393,17 @@ class CraftingScene(BaseMenuScene):
         if not self.result_message:
             return
 
-        # Semi-transparent background
-        overlay = pygame.Surface((400, 60))
-        overlay.set_alpha(220)
-        overlay.fill((40, 40, 60))
-
         x = (surface.get_width() - 400) // 2
         y = 200
+        box_width = 400
+        box_height = 60
 
-        surface.blit(overlay, (x, y))
-        pygame.draw.rect(surface, (255, 255, 255), (x, y, 400, 60), 2)
+        # Use the shared gold-bordered message box style for the result text
+        from .ui import MessageBox  # Local import to avoid circular dependencies
 
-        # Message text
-        msg_surface = font.render(self.result_message, True, Colors.TEXT_PRIMARY)
-        msg_rect = msg_surface.get_rect(center=(x + 200, y + 30))
-        surface.blit(msg_surface, msg_rect)
+        temp_box = MessageBox(position=(x, y), width=box_width, height=box_height)
+        temp_box.set_text(self.result_message)
+        temp_box.draw(surface, font, panel=self.panel)
 
     def _draw_help_text(self, surface: pygame.Surface, font: pygame.font.Font) -> None:
         """Draw standardized help text at the bottom of the screen."""

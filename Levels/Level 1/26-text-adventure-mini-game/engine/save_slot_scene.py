@@ -89,6 +89,7 @@ class SaveSlotScene(BaseMenuScene):
             title="Confirm Save",
             on_confirm=self._confirm_save,
             on_cancel=self._cancel_confirm,
+            panel=self.panel,
         )
 
         # Delete confirmation dialog
@@ -97,6 +98,7 @@ class SaveSlotScene(BaseMenuScene):
             title="Confirm Delete",
             on_confirm=self._confirm_delete,
             on_cancel=self._cancel_confirm,
+            panel=self.panel,
         )
 
         # Animation

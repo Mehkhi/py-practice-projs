@@ -137,16 +137,24 @@ class PuzzleInteractionHandler:
 
 @dataclass
 class FishingTriggerHandler(TriggerHandlerStrategy):
-    """Opens the fishing mini-game for `fishing` triggers."""
+    """Handles `fishing` triggers.
+
+    Fishing itself is now started manually via the inventory (using a fishing rod),
+    so this handler no longer opens the fishing mini-game directly.
+
+    However, we still need to respect the trigger's `once` flag so that
+    one-time fishing triggers don't keep firing forever.
+    """
 
     puzzle_handler: PuzzleInteractionHandler
     trigger_type: str = "fishing"
 
     def handle(self, trigger: "Trigger", context: TriggerContext) -> None:
-        spot_id = trigger.data.get("spot_id")
-        if not spot_id:
-            return
-        self.puzzle_handler.handle_fishing_spot(spot_id, context)
+        # Fishing is now manual - player must use a fishing rod from inventory.
+        # We intentionally do NOT start the fishing scene here anymore.
+        #
+        # Still mark the trigger as fired if it's a one-time trigger so that the
+        # trigger system's `once` logic continues to work as expected.
         trigger.fired = trigger.once
 
 

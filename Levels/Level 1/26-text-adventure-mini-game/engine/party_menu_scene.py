@@ -54,6 +54,7 @@ class PartyMenuScene(BaseMenuScene):
             title="Remove Party Member",
             on_confirm=self._confirm_remove_member,
             on_cancel=self._cancel_remove_member,
+            panel=self.panel,
         )
         self.pending_remove_index: Optional[int] = None
 

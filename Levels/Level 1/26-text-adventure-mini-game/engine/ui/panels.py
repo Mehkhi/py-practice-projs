@@ -409,6 +409,7 @@ class ConfirmationDialog:
         cancel_text: str = "No",
         width: int = 320,
         height: int = 160,
+        panel: Optional[NineSlicePanel] = None,
     ):
         self.message = message
         self.on_confirm = on_confirm
@@ -424,6 +425,8 @@ class ConfirmationDialog:
         self.selected_index = 1  # Default to "No"
         self.result: Optional[bool] = None
         self.overlay_alpha = 180
+        # Optional gold-bordered panel for the dialog background
+        self.panel = panel
 
     def show(self) -> None:
         self.visible = True
@@ -482,13 +485,28 @@ class ConfirmationDialog:
         pygame.draw.rect(surface, (0, 0, 0, 100), shadow_rect, border_radius=Layout.CORNER_RADIUS)
 
         dialog_rect = pygame.Rect(dialog_x, dialog_y, self.width, self.height)
-        # Create semi-transparent surface for dialog
-        dialog_surface = pygame.Surface((self.width, self.height), pygame.SRCALPHA)
-        bg_color = (*Colors.BG_PANEL[:3], 230)
-        pygame.draw.rect(dialog_surface, bg_color, (0, 0, self.width, self.height), border_radius=Layout.CORNER_RADIUS)
-        border_color = (*Colors.BORDER_FOCUS[:3], 230)
-        pygame.draw.rect(dialog_surface, border_color, (0, 0, self.width, self.height), Layout.BORDER_WIDTH, border_radius=Layout.CORNER_RADIUS)
-        surface.blit(dialog_surface, dialog_rect.topleft)
+        if self.panel:
+            # Use gold-bordered, textured panel if available
+            self.panel.draw(surface, dialog_rect)
+        else:
+            # Fallback semi-transparent style
+            dialog_surface = pygame.Surface((self.width, self.height), pygame.SRCALPHA)
+            bg_color = (*Colors.BG_PANEL[:3], 230)
+            pygame.draw.rect(
+                dialog_surface,
+                bg_color,
+                (0, 0, self.width, self.height),
+                border_radius=Layout.CORNER_RADIUS,
+            )
+            border_color = (*Colors.BORDER_FOCUS[:3], 230)
+            pygame.draw.rect(
+                dialog_surface,
+                border_color,
+                (0, 0, self.width, self.height),
+                Layout.BORDER_WIDTH,
+                border_radius=Layout.CORNER_RADIUS,
+            )
+            surface.blit(dialog_surface, dialog_rect.topleft)
 
         # Draw title
         title_surface = font.render(self.title, True, Colors.ACCENT)

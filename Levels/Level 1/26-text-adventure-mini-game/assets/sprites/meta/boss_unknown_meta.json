@@ -1,0 +1,19 @@
+{
+  "name": "boss_unknown",
+  "category": "boss",
+  "base_size": [
+    64,
+    64
+  ],
+  "game_size": [
+    32,
+    32
+  ],
+  "animations": {
+    "idle": 4,
+    "attack": 4,
+    "hurt": 2,
+    "death": 4
+  },
+  "frame_rate": 8
+}

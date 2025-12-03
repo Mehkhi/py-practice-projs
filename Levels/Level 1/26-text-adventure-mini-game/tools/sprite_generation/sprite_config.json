@@ -1,0 +1,53 @@
+{
+    "output_base": "assets/sprites",
+    "portrait_output": "assets/portraits",
+    "generate_animations": true,
+    "generate_sprite_sheets": true,
+    "scale_to_game_size": true,
+    "save_metadata": true,
+    "base_resolution": 64,
+    "game_resolution": 32,
+    "animation_fps": 8,
+    "frame_counts": {
+        "idle": 4,
+        "attack": 4,
+        "hurt": 2,
+        "death": 4
+    },
+    "sprite_types": {
+        "enemies": {
+            "enabled": true,
+            "output_subdir": "enemies"
+        },
+        "bosses": {
+            "enabled": true,
+            "output_subdir": "bosses"
+        },
+        "npcs": {
+            "enabled": true,
+            "output_subdir": "npcs"
+        },
+        "party": {
+            "enabled": true,
+            "output_subdir": "party"
+        },
+        "portraits": {
+            "enabled": true,
+            "expressions": ["neutral", "happy", "angry", "sad", "surprised"]
+        }
+    },
+    "boss_effects": {
+        "aura_enabled": true,
+        "particles_enabled": true,
+        "phase_transitions": true
+    },
+    "output_formats": {
+        "individual_frames": true,
+        "sprite_sheets": true,
+        "metadata_json": true
+    },
+    "scaling": {
+        "method": "nearest_neighbor",
+        "preserve_detail": true
+    }
+}

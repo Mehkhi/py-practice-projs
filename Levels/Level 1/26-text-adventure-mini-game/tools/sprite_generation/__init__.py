@@ -30,10 +30,27 @@ from .utils import (
 )
 from .base_sprite import BaseSprite
 
+# Sprite generators
+from .enemy_sprites import get_enemy_sprite, BASIC_ENEMIES
+from .enemy_sprites_advanced import get_advanced_enemy_sprite, ADVANCED_ENEMIES
+from .boss_sprites import get_boss_sprite, BOSS_SPRITES
+from .npc_sprites import get_npc_sprite, NPC_SPRITES
+from .party_sprites import get_party_sprite, PARTY_SPRITES
+from .portrait_sprites import (
+    get_party_portrait, get_boss_portrait, get_npc_portrait,
+    PARTY_PORTRAITS, BOSS_PORTRAITS, NPC_PORTRAITS
+)
+
+# Effects
+from .effects import create_aura, create_particle_effect
+
 __version__ = "1.0.0"
 __all__ = [
+    # Palette
     "PALETTE",
+    # Base
     "BaseSprite",
+    # Utils
     "create_surface",
     "scale_to_game_size",
     "draw_pixel",
@@ -43,4 +60,25 @@ __all__ = [
     "lighten_color",
     "add_outline",
     "add_shadow",
+    # Sprite factories
+    "get_enemy_sprite",
+    "get_advanced_enemy_sprite",
+    "get_boss_sprite",
+    "get_npc_sprite",
+    "get_party_sprite",
+    "get_party_portrait",
+    "get_boss_portrait",
+    "get_npc_portrait",
+    # Sprite lists
+    "BASIC_ENEMIES",
+    "ADVANCED_ENEMIES",
+    "BOSS_SPRITES",
+    "NPC_SPRITES",
+    "PARTY_SPRITES",
+    "PARTY_PORTRAITS",
+    "BOSS_PORTRAITS",
+    "NPC_PORTRAITS",
+    # Effects
+    "create_aura",
+    "create_particle_effect",
 ]
