@@ -29,11 +29,11 @@ Dependencies on WorldScene:
 """
 
 import math
-from typing import TYPE_CHECKING, Tuple, List
+from typing import TYPE_CHECKING, Tuple, List, Optional
 
 import pygame
 
-from ..ui import draw_hp_bar, draw_sp_bar, Minimap
+from ..ui import draw_hp_bar, draw_sp_bar, Minimap, NineSlicePanel
 from ..theme import Colors, Layout
 from core.weather import WeatherType
 
@@ -157,6 +157,17 @@ class OverworldRenderer:
         self.scene = scene
         # Track right-side HUD vertical position for stacking
         self._right_hud_y = 0
+        self._right_hud_max_y = 0
+
+        # Shared gold-bordered, textured panel used for overworld HUD text boxes.
+        # Falls back to procedural rounded panels if the sprite is unavailable.
+        self.panel: Optional[NineSlicePanel] = None
+        try:
+            panel_surface = self.scene.assets.get_image("ui_panel")
+            if panel_surface:
+                self.panel = NineSlicePanel(panel_surface)
+        except Exception:
+            self.panel = None
 
     def draw(self, surface: pygame.Surface) -> None:
         """Draw the overworld."""
@@ -238,10 +249,7 @@ class OverworldRenderer:
         # 2. Time display
         self._draw_time_display(surface)
 
-        # 3. Weather indicator
-        self._draw_weather_indicator(surface)
-
-        # 4. Party member stats
+        # 3. Party member stats (weather HUD panel removed)
         self._draw_party_ui(surface)
 
         # Draw quest tracking HUD (bottom-left), respecting left HUD position
@@ -297,17 +305,21 @@ class OverworldRenderer:
         panel_height = gold_y - hud_y + Layout.LINE_HEIGHT
         panel_rect = pygame.Rect(hud_x, hud_y, panel_width, panel_height)
 
-        # Draw rounded panel background
-        draw_rounded_panel(
-            surface,
-            panel_rect,
-            self.PANEL_BG,
-            self.PANEL_BORDER,
-            radius=Layout.CORNER_RADIUS
-        )
-        # Inner bevel for fanciness
-        inner_rect = panel_rect.inflate(-2, -2)
-        pygame.draw.rect(surface, Colors.BORDER, inner_rect, 1, border_radius=Layout.CORNER_RADIUS)
+        # Draw background using shared gold-bordered panel when available
+        if self.panel:
+            self.panel.draw(surface, panel_rect)
+        else:
+            # Fallback rounded panel styling
+            draw_rounded_panel(
+                surface,
+                panel_rect,
+                self.PANEL_BG,
+                self.PANEL_BORDER,
+                radius=Layout.CORNER_RADIUS
+            )
+            # Inner bevel for fanciness
+            inner_rect = panel_rect.inflate(-2, -2)
+            pygame.draw.rect(surface, Colors.BORDER, inner_rect, 1, border_radius=Layout.CORNER_RADIUS)
 
 
         # Draw HP/SP bars
@@ -600,13 +612,16 @@ class OverworldRenderer:
 
         # Draw rounded panel background
         panel_rect = pygame.Rect(panel_x, panel_y, panel_width, panel_height)
-        draw_rounded_panel(
-            surface,
-            panel_rect,
-            self.PANEL_BG,
-            self.PANEL_BORDER,
-            radius=Layout.CORNER_RADIUS
-        )
+        if self.panel:
+            self.panel.draw(surface, panel_rect)
+        else:
+            draw_rounded_panel(
+                surface,
+                panel_rect,
+                self.PANEL_BG,
+                self.PANEL_BORDER,
+                radius=Layout.CORNER_RADIUS
+            )
 
         # Draw each party member's stats
         content_x = panel_x + panel_padding
@@ -728,18 +743,23 @@ class OverworldRenderer:
 
         # Only draw if panel has valid dimensions
         if clipped_panel_rect.width > 0 and clipped_panel_rect.height > 0:
-            # Draw rounded panel background (clipped to screen)
-            draw_rounded_panel(
-                surface,
-                clipped_panel_rect,
-                self.PANEL_BG,
-                self.PANEL_BORDER,
-                radius=Layout.CORNER_RADIUS
-            )
+            # Draw background using shared gold-bordered panel when available.
+            # Note: Nine-slice cannot easily be clipped, so fall back to rounded
+            # panels when the quest tracker would extend off-screen.
+            if self.panel and clipped_panel_rect == panel_rect:
+                self.panel.draw(surface, panel_rect)
+            else:
+                draw_rounded_panel(
+                    surface,
+                    clipped_panel_rect,
+                    self.PANEL_BG,
+                    self.PANEL_BORDER,
+                    radius=Layout.CORNER_RADIUS
+                )
 
-            # Inner bevel for fanciness
-            inner_rect = clipped_panel_rect.inflate(-2, -2)
-            pygame.draw.rect(surface, Colors.BORDER, inner_rect, 1, border_radius=Layout.CORNER_RADIUS)
+                # Inner bevel for fanciness
+                inner_rect = clipped_panel_rect.inflate(-2, -2)
+                pygame.draw.rect(surface, Colors.BORDER, inner_rect, 1, border_radius=Layout.CORNER_RADIUS)
 
             # Set clipping region to prevent drawing outside panel bounds
             old_clip = surface.get_clip()
@@ -892,15 +912,18 @@ class OverworldRenderer:
         panel_x = screen_width - panel_width - Layout.SCREEN_MARGIN_SMALL
         panel_y = self._right_hud_y
 
-        # Draw rounded panel background
+        # Draw panel background using gold-bordered panel when available
         panel_rect = pygame.Rect(panel_x, panel_y, panel_width, panel_height)
-        draw_rounded_panel(
-            surface,
-            panel_rect,
-            self.PANEL_BG,
-            self.PANEL_BORDER,
-            radius=Layout.CORNER_RADIUS
-        )
+        if self.panel:
+            self.panel.draw(surface, panel_rect)
+        else:
+            draw_rounded_panel(
+                surface,
+                panel_rect,
+                self.PANEL_BG,
+                self.PANEL_BORDER,
+                radius=Layout.CORNER_RADIUS
+            )
 
         # Draw text with shadows, right-aligned inside panel
         # Use compact line height for consistent vertical spacing
@@ -1063,15 +1086,18 @@ class OverworldRenderer:
         panel_x = screen_width - panel_width - Layout.SCREEN_MARGIN_SMALL
         panel_y = self._right_hud_y
 
-        # Draw rounded panel background
+        # Draw panel background using gold-bordered panel when available
         panel_rect = pygame.Rect(panel_x, panel_y, panel_width, panel_height)
-        draw_rounded_panel(
-            surface,
-            panel_rect,
-            self.PANEL_BG,
-            self.PANEL_BORDER,
-            radius=Layout.CORNER_RADIUS_SMALL
-        )
+        if self.panel:
+            self.panel.draw(surface, panel_rect)
+        else:
+            draw_rounded_panel(
+                surface,
+                panel_rect,
+                self.PANEL_BG,
+                self.PANEL_BORDER,
+                radius=Layout.CORNER_RADIUS_SMALL
+            )
 
         # Draw weather text with shadow
         text_x = panel_x + Layout.PADDING_MD
@@ -1116,13 +1142,16 @@ class OverworldRenderer:
         panel_y = self._right_hud_y
 
         panel_rect = pygame.Rect(panel_x, panel_y, panel_width, panel_height)
-        draw_rounded_panel(
-            surface,
-            panel_rect,
-            self.PANEL_BG,
-            self.PANEL_BORDER,
-            radius=Layout.CORNER_RADIUS_SMALL
-        )
+        if self.panel:
+            self.panel.draw(surface, panel_rect)
+        else:
+            draw_rounded_panel(
+                surface,
+                panel_rect,
+                self.PANEL_BG,
+                self.PANEL_BORDER,
+                radius=Layout.CORNER_RADIUS_SMALL
+            )
 
         text_x = panel_x + Layout.PADDING_MD
         line_y = panel_y + Layout.PADDING_XS

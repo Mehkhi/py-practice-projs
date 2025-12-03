@@ -402,7 +402,8 @@ class CraftingScene(BaseMenuScene):
         from .ui import MessageBox  # Local import to avoid circular dependencies
 
         temp_box = MessageBox(position=(x, y), width=box_width, height=box_height)
-        temp_box.set_text(self.result_message)
+        # Pass font so wrapping is calculated correctly up front
+        temp_box.set_text(self.result_message, font)
         temp_box.draw(surface, font, panel=self.panel)
 
     def _draw_help_text(self, surface: pygame.Surface, font: pygame.font.Font) -> None:
