@@ -185,7 +185,26 @@ class OverworldRenderer:
             row = current_map.tiles[y]
             for x in range(start_tile_x, end_tile_x):
                 tile = row[x]
-                tile_surface = self.scene.assets.get_tile_surface(tile.sprite_id, self.scene.tile_size)
+
+                # ------------------------------------------------------------------
+                # Tile sprite overrides for small aesthetic tweaks.
+                #
+                # The base map data uses a darker grass variant with black speckles
+                # (`grass_dark`) to add variety. In practice it can look noisy and
+                # out‑of‑place compared to the softer grass tiles, especially on the
+                # early "forest_path" map you see first in the game.
+                #
+                # Instead of editing the JSON map data everywhere, we can do a
+                # lightweight visual override here at render time: whenever we're
+                # on the "forest_path" map, draw `grass_dark` tiles using the
+                # regular `grass` sprite. This keeps the code beginner‑friendly
+                # and easy to change later.
+                # ------------------------------------------------------------------
+                sprite_id = tile.sprite_id
+                if current_map.map_id == "forest_path" and sprite_id == "grass_dark":
+                    sprite_id = "grass"
+
+                tile_surface = self.scene.assets.get_tile_surface(sprite_id, self.scene.tile_size)
 
                 screen_x, screen_y = self.scene.renderer.project(x, y)
                 surface.blit(tile_surface, (screen_x, screen_y))
@@ -288,21 +307,55 @@ class OverworldRenderer:
         if not font_small:
             font_small = font_default  # Fallback to default font
 
+        # --- Layout constants for a clean, spacious HUD panel ---
         hud_x = Layout.SCREEN_MARGIN_SMALL
         hud_y = Layout.SCREEN_MARGIN_SMALL
+        hud_padding = Layout.PADDING_MD
+
         bar_width = 200
         bar_height = Layout.BAR_HEIGHT
-        hud_padding = Layout.PADDING_SM
+        vertical_gap = Layout.ELEMENT_GAP_SMALL
 
-        hp_y = hud_y + hud_padding
-        sp_y = hp_y + bar_height + Layout.ELEMENT_GAP_SMALL
-        name_y = sp_y + bar_height + Layout.ELEMENT_GAP
-        gold_y = name_y + Layout.LINE_HEIGHT_COMPACT
+        # Measure text to size the panel based on content instead of magic numbers
+        map_name_text = current_map.map_id
+        gold_amount = 0
+        try:
+            gold_amount = int(self.scene.world.get_flag("gold", 0))
+        except Exception:
+            gold_amount = 0
+        gold_text = f"Gold: {gold_amount}"
 
-        # Panel width: bars + padding + extra space for label
-        panel_width = bar_width + hud_padding * 2 + Layout.PADDING_MD
-        # Panel height: content height + bottom padding
-        panel_height = gold_y - hud_y + Layout.LINE_HEIGHT
+        # Use default font for all HUD labels to keep things consistent
+        label_font = font_default
+        map_name_width, map_name_height = label_font.size(map_name_text)
+        gold_width, gold_height = label_font.size(gold_text)
+
+        # Bars have labels rendered by the bar helpers; approximate their text height
+        bar_label_height = label_font.get_linesize()
+
+        content_width = max(
+            bar_width,
+            map_name_width,
+            gold_width,
+        )
+
+        # Content is stacked vertically:
+        # line 1: map name
+        # line 2: HP bar
+        # line 3: SP bar
+        # line 4: gold
+        content_height = (
+            map_name_height
+            + vertical_gap
+            + bar_height
+            + vertical_gap
+            + bar_height
+            + vertical_gap
+            + gold_height
+        )
+
+        panel_width = content_width + hud_padding * 2
+        panel_height = content_height + hud_padding * 2
         panel_rect = pygame.Rect(hud_x, hud_y, panel_width, panel_height)
 
         # Draw background using shared gold-bordered panel when available
@@ -321,39 +374,56 @@ class OverworldRenderer:
             inner_rect = panel_rect.inflate(-2, -2)
             pygame.draw.rect(surface, Colors.BORDER, inner_rect, 1, border_radius=Layout.CORNER_RADIUS)
 
+        # Start drawing content inside the panel using consistent padding and gaps
+        content_x = hud_x + hud_padding
+        content_y = hud_y + hud_padding
 
-        # Draw HP/SP bars
+        # Map name (top line)
+        draw_text_shadow(
+            surface,
+            label_font,
+            map_name_text,
+            (content_x, content_y),
+            Colors.TEXT_PRIMARY,
+        )
+        content_y += map_name_height + vertical_gap
+
+        # Draw HP/SP bars stacked with clean spacing
         if self.scene.player.stats:
             draw_hp_bar(
-                surface, hud_x + hud_padding, hp_y,
-                bar_width, bar_height,
-                self.scene.player.stats.hp, self.scene.player.stats.max_hp,
-                "HP", font=font_small
+                surface,
+                content_x,
+                content_y,
+                bar_width,
+                bar_height,
+                self.scene.player.stats.hp,
+                self.scene.player.stats.max_hp,
+                "HP",
+                font=label_font,
             )
-            draw_sp_bar(
-                surface, hud_x + hud_padding, sp_y,
-                bar_width, bar_height,
-                self.scene.player.stats.sp, self.scene.player.stats.max_sp,
-                "SP", font=font_small
-            )
+            content_y += bar_height + vertical_gap
 
-        # Draw map name and gold
-        if font_default:
-            draw_text_shadow(
-                surface, font_default, current_map.map_id,
-                (hud_x + hud_padding, name_y),
-                Colors.TEXT_PRIMARY
+            draw_sp_bar(
+                surface,
+                content_x,
+                content_y,
+                bar_width,
+                bar_height,
+                self.scene.player.stats.sp,
+                self.scene.player.stats.max_sp,
+                "SP",
+                font=label_font,
             )
-            gold_amount = 0
-            try:
-                gold_amount = int(self.scene.world.get_flag("gold", 0))
-            except Exception:
-                gold_amount = 0
-            draw_text_shadow(
-                surface, font_default, f"Gold: {gold_amount}",
-                (hud_x + hud_padding, gold_y),
-                Colors.ACCENT
-            )
+            content_y += bar_height + vertical_gap
+
+        # Gold (bottom line)
+        draw_text_shadow(
+            surface,
+            label_font,
+            gold_text,
+            (content_x, content_y),
+            Colors.ACCENT,
+        )
 
         return panel_rect
 
