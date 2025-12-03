@@ -148,15 +148,37 @@ def update_town_map(town_id, buildings):
     npcs_to_remove = []
 
     for b in buildings:
-        # Build walls
+        # Determine style based on town name or random
+        is_shadowfen = "shadowfen" in town_id
+
+        roof_tile = "roof_blue" if is_shadowfen else "roof_red"
+        wall_tile = "wall_wood" if is_shadowfen else "wall_brick"
+
+        # Build structure
         for y in range(b['town_y'], b['town_y'] + b['height']):
             for x in range(b['town_x'], b['town_x'] + b['width']):
-                set_tile(x, y, "stone_wall", False, "stone_wall")
+                rel_y = y - b['town_y']
+                rel_x = x - b['town_x']
+
+                # Roof (top row)
+                if rel_y == 0:
+                    set_tile(x, y, roof_tile, False, roof_tile)
+                # Walls (rest)
+                else:
+                    # Add windows on the second row, but not on corners
+                    if rel_y == 1 and 0 < rel_x < b['width'] - 1:
+                         # Middle of wall could have a window
+                         if rel_x % 2 == 1:
+                             set_tile(x, y, wall_tile, False, "window_lit")
+                         else:
+                             set_tile(x, y, wall_tile, False, wall_tile)
+                    else:
+                        set_tile(x, y, wall_tile, False, wall_tile)
 
         # Build door
         door_x = b['town_x'] + b['door_rel_x']
         door_y = b['town_y'] + b['door_rel_y']
-        set_tile(door_x, door_y, "stone_floor", True, "stone_floor")
+        set_tile(door_x, door_y, "stone_floor", True, "door_closed")
 
         # Add warp
         data['warps'].append({

@@ -4,22 +4,22 @@ Comprehensive documentation of all sprites used in the game.
 
 ## Summary
 
-- **Total Existing Sprites**: 365
-- **Total Requested Sprites**: 89
-- **Placeholder Sprites** (requested but missing): 0
+- **Total Existing Sprites**: 387
+- **Total Requested Sprites**: 147
+- **Placeholder Sprites** (requested but missing): 43
 
 ### Requested Sprites by Category
 
 Sprites referenced in the codebase, grouped by category:
 
-- **background**: 7 sprites
-- **enemy**: 29 sprites
+- **background**: 14 sprites
+- **enemy**: 37 sprites
 - **item**: 1 sprites
 - **npc**: 2 sprites
-- **other**: 5 sprites
-- **party**: 3 sprites
+- **other**: 33 sprites
+- **party**: 6 sprites
 - **prop**: 15 sprites
-- **tile**: 25 sprites
+- **tile**: 37 sprites
 - **ui**: 2 sprites
 
 ### Existing Sprites by Category
@@ -28,24 +28,74 @@ Sprite files that exist on disk, grouped by category:
 
 - **background**: 11 sprites
 - **class**: 12 sprites
-- **enemy**: 34 sprites
+- **enemy**: 37 sprites
 - **item**: 8 sprites
 - **npc**: 15 sprites
-- **other**: 10 sprites
+- **other**: 22 sprites
 - **party**: 3 sprites
 - **player**: 4 sprites
 - **player_class_combo**: 132 sprites
 - **portrait**: 42 sprites
 - **prop**: 17 sprites
 - **status**: 17 sprites
-- **tile**: 58 sprites
+- **tile**: 65 sprites
 - **ui**: 2 sprites
 
 ## Placeholder Sprites (Need Real Assets)
 
 These sprites are referenced in the codebase but don't exist as files. They will use the `_make_placeholder()` function which generates hash-based colored shapes.
 
-*No placeholder sprites - all requested sprites have files!*
+### Background (7 placeholders, Priority: high)
+
+- `bg_beyond_realm`
+- `bg_champions_rest`
+- `bg_mirror_realm`
+- `bg_primal_grove`
+- `bg_shadow_throne`
+- `bg_void_gateway`
+- `bg_wyrm_lair`
+
+### Other (24 placeholders, Priority: low)
+
+- `bear_thunder`
+- `cave_floor`
+- `cave_wall`
+- `cosmic_floor`
+- `crystal_floor`
+- `crystal_wall`
+- `drake_fire`
+- `gate_closed`
+- `horror_swamp`
+- `ice_cracked`
+- `ice_tile`
+- `ice_wall`
+- `metal`
+- `metal_cracked`
+- `pressure_plate`
+- `puzzle_block`
+- `reset_switch`
+- `shadow_floor`
+- `snow_floor`
+- `spider_crystal`
+- ... and 4 more
+
+### Party (3 placeholders, Priority: high)
+
+- `party_flint`
+- `party_shadow`
+- `party_thorne`
+
+### Tile (9 placeholders, Priority: medium)
+
+- `stone_dark`
+- `stone_dark_altar`
+- `stone_dark_cracked`
+- `stone_dark_moss`
+- `stone_red`
+- `stone_red_cracked`
+- `void_cracked`
+- `void_floor`
+- `void_wall`
 
 ## Existing Sprites
 
@@ -80,20 +130,21 @@ These sprites exist as files in `assets/sprites/` or `assets/tilesets/default/`.
 - `class_summoner`
 - `class_warrior`
 
-### Enemy (34 sprites)
+### Enemy (37 sprites)
 
 - `bandit`
 - `bat`
 - `boss`
+- `boss_champion`
+- `boss_primordial`
+- `boss_shadow`
+- `boss_unknown`
+- `boss_void`
+- `boss_wyrm`
 - `cyclops`
 - `dark_knight`
 - `demon`
 - `enemy`
-- `enemy_bat`
-- `enemy_ghost`
-- `enemy_skeleton`
-- `enemy_slime`
-- `enemy_spider`
 - `fire_elemental`
 - `ghost`
 - `goblin`
@@ -103,6 +154,7 @@ These sprites exist as files in `assets/sprites/` or `assets/tilesets/default/`.
 - `imp`
 - `lizardman`
 - `mimic`
+- `mirror_player`
 - `mushroom`
 - `necromancer`
 - `orc`
@@ -110,9 +162,7 @@ These sprites exist as files in `assets/sprites/` or `assets/tilesets/default/`.
 - `slime`
 - `snake`
 - `spider`
-- `troll`
-- `vampire`
-- ... and 4 more
+- ... and 7 more
 
 ### Item (8 sprites)
 
@@ -143,18 +193,30 @@ These sprites exist as files in `assets/sprites/` or `assets/tilesets/default/`.
 - `npc_thief`
 - `npc_villager`
 
-### Other (10 sprites)
+### Other (22 sprites)
 
+- `door_closed`
+- `door_closed_1`
+- `door_closed_2`
+- `door_closed_3`
 - `earth_elemental`
 - `flower_grass`
 - `icon_health_potion`
 - `player`
+- `roof_blue`
+- `roof_blue_1`
+- `roof_blue_2`
+- `roof_blue_3`
+- `roof_red`
+- `roof_red_1`
+- `roof_red_2`
+- `roof_red_3`
 - `sand_rocky`
-- `slime_blue`
-- `slime_green`
-- `slime_purple`
-- `slime_red`
 - `snow_footprints`
+- `window_lit`
+- `window_lit_1`
+- `window_lit_2`
+- `window_lit_3`
 
 ### Party (3 sprites)
 
@@ -277,7 +339,7 @@ These sprites exist as files in `assets/sprites/` or `assets/tilesets/default/`.
 - `status_taunt`
 - `status_terror`
 
-### Tile (58 sprites)
+### Tile (65 sprites)
 
 - `dirt`
 - `dirt_1`
@@ -309,7 +371,7 @@ These sprites exist as files in `assets/sprites/` or `assets/tilesets/default/`.
 - `path_cobble`
 - `puddle`
 - `roots`
-- ... and 28 more
+- ... and 35 more
 
 ### Ui (2 sprites)
 
@@ -322,23 +384,45 @@ Complete list of all sprite IDs referenced in the codebase:
 
 - ✓ `bandit` (enemy)
 - ✓ `bat` (enemy)
+- ✗ `bear_thunder` (other)
+- ✗ `bg_beyond_realm` (background)
 - ✓ `bg_cave` (background)
+- ✗ `bg_champions_rest` (background)
 - ✓ `bg_forest` (background)
+- ✗ `bg_mirror_realm` (background)
 - ✓ `bg_mountain` (background)
+- ✗ `bg_primal_grove` (background)
 - ✓ `bg_ruins` (background)
+- ✗ `bg_shadow_throne` (background)
 - ✓ `bg_snow` (background)
 - ✓ `bg_swamp` (background)
 - ✓ `bg_treasure_chamber` (background)
+- ✗ `bg_void_gateway` (background)
+- ✗ `bg_wyrm_lair` (background)
 - ✓ `boss` (enemy)
+- ✓ `boss_champion` (enemy)
+- ✓ `boss_primordial` (enemy)
+- ✓ `boss_shadow` (enemy)
+- ✓ `boss_unknown` (enemy)
+- ✓ `boss_void` (enemy)
+- ✓ `boss_wyrm` (enemy)
+- ✗ `cave_floor` (other)
+- ✗ `cave_wall` (other)
+- ✗ `cosmic_floor` (other)
+- ✗ `crystal_floor` (other)
+- ✗ `crystal_wall` (other)
 - ✓ `cyclops` (enemy)
 - ✓ `dark_knight` (enemy)
 - ✓ `demon` (enemy)
 - ✓ `dirt` (tile)
 - ✓ `dirt_leaves` (tile)
 - ✓ `dirt_path` (tile)
+- ✓ `door_closed` (other)
+- ✗ `drake_fire` (other)
 - ✓ `enemy` (enemy)
 - ✓ `fire_elemental` (enemy)
 - ✓ `flower_grass` (other)
+- ✗ `gate_closed` (other)
 - ✓ `ghost` (enemy)
 - ✓ `goblin` (enemy)
 - ✓ `gold_floor` (tile)
@@ -348,15 +432,22 @@ Complete list of all sprite IDs referenced in the codebase:
 - ✓ `grass_flowers` (tile)
 - ✓ `grass_tall` (tile)
 - ✓ `harpy` (enemy)
+- ✗ `horror_swamp` (other)
 - ✓ `ice` (tile)
+- ✗ `ice_cracked` (other)
 - ✓ `ice_elemental` (enemy)
+- ✗ `ice_tile` (other)
+- ✗ `ice_wall` (other)
 - ✓ `icon_health_potion` (other)
 - ✓ `imp` (enemy)
 - ✓ `item_default` (item)
 - ✓ `lava` (tile)
 - ✓ `lava_rock` (tile)
 - ✓ `lizardman` (enemy)
+- ✗ `metal` (other)
+- ✗ `metal_cracked` (other)
 - ✓ `mimic` (enemy)
+- ✓ `mirror_player` (enemy)
 - ✓ `moss` (tile)
 - ✓ `mountain` (tile)
 - ✓ `mushroom` (enemy)
@@ -365,9 +456,13 @@ Complete list of all sprite IDs referenced in the codebase:
 - ✓ `npc_old_guide` (npc)
 - ✓ `orc` (enemy)
 - ✓ `party_brock` (party)
+- ✗ `party_flint` (party)
 - ✓ `party_luna` (party)
 - ✓ `party_sage` (party)
+- ✗ `party_shadow` (party)
+- ✗ `party_thorne` (party)
 - ✓ `player` (other)
+- ✗ `pressure_plate` (other)
 - ✓ `prop_barrel` (prop)
 - ✓ `prop_bones` (prop)
 - ✓ `prop_bush` (prop)
@@ -384,30 +479,55 @@ Complete list of all sprite IDs referenced in the codebase:
 - ✓ `prop_stump` (prop)
 - ✓ `prop_torch` (prop)
 - ✓ `puddle` (tile)
+- ✗ `puzzle_block` (other)
+- ✗ `reset_switch` (other)
+- ✓ `roof_blue` (other)
+- ✓ `roof_red` (other)
 - ✓ `roots` (tile)
 - ✓ `ruins` (tile)
 - ✓ `sand` (tile)
 - ✓ `sand_rocky` (other)
+- ✗ `shadow_floor` (other)
 - ✓ `skeleton` (enemy)
 - ✓ `slime` (enemy)
 - ✓ `snake` (enemy)
 - ✓ `snow` (tile)
+- ✗ `snow_floor` (other)
 - ✓ `snow_footprints` (other)
 - ✓ `spider` (enemy)
+- ✗ `spider_crystal` (other)
 - ✓ `stone` (tile)
 - ✓ `stone_cracked` (tile)
+- ✗ `stone_dark` (tile)
+- ✗ `stone_dark_altar` (tile)
+- ✗ `stone_dark_cracked` (tile)
+- ✗ `stone_dark_moss` (tile)
 - ✓ `stone_floor` (tile)
+- ✗ `stone_red` (tile)
+- ✗ `stone_red_cracked` (tile)
 - ✓ `stone_wall` (tile)
 - ✓ `swamp` (tile)
+- ✗ `switch` (other)
+- ✗ `teleporter` (other)
+- ✗ `torch_holder` (other)
+- ✓ `tree` (tile)
 - ✓ `troll` (enemy)
 - ✓ `ui_cursor` (ui)
 - ✓ `ui_panel` (ui)
 - ✓ `vampire` (enemy)
+- ✓ `void` (enemy)
+- ✗ `void_cracked` (tile)
+- ✗ `void_floor` (tile)
+- ✗ `void_wall` (tile)
 - ✓ `wall` (tile)
+- ✓ `wall_brick` (tile)
+- ✓ `wall_wood` (tile)
 - ✓ `water` (tile)
 - ✓ `werewolf` (enemy)
+- ✓ `window_lit` (other)
 - ✓ `witch` (enemy)
 - ✓ `wolf` (enemy)
+- ✗ `wolf_dark` (other)
 - ✓ `wraith` (enemy)
 
 ## Notes

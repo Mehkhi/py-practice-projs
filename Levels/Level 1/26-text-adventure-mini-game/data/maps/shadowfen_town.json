@@ -339,29 +339,29 @@
         "sprite_id": "grass_tall"
       },
       {
-        "tile_id": "stone_wall",
+        "tile_id": "roof_blue",
         "walkable": false,
-        "sprite_id": "stone_wall"
+        "sprite_id": "roof_blue"
       },
       {
-        "tile_id": "stone_wall",
+        "tile_id": "roof_blue",
         "walkable": false,
-        "sprite_id": "stone_wall"
+        "sprite_id": "roof_blue"
       },
       {
-        "tile_id": "stone_wall",
+        "tile_id": "roof_blue",
         "walkable": false,
-        "sprite_id": "stone_wall"
+        "sprite_id": "roof_blue"
       },
       {
-        "tile_id": "stone_wall",
+        "tile_id": "roof_blue",
         "walkable": false,
-        "sprite_id": "stone_wall"
+        "sprite_id": "roof_blue"
       },
       {
-        "tile_id": "stone_wall",
+        "tile_id": "roof_blue",
         "walkable": false,
-        "sprite_id": "stone_wall"
+        "sprite_id": "roof_blue"
       },
       {
         "tile_id": "grass",
@@ -416,29 +416,29 @@
         "sprite_id": "grass"
       },
       {
-        "tile_id": "stone_wall",
+        "tile_id": "wall_wood",
         "walkable": false,
-        "sprite_id": "stone_wall"
+        "sprite_id": "wall_wood"
       },
       {
-        "tile_id": "stone_wall",
+        "tile_id": "wall_wood",
         "walkable": false,
-        "sprite_id": "stone_wall"
+        "sprite_id": "window_lit"
       },
       {
-        "tile_id": "stone_wall",
+        "tile_id": "wall_wood",
         "walkable": false,
-        "sprite_id": "stone_wall"
+        "sprite_id": "wall_wood"
       },
       {
-        "tile_id": "stone_wall",
+        "tile_id": "wall_wood",
         "walkable": false,
-        "sprite_id": "stone_wall"
+        "sprite_id": "window_lit"
       },
       {
-        "tile_id": "stone_wall",
+        "tile_id": "wall_wood",
         "walkable": false,
-        "sprite_id": "stone_wall"
+        "sprite_id": "wall_wood"
       },
       {
         "tile_id": "grass_tall",
@@ -493,39 +493,39 @@
         "sprite_id": "grass"
       },
       {
-        "tile_id": "stone_wall",
+        "tile_id": "wall_wood",
         "walkable": false,
-        "sprite_id": "stone_wall"
+        "sprite_id": "wall_wood"
       },
       {
-        "tile_id": "stone_wall",
+        "tile_id": "wall_wood",
         "walkable": false,
-        "sprite_id": "stone_wall"
+        "sprite_id": "wall_wood"
       },
       {
-        "tile_id": "stone_wall",
+        "tile_id": "roof_blue",
         "walkable": false,
-        "sprite_id": "stone_wall"
+        "sprite_id": "roof_blue"
       },
       {
-        "tile_id": "stone_wall",
+        "tile_id": "roof_blue",
         "walkable": false,
-        "sprite_id": "stone_wall"
+        "sprite_id": "roof_blue"
       },
       {
-        "tile_id": "stone_wall",
+        "tile_id": "roof_blue",
         "walkable": false,
-        "sprite_id": "stone_wall"
+        "sprite_id": "roof_blue"
       },
       {
-        "tile_id": "stone_wall",
+        "tile_id": "roof_blue",
         "walkable": false,
-        "sprite_id": "stone_wall"
+        "sprite_id": "roof_blue"
       },
       {
-        "tile_id": "stone_wall",
+        "tile_id": "roof_blue",
         "walkable": false,
-        "sprite_id": "stone_wall"
+        "sprite_id": "roof_blue"
       },
       {
         "tile_id": "grass",
@@ -570,39 +570,39 @@
         "sprite_id": "grass"
       },
       {
-        "tile_id": "stone_wall",
+        "tile_id": "wall_wood",
         "walkable": false,
-        "sprite_id": "stone_wall"
+        "sprite_id": "wall_wood"
       },
       {
-        "tile_id": "stone_wall",
+        "tile_id": "wall_wood",
         "walkable": false,
-        "sprite_id": "stone_wall"
+        "sprite_id": "wall_wood"
       },
       {
-        "tile_id": "stone_wall",
-        "walkable": false,
-        "sprite_id": "stone_wall"
+        "tile_id": "stone_floor",
+        "walkable": true,
+        "sprite_id": "door_closed"
       },
       {
-        "tile_id": "stone_wall",
+        "tile_id": "wall_wood",
         "walkable": false,
-        "sprite_id": "stone_wall"
+        "sprite_id": "window_lit"
       },
       {
-        "tile_id": "stone_wall",
+        "tile_id": "wall_wood",
         "walkable": false,
-        "sprite_id": "stone_wall"
+        "sprite_id": "wall_wood"
       },
       {
-        "tile_id": "stone_wall",
+        "tile_id": "wall_wood",
         "walkable": false,
-        "sprite_id": "stone_wall"
+        "sprite_id": "window_lit"
       },
       {
-        "tile_id": "stone_wall",
+        "tile_id": "wall_wood",
         "walkable": false,
-        "sprite_id": "stone_wall"
+        "sprite_id": "wall_wood"
       },
       {
         "tile_id": "grass_flowers",
@@ -659,27 +659,27 @@
       {
         "tile_id": "stone_floor",
         "walkable": true,
-        "sprite_id": "stone_floor"
+        "sprite_id": "door_closed"
       },
       {
-        "tile_id": "stone_wall",
+        "tile_id": "wall_wood",
         "walkable": false,
-        "sprite_id": "stone_wall"
+        "sprite_id": "wall_wood"
       },
       {
-        "tile_id": "stone_wall",
+        "tile_id": "wall_wood",
         "walkable": false,
-        "sprite_id": "stone_wall"
+        "sprite_id": "wall_wood"
       },
       {
-        "tile_id": "stone_wall",
+        "tile_id": "wall_wood",
         "walkable": false,
-        "sprite_id": "stone_wall"
+        "sprite_id": "wall_wood"
       },
       {
-        "tile_id": "stone_wall",
+        "tile_id": "wall_wood",
         "walkable": false,
-        "sprite_id": "stone_wall"
+        "sprite_id": "wall_wood"
       },
       {
         "tile_id": "grass",
@@ -734,29 +734,29 @@
         "sprite_id": "flower_grass"
       },
       {
-        "tile_id": "stone_wall",
+        "tile_id": "wall_wood",
         "walkable": false,
-        "sprite_id": "stone_wall"
+        "sprite_id": "wall_wood"
       },
       {
-        "tile_id": "stone_wall",
+        "tile_id": "wall_wood",
         "walkable": false,
-        "sprite_id": "stone_wall"
+        "sprite_id": "wall_wood"
       },
       {
         "tile_id": "stone_floor",
         "walkable": true,
-        "sprite_id": "stone_floor"
+        "sprite_id": "door_closed"
       },
       {
-        "tile_id": "stone_wall",
+        "tile_id": "wall_wood",
         "walkable": false,
-        "sprite_id": "stone_wall"
+        "sprite_id": "wall_wood"
       },
       {
-        "tile_id": "stone_wall",
+        "tile_id": "wall_wood",
         "walkable": false,
-        "sprite_id": "stone_wall"
+        "sprite_id": "wall_wood"
       },
       {
         "tile_id": "grass",
@@ -826,29 +826,29 @@
         "sprite_id": "grass_flowers"
       },
       {
-        "tile_id": "stone_wall",
+        "tile_id": "roof_blue",
         "walkable": false,
-        "sprite_id": "stone_wall"
+        "sprite_id": "roof_blue"
       },
       {
-        "tile_id": "stone_wall",
+        "tile_id": "roof_blue",
         "walkable": false,
-        "sprite_id": "stone_wall"
+        "sprite_id": "roof_blue"
       },
       {
-        "tile_id": "stone_wall",
+        "tile_id": "roof_blue",
         "walkable": false,
-        "sprite_id": "stone_wall"
+        "sprite_id": "roof_blue"
       },
       {
-        "tile_id": "stone_wall",
+        "tile_id": "roof_blue",
         "walkable": false,
-        "sprite_id": "stone_wall"
+        "sprite_id": "roof_blue"
       },
       {
-        "tile_id": "stone_wall",
+        "tile_id": "roof_blue",
         "walkable": false,
-        "sprite_id": "stone_wall"
+        "sprite_id": "roof_blue"
       }
     ],
     [
@@ -903,29 +903,29 @@
         "sprite_id": "puddle"
       },
       {
-        "tile_id": "stone_wall",
+        "tile_id": "wall_wood",
         "walkable": false,
-        "sprite_id": "stone_wall"
+        "sprite_id": "wall_wood"
       },
       {
-        "tile_id": "stone_wall",
+        "tile_id": "wall_wood",
         "walkable": false,
-        "sprite_id": "stone_wall"
+        "sprite_id": "window_lit"
       },
       {
-        "tile_id": "stone_wall",
+        "tile_id": "wall_wood",
         "walkable": false,
-        "sprite_id": "stone_wall"
+        "sprite_id": "wall_wood"
       },
       {
-        "tile_id": "stone_wall",
+        "tile_id": "wall_wood",
         "walkable": false,
-        "sprite_id": "stone_wall"
+        "sprite_id": "window_lit"
       },
       {
-        "tile_id": "stone_wall",
+        "tile_id": "wall_wood",
         "walkable": false,
-        "sprite_id": "stone_wall"
+        "sprite_id": "wall_wood"
       }
     ],
     [
@@ -970,39 +970,39 @@
         "sprite_id": "grass_dark"
       },
       {
-        "tile_id": "stone_wall",
+        "tile_id": "roof_blue",
         "walkable": false,
-        "sprite_id": "stone_wall"
+        "sprite_id": "roof_blue"
       },
       {
-        "tile_id": "stone_wall",
+        "tile_id": "roof_blue",
         "walkable": false,
-        "sprite_id": "stone_wall"
+        "sprite_id": "roof_blue"
       },
       {
-        "tile_id": "stone_wall",
+        "tile_id": "roof_blue",
         "walkable": false,
-        "sprite_id": "stone_wall"
+        "sprite_id": "roof_blue"
       },
       {
-        "tile_id": "stone_wall",
+        "tile_id": "roof_blue",
         "walkable": false,
-        "sprite_id": "stone_wall"
+        "sprite_id": "roof_blue"
       },
       {
         "tile_id": "stone_floor",
         "walkable": true,
-        "sprite_id": "stone_floor"
+        "sprite_id": "door_closed"
       },
       {
-        "tile_id": "stone_wall",
+        "tile_id": "wall_wood",
         "walkable": false,
-        "sprite_id": "stone_wall"
+        "sprite_id": "wall_wood"
       },
       {
-        "tile_id": "stone_wall",
+        "tile_id": "wall_wood",
         "walkable": false,
-        "sprite_id": "stone_wall"
+        "sprite_id": "wall_wood"
       }
     ],
     [
@@ -1047,39 +1047,39 @@
         "sprite_id": "grass"
       },
       {
-        "tile_id": "stone_wall",
+        "tile_id": "wall_wood",
         "walkable": false,
-        "sprite_id": "stone_wall"
+        "sprite_id": "wall_wood"
       },
       {
-        "tile_id": "stone_wall",
+        "tile_id": "wall_wood",
         "walkable": false,
-        "sprite_id": "stone_wall"
+        "sprite_id": "window_lit"
       },
       {
         "tile_id": "stone_floor",
         "walkable": true,
-        "sprite_id": "stone_floor"
+        "sprite_id": "door_closed"
       },
       {
-        "tile_id": "stone_wall",
+        "tile_id": "wall_wood",
         "walkable": false,
-        "sprite_id": "stone_wall"
+        "sprite_id": "window_lit"
       },
       {
-        "tile_id": "stone_wall",
-        "walkable": false,
-        "sprite_id": "stone_wall"
+        "tile_id": "stone_floor",
+        "walkable": true,
+        "sprite_id": "door_closed"
       },
       {
-        "tile_id": "stone_wall",
+        "tile_id": "wall_wood",
         "walkable": false,
-        "sprite_id": "stone_wall"
+        "sprite_id": "wall_wood"
       },
       {
-        "tile_id": "stone_wall",
+        "tile_id": "wall_wood",
         "walkable": false,
-        "sprite_id": "stone_wall"
+        "sprite_id": "wall_wood"
       }
     ],
     [
@@ -1124,29 +1124,29 @@
         "sprite_id": "grass"
       },
       {
-        "tile_id": "stone_wall",
+        "tile_id": "wall_wood",
         "walkable": false,
-        "sprite_id": "stone_wall"
+        "sprite_id": "wall_wood"
       },
       {
-        "tile_id": "stone_wall",
+        "tile_id": "wall_wood",
         "walkable": false,
-        "sprite_id": "stone_wall"
+        "sprite_id": "wall_wood"
       },
       {
-        "tile_id": "stone_wall",
-        "walkable": false,
-        "sprite_id": "stone_wall"
+        "tile_id": "stone_floor",
+        "walkable": true,
+        "sprite_id": "door_closed"
       },
       {
-        "tile_id": "stone_wall",
+        "tile_id": "wall_wood",
         "walkable": false,
-        "sprite_id": "stone_wall"
+        "sprite_id": "wall_wood"
       },
       {
-        "tile_id": "stone_wall",
-        "walkable": false,
-        "sprite_id": "stone_wall"
+        "tile_id": "stone_floor",
+        "walkable": true,
+        "sprite_id": "door_closed"
       },
       {
         "tile_id": "grass",
@@ -1202,30 +1202,38 @@
       "target_map_id": "shadowfen_potion",
       "target_x": 4,
       "target_y": 6
+    },
+    {
+      "x": 7,
+      "y": 7,
+      "target_map_id": "shadowfen_alchemist",
+      "target_x": 4,
+      "target_y": 7
+    },
+    {
+      "x": 9,
+      "y": 9,
+      "target_map_id": "shadowfen_inn",
+      "target_x": 4,
+      "target_y": 7
+    },
+    {
+      "x": 12,
+      "y": 13,
+      "target_map_id": "shadowfen_hunter",
+      "target_x": 4,
+      "target_y": 7
+    },
+    {
+      "x": 10,
+      "y": 14,
+      "target_map_id": "shadowfen_potion",
+      "target_x": 4,
+      "target_y": 7
     }
   ],
   "triggers": [],
   "entities": [
-    {
-      "entity_id": "shadowfen_alchemist",
-      "x": 5,
-      "y": 4
-    },
-    {
-      "entity_id": "shadowfen_hunter",
-      "x": 10,
-      "y": 10
-    },
-    {
-      "entity_id": "shadowfen_innkeeper",
-      "x": 7,
-      "y": 6
-    },
-    {
-      "entity_id": "shadowfen_potion_seller",
-      "x": 8,
-      "y": 12
-    },
     {
       "entity_id": "mysterious_wanderer",
       "x": 8,

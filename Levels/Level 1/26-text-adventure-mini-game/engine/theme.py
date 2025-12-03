@@ -40,8 +40,8 @@ class Colors:
     BG_DARK = (8, 10, 18)      # Deepest background
     BG_MAIN = (15, 20, 35)     # Main background color
     BG_PANEL = (25, 30, 45)    # UI Panel background
-    BG_OVERLAY = (10, 12, 20, 200) # Semi-transparent overlay
-    BG_TOOLTIP = (20, 25, 40, 230) # Tooltip background
+    BG_OVERLAY = (5, 8, 15, 230) # Semi-transparent overlay (Darkened)
+    BG_TOOLTIP = (20, 25, 40, 240) # Tooltip background (Darkened)
 
     # UI Elements
     BORDER = (60, 70, 90)      # Subtle border
@@ -365,7 +365,7 @@ class Layout:
     # ==============================================
     # OVERLAY SETTINGS
     # ==============================================
-    OVERLAY_ALPHA = 200         # Standard overlay alpha for menus/panels
+    OVERLAY_ALPHA = 230         # Standard overlay alpha for menus/panels
 
     # ==============================================
     # DIALOGS & MODALS

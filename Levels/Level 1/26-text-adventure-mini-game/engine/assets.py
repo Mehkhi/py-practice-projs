@@ -56,19 +56,44 @@ class AssetManager:
                 log_warning(f"Failed to initialize pygame.font: {e}. Fonts will be created lazily on first use.")
                 return  # Exit early, fonts will be created in get_font() when needed
 
-        # Try to load default pygame fonts
+        # Try to load system monospace fonts first
         try:
-            self.fonts["default"] = pygame.font.Font(None, 24)
-            self.fonts["small"] = pygame.font.Font(None, 16)
-            self.fonts["large"] = pygame.font.Font(None, 32)
+            # Preferred font stack
+            font_choices = ["Consolas", "Menlo", "Courier New", "Courier", "monospace"]
+            font_path = None
+
+            # Iterate to find the first available system font path
+            for name in font_choices:
+                font_path = pygame.font.match_font(name)
+                if font_path:
+                    log_debug(f"Found system font match: {name} -> {font_path}")
+                    break
+
+            if font_path:
+                sys_font = pygame.font.Font(font_path, 24)
+                sys_font_small = pygame.font.Font(font_path, 16)
+                sys_font_large = pygame.font.Font(font_path, 32)
+            else:
+                # Fallback to SysFont with the comma-separated string
+                # (SysFont handles comma-separated strings better than match_font)
+                font_names_str = ",".join(font_choices)
+                sys_font = pygame.font.SysFont(font_names_str, 24)
+                sys_font_small = pygame.font.SysFont(font_names_str, 16)
+                sys_font_large = pygame.font.SysFont(font_names_str, 32)
+                log_debug(f"Loaded system font via SysFont fallback: {font_names_str}")
+
+            self.fonts["default"] = sys_font
+            self.fonts["small"] = sys_font_small
+            self.fonts["large"] = sys_font_large
         except (pygame.error, OSError, Exception) as e:
-            log_warning(f"Failed to load default pygame fonts: {e}. Will use fallback.")
-            # Ensure we have at least one fallback font
+            log_warning(f"Failed to load system fonts: {e}. Will use fallback.")
+            # Fallback to default pygame fonts
             try:
                 self.fonts["default"] = pygame.font.Font(None, 24)
+                self.fonts["small"] = pygame.font.Font(None, 16)
+                self.fonts["large"] = pygame.font.Font(None, 32)
             except Exception:
                 log_warning("Unable to create default font during initialization. Will attempt lazy creation on first use.")
-                # Don't set critical error - fonts can be created lazily in get_font()
 
         # Load bundled fonts from assets/fonts directory
         fonts_dir = os.path.join(self.assets_dir, "fonts")
@@ -501,8 +526,9 @@ class AssetManager:
         # Common enemies (frequently encountered)
         sprites.extend([
             "goblin", "slime", "bat", "skeleton", "spider",
-            "enemy_slime", "enemy_bat", "enemy_skeleton", "enemy_spider", "enemy_ghost",
             "ghost", "orc", "troll", "wolf", "imp",
+            "boss_champion", "boss_shadow", "boss_unknown", "boss_void", "boss_wyrm", "boss_primordial",
+            "mirror_player",
         ])
 
         # Player class sprites (common classes)

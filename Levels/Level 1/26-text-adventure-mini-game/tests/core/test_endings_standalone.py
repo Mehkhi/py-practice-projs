@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 """Standalone test helper for ending determination logic without pygame dependencies."""
 
+import sys
+
 from core.endings import evaluate_condition, determine_ending
 
 
@@ -167,7 +169,6 @@ def test_ending_scenarios():
     print("\nTesting ending determination logic...")
     print("=" * 50)
 
-    all_passed = True
     for i, test_case in enumerate(test_cases, 1):
         # Clear all flags first
         world.flags.clear()
@@ -180,30 +181,24 @@ def test_ending_scenarios():
         actual_ending = determine_ending(world)
         expected_ending = test_case["expected"]
 
-        status = "PASS" if actual_ending == expected_ending else "FAIL"
         print(f"Test {i}: {test_case['name']}")
-        print(f"  Expected: {expected_ending}, Got: {actual_ending} [{status}]")
-
-        if actual_ending != expected_ending:
-            all_passed = False
-            print(f"  Flags set: {test_case['flags']}")
+        print(f"  Expected: {expected_ending}, Got: {actual_ending}")
+        assert actual_ending == expected_ending, (
+            f"Ending mismatch for '{test_case['name']}': expected {expected_ending}, "
+            f"got {actual_ending} with flags {test_case['flags']}"
+        )
 
     print("=" * 50)
-    if all_passed:
-        print("All tests passed!")
-    else:
-        print("Some tests failed!")
-
-    return all_passed
+    print("All tests passed!")
 
 
 if __name__ == "__main__":
     try:
         test_condition_evaluation()
-        success = test_ending_scenarios()
-        exit(0 if success else 1)
+        test_ending_scenarios()
+        sys.exit(0)
     except Exception as e:
         print(f"Test error: {e}")
         import traceback
         traceback.print_exc()
-        exit(1)
+        sys.exit(1)

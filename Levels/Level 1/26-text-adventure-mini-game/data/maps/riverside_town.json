@@ -329,29 +329,29 @@
         "sprite_id": "grass"
       },
       {
-        "tile_id": "stone_wall",
+        "tile_id": "roof_red",
         "walkable": false,
-        "sprite_id": "stone_wall"
+        "sprite_id": "roof_red"
       },
       {
-        "tile_id": "stone_wall",
+        "tile_id": "roof_red",
         "walkable": false,
-        "sprite_id": "stone_wall"
+        "sprite_id": "roof_red"
       },
       {
-        "tile_id": "stone_wall",
+        "tile_id": "roof_red",
         "walkable": false,
-        "sprite_id": "stone_wall"
+        "sprite_id": "roof_red"
       },
       {
-        "tile_id": "stone_wall",
+        "tile_id": "roof_red",
         "walkable": false,
-        "sprite_id": "stone_wall"
+        "sprite_id": "roof_red"
       },
       {
-        "tile_id": "stone_wall",
+        "tile_id": "roof_red",
         "walkable": false,
-        "sprite_id": "stone_wall"
+        "sprite_id": "roof_red"
       },
       {
         "tile_id": "grass",
@@ -406,49 +406,49 @@
         "sprite_id": "grass"
       },
       {
-        "tile_id": "stone_wall",
+        "tile_id": "wall_brick",
         "walkable": false,
-        "sprite_id": "stone_wall"
+        "sprite_id": "wall_brick"
       },
       {
-        "tile_id": "stone_wall",
+        "tile_id": "wall_brick",
         "walkable": false,
-        "sprite_id": "stone_wall"
+        "sprite_id": "window_lit"
       },
       {
-        "tile_id": "stone_wall",
+        "tile_id": "wall_brick",
         "walkable": false,
-        "sprite_id": "stone_wall"
+        "sprite_id": "wall_brick"
       },
       {
-        "tile_id": "stone_wall",
+        "tile_id": "wall_brick",
         "walkable": false,
-        "sprite_id": "stone_wall"
+        "sprite_id": "window_lit"
       },
       {
-        "tile_id": "stone_wall",
+        "tile_id": "roof_red",
         "walkable": false,
-        "sprite_id": "stone_wall"
+        "sprite_id": "roof_red"
       },
       {
-        "tile_id": "stone_wall",
+        "tile_id": "roof_red",
         "walkable": false,
-        "sprite_id": "stone_wall"
+        "sprite_id": "roof_red"
       },
       {
-        "tile_id": "stone_wall",
+        "tile_id": "roof_red",
         "walkable": false,
-        "sprite_id": "stone_wall"
+        "sprite_id": "roof_red"
       },
       {
-        "tile_id": "stone_wall",
+        "tile_id": "roof_red",
         "walkable": false,
-        "sprite_id": "stone_wall"
+        "sprite_id": "roof_red"
       },
       {
-        "tile_id": "stone_wall",
+        "tile_id": "roof_red",
         "walkable": false,
-        "sprite_id": "stone_wall"
+        "sprite_id": "roof_red"
       },
       {
         "tile_id": "grass",
@@ -483,49 +483,49 @@
         "sprite_id": "grass_tall"
       },
       {
-        "tile_id": "stone_wall",
+        "tile_id": "wall_brick",
         "walkable": false,
-        "sprite_id": "stone_wall"
+        "sprite_id": "wall_brick"
       },
       {
-        "tile_id": "stone_wall",
+        "tile_id": "wall_brick",
         "walkable": false,
-        "sprite_id": "stone_wall"
+        "sprite_id": "wall_brick"
       },
       {
-        "tile_id": "stone_wall",
+        "tile_id": "wall_brick",
         "walkable": false,
-        "sprite_id": "stone_wall"
+        "sprite_id": "wall_brick"
       },
       {
-        "tile_id": "stone_wall",
+        "tile_id": "wall_brick",
         "walkable": false,
-        "sprite_id": "stone_wall"
+        "sprite_id": "wall_brick"
       },
       {
-        "tile_id": "stone_wall",
+        "tile_id": "wall_brick",
         "walkable": false,
-        "sprite_id": "stone_wall"
+        "sprite_id": "wall_brick"
       },
       {
-        "tile_id": "stone_wall",
+        "tile_id": "wall_brick",
         "walkable": false,
-        "sprite_id": "stone_wall"
+        "sprite_id": "window_lit"
       },
       {
-        "tile_id": "stone_wall",
+        "tile_id": "wall_brick",
         "walkable": false,
-        "sprite_id": "stone_wall"
+        "sprite_id": "wall_brick"
       },
       {
-        "tile_id": "stone_wall",
+        "tile_id": "wall_brick",
         "walkable": false,
-        "sprite_id": "stone_wall"
+        "sprite_id": "window_lit"
       },
       {
-        "tile_id": "stone_wall",
+        "tile_id": "wall_brick",
         "walkable": false,
-        "sprite_id": "stone_wall"
+        "sprite_id": "wall_brick"
       },
       {
         "tile_id": "dirt_leaves",
@@ -560,49 +560,49 @@
         "sprite_id": "grass"
       },
       {
-        "tile_id": "stone_wall",
+        "tile_id": "wall_brick",
         "walkable": false,
-        "sprite_id": "stone_wall"
+        "sprite_id": "wall_brick"
       },
       {
-        "tile_id": "stone_wall",
+        "tile_id": "wall_brick",
         "walkable": false,
-        "sprite_id": "stone_wall"
+        "sprite_id": "wall_brick"
       },
       {
         "tile_id": "stone_floor",
         "walkable": true,
-        "sprite_id": "stone_floor"
+        "sprite_id": "door_closed"
       },
       {
-        "tile_id": "stone_wall",
+        "tile_id": "wall_brick",
         "walkable": false,
-        "sprite_id": "stone_wall"
+        "sprite_id": "wall_brick"
       },
       {
-        "tile_id": "stone_wall",
+        "tile_id": "wall_brick",
         "walkable": false,
-        "sprite_id": "stone_wall"
+        "sprite_id": "wall_brick"
       },
       {
-        "tile_id": "stone_wall",
+        "tile_id": "wall_brick",
         "walkable": false,
-        "sprite_id": "stone_wall"
+        "sprite_id": "wall_brick"
       },
       {
-        "tile_id": "stone_wall",
+        "tile_id": "wall_brick",
         "walkable": false,
-        "sprite_id": "stone_wall"
+        "sprite_id": "wall_brick"
       },
       {
-        "tile_id": "stone_wall",
+        "tile_id": "wall_brick",
         "walkable": false,
-        "sprite_id": "stone_wall"
+        "sprite_id": "wall_brick"
       },
       {
-        "tile_id": "stone_wall",
+        "tile_id": "wall_brick",
         "walkable": false,
-        "sprite_id": "stone_wall"
+        "sprite_id": "wall_brick"
       },
       {
         "tile_id": "grass",
@@ -657,44 +657,44 @@
         "sprite_id": "grass_tall"
       },
       {
-        "tile_id": "stone_wall",
+        "tile_id": "wall_brick",
         "walkable": false,
-        "sprite_id": "stone_wall"
+        "sprite_id": "wall_brick"
       },
       {
-        "tile_id": "stone_wall",
+        "tile_id": "wall_brick",
         "walkable": false,
-        "sprite_id": "stone_wall"
+        "sprite_id": "wall_brick"
       },
       {
         "tile_id": "stone_floor",
         "walkable": true,
-        "sprite_id": "stone_floor"
+        "sprite_id": "door_closed"
       },
       {
-        "tile_id": "stone_wall",
+        "tile_id": "roof_red",
         "walkable": false,
-        "sprite_id": "stone_wall"
+        "sprite_id": "roof_red"
       },
       {
-        "tile_id": "stone_wall",
+        "tile_id": "roof_red",
         "walkable": false,
-        "sprite_id": "stone_wall"
+        "sprite_id": "roof_red"
       },
       {
-        "tile_id": "stone_wall",
+        "tile_id": "roof_red",
         "walkable": false,
-        "sprite_id": "stone_wall"
+        "sprite_id": "roof_red"
       },
       {
-        "tile_id": "stone_wall",
+        "tile_id": "roof_red",
         "walkable": false,
-        "sprite_id": "stone_wall"
+        "sprite_id": "roof_red"
       },
       {
-        "tile_id": "stone_wall",
+        "tile_id": "roof_red",
         "walkable": false,
-        "sprite_id": "stone_wall"
+        "sprite_id": "roof_red"
       }
     ],
     [
@@ -749,29 +749,29 @@
         "sprite_id": "grass_flowers"
       },
       {
-        "tile_id": "stone_wall",
+        "tile_id": "wall_brick",
         "walkable": false,
-        "sprite_id": "stone_wall"
+        "sprite_id": "wall_brick"
       },
       {
-        "tile_id": "stone_wall",
+        "tile_id": "wall_brick",
         "walkable": false,
-        "sprite_id": "stone_wall"
+        "sprite_id": "window_lit"
       },
       {
-        "tile_id": "stone_wall",
+        "tile_id": "wall_brick",
         "walkable": false,
-        "sprite_id": "stone_wall"
+        "sprite_id": "wall_brick"
       },
       {
-        "tile_id": "stone_wall",
+        "tile_id": "wall_brick",
         "walkable": false,
-        "sprite_id": "stone_wall"
+        "sprite_id": "window_lit"
       },
       {
-        "tile_id": "stone_wall",
+        "tile_id": "wall_brick",
         "walkable": false,
-        "sprite_id": "stone_wall"
+        "sprite_id": "wall_brick"
       }
     ],
     [
@@ -801,54 +801,54 @@
         "sprite_id": "grass"
       },
       {
-        "tile_id": "stone_wall",
+        "tile_id": "roof_red",
         "walkable": false,
-        "sprite_id": "stone_wall"
+        "sprite_id": "roof_red"
       },
       {
-        "tile_id": "stone_wall",
+        "tile_id": "roof_red",
         "walkable": false,
-        "sprite_id": "stone_wall"
+        "sprite_id": "roof_red"
       },
       {
-        "tile_id": "stone_wall",
+        "tile_id": "roof_red",
         "walkable": false,
-        "sprite_id": "stone_wall"
+        "sprite_id": "roof_red"
       },
       {
-        "tile_id": "stone_wall",
+        "tile_id": "roof_red",
         "walkable": false,
-        "sprite_id": "stone_wall"
+        "sprite_id": "roof_red"
       },
       {
-        "tile_id": "stone_wall",
+        "tile_id": "roof_red",
         "walkable": false,
-        "sprite_id": "stone_wall"
+        "sprite_id": "roof_red"
       },
       {
-        "tile_id": "stone_wall",
+        "tile_id": "wall_brick",
         "walkable": false,
-        "sprite_id": "stone_wall"
+        "sprite_id": "wall_brick"
       },
       {
-        "tile_id": "stone_wall",
+        "tile_id": "wall_brick",
         "walkable": false,
-        "sprite_id": "stone_wall"
+        "sprite_id": "wall_brick"
       },
       {
-        "tile_id": "stone_wall",
+        "tile_id": "wall_brick",
         "walkable": false,
-        "sprite_id": "stone_wall"
+        "sprite_id": "wall_brick"
       },
       {
-        "tile_id": "stone_wall",
+        "tile_id": "wall_brick",
         "walkable": false,
-        "sprite_id": "stone_wall"
+        "sprite_id": "wall_brick"
       },
       {
-        "tile_id": "stone_wall",
+        "tile_id": "wall_brick",
         "walkable": false,
-        "sprite_id": "stone_wall"
+        "sprite_id": "wall_brick"
       }
     ],
     [
@@ -878,54 +878,54 @@
         "sprite_id": "grass_dark"
       },
       {
-        "tile_id": "stone_wall",
+        "tile_id": "wall_brick",
         "walkable": false,
-        "sprite_id": "stone_wall"
+        "sprite_id": "wall_brick"
       },
       {
-        "tile_id": "stone_wall",
+        "tile_id": "wall_brick",
         "walkable": false,
-        "sprite_id": "stone_wall"
+        "sprite_id": "window_lit"
       },
       {
-        "tile_id": "stone_wall",
+        "tile_id": "wall_brick",
         "walkable": false,
-        "sprite_id": "stone_wall"
+        "sprite_id": "wall_brick"
       },
       {
-        "tile_id": "stone_wall",
+        "tile_id": "wall_brick",
         "walkable": false,
-        "sprite_id": "stone_wall"
+        "sprite_id": "window_lit"
       },
       {
-        "tile_id": "stone_wall",
+        "tile_id": "wall_brick",
         "walkable": false,
-        "sprite_id": "stone_wall"
+        "sprite_id": "wall_brick"
       },
       {
-        "tile_id": "stone_wall",
+        "tile_id": "wall_brick",
         "walkable": false,
-        "sprite_id": "stone_wall"
+        "sprite_id": "wall_brick"
       },
       {
-        "tile_id": "stone_wall",
+        "tile_id": "wall_brick",
         "walkable": false,
-        "sprite_id": "stone_wall"
+        "sprite_id": "wall_brick"
       },
       {
         "tile_id": "stone_floor",
         "walkable": true,
-        "sprite_id": "stone_floor"
+        "sprite_id": "door_closed"
       },
       {
-        "tile_id": "stone_wall",
+        "tile_id": "wall_brick",
         "walkable": false,
-        "sprite_id": "stone_wall"
+        "sprite_id": "wall_brick"
       },
       {
-        "tile_id": "stone_wall",
+        "tile_id": "wall_brick",
         "walkable": false,
-        "sprite_id": "stone_wall"
+        "sprite_id": "wall_brick"
       }
     ],
     [
@@ -955,29 +955,29 @@
         "sprite_id": "grass"
       },
       {
-        "tile_id": "stone_wall",
+        "tile_id": "wall_brick",
         "walkable": false,
-        "sprite_id": "stone_wall"
+        "sprite_id": "wall_brick"
       },
       {
-        "tile_id": "stone_wall",
+        "tile_id": "wall_brick",
         "walkable": false,
-        "sprite_id": "stone_wall"
+        "sprite_id": "wall_brick"
       },
       {
-        "tile_id": "stone_wall",
+        "tile_id": "wall_brick",
         "walkable": false,
-        "sprite_id": "stone_wall"
+        "sprite_id": "wall_brick"
       },
       {
-        "tile_id": "stone_wall",
+        "tile_id": "wall_brick",
         "walkable": false,
-        "sprite_id": "stone_wall"
+        "sprite_id": "wall_brick"
       },
       {
-        "tile_id": "stone_wall",
+        "tile_id": "wall_brick",
         "walkable": false,
-        "sprite_id": "stone_wall"
+        "sprite_id": "wall_brick"
       },
       {
         "tile_id": "grass_flowers",
@@ -1032,29 +1032,29 @@
         "sprite_id": "puddle"
       },
       {
-        "tile_id": "stone_wall",
+        "tile_id": "wall_brick",
         "walkable": false,
-        "sprite_id": "stone_wall"
+        "sprite_id": "wall_brick"
       },
       {
-        "tile_id": "stone_wall",
+        "tile_id": "wall_brick",
         "walkable": false,
-        "sprite_id": "stone_wall"
+        "sprite_id": "wall_brick"
       },
       {
         "tile_id": "stone_floor",
         "walkable": true,
-        "sprite_id": "stone_floor"
+        "sprite_id": "door_closed"
       },
       {
-        "tile_id": "stone_wall",
+        "tile_id": "wall_brick",
         "walkable": false,
-        "sprite_id": "stone_wall"
+        "sprite_id": "wall_brick"
       },
       {
-        "tile_id": "stone_wall",
+        "tile_id": "wall_brick",
         "walkable": false,
-        "sprite_id": "stone_wall"
+        "sprite_id": "wall_brick"
       },
       {
         "tile_id": "grass",
@@ -1209,6 +1209,34 @@
       "target_map_id": "arena_interior",
       "target_x": 5,
       "target_y": 9
+    },
+    {
+      "x": 5,
+      "y": 7,
+      "target_map_id": "riverside_blacksmith",
+      "target_x": 4,
+      "target_y": 7
+    },
+    {
+      "x": 9,
+      "y": 8,
+      "target_map_id": "riverside_inn",
+      "target_x": 4,
+      "target_y": 7
+    },
+    {
+      "x": 7,
+      "y": 13,
+      "target_map_id": "riverside_merchant",
+      "target_x": 4,
+      "target_y": 7
+    },
+    {
+      "x": 12,
+      "y": 11,
+      "target_map_id": "riverside_fisherman",
+      "target_x": 4,
+      "target_y": 7
     }
   ],
   "triggers": [
@@ -1223,28 +1251,7 @@
       "once": false
     }
   ],
-  "entities": [
-    {
-      "entity_id": "riverside_blacksmith",
-      "x": 3,
-      "y": 4
-    },
-    {
-      "entity_id": "riverside_fisherman",
-      "x": 10,
-      "y": 8
-    },
-    {
-      "entity_id": "riverside_innkeeper",
-      "x": 9,
-      "y": 8
-    },
-    {
-      "entity_id": "riverside_merchant",
-      "x": 5,
-      "y": 10
-    }
-  ],
+  "entities": [],
   "enemy_spawns": [],
   "props": [
     {

@@ -89,7 +89,7 @@ To see which sprites are placeholders, check `data/SPRITE_MANIFEST.md` which lis
 ### Enemy Sprites
 - **Format**: `enemy_{type}.png` or just `{type}.png`
 - **Size**: 32×32 pixels
-- **Examples**: `enemy_slime.png`, `boss.png`, `demon.png`
+- **Examples**: `slime.png`, `boss_champion.png`, `demon.png`
 - **Status**: Most enemies have sprites
 
 ### Background Sprites
@@ -140,7 +140,7 @@ To see which sprites are placeholders, check `data/SPRITE_MANIFEST.md` which lis
 - Use lowercase letters, numbers, and underscores only
 - No spaces or special characters
 - Descriptive names that match sprite ID usage in code
-- Example: `enemy_slime.png` not `Enemy Slime.png`
+- Example: `slime.png` not `Slime.png`
 
 ### Size Guidelines
 - **Character Sprites**: 32×32 pixels (base size, scaled as needed)

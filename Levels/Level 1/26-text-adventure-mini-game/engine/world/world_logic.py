@@ -464,7 +464,7 @@ def start_battle(scene: "WorldScene", encounter_id: str, trigger: Optional[Any] 
 
     from core.combat import BattleSystem
 
-    party_members = [scene.player] + [ally for ally in getattr(scene.player, "party", []) if ally]
+    party_members = scene.player.get_battle_party()
     battle_system = BattleSystem(
         players=party_members,
         enemies=enemies,

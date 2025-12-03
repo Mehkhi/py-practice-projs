@@ -4,7 +4,7 @@ import json
 import os
 import tempfile
 import unittest
-from unittest.mock import Mock
+from unittest.mock import Mock, patch
 
 from core.save_load import SaveManager
 from core.save import (
@@ -643,6 +643,7 @@ class TestSaveFileVersioning(unittest.TestCase):
         version = get_save_version(old_data)
         self.assertEqual(version, 0)
 
+    @patch.dict(os.environ, {'SAVE_VALIDATION_QUIET': '1'})
     def test_load_old_save_without_version(self):
         """Test that old saves without version field are migrated."""
         # Create an old-style save (version 0)
@@ -808,7 +809,9 @@ class TestSaveFileValidation(unittest.TestCase):
         self.assertTrue(any("must be a" in err for err in errors))
 
 
+@patch.dict(os.environ, {'SAVE_VALIDATION_QUIET': '1'})
 class TestPartialCorruptionRecovery(unittest.TestCase):
+    """Tests for partial corruption recovery with validation warnings suppressed."""
     def setUp(self):
         self.temp_dir = tempfile.mkdtemp()
         self.save_manager = SaveManager(save_dir=self.temp_dir)
@@ -1035,6 +1038,7 @@ class TestAdditionalCoverage(unittest.TestCase):
         import shutil
         shutil.rmtree(self.temp_dir, ignore_errors=True)
 
+    @patch.dict(os.environ, {'SAVE_VALIDATION_QUIET': '1'})
     def test_resave_includes_version(self):
         """Test that re-saving a migrated save includes the new version."""
         # Create old-style save (version 0)

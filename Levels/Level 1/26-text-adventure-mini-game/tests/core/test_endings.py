@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 """Simple test helper for ending determination logic."""
 
+import sys
+
 from core.world import World
 from core.endings import evaluate_condition, determine_ending, load_endings_data
 
@@ -98,7 +100,6 @@ def test_ending_scenarios():
     print("Testing ending determination logic...")
     print("=" * 50)
 
-    all_passed = True
     for i, test_case in enumerate(ENDING_TEST_CASES, 1):
         # Clear all flags first
         world.flags.clear()
@@ -111,21 +112,15 @@ def test_ending_scenarios():
         actual_ending = determine_ending(world)
         expected_ending = test_case["expected"]
 
-        status = "PASS" if actual_ending == expected_ending else "FAIL"
         print(f"Test {i}: {test_case['name']}")
-        print(f"  Expected: {expected_ending}, Got: {actual_ending} [{status}]")
-
-        if actual_ending != expected_ending:
-            all_passed = False
-            print(f"  Flags set: {test_case['flags']}")
+        print(f"  Expected: {expected_ending}, Got: {actual_ending}")
+        assert actual_ending == expected_ending, (
+            f"Ending mismatch for '{test_case['name']}': expected {expected_ending}, "
+            f"got {actual_ending} with flags {test_case['flags']}"
+        )
 
     print("=" * 50)
-    if all_passed:
-        print("All tests passed!")
-    else:
-        print("Some tests failed!")
-
-    return all_passed
+    print("All tests passed!")
 
 
 def test_priority_sorting():
@@ -135,17 +130,15 @@ def test_priority_sorting():
 
     # Load endings data to verify priority structure
     endings_data = load_endings_data()
-    if not endings_data:
-        print("FAIL: Could not load endings data")
-        return False
+    assert endings_data, "Could not load endings data"
 
     # Verify priorities are correctly ordered
     priorities = [ending.get("priority", 999) for ending in endings_data]
     expected_priorities = [1, 2, 3]  # good, bad, neutral
 
-    if priorities != expected_priorities:
-        print(f"FAIL: Expected priorities {expected_priorities}, got {priorities}")
-        return False
+    assert priorities == expected_priorities, (
+        f"Expected priorities {expected_priorities}, got {priorities}"
+    )
 
     print("PASS: Endings have correct priority ordering")
 
@@ -163,16 +156,15 @@ def test_priority_sorting():
 
     # Verify original list was not mutated
     current_order = [e["id"] for e in shuffled_endings]
-    if current_order != original_order:
-        print(f"FAIL: Original list was mutated. Expected {original_order}, got {current_order}")
-        return False
+    assert current_order == original_order, (
+        f"Original list mutated. Expected {original_order}, got {current_order}"
+    )
 
-    if sorted_ids != ["good", "bad", "neutral"]:
-        print(f"FAIL: Priority sorting failed. Expected ['good', 'bad', 'neutral'], got {sorted_ids}")
-        return False
+    assert sorted_ids == ["good", "bad", "neutral"], (
+        f"Priority sorting failed. Expected ['good', 'bad', 'neutral'], got {sorted_ids}"
+    )
 
     print("PASS: Priority sorting works correctly without mutation")
-    return True
 
 
 def test_missing_data_fallback():
@@ -185,29 +177,22 @@ def test_missing_data_fallback():
     # Test with None endings data (simulating missing file)
     world.flags.clear()
     ending_id = determine_ending(world, endings_data=None)
-    if ending_id != "neutral":
-        print(f"FAIL: Expected fallback 'neutral', got '{ending_id}'")
-        return False
-
+    assert ending_id == "neutral", f"Expected fallback 'neutral', got '{ending_id}'"
     print("PASS: Missing endings data falls back to 'neutral'")
 
     # Test with empty list
     ending_id = determine_ending(world, endings_data=[])
-    if ending_id != "neutral":
-        print(f"FAIL: Expected fallback 'neutral' for empty list, got '{ending_id}'")
-        return False
-
+    assert ending_id == "neutral", f"Expected fallback 'neutral' for empty list, got '{ending_id}'"
     print("PASS: Empty endings list falls back to 'neutral'")
 
     # Test with existing endings data but non-matching conditions
     world.flags.clear()  # Clear all flags so no conditions match
     ending_id = determine_ending(world)
-    if ending_id != "neutral":
-        print(f"FAIL: Expected fallback 'neutral' for no matching conditions, got '{ending_id}'")
-        return False
+    assert ending_id == "neutral", (
+        f"Expected fallback 'neutral' for no matching conditions, got '{ending_id}'"
+    )
 
     print("PASS: No matching conditions falls back to 'neutral'")
-    return True
 
 
 def test_automatic_transition_path():
@@ -225,12 +210,11 @@ def test_automatic_transition_path():
     world.set_flag("crypt_purified", True)  # Required for good ending
 
     ending_id = determine_ending(world)
-    if ending_id != "good":
-        print(f"FAIL: Expected 'good' ending for final boss victory, got '{ending_id}'")
-        return False
+    assert ending_id == "good", (
+        f"Expected 'good' ending for final boss victory, got '{ending_id}'"
+    )
 
     print("PASS: Final boss scenario determines correct ending")
-    return True
 
 
 def test_dialogue_flag_system():
@@ -238,45 +222,28 @@ def test_dialogue_flag_system():
     print("\nTesting dialogue flag system...")
     print("=" * 50)
 
-    # Test dialogue loading with new field
     from core.dialogue import load_dialogue_from_json
 
-    try:
-        dialogue_tree = load_dialogue_from_json("data/dialogue.json")
-        crystal_node = dialogue_tree.get_node("garden_choice")
+    dialogue_tree = load_dialogue_from_json("data/dialogue.json")
+    crystal_node = dialogue_tree.get_node("garden_choice")
 
-        if not crystal_node:
-            print("FAIL: Could not load garden_choice dialogue node")
-            return False
+    assert crystal_node is not None, "Could not load garden_choice dialogue node"
+    assert hasattr(crystal_node, "set_flags_after_choice"), "DialogueNode missing set_flags_after_choice attribute"
+    assert crystal_node.set_flags_after_choice == ["crystal_choice_made"], (
+        f"Expected ['crystal_choice_made'], got {crystal_node.set_flags_after_choice}"
+    )
 
-        if not hasattr(crystal_node, 'set_flags_after_choice'):
-            print("FAIL: DialogueNode missing set_flags_after_choice attribute")
-            return False
+    print("PASS: Dialogue system correctly loads set_flags_after_choice")
 
-        if crystal_node.set_flags_after_choice != ["crystal_choice_made"]:
-            print(f"FAIL: Expected ['crystal_choice_made'], got {crystal_node.set_flags_after_choice}")
-            return False
+    # Test flag application logic
+    world = World()
+    world.set_flag("crystal_choice_made", False)
 
-        print("PASS: Dialogue system correctly loads set_flags_after_choice")
+    for flag in crystal_node.set_flags_after_choice:
+        world.set_flag(flag, True)
 
-        # Test flag application logic
-        world = World()
-        world.set_flag("crystal_choice_made", False)
-
-        # Simulate the dialogue scene logic
-        for flag in crystal_node.set_flags_after_choice:
-            world.set_flag(flag, True)
-
-        if not world.get_flag("crystal_choice_made"):
-            print("FAIL: set_flags_after_choice not properly applied")
-            return False
-
-        print("PASS: Dialogue scene correctly applies set_flags_after_choice")
-        return True
-
-    except Exception as e:
-        print(f"FAIL: Error testing dialogue system: {e}")
-        return False
+    assert world.get_flag("crystal_choice_made"), "set_flags_after_choice not properly applied"
+    print("PASS: Dialogue scene correctly applies set_flags_after_choice")
 
 
 def test_condition_evaluation():
@@ -348,15 +315,12 @@ def test_condition_evaluation():
 if __name__ == "__main__":
     try:
         test_condition_evaluation()
-        success = test_ending_scenarios()
-
-        # Run additional tests for ending system improvements
-        success = test_priority_sorting() and success
-        success = test_missing_data_fallback() and success
-        success = test_automatic_transition_path() and success
-        success = test_dialogue_flag_system() and success
-
-        sys.exit(0 if success else 1)
+        test_ending_scenarios()
+        test_priority_sorting()
+        test_missing_data_fallback()
+        test_automatic_transition_path()
+        test_dialogue_flag_system()
+        sys.exit(0)
     except Exception as e:
         print(f"Test error: {e}")
         import traceback

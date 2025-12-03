@@ -933,6 +933,66 @@ class TestPartyRecruitment(unittest.TestCase):
         self.assertEqual(loaded_member.formation_position, "middle")
         self.assertEqual(loaded_player.party_formation.get("luna"), "middle")
 
+    def test_world_scene_check_party_recruitment_adds_member_and_sets_formation(self):
+        """WorldScene._check_party_recruitment should add members using prototypes."""
+        from engine.world_scene import WorldScene
+
+        # Mark Luna as recruited via world flag
+        self.world.set_flag("luna_recruited", True)
+        self.world.set_flag("luna_joined", False)
+
+        # Ensure prototype has a distinct formation
+        self.party_prototype.formation_position = "back"
+
+        # Dummy manager exposing party_prototypes through get_manager
+        class DummyAchievements:
+            def __init__(self):
+                self.calls: List[str] = []
+
+            def on_party_member_recruited(self, member_id: str) -> None:
+                self.calls.append(member_id)
+
+        class DummyManager:
+            def __init__(self, party_prototypes, achievement_manager):
+                self.party_prototypes = party_prototypes
+                self.achievement_manager = achievement_manager
+
+            def get_manager(self, name, caller=""):
+                return getattr(self, name, None)
+
+        # Minimal scene stub with the attributes used by _check_party_recruitment
+        class DummyScene:
+            pass
+
+        messages: List[str] = []
+
+        scene = DummyScene()
+        scene.world = self.world
+        scene.player = self.player
+        scene.items_db = {}
+        achievements = DummyAchievements()
+        scene.manager = DummyManager(self.party_prototypes, achievements)
+        scene._show_inline_message = lambda text: messages.append(text)
+        scene.get_manager_attr = lambda name, caller="": scene.manager.get_manager(name, caller)
+
+        # Run recruitment logic
+        WorldScene._check_party_recruitment(scene)  # type: ignore[arg-type]
+
+        # Verify party member was added with correct formation
+        member = self.player.get_party_member("luna")
+        self.assertIsNotNone(member)
+        self.assertEqual(member.name, "Luna")
+        self.assertEqual(member.formation_position, "back")
+        self.assertEqual(self.player.party_formation.get("luna"), "back")
+        self.assertTrue(self.world.get_flag("luna_joined"))
+        self.assertTrue(any("joined the party" in msg for msg in messages))
+        self.assertEqual(achievements.calls, ["luna"])
+
+        # Calling again should not add duplicates
+        WorldScene._check_party_recruitment(scene)  # type: ignore[arg-type]
+        self.assertEqual(len(self.player.party), 1)
+        self.assertEqual(achievements.calls, ["luna"])
+
 
 class TestCraftingWorkflow(unittest.TestCase):
     """Integration tests for crafting workflows."""

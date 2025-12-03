@@ -1,30 +1,44 @@
 {
   "meta": {
     "version": 1,
-    "timestamp": "2025-12-02T17:14:46.093892",
-    "play_time_seconds": 4.186999999999987
+    "timestamp": "2025-12-02T22:36:40.126450",
+    "play_time_seconds": 7938.1089999963415
   },
   "world": {
     "current_map_id": "forest_path",
     "flags": {
-      "gold": 20,
-      "play_time_seconds": 4.186999999999987
+      "gold": 59,
+      "play_time_seconds": 7938.1089999963415,
+      "battles_total": 2,
+      "battles_won": 2,
+      "battle_won": true,
+      "last_battle_spared": false,
+      "enemies_spared_total": 0,
+      "enemies_defeated_total": 3,
+      "last_battle_outcome": "victory",
+      "tutorial_completed": true,
+      "werewolves_defeated": true
     },
     "visited_maps": [
+      "desert_oasis",
       "forest_path"
     ],
     "runtime_state": {
       "trigger_states": {},
-      "enemy_states": {}
+      "enemy_states": {
+        "forest_path": {
+          "werewolf_1": true
+        }
+      }
     }
   },
   "player": {
     "entity_id": "player",
     "name": "hi",
-    "x": 5,
-    "y": 5,
+    "x": 7,
+    "y": 14,
     "inventory": {
-      "health_potion": 2,
+      "health_potion": 3,
       "starter_sword": 1
     },
     "hotbar_slots": {},
@@ -43,7 +57,7 @@
     ],
     "stats": {
       "max_hp": 120,
-      "hp": 120,
+      "hp": 107,
       "max_sp": 45,
       "sp": 45,
       "attack": 14,
@@ -52,7 +66,7 @@
       "speed": 8,
       "luck": 4,
       "level": 1,
-      "exp": 0,
+      "exp": 84,
       "status_effects": {}
     },
     "memory_value": 0,
@@ -74,9 +88,9 @@
           "enemy_type": "slime",
           "name": "Practice Slime",
           "sprite_id": "slime",
-          "times_encountered": 0,
-          "times_defeated": 0,
-          "discovery_level": 0,
+          "times_encountered": 1,
+          "times_defeated": 1,
+          "discovery_level": 2,
           "base_hp": 50,
           "base_sp": 10,
           "base_attack": 3,
@@ -94,7 +108,8 @@
           "description": "A Easy threat encountered near Bg Forest. Field notes recommend exploiting elemental weaknesses when possible.",
           "category": "monster",
           "locations": [
-            "bg_forest"
+            "bg_forest",
+            "forest_path"
           ],
           "observed_drops": [
             "health_potion"
@@ -321,9 +336,9 @@
           "enemy_type": "beast",
           "name": "Cave Bat",
           "sprite_id": "bat",
-          "times_encountered": 0,
-          "times_defeated": 0,
-          "discovery_level": 0,
+          "times_encountered": 2,
+          "times_defeated": 2,
+          "discovery_level": 2,
           "base_hp": 25,
           "base_sp": 10,
           "base_attack": 8,
@@ -346,7 +361,8 @@
           "locations": [
             "bg_cave",
             "bg_forest",
-            "bg_mountain"
+            "bg_mountain",
+            "forest_path"
           ],
           "observed_drops": [
             "health_potion"
@@ -1241,8 +1257,8 @@
     ]
   },
   "day_night": {
-    "current_time": 364.1869999999994,
-    "day_count": 1,
+    "current_time": 1098.1090000080874,
+    "day_count": 6,
     "time_scale": 1.0,
     "paused": false
   },
@@ -1250,49 +1266,49 @@
     "achievements": [
       {
         "id": "first_blood",
-        "current_count": 0,
-        "unlocked": false,
-        "unlock_time": null,
+        "current_count": 1,
+        "unlocked": true,
+        "unlock_time": "2025-12-02T20:24:21.183113",
         "points": 10
       },
       {
         "id": "warrior_initiate",
-        "current_count": 0,
+        "current_count": 2,
         "unlocked": false,
         "unlock_time": null,
         "points": 10
       },
       {
         "id": "battle_hardened",
-        "current_count": 0,
+        "current_count": 2,
         "unlocked": false,
         "unlock_time": null,
         "points": 15
       },
       {
         "id": "veteran_warrior",
-        "current_count": 0,
+        "current_count": 2,
         "unlocked": false,
         "unlock_time": null,
         "points": 25
       },
       {
         "id": "legendary_fighter",
-        "current_count": 0,
+        "current_count": 2,
         "unlocked": false,
         "unlock_time": null,
         "points": 100
       },
       {
         "id": "monster_slayer",
-        "current_count": 0,
+        "current_count": 3,
         "unlocked": false,
         "unlock_time": null,
         "points": 10
       },
       {
         "id": "exterminator",
-        "current_count": 0,
+        "current_count": 3,
         "unlocked": false,
         "unlock_time": null,
         "points": 15
@@ -1341,37 +1357,37 @@
       },
       {
         "id": "first_steps",
-        "current_count": 0,
-        "unlocked": false,
-        "unlock_time": null,
+        "current_count": 1,
+        "unlocked": true,
+        "unlock_time": "2025-12-02T22:36:31.200280",
         "points": 10
       },
       {
         "id": "explorer",
-        "current_count": 0,
+        "current_count": 2,
         "unlocked": false,
         "unlock_time": null,
         "points": 10
       },
       {
         "id": "cartographer",
-        "current_count": 0,
+        "current_count": 2,
         "unlocked": false,
         "unlock_time": null,
         "points": 15
       },
       {
         "id": "world_traveler",
-        "current_count": 0,
+        "current_count": 2,
         "unlocked": false,
         "unlock_time": null,
         "points": 25
       },
       {
         "id": "forest_explorer",
-        "current_count": 0,
-        "unlocked": false,
-        "unlock_time": null,
+        "current_count": 1,
+        "unlocked": true,
+        "unlock_time": "2025-12-02T22:36:40.126373",
         "points": 10
       },
       {
@@ -1915,67 +1931,67 @@
     "current_weather": "clear",
     "transition_weather": null,
     "transition_progress": 0.0,
-    "change_timer": 295.8130000000006,
+    "change_timer": 84.58395898228189,
     "enabled": true,
     "paused": false
   },
   "npc_schedules": {
-    "last_time_period": "morning",
+    "last_time_period": "dusk",
     "npc_positions": {
       "forest_merchant": {
-        "map_id": "forest_path",
-        "x": 3,
-        "y": 4
+        "map_id": "riverside_inn",
+        "x": 4,
+        "y": 5
       },
       "riverside_blacksmith": {
-        "map_id": "riverside_blacksmith",
-        "x": 4,
+        "map_id": "riverside_town",
+        "x": 2,
         "y": 4
       },
       "riverside_fisherman": {
         "map_id": "riverside_town",
-        "x": 10,
-        "y": 8
+        "x": 12,
+        "y": 6
       },
       "tutorial_npc": {
-        "map_id": "forest_path",
-        "x": 6,
-        "y": 4
+        "map_id": "riverside_inn",
+        "x": 3,
+        "y": 2
       },
       "riverside_innkeeper": {
         "map_id": "riverside_inn",
-        "x": 5,
-        "y": 3
+        "x": 6,
+        "y": 4
       },
       "hillcrest_herbalist": {
-        "map_id": "secret_garden",
-        "x": 4,
-        "y": 5
+        "map_id": "hillcrest_inn",
+        "x": 3,
+        "y": 4
       },
       "shadowfen_alchemist": {
-        "map_id": "shadowfen_alchemist",
-        "x": 4,
-        "y": 4
+        "map_id": "shadowfen_inn",
+        "x": 2,
+        "y": 3
       },
       "ironhold_armorer": {
         "map_id": "ironhold_city",
-        "x": 10,
-        "y": 6
+        "x": 9,
+        "y": 8
       },
       "crystalspire_magic_shop": {
-        "map_id": "crystalspire_city",
-        "x": 6,
-        "y": 10
+        "map_id": "crystal_maze",
+        "x": 2,
+        "y": 2
       },
       "nighthaven_black_market": {
         "map_id": "nighthaven_city",
-        "x": 11,
-        "y": 5
+        "x": 12,
+        "y": 7
       },
       "sunharbor_exotic_merchant": {
         "map_id": "sunharbor_city",
-        "x": 5,
-        "y": 6
+        "x": 8,
+        "y": 5
       }
     }
   },
@@ -2066,7 +2082,11 @@
   },
   "tutorial": {
     "dismissed_tips": [],
-    "seen_tips": [],
+    "seen_tips": [
+      "night_warning",
+      "battle_basics",
+      "low_hp_warning"
+    ],
     "tips_enabled": true
   }
 }

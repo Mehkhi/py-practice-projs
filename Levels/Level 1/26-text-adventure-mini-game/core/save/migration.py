@@ -4,11 +4,33 @@ This module handles migrating save files from older versions to the current vers
 """
 
 import copy
+import os
 from datetime import datetime
-from typing import Any, Dict
+from typing import Any, Dict, Set
 
 from ..logging_utils import log_warning
 from .serializer import DEFAULT_STARTING_MAP
+
+# Track migration warnings to avoid spamming identical messages during recovery
+_EMITTED_MIGRATION_WARNINGS: Set[str] = set()
+
+
+def _is_migration_quiet() -> bool:
+    """Check if migration warnings should be suppressed.
+
+    Checks environment variable dynamically to support test patching.
+    """
+    return os.environ.get("SAVE_VALIDATION_QUIET", "").lower() in ("1", "true", "yes", "on")
+
+
+def _log_migration_warning(message: str) -> None:
+    """Optionally emit migration warnings (silence via SAVE_VALIDATION_QUIET=1)."""
+    if _is_migration_quiet():
+        return
+    if message in _EMITTED_MIGRATION_WARNINGS:
+        return
+    _EMITTED_MIGRATION_WARNINGS.add(message)
+    log_warning(message)
 
 
 def get_save_version(data: Dict[str, Any]) -> int:
@@ -74,16 +96,16 @@ def _migrate_v0_to_v1(data: Dict[str, Any]) -> Dict[str, Any]:
     # Add version field if missing
     if "version" not in data["meta"]:
         data["meta"]["version"] = 1
-        log_warning("Migrated save file from version 0 to version 1: added version field")
+        _log_migration_warning("Migrated save file from version 0 to version 1: added version field")
 
     # Ensure required fields exist with defaults
     if "timestamp" not in data["meta"]:
         data["meta"]["timestamp"] = datetime.now().isoformat()
-        log_warning("Migrated save file: added missing timestamp")
+        _log_migration_warning("Migrated save file: added missing timestamp")
 
     if "play_time_seconds" not in data["meta"]:
         data["meta"]["play_time_seconds"] = 0.0
-        log_warning("Migrated save file: added missing play_time_seconds")
+        _log_migration_warning("Migrated save file: added missing play_time_seconds")
 
     # Ensure world section has required fields
     if "world" not in data:
@@ -91,17 +113,17 @@ def _migrate_v0_to_v1(data: Dict[str, Any]) -> Dict[str, Any]:
 
     if "current_map_id" not in data["world"]:
         data["world"]["current_map_id"] = DEFAULT_STARTING_MAP
-        log_warning("Migrated save file: added missing current_map_id")
+        _log_migration_warning("Migrated save file: added missing current_map_id")
 
     if "flags" not in data["world"]:
         data["world"]["flags"] = {}
-        log_warning("Migrated save file: added missing flags")
+        _log_migration_warning("Migrated save file: added missing flags")
 
     if "runtime_state" not in data["world"]:
         data["world"]["runtime_state"] = {
             "trigger_states": {},
             "enemy_states": {}
         }
-        log_warning("Migrated save file: added missing runtime_state")
+        _log_migration_warning("Migrated save file: added missing runtime_state")
 
     return data

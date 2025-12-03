@@ -22,7 +22,7 @@ from .deserializers import (
 )
 from .migration import get_save_version, migrate_save_data
 from .serializer import SAVE_FILE_VERSION
-from .validation import VALIDATION_QUIET, recover_partial_save, validate_save_data
+from .validation import _is_validation_quiet, recover_partial_save, validate_save_data
 
 if TYPE_CHECKING:
     from ..entities import Player
@@ -37,11 +37,11 @@ def _migrate_and_validate(data: Dict[str, Any]) -> Dict[str, Any]:
     try:
         is_valid, errors = validate_save_data(data)
         if not is_valid:
-            if not VALIDATION_QUIET:
+            if not _is_validation_quiet():
                 log_warning(f"Save data validation failed: {', '.join(errors)}. Attempting recovery.")
             data = recover_partial_save(data)
     except Exception as exc:
-        if not VALIDATION_QUIET:
+        if not _is_validation_quiet():
             log_warning(f"Error during save validation: {exc}. Attempting recovery.")
         data = recover_partial_save(data)
     return data

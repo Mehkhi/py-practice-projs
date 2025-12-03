@@ -616,7 +616,7 @@ class BattleScene(
 
         # Define hp_font for use throughout draw method
         # Use SIZE_BODY (20) instead of SIZE_SMALL (16) for better readability
-        hp_font = pygame.font.Font(None, Fonts.SIZE_BODY)
+        hp_font = self.assets.get_font(size=Fonts.SIZE_BODY)
 
         # Apply screen shake
         shake_x, shake_y = 0, 0

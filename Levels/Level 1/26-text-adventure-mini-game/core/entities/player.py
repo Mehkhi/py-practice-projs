@@ -260,6 +260,12 @@ class PartyMember(CombatantMixin, Entity):
         if self.faction == "neutral":
             self.faction = "player"
         _sync_base_and_current_skills(self)
+
+        # Ensure learned_moves has at least base skills if empty
+        if not self.learned_moves and self.base_skills:
+            # Take up to MAX_LEARNED_MOVES from base_skills
+            self.learned_moves = self.base_skills[:MAX_LEARNED_MOVES]
+
         # Ensure learned_moves doesn't exceed max
         if len(self.learned_moves) > MAX_LEARNED_MOVES:
             self.learned_moves = self.learned_moves[:MAX_LEARNED_MOVES]

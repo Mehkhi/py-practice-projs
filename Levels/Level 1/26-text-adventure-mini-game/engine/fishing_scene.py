@@ -416,13 +416,13 @@ class FishingScene(Scene):
         pygame.draw.line(surface, Colors.WHITE, (bobber_x, line_start_y), (bobber_x, bobber_y), 2)
 
         # Draw text
-        font = Fonts.get_font(24)
+        font = self.assets.get_font(size=24)
         text = font.render("Waiting for a bite...", True, Colors.TEXT_PRIMARY)
         text_rect = text.get_rect(center=(width // 2, height - 60))
         surface.blit(text, text_rect)
 
         # Draw hint
-        hint_font = Fonts.get_font(16)
+        hint_font = self.assets.get_font(size=16)
         hint_text = hint_font.render("Press ESC to cancel", True, Colors.TEXT_SECONDARY)
         hint_rect = hint_text.get_rect(center=(width // 2, height - 30))
         surface.blit(hint_text, hint_rect)
@@ -430,19 +430,19 @@ class FishingScene(Scene):
     def _draw_hooking(self, surface: pygame.Surface, width: int, height: int) -> None:
         """Draw hooking phase."""
         # Draw large exclamation mark
-        font = Fonts.get_font(120)
+        font = self.assets.get_font(size=120)
         exclamation = font.render("!", True, Colors.TEXT_ERROR)
         exclamation_rect = exclamation.get_rect(center=(width // 2, height // 2 - 40))
         surface.blit(exclamation, exclamation_rect)
 
         # Draw prompt
-        prompt_font = Fonts.get_font(32)
+        prompt_font = self.assets.get_font(size=32)
         prompt_text = prompt_font.render("Press SPACE!", True, Colors.TEXT_HIGHLIGHT)
         prompt_rect = prompt_text.get_rect(center=(width // 2, height // 2 + 40))
         surface.blit(prompt_text, prompt_rect)
 
         # Draw timer
-        timer_font = Fonts.get_font(20)
+        timer_font = self.assets.get_font(size=20)
         timer_ratio = self.hook_timer / self.hook_window
         timer_text = timer_font.render(f"{self.hook_timer:.2f}", True, Colors.TEXT_SECONDARY)
         timer_rect = timer_text.get_rect(center=(width // 2, height // 2 + 80))
@@ -512,7 +512,7 @@ class FishingScene(Scene):
             pygame.draw.rect(surface, tension_color, tension_fill_rect)
 
         # Tension label
-        tension_font = Fonts.get_font(16)
+        tension_font = self.assets.get_font(size=16)
         tension_text = tension_font.render(f"Tension: {self.tension:.0f}", True, Colors.TEXT_PRIMARY)
         tension_text_rect = tension_text.get_rect(center=(width // 2, tension_bar_y - 20))
         surface.blit(tension_text, tension_text_rect)
@@ -533,13 +533,13 @@ class FishingScene(Scene):
             pygame.draw.rect(surface, Colors.TEXT_SUCCESS, progress_fill_rect)
 
         # Progress label
-        progress_font = Fonts.get_font(16)
+        progress_font = self.assets.get_font(size=16)
         progress_text = progress_font.render(f"Catch: {self.catch_progress:.0f}%", True, Colors.TEXT_PRIMARY)
         progress_text_rect = progress_text.get_rect(center=(width // 2, progress_bar_y - 20))
         surface.blit(progress_text, progress_text_rect)
 
         # Instructions
-        inst_font = Fonts.get_font(14)
+        inst_font = self.assets.get_font(size=14)
         inst_text = inst_font.render("Hold SPACE/UP to reel in", True, Colors.TEXT_SECONDARY)
         inst_rect = inst_text.get_rect(center=(width // 2, height - 30))
         surface.blit(inst_text, inst_rect)
@@ -549,19 +549,19 @@ class FishingScene(Scene):
         if not self.caught_fish:
             return
 
-        font = Fonts.get_font(32)
+        font = self.assets.get_font(size=32)
         title_text = font.render("Caught!", True, Colors.TEXT_SUCCESS)
         title_rect = title_text.get_rect(center=(width // 2, 60))
         surface.blit(title_text, title_rect)
 
         # Fish name
-        name_font = Fonts.get_font(24)
+        name_font = self.assets.get_font(size=24)
         name_text = name_font.render(self.caught_fish.fish.name, True, Colors.TEXT_PRIMARY)
         name_rect = name_text.get_rect(center=(width // 2, 120))
         surface.blit(name_text, name_rect)
 
         # Fish details
-        details_font = Fonts.get_font(18)
+        details_font = self.assets.get_font(size=18)
         size_text = details_font.render(f"Size: {self.caught_fish.size:.2f} ({self.caught_fish.size_category})", True, Colors.TEXT_SECONDARY)
         size_rect = size_text.get_rect(center=(width // 2, 160))
         surface.blit(size_text, size_rect)
@@ -571,26 +571,26 @@ class FishingScene(Scene):
         surface.blit(value_text, value_rect)
 
         if self.is_record:
-            record_font = Fonts.get_font(20)
+            record_font = self.assets.get_font(size=20)
             record_text = record_font.render("NEW RECORD!", True, Colors.TEXT_SUCCESS)
             record_rect = record_text.get_rect(center=(width // 2, 230))
             surface.blit(record_text, record_rect)
 
         # Continue prompt
-        prompt_font = Fonts.get_font(16)
+        prompt_font = self.assets.get_font(size=16)
         prompt_text = prompt_font.render("Press SPACE to continue", True, Colors.TEXT_SECONDARY)
         prompt_rect = prompt_text.get_rect(center=(width // 2, height - 30))
         surface.blit(prompt_text, prompt_rect)
 
     def _draw_escaped(self, surface: pygame.Surface, width: int, height: int) -> None:
         """Draw escaped fish message."""
-        font = Fonts.get_font(32)
+        font = self.assets.get_font(size=32)
         text = font.render("The fish got away!", True, Colors.TEXT_ERROR)
         text_rect = text.get_rect(center=(width // 2, height // 2))
         surface.blit(text, text_rect)
 
         # Continue prompt
-        prompt_font = Fonts.get_font(16)
+        prompt_font = self.assets.get_font(size=16)
         prompt_text = prompt_font.render("Press SPACE to continue", True, Colors.TEXT_SECONDARY)
         prompt_rect = prompt_text.get_rect(center=(width // 2, height - 30))
         surface.blit(prompt_text, prompt_rect)

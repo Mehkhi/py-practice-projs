@@ -167,10 +167,20 @@ class MessageBox:
         self.text = ""
         self.portrait_surface = portrait_surface
 
+        # Pagination state
+        self.current_page = 0
+        self.lines_per_page = 1  # Will be calculated in draw/set_text
+        self.animation_timer = 0.0  # For blinking cursor
+        self._last_font: Optional[pygame.font.Font] = None  # Track font for pagination calculations
+
     def set_text(self, text: str, font: Optional[pygame.font.Font] = None) -> None:
         """Set the message text with automatic wrapping."""
         self.text = text
+        self.current_page = 0
         if font:
+            # Store font for pagination calculations
+            self._last_font = font
+
             # Calculate available width
             padding = Layout.MESSAGE_BOX_PADDING
             portrait_width = 0
@@ -179,9 +189,45 @@ class MessageBox:
 
             available_width = self.width - (padding * 2) - portrait_width
             self.lines = self._wrap_text(text, font, available_width)
+
+            # Calculate lines per page now that we have the font
+            self.lines_per_page = self._calculate_lines_per_page(font)
         else:
             # Fallback if no font provided (will require re-wrapping in draw if font differs)
             self.lines = text.split("\n")
+
+    def advance(self) -> bool:
+        """Advance to the next page of text. Returns True if advanced, False if already at end."""
+        # Ensure lines_per_page is calculated before use
+        if self._last_font is None:
+            # Use default font if no font has been stored yet
+            default_font = pygame.font.Font(None, Fonts.SIZE_BODY)
+            self._last_font = default_font
+            self.lines_per_page = self._calculate_lines_per_page(default_font)
+        else:
+            # Recalculate to ensure it's correct (may have been called before first draw)
+            self.lines_per_page = self._calculate_lines_per_page(self._last_font)
+
+        total_pages = max(1, (len(self.lines) + self.lines_per_page - 1) // self.lines_per_page)
+        if self.current_page < total_pages - 1:
+            self.current_page += 1
+            return True
+        return False
+
+    def is_finished(self) -> bool:
+        """Return True if the last page of text is currently being displayed."""
+        # Ensure lines_per_page is calculated before use
+        if self._last_font is None:
+            # Use default font if no font has been stored yet
+            default_font = pygame.font.Font(None, Fonts.SIZE_BODY)
+            self._last_font = default_font
+            self.lines_per_page = self._calculate_lines_per_page(default_font)
+        else:
+            # Recalculate to ensure it's correct (may have been called before first draw)
+            self.lines_per_page = self._calculate_lines_per_page(self._last_font)
+
+        total_pages = max(1, (len(self.lines) + self.lines_per_page - 1) // self.lines_per_page)
+        return self.current_page >= total_pages - 1
 
     def _wrap_text(self, text: str, font: pygame.font.Font, max_width: int) -> List[str]:
         """Wrap text to fit within max_width."""
@@ -220,6 +266,20 @@ class MessageBox:
 
         return lines
 
+    def _calculate_lines_per_page(self, font: pygame.font.Font) -> int:
+        """Calculate how many lines fit per page based on font metrics and available height.
+
+        Args:
+            font: The font to use for line height calculations
+
+        Returns:
+            Number of lines that fit on a page (at least 1)
+        """
+        padding = Layout.MESSAGE_BOX_PADDING
+        line_height = font.get_linesize() + Layout.MESSAGE_BOX_LINE_GAP
+        available_height = self.height - (padding * 2)
+        return max(1, available_height // line_height)
+
     def set_portrait(self, surface: Optional[pygame.Surface]) -> None:
         """Assign a portrait surface to render alongside text."""
         self.portrait_surface = surface
@@ -233,6 +293,9 @@ class MessageBox:
         """Draw the message box with improved spacing and visuals."""
         if font is None:
             font = pygame.font.Font(None, Fonts.SIZE_BODY)
+
+        # Store font for pagination calculations
+        self._last_font = font
 
         # Re-wrap text if it hasn't been wrapped with this font yet
         # This checks if we likely need to re-wrap (simple heuristic)
@@ -285,20 +348,28 @@ class MessageBox:
             text_x = portrait_x + p_w + Layout.MESSAGE_BOX_PORTRAIT_GAP
 
         # Calculate available text area
-        text_area_width = self.width - (text_x - x) - padding
         line_height = font.get_linesize() + Layout.MESSAGE_BOX_LINE_GAP
 
-        # Vertically center text block in message box
-        total_text_height = len(self.lines) * line_height - Layout.MESSAGE_BOX_LINE_GAP
-        text_y = y + (self.height - total_text_height) // 2
+        # Calculate pagination using helper method
+        self.lines_per_page = self._calculate_lines_per_page(font)
+
+        start_idx = self.current_page * self.lines_per_page
+        end_idx = min(start_idx + self.lines_per_page, len(self.lines))
+
+        lines_to_draw = self.lines[start_idx:end_idx]
+
+        # Vertically center text block if it's less than a full page
+        total_text_height = len(lines_to_draw) * line_height - Layout.MESSAGE_BOX_LINE_GAP
+        # Only center if we have fewer lines than fit on a page, to look nice
+        if len(lines_to_draw) < self.lines_per_page:
+            text_y = y + (self.height - total_text_height) // 2
+        else:
+            text_y = content_top
 
         # Ensure we don't start above the top padding
         text_y = max(text_y, content_top)
 
-        for line in self.lines:
-            if text_y > y + self.height - padding - font.get_linesize():
-                break
-
+        for line in lines_to_draw:
             # Draw text shadow for depth
             shadow_surface = font.render(line, True, Colors.BLACK)
             surface.blit(shadow_surface, (text_x + Layout.TEXT_SHADOW_OFFSET, text_y + Layout.TEXT_SHADOW_OFFSET))
@@ -307,6 +378,22 @@ class MessageBox:
             text_surface = font.render(line, True, Colors.TEXT_PRIMARY)
             surface.blit(text_surface, (text_x, text_y))
             text_y += line_height
+
+        # Draw "more" indicator if there are more pages
+        if not self.is_finished():
+            import math
+            self.animation_timer += 0.1
+            # Blinking effect
+            if math.sin(self.animation_timer) > -0.5:
+                indicator_x = x + self.width - padding - 12
+                indicator_y = y + self.height - padding - 8
+
+                # Draw a small down arrow/triangle
+                pygame.draw.polygon(surface, Colors.ACCENT, [
+                    (indicator_x, indicator_y),
+                    (indicator_x + 10, indicator_y),
+                    (indicator_x + 5, indicator_y + 6)
+                ])
 
 
 class ConfirmationDialog:

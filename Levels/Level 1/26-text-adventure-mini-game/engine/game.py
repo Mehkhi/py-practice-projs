@@ -397,7 +397,7 @@ class RpgGame:
         skills = load_skills_from_json()
 
         # Create battle system (rigged=True makes enemy attacks miss/deal minimal damage)
-        party_members = [self.player] + [ally for ally in getattr(self.player, "party", []) if ally]
+        party_members = self.player.get_battle_party()
         battle_system = BattleSystem(
             players=party_members,
             enemies=enemies,

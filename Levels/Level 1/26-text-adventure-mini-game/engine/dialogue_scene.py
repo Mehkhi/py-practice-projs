@@ -200,18 +200,26 @@ class DialogueScene(BaseMenuScene):
                 self._close_dialogue()
             return
 
-        if self.choice_menu:
-            if event.key in (pygame.K_UP, pygame.K_w):
-                self.choice_menu.move_selection(-1)
-            elif event.key in (pygame.K_DOWN, pygame.K_s):
-                self.choice_menu.move_selection(1)
-            elif event.key in (pygame.K_RETURN, pygame.K_SPACE):
-                self._select_choice()
-            elif event.key == pygame.K_ESCAPE:
-                self._close_dialogue()
-        else:
-            if event.key in (pygame.K_RETURN, pygame.K_SPACE, pygame.K_ESCAPE):
-                self._close_dialogue()
+        # Handle pagination
+        if event.key in (pygame.K_RETURN, pygame.K_SPACE):
+            if not self.message_box.is_finished():
+                self.message_box.advance()
+                return
+
+        # Only handle choices or closing if text is finished
+        if self.message_box.is_finished():
+            if self.choice_menu:
+                if event.key in (pygame.K_UP, pygame.K_w):
+                    self.choice_menu.move_selection(-1)
+                elif event.key in (pygame.K_DOWN, pygame.K_s):
+                    self.choice_menu.move_selection(1)
+                elif event.key in (pygame.K_RETURN, pygame.K_SPACE):
+                    self._select_choice()
+                elif event.key == pygame.K_ESCAPE:
+                    self._close_dialogue()
+            else:
+                if event.key in (pygame.K_RETURN, pygame.K_SPACE, pygame.K_ESCAPE):
+                    self._close_dialogue()
 
     def update(self, dt: float) -> None:
         """Update dialogue state (currently no timers needed)."""
@@ -257,7 +265,7 @@ class DialogueScene(BaseMenuScene):
 
         self.message_box.draw(surface, self.assets.get_font(Fonts.DEFAULT, Fonts.SIZE_BODY), panel=self.panel)
 
-        if self.choice_menu:
+        if self.choice_menu and self.message_box.is_finished():
             # Draw a background panel for the menu
             # We need to calculate the rect for the menu background
             menu_rect = pygame.Rect(
@@ -303,7 +311,9 @@ class DialogueScene(BaseMenuScene):
 
         width, height = surface.get_size()
 
-        if self.choice_menu:
+        if not self.message_box.is_finished():
+            help_text = "Enter/Space: Next"
+        elif self.choice_menu:
             help_text = "↑/↓: Select Choice  •  Enter/Space: Confirm"
         else:
             help_text = "Enter/Space/ESC: Continue"

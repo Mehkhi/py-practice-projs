@@ -315,14 +315,14 @@
         "sprite_id": "stone_wall"
       },
       {
-        "tile_id": "stone_wall",
-        "walkable": false,
-        "sprite_id": "stone_wall"
+        "tile_id": "stone_floor",
+        "walkable": true,
+        "sprite_id": "stone_floor"
       },
       {
-        "tile_id": "stone_wall",
-        "walkable": false,
-        "sprite_id": "stone_wall"
+        "tile_id": "stone_floor",
+        "walkable": true,
+        "sprite_id": "stone_floor"
       },
       {
         "tile_id": "stone_wall",
@@ -344,17 +344,17 @@
   "warps": [
     {
       "x": 3,
-      "y": 6,
+      "y": 7,
       "target_map_id": "shadowfen_town",
       "target_x": 12,
-      "target_y": 12
+      "target_y": 14
     },
     {
       "x": 4,
-      "y": 6,
+      "y": 7,
       "target_map_id": "shadowfen_town",
       "target_x": 12,
-      "target_y": 12
+      "target_y": 14
     }
   ],
   "triggers": [],

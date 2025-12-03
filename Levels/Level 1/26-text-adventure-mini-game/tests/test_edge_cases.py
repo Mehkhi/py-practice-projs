@@ -1,6 +1,7 @@
 """Unit tests for edge cases - Invalid data, missing assets, corrupted saves, empty collections, zero HP/SP."""
 
 import copy
+import glob
 import json
 import os
 import tempfile
@@ -17,6 +18,42 @@ from core.entities import Player, PartyMember
 from core.stats import Stats, StatusEffect
 from core.world import World, Map, Tile
 from engine.assets import AssetManager
+
+
+def _cleanup_temp_files(temp_dir: str) -> None:
+    """Clean up any remaining .tmp files in a directory.
+
+    This helper ensures that temporary files created during atomic writes
+    are properly removed, even if tests fail or are interrupted.
+
+    Args:
+        temp_dir: Directory path to clean up
+    """
+    if not os.path.exists(temp_dir):
+        return
+
+    try:
+        # Find all .tmp files in the directory
+        tmp_pattern = os.path.join(temp_dir, "*.tmp")
+        tmp_files = glob.glob(tmp_pattern)
+
+        # Remove each .tmp file, handling permission errors gracefully
+        for tmp_file in tmp_files:
+            try:
+                if os.path.exists(tmp_file):
+                    # Try to restore permissions if needed
+                    try:
+                        os.chmod(tmp_file, 0o644)
+                    except (OSError, PermissionError):
+                        pass  # Ignore permission errors when trying to fix permissions
+
+                    os.remove(tmp_file)
+            except (OSError, PermissionError):
+                # Ignore errors - file may be locked or already removed
+                pass
+    except Exception:
+        # Ignore any errors during cleanup - we'll try to remove the directory anyway
+        pass
 
 
 def _deep_merge(base: Dict[str, Any], overrides: Dict[str, Any]) -> Dict[str, Any]:
@@ -238,8 +275,13 @@ class TestMissingAssets(unittest.TestCase):
             self.assertEqual(image.get_height(), size[1], f"Height mismatch for size {size}")
 
 
+@patch.dict(os.environ, {'SAVE_VALIDATION_QUIET': '1'})
 class TestCorruptedSaveFiles(unittest.TestCase):
-    """Test additional corrupted save file edge cases."""
+    """Test additional corrupted save file edge cases.
+
+    Validation warnings are suppressed since these tests intentionally create
+    invalid data to test recovery behavior.
+    """
 
     def setUp(self):
         self.temp_dir = tempfile.mkdtemp()
@@ -251,10 +293,16 @@ class TestCorruptedSaveFiles(unittest.TestCase):
 
     def tearDown(self):
         import shutil
+        # Clean up any remaining .tmp files before removing directory
+        _cleanup_temp_files(self.temp_dir)
         shutil.rmtree(self.temp_dir, ignore_errors=True)
 
     def _make_valid_save_data(self, **overrides) -> Dict[str, Any]:
-        """Create a valid save data dict with optional deep-merge overrides."""
+        """Create a valid save data dict with optional deep-merge overrides.
+
+        This matches the serializer output format exactly, including all required fields
+        from the validation schema to avoid triggering recovery warnings.
+        """
         base = {
             "meta": {
                 "version": 1,
@@ -264,6 +312,7 @@ class TestCorruptedSaveFiles(unittest.TestCase):
             "world": {
                 "current_map_id": "forest_path",
                 "flags": {},
+                "visited_maps": [],
                 "runtime_state": {"trigger_states": {}, "enemy_states": {}}
             },
             "player": {
@@ -272,8 +321,10 @@ class TestCorruptedSaveFiles(unittest.TestCase):
                 "x": 5,
                 "y": 10,
                 "inventory": {},
+                "hotbar_slots": {},
                 "equipment": {},
                 "skills": [],
+                "learned_moves": [],
                 "stats": {
                     "max_hp": 100,
                     "hp": 80,
@@ -284,17 +335,68 @@ class TestCorruptedSaveFiles(unittest.TestCase):
                     "magic": 8,
                     "speed": 6,
                     "luck": 3,
+                    "level": 1,
+                    "exp": 0,
                     "status_effects": {}
-                }
+                },
+                "memory_value": 0,
+                "memory_stat_type": None,
+                "party": [],
+                "party_formation": {},
+                "formation_position": "front",
+                "skill_tree_progress": None,
+                "player_class": None,
+                "player_subclass": None,
+                "crafting_progress": None,
+                "bestiary": None
             }
         }
         return _deep_merge(base, overrides)
 
     def _write_save_data(self, save_data: Dict[str, Any], slot: int = 1) -> str:
-        """Write save data to a slot and return the path."""
+        """Write save data to a slot and return the path.
+
+        Uses atomic write pattern to ensure file is fully written before closing.
+        Sets proper file permissions and ensures cleanup of temp files.
+        """
         save_path = os.path.join(self.temp_dir, f"save_{slot}.json")
-        with open(save_path, 'w') as f:
-            json.dump(save_data, f)
+        # Use atomic write: write to temp file first, then rename
+        temp_path = f"{save_path}.tmp"
+        try:
+            with open(temp_path, 'w') as f:
+                json.dump(save_data, f, indent=2)
+
+            # Set proper file permissions (readable/writable by owner, readable by others)
+            try:
+                os.chmod(temp_path, 0o644)
+            except (OSError, PermissionError):
+                # Ignore permission errors - may not be supported on all systems
+                pass
+
+            # Atomic rename (works on Unix and Windows)
+            os.replace(temp_path, save_path)
+
+            # Ensure temp file is gone after successful rename
+            # (os.replace should handle this, but be explicit for safety)
+            if os.path.exists(temp_path):
+                try:
+                    os.remove(temp_path)
+                except (OSError, PermissionError):
+                    pass  # File may already be gone or locked
+        except Exception:
+            # Clean up temp file on error
+            if os.path.exists(temp_path):
+                try:
+                    # Try to restore permissions before removal
+                    try:
+                        os.chmod(temp_path, 0o644)
+                    except (OSError, PermissionError):
+                        pass
+                    os.remove(temp_path)
+                except (OSError, PermissionError):
+                    # If we can't remove it, it will be cleaned up in tearDown
+                    pass
+            raise
         return save_path
 
     def test_load_save_negative_hp(self):

@@ -9,7 +9,8 @@ import pygame
 from .scene import Scene
 from .assets import AssetManager
 from .ui import draw_hp_bar, draw_sp_bar, Minimap, TransitionManager, HelpOverlay, TipPopup, HintButton
-from .theme import Layout
+from .theme import Colors, Layout
+from core.logging_utils import log_warning
 from .config_loader import load_config
 from .world.world_renderer import WorldRenderer
 from .world.overworld_controller import OverworldController
@@ -37,7 +38,8 @@ from .world.world_logic import (
     update_map_weather,
 )
 from core.world import World
-from core.entities import Player, OverworldEnemy
+from core.entities import Player, OverworldEnemy, PartyMember
+from core.stats import Stats
 from core.encounters import load_encounters_from_json
 from core.combat.ai_validation import (
     iter_ai_actions,
@@ -54,6 +56,9 @@ if TYPE_CHECKING:
     from core.items import Item
     from core.quests import QuestManager
     from core.combat import Skill
+
+
+FORMATION_SEQUENCE = ["front", "middle", "back"]
 
 
 class WorldScene(Scene):
@@ -242,6 +247,12 @@ class WorldScene(Scene):
             self.tip_popup = None
             self.hint_button = None
 
+        # Party overlay UI state
+        self.party_overlay_visible = False
+        self.party_overlay_selection = 0
+        self.party_overlay_message: Optional[str] = None
+        self.party_overlay_message_timer = 0.0
+
         # Initialize puzzle system
         from core.data_loader import load_puzzles_from_json
         from core.puzzles import PuzzleManager
@@ -263,6 +274,14 @@ class WorldScene(Scene):
 
     def handle_event(self, event: pygame.event.Event) -> None:
         """Handle input events."""
+        if self.party_overlay_visible:
+            if self._handle_party_overlay_event(event):
+                return
+
+        if event.type == pygame.KEYDOWN and event.key == pygame.K_f:
+            self._toggle_party_overlay()
+            return
+
         # Help overlay takes priority when visible
         if self.help_overlay and self.help_overlay.visible:
             if self.help_overlay.handle_event(event):
@@ -297,6 +316,11 @@ class WorldScene(Scene):
 
     def update(self, dt: float) -> None:
         """Update scene state."""
+        if self.party_overlay_message and self.party_overlay_message_timer > 0:
+            self.party_overlay_message_timer = max(0.0, self.party_overlay_message_timer - dt)
+            if self.party_overlay_message_timer <= 0:
+                self.party_overlay_message = None
+
         # Update screen transitions
         self.transition.update(dt)
 
@@ -307,6 +331,9 @@ class WorldScene(Scene):
         # Don't process input during transitions
         if self.transition.is_active():
             return
+
+        # Check for party recruitment
+        self._check_party_recruitment()
 
         # Check if we just returned from a battle and need to mark enemy as defeated
         if self._pending_enemy_defeat and self.manager and self.manager.current() is self:
@@ -325,6 +352,9 @@ class WorldScene(Scene):
             teaser_id = self._pending_brain_teaser
             self._pending_brain_teaser = None
             self.trigger_handler._open_brain_teaser(teaser_id)
+
+        if self.party_overlay_visible:
+            return
 
         # Delegate movement and input handling to controller
         self.controller.update_movement(dt)
@@ -374,6 +404,284 @@ class WorldScene(Scene):
         if self.hint_button:
             self.hint_button.update(dt)
 
+    def _check_party_recruitment(self) -> None:
+        """Check world flags for recruited NPCs and add them to the party."""
+        prototypes = self.get_manager_attr("party_prototypes", "_check_party_recruitment")
+        if not prototypes:
+            return
+
+        for member_id, data in prototypes.items():
+            recruited_flag = f"{member_id}_recruited"
+            joined_flag = f"{member_id}_joined"
+
+            # If recruited flag is set but they haven't joined yet
+            if not (self.world.get_flag(recruited_flag) and not self.world.get_flag(joined_flag)):
+                continue
+
+            try:
+                # Resolve prototype fields (PartyMember instance or legacy dict)
+                if isinstance(data, PartyMember):
+                    proto = data
+                    proto_entity_id = proto.entity_id or member_id
+                    name = proto.name or member_id.capitalize()
+                    sprite_id = proto.sprite_id or "player"
+
+                    # Clone stats so each recruited member has independent HP, etc.
+                    if proto.stats:
+                        stats = Stats(
+                            max_hp=proto.stats.max_hp,
+                            hp=proto.stats.hp,
+                            max_sp=proto.stats.max_sp,
+                            sp=proto.stats.sp,
+                            attack=proto.stats.attack,
+                            defense=proto.stats.defense,
+                            magic=proto.stats.magic,
+                            speed=proto.stats.speed,
+                            luck=proto.stats.luck,
+                        )
+                    else:
+                        stats = Stats(100, 100, 50, 50, 10, 10, 10, 10, 5)
+
+                    base_skills = list(getattr(proto, "base_skills", []) or [])
+                    role = getattr(proto, "role", "fighter") or "fighter"
+                    portrait_id = getattr(proto, "portrait_id", None)
+                    formation_position = getattr(proto, "formation_position", "middle") or "middle"
+                    equipment_source = dict(getattr(proto, "equipment", {}) or {})
+                else:
+                    # Fallback: data is a raw dict (older save or alternate loader)
+                    stats_data = data.get("stats", {})
+                    stats = Stats(
+                        max_hp=stats_data.get("max_hp", 100),
+                        hp=stats_data.get("hp", 100),
+                        max_sp=stats_data.get("max_sp", 50),
+                        sp=stats_data.get("sp", 50),
+                        attack=stats_data.get("attack", 10),
+                        defense=stats_data.get("defense", 10),
+                        magic=stats_data.get("magic", 10),
+                        speed=stats_data.get("speed", 10),
+                        luck=stats_data.get("luck", 5),
+                    )
+                    proto_entity_id = data.get("entity_id", member_id)
+                    name = data.get("name", member_id.capitalize())
+                    sprite_id = data.get("sprite_id", "player")
+                    base_skills = list(data.get("base_skills", []) or [])
+                    role = data.get("role", "fighter") or "fighter"
+                    portrait_id = data.get("portrait_id")
+                    formation_position = data.get("formation_position", "middle") or "middle"
+                    equipment_source = dict(data.get("equipment", {}) or {})
+
+                # Prevent duplicate addition (double safety) based on entity_id
+                if any(m.entity_id == proto_entity_id for m in self.player.party):
+                    self.world.set_flag(joined_flag, True)
+                    continue
+
+                # Create a fresh PartyMember instance for the recruited ally
+                member = PartyMember(
+                    entity_id=proto_entity_id,
+                    name=name,
+                    sprite_id=sprite_id,
+                    x=0,
+                    y=0,
+                    stats=stats,
+                    base_skills=base_skills,
+                    role=role,
+                    portrait_id=portrait_id,
+                    formation_position=formation_position,
+                )
+
+                # Add to party
+                if self.player.add_party_member(member):
+                    self.world.set_flag(joined_flag, True)
+                    self._show_inline_message(f"{member.name} joined the party!")
+
+                    # Sync authoritative formation mapping on the player
+                    self.player.party_formation[member.entity_id] = formation_position
+
+                    achievement_manager = self.get_manager_attr(
+                        "achievement_manager", "_check_party_recruitment"
+                    )
+                    if achievement_manager:
+                        try:
+                            achievement_manager.on_party_member_recruited(member.entity_id)
+                        except Exception as exc:
+                            log_warning(
+                                f"Failed to trigger party_member_recruited for {member.entity_id}: {exc}"
+                            )
+
+                    # Equip default items if specified
+                    if equipment_source and self.items_db:
+                        for slot, item_id in equipment_source.items():
+                            if item_id in self.items_db:
+                                member.equip(self.items_db[item_id], slot)
+                        member.recompute_equipment(self.items_db)
+
+            except Exception as e:
+                print(f"Failed to recruit party member {member_id}: {e}")
+
+    def _party_overlay_members(self) -> List["Entity"]:
+        members: List["Entity"] = [self.player]
+        members.extend([ally for ally in getattr(self.player, "party", []) if ally])
+        return members
+
+    def _toggle_party_overlay(self, force_state: Optional[bool] = None) -> None:
+        desired_state = (not self.party_overlay_visible) if force_state is None else bool(force_state)
+        if desired_state == self.party_overlay_visible:
+            return
+        self.party_overlay_visible = desired_state
+        if desired_state:
+            members = self._party_overlay_members()
+            if members:
+                self.party_overlay_selection = min(self.party_overlay_selection, len(members) - 1)
+            else:
+                self.party_overlay_selection = 0
+            self._party_overlay_show_message("Use Arrows to adjust formations.")
+        else:
+            self.party_overlay_message = None
+
+    def _handle_party_overlay_event(self, event: pygame.event.Event) -> bool:
+        if event.type != pygame.KEYDOWN:
+            return True
+        if event.key in (pygame.K_ESCAPE, pygame.K_f):
+            self._toggle_party_overlay(False)
+            return True
+        if event.key == pygame.K_UP:
+            self._move_party_overlay_selection(-1)
+            return True
+        if event.key == pygame.K_DOWN:
+            self._move_party_overlay_selection(1)
+            return True
+        if event.key == pygame.K_LEFT:
+            self._adjust_party_overlay_position(-1)
+            return True
+        if event.key == pygame.K_RIGHT:
+            self._adjust_party_overlay_position(1)
+            return True
+        return True
+
+    def _move_party_overlay_selection(self, delta: int) -> None:
+        members = self._party_overlay_members()
+        if not members:
+            self.party_overlay_selection = 0
+            return
+        self.party_overlay_selection = (self.party_overlay_selection + delta) % len(members)
+
+    def _adjust_party_overlay_position(self, direction: int) -> None:
+        members = self._party_overlay_members()
+        if not members:
+            return
+        index = self.party_overlay_selection % len(members)
+        member = members[index]
+        current_position = (
+            getattr(self.player, "formation_position", FORMATION_SEQUENCE[0])
+            if index == 0
+            else self.player.get_member_formation(member.entity_id)
+        )
+        if current_position not in FORMATION_SEQUENCE:
+            current_position = FORMATION_SEQUENCE[0]
+        new_index = (FORMATION_SEQUENCE.index(current_position) + direction) % len(FORMATION_SEQUENCE)
+        new_position = FORMATION_SEQUENCE[new_index]
+        if index == 0:
+            self.player.formation_position = new_position
+            self._party_overlay_show_message(f"Leader moves to {new_position.capitalize()}.")
+        else:
+            if self.player.set_member_formation(member.entity_id, new_position):
+                self._party_overlay_show_message(
+                    f"{member.name} moves to {new_position.capitalize()}."
+                )
+            else:
+                self._party_overlay_show_message(f"Can't move {member.name} there.")
+
+    def _draw_party_overlay(self, surface: pygame.Surface) -> None:
+        width, height = surface.get_size()
+        overlay = pygame.Surface((width, height), pygame.SRCALPHA)
+        overlay.fill((0, 0, 0, 180))
+        surface.blit(overlay, (0, 0))
+
+        margin = Layout.SCREEN_MARGIN
+        panel_rect = pygame.Rect(
+            margin,
+            margin,
+            width - margin * 2,
+            height - margin * 2,
+        )
+        pygame.draw.rect(surface, Colors.BG_PANEL, panel_rect)
+        pygame.draw.rect(surface, Colors.BORDER, panel_rect, 2)
+
+        title_font = self.assets.get_font("large", 28) or self.assets.get_font("default")
+        font = self.assets.get_font("default")
+        small_font = self.assets.get_font("small") or font
+
+        if title_font:
+            title_text = title_font.render("Party Formation", True, Colors.TEXT_PRIMARY)
+            surface.blit(title_text, (panel_rect.centerx - title_text.get_width() // 2, panel_rect.top + 20))
+
+        members = self._party_overlay_members()
+        row_height = 60
+        row_y = panel_rect.top + 80
+        row_x = panel_rect.left + 40
+        row_width = panel_rect.width - 80
+
+        for idx, member in enumerate(members):
+            card_rect = pygame.Rect(row_x, row_y + idx * (row_height + 10), row_width, row_height)
+            pygame.draw.rect(
+                surface,
+                Colors.BG_DARK if idx != self.party_overlay_selection else Colors.BG_PANEL,
+                card_rect,
+            )
+            pygame.draw.rect(
+                surface,
+                Colors.ACCENT if idx == self.party_overlay_selection else Colors.BORDER,
+                card_rect,
+                2,
+            )
+
+            if font:
+                role_label = "Leader" if idx == 0 else getattr(member, "role", "Ally").title()
+                formation = (
+                    getattr(self.player, "formation_position", "front")
+                    if idx == 0
+                    else self.player.get_member_formation(member.entity_id)
+                )
+                name_text = font.render(
+                    f"{member.name} - {role_label}",
+                    True,
+                    Colors.TEXT_PRIMARY,
+                )
+                surface.blit(name_text, (card_rect.x + 16, card_rect.y + 8))
+
+                formation_text = small_font.render(
+                    f"Position: {formation.capitalize()}",
+                    True,
+                    Colors.TEXT_SECONDARY,
+                )
+                surface.blit(formation_text, (card_rect.x + 16, card_rect.y + 30))
+
+        instructions = "F/Esc: Close  |  Up/Down: Select  |  Left/Right: Cycle"
+        if small_font:
+            help_text = small_font.render(instructions, True, Colors.TEXT_SECONDARY)
+            surface.blit(
+                help_text,
+                (
+                    panel_rect.centerx - help_text.get_width() // 2,
+                    panel_rect.bottom - 40,
+                ),
+            )
+
+        if self.party_overlay_message and small_font:
+            msg_text = small_font.render(self.party_overlay_message, True, Colors.TEXT_PRIMARY)
+            surface.blit(
+                msg_text,
+                (
+                    panel_rect.centerx - msg_text.get_width() // 2,
+                    panel_rect.bottom - 70,
+                ),
+            )
+
+    def _party_overlay_show_message(self, text: str) -> None:
+        self.party_overlay_message = text
+        self.party_overlay_message_timer = 2.0
+
+
     def _interact(self) -> None:
         """Handle interaction on the current tile or adjacent NPC."""
         self.trigger_handler.interact()
@@ -394,3 +702,6 @@ class WorldScene(Scene):
             self.tip_popup.draw(surface)
         if self.help_overlay:
             self.help_overlay.draw(surface)  # Overlay on very top
+
+        if self.party_overlay_visible:
+            self._draw_party_overlay(surface)

@@ -14,13 +14,26 @@ from ..logging_utils import log_warning
 from ..stats import Stats, create_default_player_stats
 from .serializer import DEFAULT_STARTING_MAP, SAVE_FILE_VERSION, serialize_entity_stats
 
-VALIDATION_QUIET = os.environ.get("SAVE_VALIDATION_QUIET", "").lower() in ("1", "true", "yes", "on")
+# Track validation warnings to avoid repeating the same message many times
+_EMITTED_VALIDATION_WARNINGS: Set[str] = set()
+
+
+def _is_validation_quiet() -> bool:
+    """Check if validation warnings should be suppressed.
+
+    Checks environment variable dynamically to support test patching.
+    """
+    return os.environ.get("SAVE_VALIDATION_QUIET", "").lower() in ("1", "true", "yes", "on")
 
 
 def _log_validation_warning(message: str) -> None:
     """Optionally emit validation warnings (silence via SAVE_VALIDATION_QUIET=1)."""
-    if not VALIDATION_QUIET:
-        log_warning(message)
+    if _is_validation_quiet():
+        return
+    if message in _EMITTED_VALIDATION_WARNINGS:
+        return
+    _EMITTED_VALIDATION_WARNINGS.add(message)
+    log_warning(message)
 
 
 @dataclass(frozen=True)
