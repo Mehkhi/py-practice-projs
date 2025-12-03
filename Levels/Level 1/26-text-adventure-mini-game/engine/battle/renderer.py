@@ -69,7 +69,9 @@ class BattleRendererMixin:
             if alpha < 255:
                 text_surf.set_alpha(alpha)
 
-            x, y = int(popup["x"]), int(popup["y"])
+            offset_x, offset_y = getattr(self, "screen_shake_offset", (0, 0))
+            x = int(popup["x"] + offset_x)
+            y = int(popup["y"] + offset_y)
             outline_color = (0, 0, 0)
             for ox, oy in [(-1, 0), (1, 0), (0, -1), (0, 1)]:
                 outline_surf = font.render(text, True, outline_color)
@@ -88,7 +90,7 @@ class BattleRendererMixin:
         flash_surf.fill((255, 200, 100, alpha))
         surface.blit(flash_surf, (0, 0))
 
-        if self.combo_flash > 0.5:
+        if self.combo_flash > 0.35:
             font = self.assets.get_font()
             text = "COMBO!"
             text_surf = font.render(text, True, (255, 255, 0))
@@ -109,7 +111,7 @@ class BattleRendererMixin:
         flash_surf.fill((100, 150, 255, alpha))
         surface.blit(flash_surf, (0, 0))
 
-        if self.coordinated_tactic_flash > 0.5:
+        if self.coordinated_tactic_flash > 0.35:
             font = self.assets.get_font()
             text = "COORDINATED ATTACK!"
             text_surf = font.render(text, True, (150, 200, 255))
@@ -130,7 +132,7 @@ class BattleRendererMixin:
         flash_surf.fill((255, 150, 100, alpha))
         surface.blit(flash_surf, (0, 0))
 
-        if self.phase_transition_flash > 0.5:
+        if self.phase_transition_flash > 0.35:
             font = self.assets.get_font()
             text = "PHASE SHIFT!"
             text_surf = font.render(text, True, (255, 200, 100))

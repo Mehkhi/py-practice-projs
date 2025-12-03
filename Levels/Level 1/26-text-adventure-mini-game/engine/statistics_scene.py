@@ -61,11 +61,12 @@ class StatisticsScene(BaseMenuScene):
             self.puzzle_manager = getattr(current_scene, 'puzzle_manager', None)
 
         # Build statistics data
-        self.stats_data = self._build_statistics()
-        self.categories = list(self.stats_data.keys())
+        self.stats_data: Dict[str, List[tuple]] = {}
+        self.categories: List[str] = []
         self.current_category_index = 0
         self.scroll_offset = 0
         self.max_items_per_page = 12
+        self._refresh_stats()
 
     def _build_statistics(self) -> Dict[str, List[tuple]]:
         """Build statistics data from all managers."""
@@ -176,6 +177,13 @@ class StatisticsScene(BaseMenuScene):
 
         return stats
 
+    def _refresh_stats(self) -> None:
+        """Rebuild stats data to reflect latest manager state."""
+        self.stats_data = self._build_statistics()
+        self.categories = list(self.stats_data.keys())
+        if self.current_category_index >= len(self.categories):
+            self.current_category_index = max(0, len(self.categories) - 1)
+
     def handle_event(self, event: pygame.event.Event) -> None:
         """Handle input events."""
         if event.type == pygame.KEYDOWN:
@@ -192,7 +200,7 @@ class StatisticsScene(BaseMenuScene):
 
     def update(self, dt: float) -> None:
         """Update scene state."""
-        pass
+        self._refresh_stats()
 
     def draw(self, surface: pygame.Surface) -> None:
         """Draw the statistics scene."""

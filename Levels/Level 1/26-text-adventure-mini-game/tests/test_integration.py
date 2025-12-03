@@ -1512,6 +1512,9 @@ class TestArenaIntegration(unittest.TestCase):
 
     def setUp(self):
         """Set up test fixtures with arena fighters and world stub."""
+        # Preserve global RNG state so seeding in tests doesn't leak to others
+        self._random_state = random.getstate()
+
         # Create arena fighters
         self.fighter_defs = {
             "dragon_whelp": ArenaFighter(
@@ -1549,6 +1552,10 @@ class TestArenaIntegration(unittest.TestCase):
         # Create world stub with gold
         self.world = World()
         self.world.set_flag("gold", 500)
+
+    def tearDown(self):
+        """Restore RNG state to avoid test order coupling."""
+        random.setstate(self._random_state)
 
     def test_arena_generate_matches_and_get_current_match(self):
         """Test that generate_matches creates distinct matches and get_current_match returns correct match."""

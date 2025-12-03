@@ -226,6 +226,7 @@ class Quest:
             "status": self.status.value,
             "objectives": [obj.to_dict() for obj in self.objectives],
             "tracked": self.tracked,
+            "turns_elapsed": self.turns_elapsed,
         }
 
     @classmethod

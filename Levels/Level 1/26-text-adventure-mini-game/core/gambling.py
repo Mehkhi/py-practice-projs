@@ -241,6 +241,13 @@ class GamblingManager:
 
     def can_afford(self, amount: int, world: "World") -> bool:
         """Check if player can afford bet."""
+        try:
+            amount = int(amount)
+        except (TypeError, ValueError):
+            return False
+        if amount <= 0:
+            return False
+
         gold = world.get_flag("gold", 0)
         if not isinstance(gold, (int, float)):
             gold = 0
@@ -248,6 +255,15 @@ class GamblingManager:
 
     def place_bet(self, amount: int, world: "World") -> bool:
         """Place a bet. Returns False if can't afford."""
+        self.current_bet = 0
+        try:
+            amount = int(amount)
+        except (TypeError, ValueError):
+            return False
+
+        if amount <= 0:
+            return False
+
         if not self.can_afford(amount, world):
             return False
         gold = world.get_flag("gold", 0)

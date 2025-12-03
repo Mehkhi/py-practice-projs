@@ -43,12 +43,14 @@ class PauseMenuScene(BaseMenuScene):
         self.player = player
         self.save_manager = save_manager
         self.save_slot = max(1, int(save_slot))
-        self.items_db = items_db or {}
-        self.quest_manager = quest_manager
+         self.items_db = items_db or {}
+         self.quest_manager = quest_manager
+         self.overlay: Optional[pygame.Surface] = None
 
-        # UI components - center menu horizontally with proper spacing
-        # Use compact mode for tighter menu item spacing
-        self.menu = Menu(
+         # UI components - center menu horizontally with proper spacing
+         # Use compact mode for tighter menu item spacing
+         self.menu = Menu(
+
             ["Resume", "Journal", "World Map", "Bestiary", "Boss Dossier", "Achievements", "Statistics", "Completion", "Party", "Skills", "Equipment", "Inventory", "Crafting", "Save Game", "Quit"],
             position=(Layout.center_x(self.MENU_WIDTH) + 20, 130),
             compact=True

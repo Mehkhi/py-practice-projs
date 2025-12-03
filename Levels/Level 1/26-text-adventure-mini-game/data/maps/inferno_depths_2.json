@@ -1,0 +1,1162 @@
+{
+  "map_id": "inferno_depths_2",
+  "width": 15,
+  "height": 15,
+  "tiles": [
+    [
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      }
+    ],
+    [
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      }
+    ],
+    [
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      }
+    ],
+    [
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      }
+    ],
+    [
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      }
+    ],
+    [
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      }
+    ],
+    [
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      }
+    ],
+    [
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      }
+    ],
+    [
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      }
+    ],
+    [
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      }
+    ],
+    [
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      }
+    ],
+    [
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      }
+    ],
+    [
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      }
+    ],
+    [
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      }
+    ],
+    [
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      },
+      {
+        "tile_id": "lava",
+        "walkable": true,
+        "sprite_id": "lava"
+      }
+    ]
+  ]
+}

@@ -878,28 +878,28 @@ class BattleAIMixin(ConditionEvaluatorMixin, TargetingMixin):
 
             # Apply aggressive modifier
             if 'aggressive' in weight_mods and action_type == 'attack':
-                new_weight = original_weight * weight_mods['aggressive']
+                new_weight *= weight_mods['aggressive']
                 rule_modified = True
 
             # Apply guard_when_weak modifier
             if 'guard_when_weak' in weight_mods:
                 if action_type == 'guard' and hp_percent < 40:
-                    new_weight = original_weight * weight_mods['guard_when_weak']
+                    new_weight *= weight_mods['guard_when_weak']
                     rule_modified = True
 
             # Apply skill_over_attack modifier
             if 'skill_over_attack' in weight_mods and action_type == 'skill':
-                new_weight = original_weight * weight_mods['skill_over_attack']
+                new_weight *= weight_mods['skill_over_attack']
                 rule_modified = True
 
             # Boost priority actions
             if 'focus_fire' in priority_actions and target_strategy == 'weakest_enemy':
-                new_weight = original_weight * 1.5
+                new_weight *= 1.5
                 rule_modified = True
 
             if 'protect_weak_ally' in priority_actions:
                 if action_type == 'guard' or target_strategy == 'weakest_ally':
-                    new_weight = original_weight * 1.3
+                    new_weight *= 1.3
                     rule_modified = True
 
             if rule_modified:

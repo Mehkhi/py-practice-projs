@@ -39,7 +39,11 @@
       "target_pattern": "single_ally",
       "status_inflict_id": null,
       "status_chance": 0.0,
-      "removes_status": ["poison", "burn", "bleed"]
+      "removes_status": [
+        "poison",
+        "burn",
+        "bleed"
+      ]
     },
     {
       "id": "poison_strike",
@@ -119,7 +123,17 @@
       "element": "holy",
       "target_pattern": "single_ally",
       "status_inflict_id": null,
-      "status_chance": 0.0
+      "status_chance": 0.0,
+      "removes_status": [
+        "poison",
+        "burn",
+        "bleed",
+        "frozen",
+        "confusion",
+        "sleep",
+        "stun",
+        "taunt"
+      ]
     },
     {
       "id": "barrier",
@@ -618,6 +632,203 @@
       "cost_sp": 50,
       "element": "arcane",
       "target_pattern": "all_enemies",
+      "status_inflict_id": null,
+      "status_chance": 0.0
+    },
+    {
+      "id": "bite",
+      "name": "Bite",
+      "power": 10,
+      "cost_sp": 4,
+      "element": "physical",
+      "target_pattern": "single_enemy",
+      "status_inflict_id": null,
+      "status_chance": 0.0
+    },
+    {
+      "id": "smash",
+      "name": "Smash",
+      "power": 28,
+      "cost_sp": 12,
+      "element": "physical",
+      "target_pattern": "single_enemy",
+      "status_inflict_id": "stun",
+      "status_chance": 0.25
+    },
+    {
+      "id": "iron_defense",
+      "name": "Iron Defense",
+      "power": 0,
+      "cost_sp": 10,
+      "element": "physical",
+      "target_pattern": "single_ally",
+      "status_inflict_id": "defense_up",
+      "status_chance": 1.0
+    },
+    {
+      "id": "shadow_step",
+      "name": "Shadow Step",
+      "power": 20,
+      "cost_sp": 14,
+      "element": "dark",
+      "target_pattern": "single_enemy",
+      "status_inflict_id": "evasion_up",
+      "status_chance": 1.0
+    },
+    {
+      "id": "fire_breath",
+      "name": "Fire Breath",
+      "power": 36,
+      "cost_sp": 18,
+      "element": "fire",
+      "target_pattern": "all_enemies",
+      "status_inflict_id": "burn",
+      "status_chance": 0.35
+    },
+    {
+      "id": "wing_buffet",
+      "name": "Wing Buffet",
+      "power": 22,
+      "cost_sp": 12,
+      "element": "physical",
+      "target_pattern": "all_enemies",
+      "status_inflict_id": "stun",
+      "status_chance": 0.2
+    },
+    {
+      "id": "poison_bite",
+      "name": "Poison Bite",
+      "power": 14,
+      "cost_sp": 10,
+      "element": "physical",
+      "target_pattern": "single_enemy",
+      "status_inflict_id": "poison",
+      "status_chance": 0.55
+    },
+    {
+      "id": "web_trap",
+      "name": "Web Trap",
+      "power": 0,
+      "cost_sp": 12,
+      "element": "physical",
+      "target_pattern": "single_enemy",
+      "status_inflict_id": "stun",
+      "status_chance": 0.4
+    },
+    {
+      "id": "thunder_swipe",
+      "name": "Thunder Swipe",
+      "power": 26,
+      "cost_sp": 16,
+      "element": "lightning",
+      "target_pattern": "single_enemy",
+      "status_inflict_id": "stun",
+      "status_chance": 0.3
+    },
+    {
+      "id": "roar",
+      "name": "Terrifying Roar",
+      "power": 0,
+      "cost_sp": 8,
+      "element": "physical",
+      "target_pattern": "all_enemies",
+      "status_inflict_id": "taunt",
+      "status_chance": 1.0
+    },
+    {
+      "id": "acid_spray",
+      "name": "Acid Spray",
+      "power": 24,
+      "cost_sp": 14,
+      "element": "poison",
+      "target_pattern": "all_enemies",
+      "status_inflict_id": "poison",
+      "status_chance": 0.4
+    },
+    {
+      "id": "tentacle_grab",
+      "name": "Tentacle Grab",
+      "power": 18,
+      "cost_sp": 12,
+      "element": "physical",
+      "target_pattern": "single_enemy",
+      "status_inflict_id": "stun",
+      "status_chance": 0.35
+    },
+    {
+      "id": "oath_of_valor",
+      "name": "Oath of Valor",
+      "power": 0,
+      "cost_sp": 20,
+      "element": "holy",
+      "target_pattern": "single_ally",
+      "status_inflict_id": "attack_up",
+      "status_chance": 1.0
+    },
+    {
+      "id": "knight_charge",
+      "name": "Knight's Charge",
+      "power": 48,
+      "cost_sp": 24,
+      "element": "physical",
+      "target_pattern": "single_enemy",
+      "status_inflict_id": null,
+      "status_chance": 0.0
+    },
+    {
+      "id": "nullify",
+      "name": "Nullify",
+      "power": 0,
+      "cost_sp": 18,
+      "element": "arcane",
+      "target_pattern": "single_enemy",
+      "status_inflict_id": null,
+      "status_chance": 0.0,
+      "removes_status": [
+        "attack_up",
+        "defense_up",
+        "shield",
+        "barrier",
+        "regen"
+      ]
+    },
+    {
+      "id": "void_emperor_strike",
+      "name": "Void Emperor Strike",
+      "power": 70,
+      "cost_sp": 35,
+      "element": "dark",
+      "target_pattern": "all_enemies",
+      "status_inflict_id": "terror",
+      "status_chance": 0.35
+    },
+    {
+      "id": "primal_roar",
+      "name": "Primal Roar",
+      "power": 0,
+      "cost_sp": 18,
+      "element": "physical",
+      "target_pattern": "all_allies",
+      "status_inflict_id": "attack_up",
+      "status_chance": 1.0
+    },
+    {
+      "id": "nature_wrath",
+      "name": "Nature's Wrath",
+      "power": 42,
+      "cost_sp": 26,
+      "element": "physical",
+      "target_pattern": "all_enemies",
+      "status_inflict_id": "bleed",
+      "status_chance": 0.4
+    },
+    {
+      "id": "beast_claw",
+      "name": "Beast Claw",
+      "power": 34,
+      "cost_sp": 18,
+      "element": "physical",
+      "target_pattern": "single_enemy",
       "status_inflict_id": null,
       "status_chance": 0.0
     }

@@ -129,6 +129,7 @@ class BattleInitializer:
         scene.target_side = None
         scene.active_player_index = 0
         scene._player_phase_initialized = False
+        scene._include_downed_allies = False
 
         scene.status_icon_map = self._load_status_icon_map()
         scene.item_menu_mapping = {}

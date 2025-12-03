@@ -267,8 +267,13 @@ class BattleScene(
         if self.encounter_id == "final_boss" and self.battle_system.state == BattleState.VICTORY:
             self.world.set_flag("final_boss_defeated", True)
 
-        # Check if this is the final boss and transition to ending immediately
+        # Check if this is the final boss and handle move learns before ending
         if self.encounter_id == "final_boss" and self.battle_system.state == BattleState.VICTORY:
+            pending_move_learns = getattr(self.rewards_handler, "_pending_move_learns", [])
+            if pending_move_learns:
+                # Run move-learn flow, then transition to the ending
+                self._run_move_learns_then(self._transition_to_ending)
+                return
             self._transition_to_ending()
             return
 
@@ -513,6 +518,38 @@ class BattleScene(
         """Trigger the move learning scene for the next pending move."""
         self.rewards_handler.trigger_next_move_learn()
 
+    def _run_move_learns_then(self, on_complete: callable) -> None:
+        """Process all pending move-learn scenes, then run a callback.
+
+        Used for final-boss victories so move-learn prompts are not skipped
+        when transitioning directly to the ending scene.
+        """
+        if not self.manager:
+            on_complete()
+            return
+
+        pending = getattr(self.rewards_handler, "_pending_move_learns", [])
+        if not pending:
+            on_complete()
+            return
+
+        entity, move = pending.pop(0)
+
+        from engine.move_learn_scene import MoveLearnScene
+
+        def _after() -> None:
+            self._run_move_learns_then(on_complete)
+
+        learn_scene = MoveLearnScene(
+            self.manager,
+            entity,
+            move,
+            on_complete=_after,
+            assets=self.assets,
+            scale=self.scale,
+        )
+        self.manager.push(learn_scene)
+
     # _draw_party_hud now in BattleHudMixin
 
     def _draw_background(self, surface: pygame.Surface, shake_offset: Tuple[int, int] = (0, 0)) -> None:
@@ -620,14 +657,11 @@ class BattleScene(
         # Use SIZE_BODY (20) instead of SIZE_SMALL (16) for better readability
         hp_font = self.assets.get_font(size=Fonts.SIZE_BODY)
 
-        # Apply screen shake
-        shake_x, shake_y = 0, 0
-        if self.shake_intensity > 0:
-            shake_x = random.randint(-int(self.shake_intensity), int(self.shake_intensity))
-            shake_y = random.randint(-int(self.shake_intensity), int(self.shake_intensity))
+        # Apply screen shake (computed during update)
+        offset_x, offset_y = getattr(self, "screen_shake_offset", (0, 0))
 
         # Draw background first (with screen shake applied)
-        self._draw_background(surface, shake_offset=(shake_x, shake_y))
+        self._draw_background(surface, shake_offset=(offset_x, offset_y))
 
         # Draw enemies with coordination effects and phase badges
         self._draw_enemies(surface, hp_font)
@@ -650,6 +684,118 @@ class BattleScene(
                 ally.entity.sprite_id,
                 (self.sprite_size, self.sprite_size)
             )
+            # Apply colorkey to remove black background from battle sprites
+            ally_surface.set_colorkey((0, 0, 0))
+            ally_x = ally_base_x + idx * ally_spacing
+            render_x = ally_x + offset_x
+            render_y = ally_y + offset_y
+            surface.blit(ally_surface, (render_x, render_y))
+
+            # Ally selection or active highlight
+            if selected_ally_id and ally.entity.entity_id == selected_ally_id:
+                highlight_rect = pygame.Rect(
+                    render_x - 4,
+                    render_y - 4,
+                    self.draw_size + 8,
+                    self.draw_size + 8
+                )
+                pygame.draw.rect(surface, (255, 255, 0), highlight_rect, 2)
+            elif active_actor_id and ally.entity.entity_id == active_actor_id:
+                active_rect = pygame.Rect(
+                    render_x - 6,
+                    render_y - 6,
+                    self.draw_size + 12,
+                    self.draw_size + 12
+                )
+                sp_color = Colors.get_sp_color()
+                pygame.draw.rect(surface, sp_color, active_rect, 2)
+
+            # Ally HP bar + status icons
+            if ally.stats:
+                bar_height = 6
+                bar_y = render_y - 12
+                # Draw ally name above sprite
+                if hp_font:
+                    name_surf = hp_font.render(ally.entity.name, True, (255, 255, 255))
+                    name_shadow = hp_font.render(ally.entity.name, True, (0, 0, 0))
+                    name_x = render_x + (self.draw_size - name_surf.get_width()) // 2
+                    name_padding = 4
+                    hp_padding = 4
+
+                    # Precompute positions so name, HP, and bar never overlap
+                    hp_text = f"{ally.stats.hp}/{ally.stats.max_hp}"
+                    hp_surf = hp_font.render(hp_text, True, (255, 255, 255))
+                    hp_shadow = hp_font.render(hp_text, True, (0, 0, 0))
+                    hp_x = render_x + (self.draw_size - hp_surf.get_width()) // 2
+
+                    hp_box_height = hp_surf.get_height() + hp_padding * 2
+                    name_box_height = name_surf.get_height() + name_padding * 2
+                    hp_y = bar_y - hp_box_height - Layout.ELEMENT_GAP_SMALL
+                    name_y = hp_y - name_box_height - Layout.ELEMENT_GAP_SMALL
+
+                    # Draw semi-transparent name tag background matching weather/time styling
+                    name_bg_rect = pygame.Rect(
+                        name_x - name_padding,
+                        name_y - name_padding,
+                        name_surf.get_width() + name_padding * 2,
+                        name_surf.get_height() + name_padding * 2
+                    )
+                    from engine.world.overworld_renderer import draw_rounded_panel
+                    PANEL_BG = (20, 25, 40, 180)
+                    draw_rounded_panel(
+                        surface,
+                        name_bg_rect,
+                        PANEL_BG,
+                        Colors.BORDER,
+                        border_width=Layout.BORDER_WIDTH_THIN,
+                        radius=Layout.CORNER_RADIUS_SMALL
+                    )
+
+                    surface.blit(name_shadow, (name_x + 1, name_y + 1))
+                    surface.blit(name_surf, (name_x, name_y))
+
+                    # Draw HP numbers below name with spacing from bar
+                    hp_bg_rect = pygame.Rect(
+                        hp_x - hp_padding,
+                        hp_y - hp_padding,
+                        hp_surf.get_width() + hp_padding * 2,
+                        hp_surf.get_height() + hp_padding * 2
+                    )
+                    from engine.world.overworld_renderer import draw_rounded_panel
+                    PANEL_BG = (20, 25, 40, 180)
+                    draw_rounded_panel(
+                        surface,
+                        hp_bg_rect,
+                        PANEL_BG,
+                        Colors.BORDER,
+                        border_width=Layout.BORDER_WIDTH_THIN,
+                        radius=Layout.CORNER_RADIUS_SMALL
+                    )
+
+                    surface.blit(hp_shadow, (hp_x + 1, hp_y + 1))
+                    surface.blit(hp_surf, (hp_x, hp_y))
+
+                # Draw HP bar (small, no text)
+                draw_hp_bar(
+                    surface,
+                    render_x,
+                    bar_y,
+                    self.draw_size,
+                    bar_height,
+                    ally.stats.hp,
+                    ally.stats.max_hp,
+                    "",
+                    font=hp_font,
+                    show_text=False,
+                )
+                icons = self._collect_status_icons(ally.stats.status_effects)
+                if icons:
+                    draw_status_icons(
+                        surface,
+                        icons,
+                        (render_x, render_y + self.draw_size + 4)
+                    )
+
             # Apply colorkey to remove black background from battle sprites
             ally_surface.set_colorkey((0, 0, 0))
             ally_x = ally_base_x + idx * ally_spacing
@@ -763,6 +909,13 @@ class BattleScene(
         # --- Party HUD (player + party members) ---
         self._draw_party_hud(surface, hp_font)
 
+        # --- Draw animations and effects before UI ---
+        self._draw_animations(surface)
+        self._draw_damage_numbers(surface)
+        self._draw_combo_flash(surface)
+        self._draw_coordinated_tactic_flash(surface)
+        self._draw_phase_transition_flash(surface)
+
         # --- Calculate UI positions first to avoid race conditions ---
         # Calculate message box position BEFORE drawing menus so menu can use correct position
         width, height = surface.get_size()
@@ -781,25 +934,24 @@ class BattleScene(
         self._draw_hotbar(surface, hp_font)
         self._draw_auto_battle_indicator(surface, hp_font)
 
-        # --- Draw animations and effects (on top of everything) ---
-        self._draw_animations(surface)
-        self._draw_damage_numbers(surface)
-        self._draw_combo_flash(surface)
-        self._draw_coordinated_tactic_flash(surface)
-        self._draw_phase_transition_flash(surface)
+        # --- Overlays ---
         self._draw_ai_debug_overlay(surface, hp_font)
         self._draw_ai_notification(surface, hp_font)
 
     def _draw_enemies(self, surface: pygame.Surface, font=None) -> None:
         """Draw all enemy sprites with coordination effects and target highlighting."""
         enemy_x, enemy_y = self._get_enemy_base_position()
+        offset_x, offset_y = getattr(self, "screen_shake_offset", (0, 0))
         alive_index = 0
         alive_enemies = self._alive_enemies()
 
         for enemy in self.battle_system.enemies:
             if enemy.is_alive():
+                render_x = enemy_x + offset_x
+                render_y = enemy_y + offset_y
+
                 # Draw shadow
-                shadow_rect = pygame.Rect(enemy_x + 10, enemy_y + self.sprite_size - 6, self.sprite_size - 20, 8)
+                shadow_rect = pygame.Rect(render_x + 10, render_y + self.sprite_size - 6, self.sprite_size - 20, 8)
                 s = pygame.Surface((shadow_rect.width, shadow_rect.height), pygame.SRCALPHA)
                 pygame.draw.ellipse(s, (0, 0, 0, 100), (0, 0, shadow_rect.width, shadow_rect.height))
                 surface.blit(s, shadow_rect.topleft)
@@ -807,8 +959,8 @@ class BattleScene(
                 # Draw coordinating enemy indicator (blue glow/outline)
                 if enemy.coordinated_action:
                     glow_rect = pygame.Rect(
-                        enemy_x - 4,
-                        enemy_y - 4,
+                        render_x - 4,
+                        render_y - 4,
                         self.sprite_size + 8,
                         self.sprite_size + 8
                     )
@@ -831,13 +983,13 @@ class BattleScene(
                 )
                 # Apply colorkey to remove black background from battle sprites
                 enemy_surface.set_colorkey((0, 0, 0))
-                surface.blit(enemy_surface, (enemy_x, enemy_y))
+                surface.blit(enemy_surface, (render_x, render_y))
 
                 # Enemy target highlight
                 if self.waiting_for_target and self.target_side == "enemy":
                     if alive_index == (self.target_index % len(alive_enemies) if alive_enemies else 0):
                         self._draw_target_cursor(
-                            surface, enemy_x + self.sprite_size // 2, enemy_y
+                            surface, render_x + self.sprite_size // 2, render_y
                         )
 
                 enemy_x += self._get_enemy_spacing()

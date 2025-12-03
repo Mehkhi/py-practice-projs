@@ -94,6 +94,14 @@ class ArenaManager:
     def place_bet(self, match: ArenaMatch, fighter_id: str,
                   amount: int, world: "World") -> Optional[ArenaBet]:
         """Place a bet on a fighter. Returns bet or None if failed."""
+        try:
+            amount = int(amount)
+        except (TypeError, ValueError):
+            return None
+
+        if amount <= 0:
+            return None
+
         gold = world.get_flag("gold", 0)
         if not isinstance(gold, (int, float)):
             gold = 0

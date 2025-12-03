@@ -58,6 +58,14 @@ class Inventory:
         Returns:
             The quantity that was actually added (may be less than requested if stack limit reached)
         """
+        try:
+            quantity = int(quantity)
+        except (TypeError, ValueError):
+            return 0
+
+        if quantity <= 0:
+            return 0
+
         if items_db:
             item = items_db.get(item_id)
             if item and item.max_stack_size is not None:
@@ -86,6 +94,14 @@ class Inventory:
 
     def remove(self, item_id: str, quantity: int = 1) -> bool:
         """Remove items from inventory. Returns True if successful."""
+        try:
+            quantity = int(quantity)
+        except (TypeError, ValueError):
+            return False
+
+        if quantity <= 0:
+            return False
+
         if not self.has(item_id, quantity):
             return False
         self.items[item_id] -= quantity
@@ -95,6 +111,12 @@ class Inventory:
 
     def has(self, item_id: str, quantity: int = 1) -> bool:
         """Check if inventory has enough of an item."""
+        try:
+            quantity = int(quantity)
+        except (TypeError, ValueError):
+            return False
+        if quantity <= 0:
+            return False
         return self.items.get(item_id, 0) >= quantity
 
     def has_item(self, item_id: str, quantity: int = 1) -> bool:

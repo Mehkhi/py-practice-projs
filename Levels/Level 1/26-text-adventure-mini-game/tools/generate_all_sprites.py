@@ -4,6 +4,7 @@ Comprehensive sprite generator for the text adventure game.
 Generates all missing sprites including enemies, status icons, NPCs, tiles, and more.
 """
 
+import argparse
 import os
 import random
 import math
@@ -11,18 +12,69 @@ from typing import Tuple, Optional
 
 import pygame
 
-# Initialize pygame
-pygame.init()
-
 # Setup paths
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-SPRITE_DIR = os.path.join(BASE_DIR, "assets", "sprites")
-TILESET_DIR = os.path.join(BASE_DIR, "assets", "tilesets", "default")
-PORTRAIT_DIR = os.path.join(BASE_DIR, "assets", "sprites", "portraits")
+DEFAULT_SPRITE_DIR = os.path.join(BASE_DIR, "assets", "sprites")
+DEFAULT_TILESET_DIR = os.path.join(BASE_DIR, "assets", "tilesets", "default")
+DEFAULT_PORTRAIT_DIR = os.path.join(BASE_DIR, "assets", "sprites", "portraits")
 
-os.makedirs(SPRITE_DIR, exist_ok=True)
-os.makedirs(TILESET_DIR, exist_ok=True)
-os.makedirs(PORTRAIT_DIR, exist_ok=True)
+SPRITE_DIR = DEFAULT_SPRITE_DIR
+TILESET_DIR = DEFAULT_TILESET_DIR
+PORTRAIT_DIR = DEFAULT_PORTRAIT_DIR
+DEFAULT_OUTPUT_BASE = os.path.join(BASE_DIR, "assets")
+
+DRY_RUN = False
+NO_OVERWRITE = False
+
+
+def ensure_pygame_initialized() -> None:
+    """Initialize pygame only when generating assets."""
+    if not pygame.get_init():
+        pygame.init()
+
+
+def set_output_base(base_path: str) -> None:
+    """Allow overriding the sprite output base directory."""
+    global SPRITE_DIR, TILESET_DIR, PORTRAIT_DIR
+    SPRITE_DIR = os.path.join(base_path, "sprites")
+    TILESET_DIR = os.path.join(base_path, "tilesets", "default")
+    PORTRAIT_DIR = os.path.join(base_path, "sprites", "portraits")
+
+    if not DRY_RUN:
+        os.makedirs(SPRITE_DIR, exist_ok=True)
+        os.makedirs(TILESET_DIR, exist_ok=True)
+        os.makedirs(PORTRAIT_DIR, exist_ok=True)
+
+
+def parse_args():
+    parser = argparse.ArgumentParser(description="Generate all sprites (legacy generator).")
+    parser.add_argument(
+        "--output-base",
+        default=DEFAULT_OUTPUT_BASE,
+        help="Base output directory that will contain sprites/, tilesets/, and portraits/ (default: assets)",
+    )
+    parser.add_argument(
+        "--seed",
+        type=int,
+        default=1337,
+        help="Random seed for deterministic output (default: 1337)",
+    )
+    parser.add_argument(
+        "--no-seed",
+        action="store_true",
+        help="Skip seeding so output varies each run",
+    )
+    parser.add_argument(
+        "--dry-run",
+        action="store_true",
+        help="Preview generation without writing files",
+    )
+    parser.add_argument(
+        "--no-overwrite",
+        action="store_true",
+        help="Do not overwrite existing files",
+    )
+    return parser.parse_args()
 
 
 # ============================================
@@ -132,6 +184,13 @@ def save_sprite(surface: pygame.Surface, name: str, directory: str = None) -> No
     if directory is None:
         directory = SPRITE_DIR
     path = os.path.join(directory, f"{name}.png")
+    if DRY_RUN:
+        print(f"[dry-run] Would create: {path}")
+        return
+    if NO_OVERWRITE and os.path.exists(path):
+        print(f"  Skipped existing: {path}")
+        return
+    os.makedirs(os.path.dirname(path), exist_ok=True)
     pygame.image.save(surface, path)
     print(f"  Created: {name}.png")
 
@@ -801,6 +860,10 @@ def update_status_icons_json() -> None:
 
     print("\nUpdating status_icons.json...")
 
+    if DRY_RUN:
+        print("  Skipped (dry-run enabled)")
+        return
+
     status_icons = {
         # Debuffs
         "poison": "status_poison",
@@ -833,6 +896,10 @@ def update_status_icons_json() -> None:
     }
 
     path = os.path.join(BASE_DIR, "data", "status_icons.json")
+    if NO_OVERWRITE and os.path.exists(path):
+        print(f"  Skipped (exists and --no-overwrite set): {path}")
+        return
+
     with open(path, "w") as f:
         json.dump(status_icons, f, indent=2)
 
@@ -841,6 +908,21 @@ def update_status_icons_json() -> None:
 
 def main() -> None:
     """Main entry point."""
+    global DRY_RUN, NO_OVERWRITE
+
+    args = parse_args()
+    DRY_RUN = args.dry_run
+    NO_OVERWRITE = args.no_overwrite
+
+    set_output_base(args.output_base)
+
+    if not args.no_seed:
+        random.seed(args.seed)
+    else:
+        print("Random seed disabled; output may vary.")
+
+    ensure_pygame_initialized()
+
     print("=" * 50)
     print("Comprehensive Sprite Generator")
     print("=" * 50)

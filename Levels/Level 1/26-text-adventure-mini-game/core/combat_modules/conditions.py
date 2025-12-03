@@ -84,7 +84,7 @@ class ConditionEvaluatorMixin:
         # Check if this is a simple rule (only HP/SP/turn/morale) that can be cached
         has_complex_conditions = any(key in conditions for key in [
             'allies_alive', 'enemies_alive', 'status_effects',
-            'ally_status_effects', 'enemy_status_effects'
+            'ally_status_effects', 'enemy_status_effects', 'morale'
         ])
 
         # Try cache lookup for simple rules

@@ -3,6 +3,7 @@
 from typing import Any, Dict, List, Optional
 
 from .data_loader import load_json_file
+from .logging_utils import log_warning
 from .quest_models import (
     ObjectiveType,
     Quest,
@@ -510,11 +511,19 @@ class QuestManager:
         for quest_id, quest in self.quests.items():
             if quest_id in quest_states:
                 state = quest_states[quest_id]
-                quest.status = QuestStatus(state.get("status", "locked"))
+                saved_status = state.get("status", quest.status.value)
+                try:
+                    quest.status = QuestStatus(saved_status)
+                except ValueError:
+                    log_warning(
+                        f"Unknown quest status '{saved_status}' for quest {quest_id}, defaulting to locked"
+                    )
+                    quest.status = QuestStatus.LOCKED
                 quest.tracked = state.get("tracked", False)
 
                 # Restore objective progress
                 obj_states = {o["id"]: o for o in state.get("objectives", [])}
+
                 for obj in quest.objectives:
                     if obj.id in obj_states:
                         obj_state = obj_states[obj.id]

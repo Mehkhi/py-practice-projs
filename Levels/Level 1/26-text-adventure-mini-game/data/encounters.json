@@ -1749,6 +1749,171 @@
       "backdrop_id": "bg_mirror_realm",
       "rewards": {"items": {}, "flags": ["mirror_self_defeated"], "exp": 20000, "gold": 15000},
       "spareable": false
+    },
+    "bandit_ambush": {
+      "enemies": [
+        {
+          "id": "bandit_leader",
+          "name": "Bandit Leader",
+          "sprite_id": "bandit",
+          "type": "bandit",
+          "level": 6,
+          "difficulty": "normal",
+          "max_hp": 120,
+          "hp": 120,
+          "max_sp": 20,
+          "sp": 20,
+          "attack": 16,
+          "defense": 8,
+          "magic": 4,
+          "speed": 10,
+          "luck": 6,
+          "weaknesses": ["holy"],
+          "resistances": [],
+          "immunities": [],
+          "absorbs": [],
+          "skills": ["power_strike", "smash"],
+          "items": {},
+          "ai_profile": {
+            "rules": [
+              {
+                "conditions": {
+                  "hp_percent": {"min": 0, "max": 50}
+                },
+                "action": {
+                  "type": "skill",
+                  "skill_id": "smash",
+                  "target_strategy": "weakest_enemy"
+                },
+                "weight": 6
+              },
+              {
+                "conditions": {
+                  "hp_percent": {"min": 0, "max": 100}
+                },
+                "action": {
+                  "type": "attack",
+                  "target_strategy": "random_enemy"
+                },
+                "weight": 10
+              }
+            ],
+            "fallback_action": {
+              "type": "attack",
+              "target_strategy": "random_enemy"
+            }
+          }
+        }
+      ],
+      "backdrop_id": "bg_forest",
+      "rewards": {"items": {"health_potion": 1}, "flags": ["bandit_defeated"], "exp": 120, "gold": 80}
+    },
+    "cave_bat_swarm": {
+      "enemies": [
+        {
+          "id": "cave_bat",
+          "name": "Cave Bat",
+          "sprite_id": "bat",
+          "type": "cave_bat",
+          "level": 3,
+          "difficulty": "normal",
+          "max_hp": 60,
+          "hp": 60,
+          "max_sp": 15,
+          "sp": 15,
+          "attack": 9,
+          "defense": 4,
+          "magic": 4,
+          "speed": 14,
+          "luck": 5,
+          "weaknesses": ["fire"],
+          "resistances": [],
+          "immunities": [],
+          "absorbs": [],
+          "skills": ["bite"],
+          "items": {},
+          "ai_profile": {
+            "rules": [
+              {
+                "conditions": {
+                  "hp_percent": {"min": 0, "max": 100}
+                },
+                "action": {
+                  "type": "attack",
+                  "target_strategy": "weakest_enemy"
+                },
+                "weight": 10
+              }
+            ],
+            "fallback_action": {
+              "type": "attack",
+              "target_strategy": "random_enemy"
+            }
+          }
+        }
+      ],
+      "backdrop_id": "bg_cave",
+      "rewards": {"items": {}, "flags": ["cave_bat_defeated"], "exp": 90, "gold": 50}
+    },
+    "swamp_spider_den": {
+      "enemies": [
+        {
+          "id": "swamp_spider",
+          "name": "Swamp Spider",
+          "sprite_id": "spider",
+          "type": "swamp_spider",
+          "level": 5,
+          "difficulty": "normal",
+          "max_hp": 90,
+          "hp": 90,
+          "max_sp": 20,
+          "sp": 20,
+          "attack": 14,
+          "defense": 6,
+          "magic": 6,
+          "speed": 9,
+          "luck": 4,
+          "weaknesses": ["fire"],
+          "resistances": ["poison"],
+          "immunities": [],
+          "absorbs": [],
+          "skills": ["poison_bite", "web_trap"],
+          "items": {},
+          "ai_profile": {
+            "rules": [
+              {
+                "conditions": {
+                  "hp_percent": {"min": 0, "max": 60},
+                  "sp_percent": {"min": 30, "max": 100}
+                },
+                "action": {
+                  "type": "skill",
+                  "skill_id": "web_trap",
+                  "target_strategy": "random_enemy"
+                },
+                "weight": 6
+              },
+              {
+                "conditions": {
+                  "hp_percent": {"min": 0, "max": 100}
+                },
+                "action": {
+                  "type": "skill",
+                  "skill_id": "poison_bite",
+                  "target_strategy": "weakest_enemy"
+                },
+                "weight": 8
+              }
+            ],
+            "fallback_action": {
+              "type": "attack",
+              "target_strategy": "random_enemy"
+            }
+          }
+        }
+      ],
+      "backdrop_id": "bg_swamp",
+      "rewards": {"items": {"antidote": 1}, "flags": ["swamp_spider_defeated"], "exp": 140, "gold": 90}
     }
   }
 }

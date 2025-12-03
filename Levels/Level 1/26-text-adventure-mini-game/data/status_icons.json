@@ -19,5 +19,6 @@
   "limb_leg_left_missing": "status_limb_leg",
   "limb_leg_right_missing": "status_limb_leg",
   "summon_skeleton": "status_regen",
-  "summon_elemental": "status_regen"
+  "summon_elemental": "status_regen",
+  "evasion_up": "status_shield"
 }

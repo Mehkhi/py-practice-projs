@@ -298,4 +298,9 @@ def recover_partial_save(data: Dict[str, Any]) -> Dict[str, Any]:
 
     _apply_schema(stats_data, STATS_SCHEMA, "player.stats")
 
+    for section in OPTIONAL_SECTIONS:
+        if section in recovered and not isinstance(recovered.get(section), dict):
+            recovered[section] = {}
+            _log_validation_warning(f"Recovering save: reset '{section}' to empty dict due to invalid type")
+
     return recovered

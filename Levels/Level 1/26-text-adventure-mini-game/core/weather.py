@@ -6,6 +6,7 @@ from enum import Enum
 from typing import Dict, Any, Tuple, Optional, List
 
 from .constants import DEFAULT_WINDOW_WIDTH, DEFAULT_WINDOW_HEIGHT
+from .logging_utils import log_schema_warning
 
 
 class WeatherType(Enum):
@@ -503,9 +504,26 @@ class WeatherSystem:
     @classmethod
     def deserialize(cls, data: Dict[str, Any]) -> "WeatherSystem":
         """Deserialize weather state from saved data."""
-        current = WeatherType(data.get("current_weather", "clear"))
+        context = "weather system"
+        if not isinstance(data, dict):
+            log_schema_warning(context, f"expected object, got {type(data).__name__}; using defaults")
+            data = {}
+
+        current_raw = data.get("current_weather", "clear")
+        try:
+            current = WeatherType(current_raw)
+        except Exception:
+            log_schema_warning(context, f"invalid current_weather '{current_raw}', defaulting to clear")
+            current = WeatherType.CLEAR
+
         transition_val = data.get("transition_weather")
-        transition = WeatherType(transition_val) if transition_val else None
+        transition: Optional[WeatherType] = None
+        if transition_val is not None:
+            try:
+                transition = WeatherType(transition_val)
+            except Exception:
+                log_schema_warning(context, f"invalid transition_weather '{transition_val}', ignoring transition")
+                transition = None
 
         return cls(
             current_weather=current,
@@ -518,9 +536,28 @@ class WeatherSystem:
 
     def deserialize_into(self, data: Dict[str, Any]) -> None:
         """Restore state from saved data (Saveable protocol)."""
-        self.current_weather = WeatherType(data.get("current_weather", "clear"))
+        context = "weather system"
+        if not isinstance(data, dict):
+            log_schema_warning(context, f"expected object, got {type(data).__name__}; using defaults")
+            data = {}
+
+        current_raw = data.get("current_weather", "clear")
+        try:
+            self.current_weather = WeatherType(current_raw)
+        except Exception:
+            log_schema_warning(context, f"invalid current_weather '{current_raw}', defaulting to clear")
+            self.current_weather = WeatherType.CLEAR
+
         transition_val = data.get("transition_weather")
-        self.transition_weather = WeatherType(transition_val) if transition_val else None
+        if transition_val is not None:
+            try:
+                self.transition_weather = WeatherType(transition_val)
+            except Exception:
+                log_schema_warning(context, f"invalid transition_weather '{transition_val}', clearing transition")
+                self.transition_weather = None
+        else:
+            self.transition_weather = None
+
         self.transition_progress = data.get("transition_progress", 0.0)
         self.change_timer = data.get("change_timer", 300.0)
         self.enabled = data.get("enabled", True)

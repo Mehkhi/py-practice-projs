@@ -546,13 +546,13 @@ class QuestJournalScene(BaseMenuScene):
         y += Layout.ELEMENT_GAP
 
         # Rewards section (only for active/available quests)
+        rewards: List[str] = []
         if quest.status in (QuestStatus.ACTIVE, QuestStatus.AVAILABLE):
             if quest.reward_gold > 0 or quest.reward_exp > 0 or quest.reward_items:
                 rewards_header = font.render("Rewards:", True, Colors.ACCENT)
                 surface.blit(rewards_header, (details_rect.left + padding, y))
                 y += Layout.LINE_HEIGHT_COMPACT + 4
 
-                rewards = []
                 if quest.reward_gold > 0:
                     rewards.append(f"{quest.reward_gold} Gold")
                 if quest.reward_exp > 0:
@@ -561,9 +561,10 @@ class QuestJournalScene(BaseMenuScene):
                     item_name = item_id.replace("_", " ").title()
                     rewards.append(f"{item_name} x{qty}")
 
-        reward_text = ", ".join(rewards)
-        reward_surface = small_font.render(reward_text[:40], True, Colors.TEXT_HIGHLIGHT)
-        surface.blit(reward_surface, (details_rect.left + padding, y))
+        if rewards:
+            reward_text = ", ".join(rewards)
+            reward_surface = small_font.render(reward_text[:40], True, Colors.TEXT_HIGHLIGHT)
+            surface.blit(reward_surface, (details_rect.left + padding, y))
 
     def _wrap_text(self, text: str, font: pygame.font.Font, max_width: int) -> List[str]:
         """Wrap text to fit within max_width."""

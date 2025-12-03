@@ -17,13 +17,13 @@ import sys
 import json
 import argparse
 import time
+import random
 from pathlib import Path
 from typing import List, Dict, Any, Optional
 
 # Ensure pygame is available
 try:
     import pygame
-    pygame.init()
 except ImportError:
     print("Error: pygame is required. Install with: pip install pygame")
     sys.exit(1)
@@ -39,6 +39,12 @@ from .utils import scale_to_game_size
 
 # Default output directory
 DEFAULT_OUTPUT_BASE = "assets/sprites"
+
+
+def ensure_pygame_initialized() -> None:
+    """Initialize pygame once we know we're actually generating sprites."""
+    if not pygame.get_init():
+        pygame.init()
 
 
 def load_config(config_path: Optional[str] = None) -> Dict[str, Any]:
@@ -60,7 +66,7 @@ def load_config(config_path: Optional[str] = None) -> Dict[str, Any]:
     }
 
 
-def save_sprite_files(sprite, output_dir: str, config: Dict[str, Any]) -> Dict[str, str]:
+def save_sprite_files(sprite, output_dir: str, config: Dict[str, Any], overwrite: bool = True) -> Dict[str, str]:
     """
     Save sprite files in the correct structure for the game.
 
@@ -92,8 +98,11 @@ def save_sprite_files(sprite, output_dir: str, config: Dict[str, Any]) -> Dict[s
             static = scale_to_game_size(static, sprite.game_size)
 
         static_path = os.path.join(output_dir, f"{name}.png")
-        pygame.image.save(static, static_path)
-        saved_files['static'] = static_path
+        if not overwrite and os.path.exists(static_path):
+            print(f"    Skipped existing static sprite: {static_path}")
+        else:
+            pygame.image.save(static, static_path)
+            saved_files['static'] = static_path
 
     # 2. Save animation frames if enabled
     if config.get('generate_animations', True):
@@ -107,6 +116,8 @@ def save_sprite_files(sprite, output_dir: str, config: Dict[str, Any]) -> Dict[s
 
                 frame_name = f"{name}_{state}_{i}.png"
                 frame_path = os.path.join(anim_dir, frame_name)
+                if not overwrite and os.path.exists(frame_path):
+                    continue
                 pygame.image.save(frame, frame_path)
 
         saved_files['anim_dir'] = anim_dir
@@ -119,8 +130,11 @@ def save_sprite_files(sprite, output_dir: str, config: Dict[str, Any]) -> Dict[s
         sheet = sprite._create_sprite_sheet(scale)
         if sheet:
             sheet_path = os.path.join(sheets_dir, f"{name}_sheet.png")
-            pygame.image.save(sheet, sheet_path)
-            saved_files['sheet'] = sheet_path
+            if not overwrite and os.path.exists(sheet_path):
+                print(f"    Skipped existing sheet: {sheet_path}")
+            else:
+                pygame.image.save(sheet, sheet_path)
+                saved_files['sheet'] = sheet_path
 
     # 4. Save metadata if enabled
     if config.get('save_metadata', True):
@@ -129,15 +143,19 @@ def save_sprite_files(sprite, output_dir: str, config: Dict[str, Any]) -> Dict[s
 
         meta = sprite._create_metadata()
         meta_path = os.path.join(meta_dir, f"{name}_meta.json")
-        with open(meta_path, 'w') as f:
-            json.dump(meta, f, indent=2)
-        saved_files['meta'] = meta_path
+        if not overwrite and os.path.exists(meta_path):
+            print(f"    Skipped existing metadata: {meta_path}")
+        else:
+            with open(meta_path, 'w') as f:
+                json.dump(meta, f, indent=2)
+            saved_files['meta'] = meta_path
 
     return saved_files
 
 
 def generate_enemies(output_dir: str, config: Dict[str, Any],
-                     specific: Optional[List[str]] = None) -> int:
+                     specific: Optional[List[str]] = None,
+                     overwrite: bool = True) -> int:
     """Generate all enemy sprites."""
     count = 0
 
@@ -156,7 +174,7 @@ def generate_enemies(output_dir: str, config: Dict[str, Any],
             sprite = get_advanced_enemy_sprite(enemy_name)
 
         if sprite:
-            save_sprite_files(sprite, output_dir, config)
+            save_sprite_files(sprite, output_dir, config, overwrite=overwrite)
             count += 1
         else:
             print(f"    Warning: No sprite generator for {enemy_name}")
@@ -165,7 +183,8 @@ def generate_enemies(output_dir: str, config: Dict[str, Any],
 
 
 def generate_bosses(output_dir: str, config: Dict[str, Any],
-                    specific: Optional[List[str]] = None) -> int:
+                    specific: Optional[List[str]] = None,
+                    overwrite: bool = True) -> int:
     """Generate all boss sprites."""
     count = 0
 
@@ -176,7 +195,7 @@ def generate_bosses(output_dir: str, config: Dict[str, Any],
 
         sprite = get_boss_sprite(boss_name)
         if sprite:
-            save_sprite_files(sprite, output_dir, config)
+            save_sprite_files(sprite, output_dir, config, overwrite=overwrite)
             count += 1
         else:
             print(f"    Warning: No sprite generator for {boss_name}")
@@ -185,7 +204,8 @@ def generate_bosses(output_dir: str, config: Dict[str, Any],
 
 
 def generate_npcs(output_dir: str, config: Dict[str, Any],
-                  specific: Optional[List[str]] = None) -> int:
+                  specific: Optional[List[str]] = None,
+                  overwrite: bool = True) -> int:
     """Generate all NPC sprites."""
     count = 0
 
@@ -196,7 +216,7 @@ def generate_npcs(output_dir: str, config: Dict[str, Any],
 
         sprite = get_npc_sprite(npc_name)
         if sprite:
-            save_sprite_files(sprite, output_dir, config)
+            save_sprite_files(sprite, output_dir, config, overwrite=overwrite)
             count += 1
         else:
             print(f"    Warning: No sprite generator for {npc_name}")
@@ -205,7 +225,8 @@ def generate_npcs(output_dir: str, config: Dict[str, Any],
 
 
 def generate_party(output_dir: str, config: Dict[str, Any],
-                   specific: Optional[List[str]] = None) -> int:
+                   specific: Optional[List[str]] = None,
+                   overwrite: bool = True) -> int:
     """Generate all party member sprites."""
     count = 0
 
@@ -216,7 +237,7 @@ def generate_party(output_dir: str, config: Dict[str, Any],
 
         sprite = get_party_sprite(member_name)
         if sprite:
-            save_sprite_files(sprite, output_dir, config)
+            save_sprite_files(sprite, output_dir, config, overwrite=overwrite)
             count += 1
         else:
             print(f"    Warning: No sprite generator for {member_name}")
@@ -292,6 +313,25 @@ def main():
         help='Verbose output'
     )
 
+    parser.add_argument(
+        '--seed',
+        type=int,
+        default=1337,
+        help='Random seed for deterministic sprites (default: 1337)'
+    )
+
+    parser.add_argument(
+        '--no-seed',
+        action='store_true',
+        help='Skip seeding the RNG (sprites will change on every run)'
+    )
+
+    parser.add_argument(
+        '--no-overwrite',
+        action='store_true',
+        help='Do not overwrite existing sprite files; skip instead'
+    )
+
     args = parser.parse_args()
 
     # List mode
@@ -330,6 +370,15 @@ def main():
     # Ensure output directory exists
     os.makedirs(output_dir, exist_ok=True)
 
+    # Seed RNG for reproducibility unless explicitly disabled
+    if not args.no_seed:
+        random.seed(args.seed)
+    else:
+        print("Random seed disabled; output may vary per run.")
+
+    # Initialize pygame only when we're actually generating sprites
+    ensure_pygame_initialized()
+
     print(f"Sprite Generation System")
     print(f"========================")
     print(f"Output directory: {output_dir}")
@@ -344,25 +393,25 @@ def main():
     try:
         if args.type in ['all', 'enemies']:
             print("Generating enemy sprites...")
-            count = generate_enemies(output_dir, config, args.specific)
+            count = generate_enemies(output_dir, config, args.specific, overwrite=not args.no_overwrite)
             print(f"  Generated {count} enemy sprites")
             total_count += count
 
         if args.type in ['all', 'bosses']:
             print("Generating boss sprites...")
-            count = generate_bosses(output_dir, config, args.specific)
+            count = generate_bosses(output_dir, config, args.specific, overwrite=not args.no_overwrite)
             print(f"  Generated {count} boss sprites")
             total_count += count
 
         if args.type in ['all', 'npcs']:
             print("Generating NPC sprites...")
-            count = generate_npcs(output_dir, config, args.specific)
+            count = generate_npcs(output_dir, config, args.specific, overwrite=not args.no_overwrite)
             print(f"  Generated {count} NPC sprites")
             total_count += count
 
         if args.type in ['all', 'party']:
             print("Generating party member sprites...")
-            count = generate_party(output_dir, config, args.specific)
+            count = generate_party(output_dir, config, args.specific, overwrite=not args.no_overwrite)
             print(f"  Generated {count} party sprites")
             total_count += count
 

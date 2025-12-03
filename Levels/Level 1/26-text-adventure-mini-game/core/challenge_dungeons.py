@@ -5,19 +5,13 @@ from dataclasses import dataclass, field
 from enum import Enum
 from typing import Dict, List, Optional, Tuple, Any, TYPE_CHECKING
 
-import builtins as _builtins
 
-if not getattr(_builtins, "_challenge_any_patched", False):
-    _original_any = _builtins.any
 
-    def _any_compat(iterable):
-        """Allow any() to gracefully handle boolean inputs from legacy tests."""
-        if isinstance(iterable, bool):
-            return iterable
-        return _original_any(iterable)
-
-    _builtins.any = _any_compat  # type: ignore[assignment]
-    _builtins._challenge_any_patched = True
+def _any_compat(iterable):
+    """Allow any() to gracefully handle boolean inputs from legacy tests without monkey patching builtins."""
+    if isinstance(iterable, bool):
+        return iterable
+    return any(iterable)
 
 if TYPE_CHECKING:
     from .world import World
@@ -284,39 +278,60 @@ class ChallengeDungeonManager:
 
         modifiers = self.get_active_modifiers()
 
+        multipliers = {
+            "enemy_stat_multiplier": float(ctx.get("enemy_stat_multiplier", 1.0)),
+            "enemy_hp_multiplier": float(ctx.get("enemy_hp_multiplier", 1.0)),
+            "enemy_damage_multiplier": float(ctx.get("enemy_damage_multiplier", 1.0)),
+            "enemy_speed_multiplier": float(ctx.get("enemy_speed_multiplier", 1.0)),
+        }
+        lifesteal = float(ctx.get("enemy_lifesteal", 0.0))
+        healing_disabled = bool(ctx.get("healing_disabled", False))
+        magic_disabled = bool(ctx.get("magic_disabled", False))
+        stat_scramble = bool(ctx.get("stat_scramble", False))
+        hazards = list(ctx.get("hazards", []))
+        hazard_seen = set(hazards)
+
         for mod in modifiers:
-            if mod.effect_type == "stat_mod":
-                # Modify enemy stats
-                multiplier = mod.effect_data.get("enemy_stat_multiplier", 1.0)
-                ctx["enemy_stat_multiplier"] = multiplier
+            effect_type = mod.effect_type
+            data = mod.effect_data
 
-                # Specific stat multipliers
-                if "enemy_hp_multiplier" in mod.effect_data:
-                    ctx["enemy_hp_multiplier"] = mod.effect_data["enemy_hp_multiplier"]
-                if "enemy_damage_multiplier" in mod.effect_data:
-                    ctx["enemy_damage_multiplier"] = mod.effect_data["enemy_damage_multiplier"]
-                if "enemy_speed_multiplier" in mod.effect_data:
-                    ctx["enemy_speed_multiplier"] = mod.effect_data["enemy_speed_multiplier"]
+            if effect_type == "stat_mod":
+                multipliers["enemy_stat_multiplier"] *= float(data.get("enemy_stat_multiplier", 1.0))
+                multipliers["enemy_hp_multiplier"] *= float(data.get("enemy_hp_multiplier", 1.0))
+                multipliers["enemy_damage_multiplier"] *= float(data.get("enemy_damage_multiplier", 1.0))
+                multipliers["enemy_speed_multiplier"] *= float(data.get("enemy_speed_multiplier", 1.0))
+                if "enemy_lifesteal" in data:
+                    try:
+                        lifesteal = max(lifesteal, float(data["enemy_lifesteal"]))
+                    except (TypeError, ValueError):
+                        pass
 
-            elif mod.effect_type == "restriction":
-                # Apply restrictions
-                if mod.effect_data.get("no_healing"):
-                    ctx["healing_disabled"] = True
-                if mod.effect_data.get("no_magic"):
-                    ctx["magic_disabled"] = True
+            elif effect_type == "restriction":
+                if data.get("no_healing"):
+                    healing_disabled = True
+                if data.get("no_magic"):
+                    magic_disabled = True
 
-            elif mod.effect_type == "hazard":
-                # Add environmental hazards
-                if "hazards" not in ctx:
-                    ctx["hazards"] = []
-                ctx["hazards"].extend(mod.effect_data.get("hazards", []))
-                # Handle stat scramble (reality warp)
-                if mod.effect_data.get("stat_scramble"):
-                    ctx["stat_scramble"] = True
+            elif effect_type == "hazard":
+                for hazard in data.get("hazards", []):
+                    if hazard not in hazard_seen:
+                        hazards.append(hazard)
+                        hazard_seen.add(hazard)
+                if data.get("stat_scramble"):
+                    stat_scramble = True
 
-            # Handle stat_mod with lifesteal
-            if mod.effect_type == "stat_mod" and "enemy_lifesteal" in mod.effect_data:
-                ctx["enemy_lifesteal"] = mod.effect_data["enemy_lifesteal"]
+        ctx["enemy_stat_multiplier"] = multipliers["enemy_stat_multiplier"]
+        ctx["enemy_hp_multiplier"] = multipliers["enemy_hp_multiplier"]
+        ctx["enemy_damage_multiplier"] = multipliers["enemy_damage_multiplier"]
+        ctx["enemy_speed_multiplier"] = multipliers["enemy_speed_multiplier"]
+        ctx["enemy_lifesteal"] = lifesteal
+        ctx["healing_disabled"] = healing_disabled
+        ctx["magic_disabled"] = magic_disabled
+        ctx["stat_scramble"] = stat_scramble
+        if hazards:
+            ctx["hazards"] = hazards
+        elif "hazards" in ctx:
+            del ctx["hazards"]
 
         # Sync changes back to the provided dict for callers that rely on mutation
         if ctx is not battle_context:

@@ -15,7 +15,11 @@ class BattleUILayoutMixin:
         self.draw_size = self.sprite_size * self.scale
 
     @staticmethod
-    def _get_main_menu_position(screen_height: Optional[int] = None, message_box_y: Optional[int] = None) -> Tuple[int, int]:
+    def _get_main_menu_position(
+        screen_height: Optional[int] = None,
+        message_box_y: Optional[int] = None,
+        screen_width: Optional[int] = None,
+    ) -> Tuple[int, int]:
         """Position for the main battle menu.
 
         Positions menu flush with right edge and bottom corner, adjacent to message box.
@@ -23,12 +27,15 @@ class BattleUILayoutMixin:
         Args:
             screen_height: Height of the screen surface (defaults to Layout.SCREEN_HEIGHT if None)
             message_box_y: Y position of the message box (if None, uses default calculation)
+            screen_width: Width of the screen surface (defaults to Layout.SCREEN_WIDTH if None)
 
         Returns:
             Tuple of (x, y) position for the main menu
         """
         if screen_height is None:
             screen_height = Layout.SCREEN_HEIGHT
+        if screen_width is None:
+            screen_width = Layout.SCREEN_WIDTH
 
         # Calculate message box position if not provided
         if message_box_y is None:
@@ -39,7 +46,7 @@ class BattleUILayoutMixin:
 
         # Position menu text inside the panel (panel extends to right edge)
         # Text starts with padding from the panel's left edge
-        menu_x = Layout.SCREEN_WIDTH - menu_panel_width + 25  # 25px padding from panel left
+        menu_x = screen_width - menu_panel_width + 25  # 25px padding from panel left
 
         # Calculate menu height: 8 options * compact line height + padding
         num_options = 8

@@ -16,7 +16,7 @@ if TYPE_CHECKING:
 
 # Flash effect constants
 FLASH_INITIAL_INTENSITY = 1.0  # Starting intensity for flash effects (0.0 to 1.0)
-FLASH_DECAY_RATE = 3.0  # Rate at which flash effects fade (intensity per second)
+FLASH_DECAY_RATE = 2.0  # Rate at which flash effects fade (intensity per second)
 AI_NOTIFICATION_DURATION = 3.0  # Duration in seconds for AI pattern notifications
 
 # Type alias for animation draw functions
@@ -113,7 +113,13 @@ class BattleAnimationsMixin:
             return
 
         anim = self.current_animation
-        progress = min(1.0, self.animation_timer / anim["duration"])
+        duration = anim.get("duration", 0.0) or 0.0
+        if duration <= 0:
+            # Guard against zero-duration animations to avoid division errors
+            self.current_animation = None
+            return
+
+        progress = min(1.0, self.animation_timer / duration)
 
         if progress >= 1.0:
             self.current_animation = None
@@ -123,9 +129,10 @@ class BattleAnimationsMixin:
         anim_type = anim["type"]
         color = anim["color"]
 
-        # Calculate target position (center of enemy area)
-        target_x = 180
-        target_y = 150
+        # Calculate target position (center of enemy area) with screen shake offset
+        offset_x, offset_y = getattr(self, "screen_shake_offset", (0, 0))
+        target_x = 180 + offset_x
+        target_y = 150 + offset_y
 
         # Look up draw function in registry
         registry = self._get_animation_registry()
@@ -162,28 +169,34 @@ class BattleAnimationsMixin:
             pygame.draw.circle(surface, color, (x, y), radius - 10, 2)
 
     def _draw_fire_animation(
-        self, surface: pygame.Surface, x: int, y: int, progress: float
+        self, surface: pygame.Surface, x: int, y: int,
+        color: Tuple[int, int, int], progress: float
     ) -> None:
         """Draw a fire animation."""
         for i in range(5):
             offset_x = int(math.sin(progress * 10 + i) * 20)
             offset_y = int(-progress * 40 - i * 10)
             size = max(5, int(15 * (1 - progress)))
-            color = (255, 100 + int(100 * progress), 50)
-            pygame.draw.circle(surface, color, (x + offset_x, y + offset_y), size)
+            flame_color = (255, 100 + int(100 * progress), 50) if color is None else (
+                min(255, color[0]),
+                min(255, color[1] + int(50 * progress)),
+                min(255, color[2])
+            )
+            pygame.draw.circle(surface, flame_color, (x + offset_x, y + offset_y), size)
 
     def _draw_ice_animation(
-        self, surface: pygame.Surface, x: int, y: int, progress: float
+        self, surface: pygame.Surface, x: int, y: int,
+        color: Tuple[int, int, int], progress: float
     ) -> None:
         """Draw an ice animation."""
-        color = (100, 200, 255)
+        shard_color = color or (100, 200, 255)
         for i in range(6):
             angle = (i / 6) * 2 * math.pi + progress * 2
             dist = 30 + int(20 * progress)
             px = x + int(math.cos(angle) * dist)
             py = y + int(math.sin(angle) * dist)
             size = max(3, int(10 * (1 - progress)))
-            pygame.draw.polygon(surface, color, [
+            pygame.draw.polygon(surface, shard_color, [
                 (px, py - size),
                 (px + size, py),
                 (px, py + size),
@@ -191,10 +204,11 @@ class BattleAnimationsMixin:
             ])
 
     def _draw_lightning_animation(
-        self, surface: pygame.Surface, x: int, y: int, progress: float
+        self, surface: pygame.Surface, x: int, y: int,
+        color: Tuple[int, int, int], progress: float
     ) -> None:
         """Draw a lightning animation."""
-        color = (255, 255, 100)
+        bolt_color = color or (255, 255, 100)
         points = [(x, y - 60)]
         curr_y = y - 60
         while curr_y < y + 20:
@@ -203,33 +217,35 @@ class BattleAnimationsMixin:
             points.append((x + offset, curr_y))
 
         if len(points) > 1:
-            pygame.draw.lines(surface, color, False, points, 3)
+            pygame.draw.lines(surface, bolt_color, False, points, 3)
             pygame.draw.lines(surface, (255, 255, 200), False, points, 1)
 
     def _draw_dark_animation(
-        self, surface: pygame.Surface, x: int, y: int, progress: float
+        self, surface: pygame.Surface, x: int, y: int,
+        color: Tuple[int, int, int], progress: float
     ) -> None:
         """Draw a dark/shadow animation."""
-        color = (80, 50, 120)
+        shadow_color = color or (80, 50, 120)
         for i in range(8):
             angle = (i / 8) * 2 * math.pi - progress * 4
             dist = 20 + int(30 * math.sin(progress * math.pi))
             px = x + int(math.cos(angle) * dist)
             py = y + int(math.sin(angle) * dist)
             size = max(3, int(8 * (1 - abs(progress - 0.5) * 2)))
-            pygame.draw.circle(surface, color, (px, py), size)
+            pygame.draw.circle(surface, shadow_color, (px, py), size)
 
     def _draw_holy_animation(
-        self, surface: pygame.Surface, x: int, y: int, progress: float
+        self, surface: pygame.Surface, x: int, y: int,
+        color: Tuple[int, int, int], progress: float
     ) -> None:
         """Draw a holy/light animation."""
-        color = (255, 255, 200)
+        ray_color = color or (255, 255, 200)
         for i in range(8):
             angle = (i / 8) * 2 * math.pi
             length = 40 + int(30 * progress)
             end_x = x + int(math.cos(angle) * length)
             end_y = y + int(math.sin(angle) * length)
-            pygame.draw.line(surface, color, (x, y), (end_x, end_y), 2)
+            pygame.draw.line(surface, ray_color, (x, y), (end_x, end_y), 2)
         radius = int(15 + 10 * math.sin(progress * math.pi))
         pygame.draw.circle(surface, (255, 255, 255), (x, y), radius)
 
@@ -248,7 +264,8 @@ class BattleAnimationsMixin:
             pygame.draw.circle(surface, color, (px, py), 4)
 
     def _draw_ultimate_animation(
-        self, surface: pygame.Surface, x: int, y: int, progress: float
+        self, surface: pygame.Surface, x: int, y: int,
+        color: Tuple[int, int, int], progress: float
     ) -> None:
         """Draw an ultimate attack animation."""
         if progress < 0.2:
@@ -261,8 +278,12 @@ class BattleAnimationsMixin:
             ring_progress = max(0, progress - i * 0.15)
             if ring_progress > 0:
                 radius = int(20 + 80 * ring_progress)
-                color = (255, 200 - i * 50, 100)
-                pygame.draw.circle(surface, color, (x, y), radius, 4 - i)
+                ring_color = (
+                    min(255, color[0]) if color else 255,
+                    max(0, (color[1] - i * 50) if color else 200 - i * 50),
+                    min(255, color[2]) if color else 100,
+                )
+                pygame.draw.circle(surface, ring_color, (x, y), radius, 4 - i)
 
     def _draw_charge_animation(
         self, surface: pygame.Surface, x: int, y: int,
@@ -313,6 +334,9 @@ class BattleAnimationsMixin:
             )
         else:
             self.screen_shake_offset = (0, 0)
+
+        # Keep legacy shake_intensity in sync for callers that still check it
+        self.shake_intensity = self.screen_shake
 
         # Update damage numbers (use scaled dt for faster fade)
         for popup in self.damage_numbers[:]:

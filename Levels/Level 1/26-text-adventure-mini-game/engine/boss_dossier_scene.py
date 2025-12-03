@@ -40,11 +40,13 @@ class BossDossierScene(BaseMenuScene):
             if hint:
                 discovered_boss_ids.add(hint.boss_id)
 
-        return [
+        bosses = [
             self.sbm.bosses[bid]
             for bid in discovered_boss_ids
             if bid in self.sbm.bosses
         ]
+        bosses.sort(key=lambda boss: boss.boss_id)
+        return bosses
 
     def handle_event(self, event: pygame.event.Event) -> None:
         """Handle input events."""

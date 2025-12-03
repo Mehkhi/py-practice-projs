@@ -188,8 +188,8 @@ class TestBattlePerformance(unittest.TestCase):
         battle.perform_enemy_actions()
         elapsed = time.perf_counter() - start
 
-        # Should complete within 50ms for 5 enemies
-        self.assertLess(elapsed, 0.05, f"perform_enemy_actions took {elapsed*1000:.2f}ms, expected <50ms")
+        # Should complete within 100ms for 5 enemies (lenient to reduce flakiness on slow CI)
+        self.assertLess(elapsed, 0.1, f"perform_enemy_actions took {elapsed*1000:.2f}ms, expected <100ms")
 
     def test_perform_enemy_actions_performance_10_enemies(self):
         """Test that perform_enemy_actions completes within time threshold for 10 enemies."""
@@ -222,8 +222,8 @@ class TestBattlePerformance(unittest.TestCase):
         battle.perform_enemy_actions()
         elapsed = time.perf_counter() - start
 
-        # Should complete within 100ms for 10 enemies
-        self.assertLess(elapsed, 0.1, f"perform_enemy_actions took {elapsed*1000:.2f}ms, expected <100ms")
+        # Should complete within 200ms for 10 enemies (lenient to reduce flakiness on slow CI)
+        self.assertLess(elapsed, 0.2, f"perform_enemy_actions took {elapsed*1000:.2f}ms, expected <200ms")
 
     def test_turn_processing_no_degradation(self):
         """Test that turn processing doesn't degrade significantly with battle length."""

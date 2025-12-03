@@ -20,6 +20,7 @@ class BattleTargetingMixin:
         self.pending_move_id = None
         self.target_side = None
         self.target_type = None
+        self._include_downed_allies = False
         if reset_menus:
             self.skill_menu = None
             self.item_menu = None
@@ -54,6 +55,7 @@ class BattleTargetingMixin:
         """Enter target selection mode for the chosen action."""
         pool: List = []
         self.target_side = None
+        include_downed_allies = target_type == "single_ally" and self._should_include_downed_allies()
         if target_type == "single_enemy":
             pool = self._alive_enemies()
             self.target_side = "enemy"
@@ -61,13 +63,15 @@ class BattleTargetingMixin:
                 self.message_box.set_text("No valid targets.")
                 return
         elif target_type == "single_ally":
-            pool = self._alive_allies()
+            pool = self._alive_allies(include_downed_allies)
             self.target_side = "ally"
             if not pool:
                 self.message_box.set_text("No valid allies.")
                 return
         else:
             return
+
+        self._include_downed_allies = include_downed_allies if self.target_side == "ally" else False
         self.menu_mode = "target"
         self.waiting_for_target = True
         self.target_type = target_type
@@ -80,7 +84,7 @@ class BattleTargetingMixin:
         if self.target_side == "enemy":
             pool = self._alive_enemies()
         elif self.target_side == "ally":
-            pool = self._alive_allies()
+            pool = self._alive_allies(getattr(self, "_include_downed_allies", False))
         else:
             return
         if not pool:
@@ -100,7 +104,7 @@ class BattleTargetingMixin:
         if self.target_side == "enemy":
             pool = self._alive_enemies()
         elif self.target_side == "ally":
-            pool = self._alive_allies()
+            pool = self._alive_allies(getattr(self, "_include_downed_allies", False))
         else:
             return
 
@@ -160,9 +164,24 @@ class BattleTargetingMixin:
         """Return a list of living enemy participants."""
         return [e for e in self.battle_system.enemies if e.is_alive()]
 
-    def _alive_allies(self):
-        """Return a list of living ally participants (player side)."""
-        return [p for p in self.battle_system.players if p.is_alive()]
+    def _alive_allies(self, include_downed: bool = False):
+        """Return a list of ally participants, optionally including downed allies."""
+        allies = []
+        for participant in self.battle_system.players:
+            if participant.is_alive():
+                allies.append(participant)
+            elif include_downed and getattr(participant, "stats", None) and getattr(participant.stats, "hp", 0) <= 0:
+                allies.append(participant)
+        return allies
+
+    def _should_include_downed_allies(self) -> bool:
+        """Determine if targeting should include downed allies (revive items/skills)."""
+        if self.pending_item_id and getattr(self, "items_db", None):
+            item = self.items_db.get(self.pending_item_id)
+            effect_id = getattr(item, "effect_id", None)
+            if effect_id and str(effect_id).startswith("revive"):
+                return True
+        return False
 
     def _find_next_alive_index(self, start_index: int = 0) -> Optional[int]:
         """Find the index of the next living ally from a starting point."""

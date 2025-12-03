@@ -1,6 +1,6 @@
+import argparse
 import json
-import os
-import copy
+from pathlib import Path
 
 # Configuration for buildings
 BUILDINGS = {
@@ -74,7 +74,11 @@ BUILDINGS = {
     ]
 }
 
-def create_interior_map(config, town_id):
+BASE_DIR = Path(__file__).resolve().parent.parent
+DEFAULT_MAPS_DIR = BASE_DIR / "data" / "maps"
+
+
+def create_interior_map(config, town_id, output_dir: Path, dry_run: bool):
     width = 8
     height = 8
 
@@ -127,12 +131,21 @@ def create_interior_map(config, town_id):
         "props": []
     }
 
-    with open(f"data/maps/{config['map_id']}.json", 'w') as f:
-        json.dump(map_data, f, indent=2)
-    print(f"Created {config['map_id']}.json")
+    path = output_dir / f"{config['map_id']}.json"
+    if dry_run:
+        print(f"[dry-run] Would write {path}")
+        return
 
-def update_town_map(town_id, buildings):
-    path = f"data/maps/{town_id}.json"
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with open(path, 'w') as f:
+        json.dump(map_data, f, indent=2)
+    print(f"Created {path}")
+
+def update_town_map(town_id, buildings, output_dir: Path, dry_run: bool):
+    path = output_dir / f"{town_id}.json"
+    if not path.exists():
+        raise FileNotFoundError(f"Missing town map to update: {path}")
+
     with open(path, 'r') as f:
         data = json.load(f)
 
@@ -194,15 +207,41 @@ def update_town_map(town_id, buildings):
     # Remove NPCs
     data['entities'] = [e for e in data['entities'] if e['entity_id'] not in npcs_to_remove]
 
+    if dry_run:
+        print(f"[dry-run] Would update {path}")
+        return
+
     with open(path, 'w') as f:
         json.dump(data, f, indent=2)
-    print(f"Updated {town_id}.json")
+    print(f"Updated {path}")
 
 def main():
+    parser = argparse.ArgumentParser(
+        description="Generate building interiors and wire up town maps."
+    )
+    parser.add_argument(
+        "--output-dir",
+        default=str(DEFAULT_MAPS_DIR),
+        help="Directory containing map JSON files (default: data/maps)",
+    )
+    parser.add_argument(
+        "--dry-run",
+        action="store_true",
+        help="Preview writes without modifying files",
+    )
+    args = parser.parse_args()
+
+    output_dir = Path(args.output_dir).expanduser().resolve()
+    if not output_dir.exists():
+        raise SystemExit(f"Output directory not found: {output_dir}")
+
     for town_id, buildings in BUILDINGS.items():
         for b in buildings:
-            create_interior_map(b, town_id)
-        update_town_map(town_id, buildings)
+            create_interior_map(b, town_id, output_dir, args.dry_run)
+        update_town_map(town_id, buildings, output_dir, args.dry_run)
+
+    if args.dry_run:
+        print("\nDry run complete - no files were written.")
 
 if __name__ == "__main__":
     main()

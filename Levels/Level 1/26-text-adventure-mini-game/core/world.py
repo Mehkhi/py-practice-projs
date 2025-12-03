@@ -369,26 +369,54 @@ def load_map_from_json(json_path: str) -> Map:
     with open(json_path, 'r') as f:
         data = json.load(f)
 
+    map_id = data.get("map_id")
+    if not map_id:
+        raise ValueError(f"Map file {json_path} is missing required field 'map_id'")
+
     declared_width = data.get("width")
     declared_height = data.get("height")
     raw_tiles = data.get("tiles", [])
-    actual_height = len(raw_tiles)
-    actual_width = max((len(r) for r in raw_tiles), default=0)
-
-    # Load tiles
-    tiles: List[List[Tile]] = []
-    for row in raw_tiles:
-        tile_row = []
-        for tile_data in row:
-            tile = Tile(
-                tile_id=tile_data["tile_id"],
-                walkable=tile_data.get("walkable", True),
-                sprite_id=tile_data.get("sprite_id", tile_data["tile_id"])
-            )
-            tile_row.append(tile)
-        tiles.append(tile_row)
-
     placeholder_tile = Tile("void", False, "void")
+
+    def _placeholder_tile() -> Tile:
+        return Tile(placeholder_tile.tile_id, placeholder_tile.walkable, placeholder_tile.sprite_id)
+
+    def _has_required(obj: Dict, fields: List[str], label: str) -> bool:
+        missing = [field for field in fields if field not in obj]
+        if missing:
+            log_warning(f"map {map_id}: {label} missing required fields {', '.join(missing)}, skipping entry")
+            return False
+        return True
+
+    # Load tiles with tolerance for malformed entries
+    tiles: List[List[Tile]] = []
+    for y, row in enumerate(raw_tiles):
+        if not isinstance(row, list):
+            log_warning(f"map {map_id}: row {y} is not a list, skipping row")
+            continue
+        tile_row: List[Tile] = []
+        for x, tile_data in enumerate(row):
+            if not isinstance(tile_data, dict):
+                log_warning(f"map {map_id}: tile at ({x}, {y}) is not an object, using placeholder")
+                tile_row.append(_placeholder_tile())
+                continue
+            if "tile_id" not in tile_data:
+                log_warning(f"map {map_id}: tile at ({x}, {y}) missing tile_id, using placeholder")
+                tile_row.append(_placeholder_tile())
+                continue
+            tile_row.append(
+                Tile(
+                    tile_id=tile_data["tile_id"],
+                    walkable=tile_data.get("walkable", True),
+                    sprite_id=tile_data.get("sprite_id", tile_data["tile_id"]),
+                )
+            )
+        if tile_row:
+            tiles.append(tile_row)
+
+    actual_height = len(tiles)
+    actual_width = max((len(r) for r in tiles), default=0)
+
     target_width = declared_width or actual_width
     target_height = declared_height or actual_height
     target_width = max(target_width, actual_width)
@@ -396,7 +424,7 @@ def load_map_from_json(json_path: str) -> Map:
 
     if (declared_width and declared_width != actual_width) or (declared_height and declared_height != actual_height):
         log_warning(
-            f"map {data.get('map_id')} tile grid was {actual_width}x{actual_height} "
+            f"map {map_id} tile grid was {actual_width}x{actual_height} "
             f"but declared {declared_width}x{declared_height}; normalizing to {target_width}x{target_height}"
         )
 
@@ -404,24 +432,29 @@ def load_map_from_json(json_path: str) -> Map:
     for row in tiles:
         row_copy = list(row)
         if len(row_copy) < target_width:
-            row_copy.extend([placeholder_tile] * (target_width - len(row_copy)))
+            row_copy.extend([_placeholder_tile() for _ in range(target_width - len(row_copy))])
         elif len(row_copy) > target_width:
             row_copy = row_copy[:target_width]
         padded_tiles.append(row_copy)
     while len(padded_tiles) < target_height:
-        padded_tiles.append([placeholder_tile] * target_width)
+        padded_tiles.append([_placeholder_tile() for _ in range(target_width)])
     if len(padded_tiles) > target_height:
         padded_tiles = padded_tiles[:target_height]
 
     # Load warps
     warps = []
     for warp_data in data.get('warps', []):
+        if not isinstance(warp_data, dict):
+            log_warning(f"map {map_id}: warp entry is not an object, skipping")
+            continue
+        if not _has_required(warp_data, ["x", "y", "target_map_id", "target_x", "target_y"], "warp"):
+            continue
         warps.append(Warp(
-            x=warp_data['x'],
-            y=warp_data['y'],
-            target_map_id=warp_data['target_map_id'],
-            target_x=warp_data['target_x'],
-            target_y=warp_data['target_y'],
+            x=warp_data.get('x', 0),
+            y=warp_data.get('y', 0),
+            target_map_id=warp_data.get('target_map_id', ''),
+            target_x=warp_data.get('target_x', 0),
+            target_y=warp_data.get('target_y', 0),
             requires_flag=warp_data.get("requires_flag"),
             requires_item=warp_data.get("requires_item"),
             blocked_by_flag=warp_data.get("blocked_by_flag"),
@@ -432,11 +465,16 @@ def load_map_from_json(json_path: str) -> Map:
     # Load triggers
     triggers = []
     for trigger_data in data.get('triggers', []):
+        if not isinstance(trigger_data, dict):
+            log_warning(f"map {map_id}: trigger entry is not an object, skipping")
+            continue
+        if not _has_required(trigger_data, ["id", "x", "y", "trigger_type"], "trigger"):
+            continue
         triggers.append(Trigger(
-            id=trigger_data['id'],
-            x=trigger_data['x'],
-            y=trigger_data['y'],
-            trigger_type=trigger_data['trigger_type'],
+            id=trigger_data.get('id', ''),
+            x=trigger_data.get('x', 0),
+            y=trigger_data.get('y', 0),
+            trigger_type=trigger_data.get('trigger_type', ''),
             data=trigger_data.get('data', {}),
             once=trigger_data.get('once', True)
         ))
@@ -444,10 +482,15 @@ def load_map_from_json(json_path: str) -> Map:
     # Load entity refs
     entities = []
     for entity_data in data.get('entities', []):
+        if not isinstance(entity_data, dict):
+            log_warning(f"map {map_id}: entity entry is not an object, skipping")
+            continue
+        if not _has_required(entity_data, ["entity_id", "x", "y"], "entity"):
+            continue
         entities.append(EntityRef(
-            entity_id=entity_data['entity_id'],
-            x=entity_data['x'],
-            y=entity_data['y'],
+            entity_id=entity_data.get('entity_id', ''),
+            x=entity_data.get('x', 0),
+            y=entity_data.get('y', 0),
             requires_flag=entity_data.get('requires_flag'),
             hide_if_flag=entity_data.get('hide_if_flag')
         ))
@@ -455,11 +498,16 @@ def load_map_from_json(json_path: str) -> Map:
     # Load overworld enemy spawns
     enemy_spawns = []
     for spawn_data in data.get('enemy_spawns', []):
+        if not isinstance(spawn_data, dict):
+            log_warning(f"map {map_id}: enemy_spawn entry is not an object, skipping")
+            continue
+        if not _has_required(spawn_data, ["spawn_id", "x", "y", "encounter_id"], "enemy_spawns"):
+            continue
         enemy_spawns.append(OverworldEnemySpawn(
-            spawn_id=spawn_data['spawn_id'],
-            x=spawn_data['x'],
-            y=spawn_data['y'],
-            encounter_id=spawn_data['encounter_id'],
+            spawn_id=spawn_data.get('spawn_id', ''),
+            x=spawn_data.get('x', 0),
+            y=spawn_data.get('y', 0),
+            encounter_id=spawn_data.get('encounter_id', ''),
             sprite_id=spawn_data.get('sprite_id', 'enemy'),
             facing=spawn_data.get('facing', 'down'),
             detection_range=spawn_data.get('detection_range', 3),
@@ -472,16 +520,21 @@ def load_map_from_json(json_path: str) -> Map:
     # Load decorative props
     props = []
     for prop_data in data.get('props', []):
+        if not isinstance(prop_data, dict):
+            log_warning(f"map {map_id}: prop entry is not an object, skipping")
+            continue
+        if not _has_required(prop_data, ["prop_id", "x", "y"], "prop"):
+            continue
         props.append(Prop(
-            prop_id=prop_data['prop_id'],
-            x=prop_data['x'],
-            y=prop_data['y'],
-            sprite_id=prop_data.get('sprite_id', prop_data['prop_id']),
+            prop_id=prop_data.get('prop_id', ''),
+            x=prop_data.get('x', 0),
+            y=prop_data.get('y', 0),
+            sprite_id=prop_data.get('sprite_id', prop_data.get('prop_id', 'prop')),
             solid=prop_data.get('solid', True),
         ))
 
     return Map(
-        map_id=data['map_id'],
+        map_id=map_id,
         width=target_width,
         height=target_height,
         tiles=padded_tiles,
@@ -653,8 +706,9 @@ def load_world_from_data(data_dir: str = "data") -> World:
                 log_warning(f"entity '{entity.entity_id}' in map {map_obj.map_id} at ({entity.x}, {entity.y}) is out of bounds")
 
     if not os.path.exists(maps_dir):
-        return world
+        raise ValueError(f"Maps directory not found at {maps_dir}")
 
+    loaded_any = False
     for filename in os.listdir(maps_dir):
         if filename.endswith('.json'):
             map_path = os.path.join(maps_dir, filename)
@@ -663,8 +717,12 @@ def load_world_from_data(data_dir: str = "data") -> World:
                 map_obj.validate()
                 _warn_out_of_bounds_refs(map_obj)
                 world.add_map(map_obj)
+                loaded_any = True
             except Exception as e:
                 log_warning(f"Failed to load map {filename}: {e}")
+
+    if not loaded_any:
+        raise ValueError(f"No maps loaded from {maps_dir}")
 
     # Instantiate NPCs on maps based on references
     if npc_definitions:

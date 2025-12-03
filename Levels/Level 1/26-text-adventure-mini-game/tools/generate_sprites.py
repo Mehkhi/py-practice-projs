@@ -1,24 +1,68 @@
+import argparse
 import os
 import pygame
 import random
 import math
 
-# Initialize pygame
-pygame.init()
+DRY_RUN = False
+NO_OVERWRITE = False
+
+# Setup paths
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+DEFAULT_OUTPUT_BASE = os.path.join(BASE_DIR, "assets")
+SPRITE_DIR = os.path.join(DEFAULT_OUTPUT_BASE, "sprites")
+TILESET_DIR = os.path.join(DEFAULT_OUTPUT_BASE, "tilesets", "default")
+PORTRAIT_DIR = os.path.join(DEFAULT_OUTPUT_BASE, "sprites", "portraits")
+
+def ensure_pygame_initialized() -> None:
+    """Initialize pygame when generation actually runs."""
+    if not pygame.get_init():
+        pygame.init()
 
 def draw_pixel(surface, color, pos):
     if 0 <= pos[0] < surface.get_width() and 0 <= pos[1] < surface.get_height():
         surface.set_at(pos, color)
 
-# Setup paths
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-SPRITE_DIR = os.path.join(BASE_DIR, "assets", "sprites")
-TILESET_DIR = os.path.join(BASE_DIR, "assets", "tilesets", "default")
-PORTRAIT_DIR = os.path.join(BASE_DIR, "assets", "sprites", "portraits")
 
-os.makedirs(SPRITE_DIR, exist_ok=True)
-os.makedirs(TILESET_DIR, exist_ok=True)
-os.makedirs(PORTRAIT_DIR, exist_ok=True)
+def parse_args():
+    parser = argparse.ArgumentParser(description="Generate sprites (legacy simple generator).")
+    parser.add_argument(
+        "--output-base",
+        default=DEFAULT_OUTPUT_BASE,
+        help="Base output directory that will contain sprites/, tilesets/, portraits/",
+    )
+    parser.add_argument(
+        "--seed",
+        type=int,
+        default=1337,
+        help="Random seed for deterministic output (default: 1337)",
+    )
+    parser.add_argument(
+        "--no-seed",
+        action="store_true",
+        help="Skip seeding to allow random variation",
+    )
+    parser.add_argument(
+        "--dry-run",
+        action="store_true",
+        help="Preview file writes without touching disk",
+    )
+    parser.add_argument(
+        "--no-overwrite",
+        action="store_true",
+        help="Do not overwrite existing files",
+    )
+    return parser.parse_args()
+
+def set_output_base(base_path: str) -> None:
+    global SPRITE_DIR, TILESET_DIR, PORTRAIT_DIR
+    SPRITE_DIR = os.path.join(base_path, "sprites")
+    TILESET_DIR = os.path.join(base_path, "tilesets", "default")
+    PORTRAIT_DIR = os.path.join(base_path, "sprites", "portraits")
+    if not DRY_RUN:
+        os.makedirs(SPRITE_DIR, exist_ok=True)
+        os.makedirs(TILESET_DIR, exist_ok=True)
+        os.makedirs(PORTRAIT_DIR, exist_ok=True)
 
 def create_surface(size=(32, 32)):
     return pygame.Surface(size, pygame.SRCALPHA)
@@ -220,7 +264,15 @@ def generate_tiles():
 
     # Helper to save
     def save(s, name):
-        pygame.image.save(s, os.path.join(TILESET_DIR, f"{name}.png"))
+        path = os.path.join(TILESET_DIR, f"{name}.png")
+        if DRY_RUN:
+            print(f"[dry-run] Would create: {path}")
+            return
+        if NO_OVERWRITE and os.path.exists(path):
+            print(f"Skipped existing: {path}")
+            return
+        os.makedirs(os.path.dirname(path), exist_ok=True)
+        pygame.image.save(s, path)
 
     # Grass
     s = create_surface()
@@ -772,7 +824,15 @@ def generate_ui():
     save_img(c, "ui_cursor")
 
 def save_img(s, name):
-    pygame.image.save(s, os.path.join(SPRITE_DIR, f"{name}.png"))
+    path = os.path.join(SPRITE_DIR, f"{name}.png")
+    if DRY_RUN:
+        print(f"[dry-run] Would create: {path}")
+        return
+    if NO_OVERWRITE and os.path.exists(path):
+        print(f"Skipped existing: {path}")
+        return
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    pygame.image.save(s, path)
 
 # ============================================
 # MAIN GENERATION LOOP
@@ -857,5 +917,26 @@ def generate_all_sprites():
 
     print("All sprites regenerated successfully.")
 
-if __name__ == "__main__":
+def main():
+    global DRY_RUN, NO_OVERWRITE
+
+    args = parse_args()
+    DRY_RUN = args.dry_run
+    NO_OVERWRITE = args.no_overwrite
+
+    set_output_base(args.output_base)
+
+    if not args.no_seed:
+        random.seed(args.seed)
+    else:
+        print("Random seed disabled; output may vary.")
+
+    ensure_pygame_initialized()
     generate_all_sprites()
+
+    if DRY_RUN:
+        print("\nDry run complete - no files were written.")
+
+
+if __name__ == "__main__":
+    main()

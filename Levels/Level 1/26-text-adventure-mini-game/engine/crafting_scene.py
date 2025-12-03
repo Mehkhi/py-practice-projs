@@ -53,6 +53,8 @@ class CraftingScene(BaseMenuScene):
             for recipe in self.crafting_system.recipes.values():
                 if recipe.category == "basic":
                     self.progress.discover_recipe(recipe.id)
+            # Persist the newly created progress on the player so discoveries stick
+            player.crafting_progress = self.progress
 
         # Auto-discover recipes based on inventory
         self.crafting_system.discover_recipes_from_items(

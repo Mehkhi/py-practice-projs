@@ -34,16 +34,16 @@ def _log_migration_warning(message: str) -> None:
 
 
 def get_save_version(data: Dict[str, Any]) -> int:
-    """Extract save file version from loaded data.
-
-    Args:
-        data: The loaded save data dictionary
-
-    Returns:
-        Version number, or 0 if version field is missing (old saves)
-    """
-    meta = data.get("meta", {})
-    return meta.get("version", 0)
+    """Extract save file version from loaded data, forgiving bad types."""
+    meta = data.get("meta", {}) if isinstance(data, dict) else {}
+    raw_version = meta.get("version", 0)
+    try:
+        return int(raw_version)
+    except (TypeError, ValueError):
+        _log_migration_warning(
+            f"Save meta.version was invalid ({raw_version!r}); treating as version 0 for migration"
+        )
+        return 0
 
 
 def migrate_save_data(data: Dict[str, Any], from_version: int, to_version: int) -> Dict[str, Any]:

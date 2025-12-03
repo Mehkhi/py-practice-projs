@@ -3,6 +3,7 @@
 import unittest
 import tempfile
 import os
+import shutil
 from typing import Dict, Any
 
 from core.achievements import AchievementManager, AchievementCategory
@@ -27,6 +28,11 @@ class TestFinalIntegration(unittest.TestCase):
         self.event_bus = EventBus()
         self.achievement_manager = AchievementManager(event_bus=self.event_bus)
         self.achievement_manager.load_achievements("data/achievements.json")
+
+    def tearDown(self):
+        """Clean up temporary directories created in setUp."""
+        if hasattr(self, "save_manager") and getattr(self.save_manager, "save_dir", None):
+            shutil.rmtree(self.save_manager.save_dir, ignore_errors=True)
 
     def test_all_managers_initialized(self):
         """Test that all managers exist in SceneManager."""
@@ -153,7 +159,7 @@ class TestFinalIntegration(unittest.TestCase):
 
         # Should unlock jack_of_all_trades if all three activities done in one day
         self.assertIsInstance(unlocked, list)
-        # May or may not unlock depending on achievement definition
+        self.assertIn("jack_of_all_trades", unlocked)
 
     def test_post_game_flow_complete(self):
         """Test that post-game flow works end-to-end."""

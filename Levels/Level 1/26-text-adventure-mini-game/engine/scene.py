@@ -283,6 +283,13 @@ class SceneManager:
             self.stack.pop()
 
     def replace(self, scene: Scene) -> None:
-        """Replace the current scene."""
-        scene.manager = self
-        self.stack[-1] = scene
+         """Replace the current scene."""
+         scene.manager = self
+         self.stack[-1] = scene
+
+    def get_scene_of_type(self, scene_type: type) -> Optional[Scene]:
+         """Return the most recent scene on the stack matching the given type."""
+         for scene in reversed(self.stack):
+             if isinstance(scene, scene_type):
+                 return scene
+         return None

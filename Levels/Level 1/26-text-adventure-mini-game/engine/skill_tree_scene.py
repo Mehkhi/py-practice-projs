@@ -49,8 +49,11 @@ class SkillTreeScene(BaseMenuScene):
         self.skill_trees = load_skill_trees_from_json()
         self.tree_manager = SkillTreeManager(self.skill_trees)
 
-        # Get entity's skill tree progress
-        self.progress: SkillTreeProgress = getattr(entity, "skill_tree_progress", SkillTreeProgress())
+        # Get entity's skill tree progress and persist it on the entity
+        existing_progress = getattr(entity, "skill_tree_progress", None)
+        self.progress: SkillTreeProgress = existing_progress or SkillTreeProgress()
+        if existing_progress is None:
+            setattr(entity, "skill_tree_progress", self.progress)
 
         # Determine entity's class for tree recommendations
         self.entity_class = self._get_entity_class()

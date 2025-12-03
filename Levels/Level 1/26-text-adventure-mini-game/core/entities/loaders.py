@@ -4,8 +4,9 @@ import json
 import os
 from typing import Dict, Optional, TYPE_CHECKING
 
+from core.loaders.base import ensure_dict, ensure_list, validate_required_keys
 from ..constants import DEFAULT_FORMATION_POSITION, FORMATION_POSITIONS, SUPPORTED_EQUIP_SLOTS
-from ..logging_utils import log_warning
+from ..logging_utils import log_schema_warning, log_warning
 from ..stats import Stats
 from .base import EQUIPMENT_LOG_PREFIX
 from .npc import NPC
@@ -24,6 +25,7 @@ def load_party_members_from_json(
     if not os.path.exists(path):
         return members
 
+    context = "party member loader"
     items_db_cache = items_db
 
     def _get_items_db() -> Dict[str, "Item"]:
@@ -42,54 +44,89 @@ def load_party_members_from_json(
 
     try:
         with open(path, "r") as f:
-            data = json.load(f)
+            raw_data = json.load(f)
     except Exception as exc:
         log_warning(f"Failed to load party member data: {exc}")
         return members
 
-    for member_id, member_data in data.get("party_members", {}).items():
-        stats_data = member_data.get("stats")
-        stats: Optional[Stats] = None
-        if stats_data:
-            stats = Stats(
-                max_hp=stats_data["max_hp"],
-                hp=stats_data["hp"],
-                max_sp=stats_data["max_sp"],
-                sp=stats_data["sp"],
-                attack=stats_data["attack"],
-                defense=stats_data["defense"],
-                magic=stats_data["magic"],
-                speed=stats_data["speed"],
-                luck=stats_data["luck"],
-            )
+    data = ensure_dict(raw_data, context=context, section="root")
+    members_data = ensure_dict(data.get("party_members", {}), context=context, section="party_members")
 
-        base_skills = member_data.get("base_skills", [])
-        skills = member_data.get("skills", [])
-        equipment_data = member_data.get("equipment") or {}
+    for member_id, member_data in members_data.items():
+        member_entry = ensure_dict(member_data, context=context, section="party_member", identifier=member_id)
+
+        stats: Optional[Stats] = None
+        stats_entry = member_entry.get("stats")
+        if stats_entry is not None:
+            stats_entry = ensure_dict(stats_entry, context=context, section="stats", identifier=member_id)
+            if validate_required_keys(
+                stats_entry,
+                ("max_hp", "hp", "max_sp", "sp", "attack", "defense", "magic", "speed", "luck"),
+                context=context,
+                section="stats",
+                identifier=member_id,
+            ):
+                stats = Stats(
+                    max_hp=stats_entry.get("max_hp", 0),
+                    hp=stats_entry.get("hp", 0),
+                    max_sp=stats_entry.get("max_sp", 0),
+                    sp=stats_entry.get("sp", 0),
+                    attack=stats_entry.get("attack", 0),
+                    defense=stats_entry.get("defense", 0),
+                    magic=stats_entry.get("magic", 0),
+                    speed=stats_entry.get("speed", 0),
+                    luck=stats_entry.get("luck", 0),
+                )
+
+        base_skills = ensure_list(
+            member_entry.get("base_skills", []),
+            context=context,
+            section="base_skills",
+            identifier=member_id,
+        )
+        skills = ensure_list(
+            member_entry.get("skills", []),
+            context=context,
+            section="skills",
+            identifier=member_id,
+        )
+        equipment_data = ensure_dict(
+            member_entry.get("equipment", {}),
+            context=context,
+            section="equipment",
+            identifier=member_id,
+        )
         equipment = {slot: None for slot in SUPPORTED_EQUIP_SLOTS}
         for slot, item_id in equipment_data.items():
             if slot in SUPPORTED_EQUIP_SLOTS:
                 equipment[slot] = item_id
+            else:
+                log_schema_warning(
+                    context,
+                    f"unsupported equipment slot '{slot}', ignoring",
+                    section="equipment",
+                    identifier=member_id,
+                )
 
         # Validate formation position from JSON
-        raw_formation = member_data.get("formation_position", DEFAULT_FORMATION_POSITION)
+        raw_formation = member_entry.get("formation_position", DEFAULT_FORMATION_POSITION)
         formation_position = (
             raw_formation if raw_formation in FORMATION_POSITIONS else DEFAULT_FORMATION_POSITION
         )
 
         member = PartyMember(
-            entity_id=member_data.get("entity_id", member_id),
-            name=member_data.get("name", member_id),
-            x=member_data.get("x", 0),
-            y=member_data.get("y", 0),
-            sprite_id=member_data.get("sprite_id", "party_member"),
+            entity_id=member_entry.get("entity_id", member_id),
+            name=member_entry.get("name", member_id),
+            x=member_entry.get("x", 0),
+            y=member_entry.get("y", 0),
+            sprite_id=member_entry.get("sprite_id", "party_member"),
             stats=stats,
             faction="player",
             base_skills=list(base_skills),
             skills=list(skills),
             equipment=equipment,
-            role=member_data.get("role", "fighter"),
-            portrait_id=member_data.get("portrait_id"),
+            role=member_entry.get("role", "fighter"),
+            portrait_id=member_entry.get("portrait_id"),
             formation_position=formation_position,
         )
 
@@ -110,6 +147,7 @@ def load_npcs_from_json(
     if not os.path.exists(path):
         return npcs
 
+    context = "npc loader"
     items_db_cache = items_db
 
     def _get_items_db() -> Dict[str, "Item"]:
@@ -128,53 +166,88 @@ def load_npcs_from_json(
 
     try:
         with open(path, "r") as f:
-            data = json.load(f)
+            raw_data = json.load(f)
     except Exception as exc:
         log_warning(f"Failed to load NPC data: {exc}")
         return npcs
 
-    for npc_id, npc_data in data.get("npcs", {}).items():
-        if npc_data.get("type") not in (None, "npc"):
-            continue
-        stats_data = npc_data.get("stats")
-        stats: Optional[Stats] = None
-        if stats_data:
-            stats = Stats(
-                max_hp=stats_data["max_hp"],
-                hp=stats_data["hp"],
-                max_sp=stats_data["max_sp"],
-                sp=stats_data["sp"],
-                attack=stats_data["attack"],
-                defense=stats_data["defense"],
-                magic=stats_data["magic"],
-                speed=stats_data["speed"],
-                luck=stats_data["luck"],
-            )
+    data = ensure_dict(raw_data, context=context, section="root")
+    npcs_data = ensure_dict(data.get("npcs", {}), context=context, section="npcs")
 
-        base_skills = npc_data.get("base_skills", [])
-        skills = npc_data.get("skills", [])
-        equipment_data = npc_data.get("equipment") or {}
+    for npc_id, npc_data in npcs_data.items():
+        npc_entry = ensure_dict(npc_data, context=context, section="npc", identifier=npc_id)
+        if npc_entry.get("type") not in (None, "npc"):
+            continue
+
+        stats: Optional[Stats] = None
+        stats_entry = npc_entry.get("stats")
+        if stats_entry is not None:
+            stats_entry = ensure_dict(stats_entry, context=context, section="stats", identifier=npc_id)
+            if validate_required_keys(
+                stats_entry,
+                ("max_hp", "hp", "max_sp", "sp", "attack", "defense", "magic", "speed", "luck"),
+                context=context,
+                section="stats",
+                identifier=npc_id,
+            ):
+                stats = Stats(
+                    max_hp=stats_entry.get("max_hp", 0),
+                    hp=stats_entry.get("hp", 0),
+                    max_sp=stats_entry.get("max_sp", 0),
+                    sp=stats_entry.get("sp", 0),
+                    attack=stats_entry.get("attack", 0),
+                    defense=stats_entry.get("defense", 0),
+                    magic=stats_entry.get("magic", 0),
+                    speed=stats_entry.get("speed", 0),
+                    luck=stats_entry.get("luck", 0),
+                )
+
+        base_skills = ensure_list(
+            npc_entry.get("base_skills", []),
+            context=context,
+            section="base_skills",
+            identifier=npc_id,
+        )
+        skills = ensure_list(
+            npc_entry.get("skills", []),
+            context=context,
+            section="skills",
+            identifier=npc_id,
+        )
+        equipment_data = ensure_dict(
+            npc_entry.get("equipment", {}),
+            context=context,
+            section="equipment",
+            identifier=npc_id,
+        )
         equipment = {slot: None for slot in SUPPORTED_EQUIP_SLOTS}
         for slot, item_id in equipment_data.items():
             if slot in SUPPORTED_EQUIP_SLOTS:
                 equipment[slot] = item_id
+            else:
+                log_schema_warning(
+                    context,
+                    f"unsupported equipment slot '{slot}', ignoring",
+                    section="equipment",
+                    identifier=npc_id,
+                )
 
         npc = NPC(
             entity_id=npc_id,
-            name=npc_data.get("name", npc_id),
-            x=npc_data.get("x", 0),
-            y=npc_data.get("y", 0),
-            sprite_id=npc_data.get("sprite_id", "npc_default"),
-            dialogue_id=npc_data.get("dialogue_id"),
+            name=npc_entry.get("name", npc_id),
+            x=npc_entry.get("x", 0),
+            y=npc_entry.get("y", 0),
+            sprite_id=npc_entry.get("sprite_id", "npc_default"),
+            dialogue_id=npc_entry.get("dialogue_id"),
             stats=stats,
-            faction=npc_data.get("faction", "npc"),
-            role=npc_data.get("role"),
+            faction=npc_entry.get("faction", "npc"),
+            role=npc_entry.get("role"),
             base_skills=list(base_skills),
             skills=list(skills),
             equipment=equipment,
-            default_map_id=npc_data.get("default_map_id"),
-            shop_inventory=npc_data.get("shop_inventory", {}),
-            shop_id=npc_data.get("shop_id"),
+            default_map_id=npc_entry.get("default_map_id"),
+            shop_inventory=npc_entry.get("shop_inventory", {}),
+            shop_id=npc_entry.get("shop_id"),
         )
 
         if equipment_data:

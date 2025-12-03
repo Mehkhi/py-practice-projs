@@ -133,13 +133,15 @@ class ChallengeSelectScene(BaseMenuScene):
 
         # Warp player to dungeon entry
         from .world_scene import WorldScene
-        world_scene = self.manager.get_scene_of_type(WorldScene)
+
+        world_scene = self.manager.get_scene_of_type(WorldScene) if self.manager else None
         if world_scene:
-            world_scene.world.set_current_map(dungeon.entry_map_id)
-            world_scene.player.set_position(dungeon.entry_x, dungeon.entry_y)
-            self.manager.pop()  # Return to world scene
+             world_scene.world.set_current_map(dungeon.entry_map_id)
+             world_scene.player.set_position(dungeon.entry_x, dungeon.entry_y)
+             self.manager.pop()
         else:
-            self._show_message("Cannot enter dungeon: world scene not found")
+             self._show_message("Cannot enter dungeon: world scene not found")
+
 
     def _show_message(self, text: str) -> None:
         """Show a temporary message."""

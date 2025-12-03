@@ -341,7 +341,13 @@ class ActionExecutorMixin:
                 if actor.is_player_side:
                     base_damage += actor.stats.get_effective_magic()
                 else:
-                    base_damage += actor.stats.get_effective_attack()
+                    # Enemy spells should scale from magic to respect caster stats
+                    offensive_stat = (
+                        actor.stats.get_effective_magic()
+                        if skill.element != "physical"
+                        else actor.stats.get_effective_attack()
+                    )
+                    base_damage += offensive_stat
 
                 damage = base_damage + self.rng.randint(-3, 3)
 

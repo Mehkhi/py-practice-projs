@@ -65,7 +65,7 @@ class ModLoader:
         if not os.path.isdir(self.mods_path):
             return self.manifests
 
-        for entry in os.listdir(self.mods_path):
+        for entry in sorted(os.listdir(self.mods_path)):
             mod_dir = os.path.join(self.mods_path, entry)
             if not os.path.isdir(mod_dir):
                 continue

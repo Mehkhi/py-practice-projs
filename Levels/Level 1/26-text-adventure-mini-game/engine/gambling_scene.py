@@ -213,14 +213,17 @@ class GamblingScene(BaseMenuScene):
                         self.blackjack_action = "stand"
                         self._update_message()
                     elif event.key == pygame.K_RETURN and self.blackjack_action:
-                        if self.blackjack_action == "hit":
-                            self.game_instance.hit()
-                            if self.game_instance.is_bust(self.game_instance.player_hand):
-                                self._update_message()
-                        else:
-                            self.game_instance.player_standing = True
-                            self.game_instance.dealer_play()
-                            self._finish_blackjack()
+                         if self.blackjack_action == "hit":
+                             self.game_instance.hit()
+                             if self.game_instance.is_bust(self.game_instance.player_hand):
+                                 self._finish_blackjack()
+                             else:
+                                 self._update_message()
+                         else:
+                             self.game_instance.player_standing = True
+                             self.game_instance.dealer_play()
+                             self._finish_blackjack()
+
         elif self.game_type == GamblingGameType.SLOTS:
             if not self.slots_spun:
                 if event.key == pygame.K_SPACE:

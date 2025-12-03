@@ -37,7 +37,7 @@ BIOME_GRADIENTS: Dict[str, Tuple[Tuple[int, int, int], Tuple[int, int, int]]] = 
 
 # Flash effect constants
 FLASH_INITIAL_INTENSITY: float = 1.0  # Starting intensity for flash effects (0.0 to 1.0)
-FLASH_DECAY_RATE: float = 3.0  # Rate at which flash effects fade (intensity per second)
+FLASH_DECAY_RATE: float = 2.0  # Rate at which flash effects fade (intensity per second)
 
 # AI notification constants
 AI_NOTIFICATION_DURATION: float = 3.0  # Duration in seconds for AI pattern notifications

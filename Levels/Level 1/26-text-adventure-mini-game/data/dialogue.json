@@ -1938,6 +1938,44 @@
         }
       ],
       "set_flags_after_choice": ["hint_mirror_hint_1_discovered"]
+    },
+    {
+      "id": "village_elder_intro",
+      "text": "Welcome to our village, traveler. The woods are dangerous—lend us your strength.",
+      "speaker": "Village Elder",
+      "portrait_id": "portrait_elder",
+      "choices": []
+    },
+    {
+      "id": "village_healer_intro",
+      "text": "If you are hurt, come to me. Herbs and kindness can mend more than wounds.",
+      "speaker": "Village Healer",
+      "portrait_id": "portrait_healer",
+      "choices": []
+    },
+    {
+      "id": "bounty_board_intro",
+      "text": "The board lists threats troubling the locals. Complete a posting to earn gold and favor.",
+      "choices": [
+        {
+          "text": "Read the notices",
+          "next_id": null,
+          "set_flag": "bounty_board_checked"
+        }
+      ]
+    },
+    {
+      "id": "fisherman_master_intro",
+      "text": "The river has secrets. Master the rod and you might reel in more than fish.",
+      "speaker": "Master Angler",
+      "portrait_id": "portrait_fisherman",
+      "choices": [
+        {
+          "text": "Teach me your ways",
+          "next_id": null,
+          "set_flag": "met_master_angler"
+        }
+      ]
     }
   ]
 }

@@ -56,11 +56,14 @@ class BattleHudMixin:
         # Use layout mixin methods to ensure sync with sprite rendering
         enemy_x, enemy_y = self._get_enemy_base_position()
         spacing = self._get_enemy_spacing()
+        offset_x, offset_y = getattr(self, "screen_shake_offset", (0, 0))
 
         for enemy in self.battle_system.enemies:
             if enemy.is_alive() and enemy.stats:
+                render_x = enemy_x + offset_x
+                render_y = enemy_y + offset_y
                 bar_height = 4
-                bar_y = enemy_y - 8
+                bar_y = render_y - 8
 
                 # Draw name above HP bar with proper transparency
                 if font:
@@ -72,7 +75,7 @@ class BattleHudMixin:
                     name_surf = font.render(name_text, True, (255, 255, 255))
 
                     # Center above sprite
-                    name_x = enemy_x + (self.sprite_size - name_surf.get_width()) // 2
+                    name_x = render_x + (self.sprite_size - name_surf.get_width()) // 2
                     name_padding = 4
                     hp_padding = 4
 
@@ -80,7 +83,7 @@ class BattleHudMixin:
                     hp_text = f"{enemy.stats.hp}/{enemy.stats.max_hp}"
                     hp_shadow = font.render(hp_text, True, (0, 0, 0))
                     hp_surf = font.render(hp_text, True, (255, 255, 255))
-                    hp_x = enemy_x + (self.sprite_size - hp_surf.get_width()) // 2
+                    hp_x = render_x + (self.sprite_size - hp_surf.get_width()) // 2
 
                     hp_box_height = hp_surf.get_height() + hp_padding * 2
                     name_box_height = name_surf.get_height() + name_padding * 2
@@ -133,7 +136,7 @@ class BattleHudMixin:
                 # Draw HP bar above enemy (smaller, no text)
                 draw_hp_bar(
                     surface,
-                    enemy_x,
+                    render_x,
                     bar_y,
                     self.sprite_size,
                     bar_height,
@@ -146,10 +149,10 @@ class BattleHudMixin:
 
                 # Draw phase indicator if enemy has a phase
                 if enemy.current_phase:
-                    phase_y = enemy_y - 50
+                    phase_y = render_y - 50
                     phase_text = enemy.current_phase.upper()
                     phase_surf = font.render(phase_text, True, (255, 200, 100))
-                    surface.blit(phase_surf, (enemy_x, phase_y))
+                    surface.blit(phase_surf, (render_x, phase_y))
 
                 # Draw status icons below sprite
                 icons = self._collect_status_icons(enemy.stats.status_effects)
@@ -157,7 +160,7 @@ class BattleHudMixin:
                     draw_status_icons(
                         surface,
                         icons,
-                        (enemy_x, enemy_y + self.sprite_size + 5)
+                        (render_x, render_y + self.sprite_size + 5)
                     )
 
             enemy_x += spacing
@@ -206,7 +209,8 @@ class BattleHudMixin:
         if self.menu_mode == "main" and active_menu == self.main_menu:
             new_menu_pos = self._get_main_menu_position(
                 screen_height=height,
-                message_box_y=message_box_y
+                message_box_y=message_box_y,
+                screen_width=width,
             )
             active_menu.position = new_menu_pos
 

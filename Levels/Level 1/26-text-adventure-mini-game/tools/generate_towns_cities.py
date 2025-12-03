@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
 """Generate town and city maps with NPCs and class-specific quests."""
 
+import argparse
 import json
-import os
+from pathlib import Path
 
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-DATA_DIR = os.path.join(BASE_DIR, "data")
-MAPS_DIR = os.path.join(DATA_DIR, "maps")
+BASE_DIR = Path(__file__).resolve().parent.parent
+DATA_DIR = BASE_DIR / "data"
+MAPS_DIR = DATA_DIR / "maps"
 
 
 def generate_tile_grid(width: int, height: int, tile_id: str = "grass") -> list:
@@ -32,6 +33,22 @@ def create_map(map_id, name, width, height, tile_type, warps, entities, props):
 
 
 def main():
+    parser = argparse.ArgumentParser(description="Generate base town and city map JSON files.")
+    parser.add_argument(
+        "--output-dir",
+        default=str(MAPS_DIR),
+        help="Directory to write map files (default: data/maps)",
+    )
+    parser.add_argument(
+        "--dry-run",
+        action="store_true",
+        help="Preview without writing files",
+    )
+    args = parser.parse_args()
+
+    output_dir = Path(args.output_dir).expanduser().resolve()
+    output_dir.mkdir(parents=True, exist_ok=True)
+
     # Towns (15x15)
     towns = [
         ("riverside_town", "Riverside Town", 15, 15, "grass",
@@ -94,10 +111,16 @@ def main():
     # Generate map files
     for map_data in towns + cities:
         map_dict = create_map(*map_data)
-        path = os.path.join(MAPS_DIR, f"{map_data[0]}.json")
-        with open(path, "w") as f:
-            json.dump(map_dict, f, indent=2)
-        print(f"Created: {path}")
+        path = output_dir / f"{map_data[0]}.json"
+        if args.dry_run:
+            print(f"[dry-run] Would create: {path}")
+        else:
+            with open(path, "w") as f:
+                json.dump(map_dict, f, indent=2)
+            print(f"Created: {path}")
+
+    if args.dry_run:
+        print("\nDry run complete - no files were written.")
 
 
 if __name__ == "__main__":

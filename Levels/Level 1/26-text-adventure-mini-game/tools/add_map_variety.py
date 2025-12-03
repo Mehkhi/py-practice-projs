@@ -2,15 +2,20 @@
 """
 Tool to add tile variety to maps by replacing monotonous tiles with decorative variations.
 This creates visually interesting maps while maintaining gameplay consistency.
+
+Safer defaults:
+- Resolves paths relative to the repo instead of a hardcoded absolute path
+- Supports --dry-run to preview changes without touching disk
+- Optional --maps-dir and --seed for flexibility/reproducibility
 """
 
+import argparse
 import json
-import os
 import random
 from pathlib import Path
 
-BASE_DIR = Path("/Users/mehkhistephens/code/py-playground/py-practice-projs/Levels/Level 1/26-text-adventure-mini-game")
-MAPS_DIR = BASE_DIR / "data" / "maps"
+BASE_DIR = Path(__file__).resolve().parent.parent
+DEFAULT_MAPS_DIR = BASE_DIR / "data" / "maps"
 
 # Define tile variation mappings for each base tile type
 # Format: base_tile -> list of (variant_tile, weight) tuples
@@ -167,7 +172,7 @@ def add_variety_to_map(map_data):
     return modified
 
 
-def process_map_file(map_path):
+def process_map_file(map_path, dry_run=False):
     """Process a single map file to add variety."""
     with open(map_path, 'r') as f:
         map_data = json.load(f)
@@ -177,7 +182,7 @@ def process_map_file(map_path):
     # Add variety
     modified = add_variety_to_map(map_data)
 
-    if modified:
+    if modified and not dry_run:
         # Save updated map
         with open(map_path, 'w') as f:
             json.dump(map_data, f, indent=2)
@@ -201,15 +206,37 @@ def analyze_map(map_path):
 
 
 def main():
+    parser = argparse.ArgumentParser(description="Add decorative tile variety to maps.")
+    parser.add_argument(
+        "--maps-dir",
+        default=str(DEFAULT_MAPS_DIR),
+        help="Directory containing map JSON files (default: data/maps relative to repo)",
+    )
+    parser.add_argument(
+        "--seed",
+        type=int,
+        default=42,
+        help="Random seed for deterministic variants (default: 42)",
+    )
+    parser.add_argument(
+        "--dry-run",
+        action="store_true",
+        help="Preview changes without writing files",
+    )
+    args = parser.parse_args()
+
     print("=" * 60)
     print("MAP TILE VARIETY GENERATOR")
     print("=" * 60)
 
-    # Set random seed for reproducibility (remove for different results each time)
-    random.seed(42)
+    random.seed(args.seed)
 
-    map_files = list(MAPS_DIR.glob("*.json"))
-    print(f"\nFound {len(map_files)} map files")
+    maps_dir = Path(args.maps_dir).expanduser().resolve()
+    if not maps_dir.exists():
+        raise SystemExit(f"Map directory not found: {maps_dir}")
+
+    map_files = list(maps_dir.glob("*.json"))
+    print(f"\nFound {len(map_files)} map files in {maps_dir}")
 
     for map_path in sorted(map_files):
         print(f"\n--- Processing: {map_path.name} ---")
@@ -219,19 +246,25 @@ def main():
         print(f"Before: {len(before)} unique tiles - {dict(sorted(before.items(), key=lambda x: -x[1])[:5])}...")
 
         # Add variety
-        modified = process_map_file(map_path)
+        modified = process_map_file(map_path, dry_run=args.dry_run)
 
         # Analyze after
         after = analyze_map(map_path)
         print(f"After:  {len(after)} unique tiles - {dict(sorted(after.items(), key=lambda x: -x[1])[:5])}...")
 
         if modified:
-            print("✓ Map updated with variety")
+            if args.dry_run:
+                print("✓ (dry-run) Would update map with variety")
+            else:
+                print("✓ Map updated with variety")
         else:
             print("- No changes needed")
 
     print("\n" + "=" * 60)
-    print("COMPLETE! All maps have been updated with tile variety.")
+    if args.dry_run:
+        print("DRY RUN COMPLETE - no files were modified.")
+    else:
+        print("COMPLETE! All maps have been updated with tile variety.")
     print("=" * 60)
 
 

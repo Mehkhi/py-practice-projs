@@ -817,7 +817,8 @@
       "item_type": "material",
       "effect_id": "",
       "value": 5,
-      "icon_id": "item_default"
+      "icon_id": "item_default",
+      "max_stack_size": 99
     },
     {
       "id": "mana_flower",
@@ -826,7 +827,8 @@
       "item_type": "material",
       "effect_id": "",
       "value": 8,
-      "icon_id": "item_default"
+      "icon_id": "item_default",
+      "max_stack_size": 99
     },
     {
       "id": "empty_vial",
@@ -835,7 +837,8 @@
       "item_type": "material",
       "effect_id": "",
       "value": 3,
-      "icon_id": "item_default"
+      "icon_id": "item_default",
+      "max_stack_size": 99
     },
     {
       "id": "iron_ore",
@@ -844,7 +847,8 @@
       "item_type": "material",
       "effect_id": "",
       "value": 10,
-      "icon_id": "item_default"
+      "icon_id": "item_default",
+      "max_stack_size": 99
     },
     {
       "id": "leather_scraps",
@@ -853,7 +857,8 @@
       "item_type": "material",
       "effect_id": "",
       "value": 6,
-      "icon_id": "item_default"
+      "icon_id": "item_default",
+      "max_stack_size": 99
     },
     {
       "id": "steel_ingot",
@@ -862,7 +867,8 @@
       "item_type": "material",
       "effect_id": "",
       "value": 25,
-      "icon_id": "item_default"
+      "icon_id": "item_default",
+      "max_stack_size": 99
     },
     {
       "id": "coal",
@@ -871,7 +877,8 @@
       "item_type": "material",
       "effect_id": "",
       "value": 4,
-      "icon_id": "item_default"
+      "icon_id": "item_default",
+      "max_stack_size": 99
     },
     {
       "id": "ancient_wood",
@@ -880,7 +887,8 @@
       "item_type": "material",
       "effect_id": "",
       "value": 15,
-      "icon_id": "item_default"
+      "icon_id": "item_default",
+      "max_stack_size": 99
     },
     {
       "id": "phoenix_feather",
@@ -889,7 +897,8 @@
       "item_type": "material",
       "effect_id": "",
       "value": 50,
-      "icon_id": "item_default"
+      "icon_id": "item_default",
+      "max_stack_size": 99
     },
     {
       "id": "silver_ring",
@@ -898,7 +907,8 @@
       "item_type": "material",
       "effect_id": "",
       "value": 20,
-      "icon_id": "item_default"
+      "icon_id": "item_default",
+      "max_stack_size": 99
     },
     {
       "id": "wind_essence",
@@ -907,7 +917,8 @@
       "item_type": "material",
       "effect_id": "",
       "value": 30,
-      "icon_id": "item_default"
+      "icon_id": "item_default",
+      "max_stack_size": 99
     },
     {
       "id": "shadow_essence",
@@ -916,7 +927,8 @@
       "item_type": "material",
       "effect_id": "",
       "value": 35,
-      "icon_id": "item_default"
+      "icon_id": "item_default",
+      "max_stack_size": 99
     },
     {
       "id": "cloth",
@@ -925,7 +937,8 @@
       "item_type": "material",
       "effect_id": "",
       "value": 2,
-      "icon_id": "item_default"
+      "icon_id": "item_default",
+      "max_stack_size": 99
     },
     {
       "id": "holy_water",
@@ -934,7 +947,8 @@
       "item_type": "material",
       "effect_id": "",
       "value": 25,
-      "icon_id": "item_default"
+      "icon_id": "item_default",
+      "max_stack_size": 99
     },
     {
       "id": "fire_essence",
@@ -943,7 +957,8 @@
       "item_type": "material",
       "effect_id": "",
       "value": 30,
-      "icon_id": "item_default"
+      "icon_id": "item_default",
+      "max_stack_size": 99
     },
     {
       "id": "ice_essence",
@@ -952,7 +967,8 @@
       "item_type": "material",
       "effect_id": "",
       "value": 30,
-      "icon_id": "item_default"
+      "icon_id": "item_default",
+      "max_stack_size": 99
     },
     {
       "id": "beast_fang",
@@ -961,7 +977,8 @@
       "item_type": "material",
       "effect_id": "",
       "value": 12,
-      "icon_id": "item_default"
+      "icon_id": "item_default",
+      "max_stack_size": 99
     },
     {
       "id": "monster_bone",
@@ -970,7 +987,8 @@
       "item_type": "material",
       "effect_id": "",
       "value": 8,
-      "icon_id": "item_default"
+      "icon_id": "item_default",
+      "max_stack_size": 99
     },
     {
       "id": "enchanted_silk",
@@ -979,7 +997,8 @@
       "item_type": "material",
       "effect_id": "",
       "value": 35,
-      "icon_id": "item_default"
+      "icon_id": "item_default",
+      "max_stack_size": 99
     },
     {
       "id": "bowstring",
@@ -988,7 +1007,8 @@
       "item_type": "material",
       "effect_id": "",
       "value": 10,
-      "icon_id": "item_default"
+      "icon_id": "item_default",
+      "max_stack_size": 99
     },
     {
       "id": "sacred_ash",
@@ -997,7 +1017,8 @@
       "item_type": "material",
       "effect_id": "",
       "value": 75,
-      "icon_id": "item_default"
+      "icon_id": "item_default",
+      "max_stack_size": 99
     },
     {
       "id": "venomous_gland",
@@ -1006,7 +1027,8 @@
       "item_type": "material",
       "effect_id": "",
       "value": 15,
-      "icon_id": "item_default"
+      "icon_id": "item_default",
+      "max_stack_size": 99
     },
     {
       "id": "sulfur",
@@ -1015,7 +1037,8 @@
       "item_type": "material",
       "effect_id": "",
       "value": 12,
-      "icon_id": "item_default"
+      "icon_id": "item_default",
+      "max_stack_size": 99
     },
     {
       "id": "dark_crystal",
@@ -1024,7 +1047,8 @@
       "item_type": "material",
       "effect_id": "",
       "value": 45,
-      "icon_id": "item_default"
+      "icon_id": "item_default",
+      "max_stack_size": 99
     },
     {
       "id": "magic_crystal_shard",
@@ -1033,7 +1057,8 @@
       "item_type": "material",
       "effect_id": "",
       "value": 25,
-      "icon_id": "item_default"
+      "icon_id": "item_default",
+      "max_stack_size": 99
     },
     {
       "id": "spirit_essence",
@@ -1042,7 +1067,8 @@
       "item_type": "material",
       "effect_id": "",
       "value": 100,
-      "icon_id": "item_default"
+      "icon_id": "item_default",
+      "max_stack_size": 99
     },
     {
       "id": "arcane_core",
@@ -1177,7 +1203,8 @@
       "item_type": "material",
       "effect_id": "",
       "value": 15,
-      "icon_id": "item_default"
+      "icon_id": "item_default",
+      "max_stack_size": 99
     },
     {
       "id": "fish_golden_trout",
@@ -1186,7 +1213,8 @@
       "item_type": "material",
       "effect_id": "",
       "value": 150,
-      "icon_id": "item_default"
+      "icon_id": "item_default",
+      "max_stack_size": 99
     },
     {
       "id": "fish_abyssal_angler",
@@ -1195,7 +1223,8 @@
       "item_type": "material",
       "effect_id": "",
       "value": 500,
-      "icon_id": "item_default"
+      "icon_id": "item_default",
+      "max_stack_size": 99
     },
     {
       "id": "fish_small_bass",
@@ -1204,7 +1233,8 @@
       "item_type": "material",
       "effect_id": "",
       "value": 12,
-      "icon_id": "item_default"
+      "icon_id": "item_default",
+      "max_stack_size": 99
     },
     {
       "id": "fish_pond_perch",
@@ -1213,7 +1243,8 @@
       "item_type": "material",
       "effect_id": "",
       "value": 10,
-      "icon_id": "item_default"
+      "icon_id": "item_default",
+      "max_stack_size": 99
     },
     {
       "id": "fish_river_trout",
@@ -1222,7 +1253,8 @@
       "item_type": "material",
       "effect_id": "",
       "value": 18,
-      "icon_id": "item_default"
+      "icon_id": "item_default",
+      "max_stack_size": 99
     },
     {
       "id": "fish_catfish",
@@ -1231,7 +1263,8 @@
       "item_type": "material",
       "effect_id": "",
       "value": 20,
-      "icon_id": "item_default"
+      "icon_id": "item_default",
+      "max_stack_size": 99
     },
     {
       "id": "fish_sunfish",
@@ -1240,7 +1273,8 @@
       "item_type": "material",
       "effect_id": "",
       "value": 8,
-      "icon_id": "item_default"
+      "icon_id": "item_default",
+      "max_stack_size": 99
     },
     {
       "id": "fish_crayfish",
@@ -1249,7 +1283,8 @@
       "item_type": "material",
       "effect_id": "",
       "value": 5,
-      "icon_id": "item_default"
+      "icon_id": "item_default",
+      "max_stack_size": 99
     },
     {
       "id": "fish_minnow",
@@ -1258,7 +1293,8 @@
       "item_type": "material",
       "effect_id": "",
       "value": 3,
-      "icon_id": "item_default"
+      "icon_id": "item_default",
+      "max_stack_size": 99
     },
     {
       "id": "fish_bluegill",
@@ -1267,7 +1303,8 @@
       "item_type": "material",
       "effect_id": "",
       "value": 9,
-      "icon_id": "item_default"
+      "icon_id": "item_default",
+      "max_stack_size": 99
     },
     {
       "id": "fish_creek_chub",
@@ -1276,7 +1313,8 @@
       "item_type": "material",
       "effect_id": "",
       "value": 7,
-      "icon_id": "item_default"
+      "icon_id": "item_default",
+      "max_stack_size": 99
     },
     {
       "id": "fish_rainbow_trout",
@@ -1285,7 +1323,8 @@
       "item_type": "material",
       "effect_id": "",
       "value": 45,
-      "icon_id": "item_default"
+      "icon_id": "item_default",
+      "max_stack_size": 99
     },
     {
       "id": "fish_largemouth_bass",
@@ -1294,7 +1333,8 @@
       "item_type": "material",
       "effect_id": "",
       "value": 50,
-      "icon_id": "item_default"
+      "icon_id": "item_default",
+      "max_stack_size": 99
     },
     {
       "id": "fish_pike",
@@ -1303,7 +1343,8 @@
       "item_type": "material",
       "effect_id": "",
       "value": 55,
-      "icon_id": "item_default"
+      "icon_id": "item_default",
+      "max_stack_size": 99
     },
     {
       "id": "fish_walleye",
@@ -1312,7 +1353,8 @@
       "item_type": "material",
       "effect_id": "",
       "value": 48,
-      "icon_id": "item_default"
+      "icon_id": "item_default",
+      "max_stack_size": 99
     },
     {
       "id": "fish_salmon",
@@ -1321,7 +1363,8 @@
       "item_type": "material",
       "effect_id": "",
       "value": 60,
-      "icon_id": "item_default"
+      "icon_id": "item_default",
+      "max_stack_size": 99
     },
     {
       "id": "fish_electric_eel",
@@ -1330,7 +1373,8 @@
       "item_type": "material",
       "effect_id": "",
       "value": 65,
-      "icon_id": "item_default"
+      "icon_id": "item_default",
+      "max_stack_size": 99
     },
     {
       "id": "fish_ghost_fish",
@@ -1339,7 +1383,8 @@
       "item_type": "material",
       "effect_id": "",
       "value": 70,
-      "icon_id": "item_default"
+      "icon_id": "item_default",
+      "max_stack_size": 99
     },
     {
       "id": "fish_moonfish",
@@ -1348,7 +1393,8 @@
       "item_type": "material",
       "effect_id": "",
       "value": 180,
-      "icon_id": "item_default"
+      "icon_id": "item_default",
+      "max_stack_size": 99
     },
     {
       "id": "fish_crystal_koi",
@@ -1357,7 +1403,8 @@
       "item_type": "material",
       "effect_id": "",
       "value": 200,
-      "icon_id": "item_default"
+      "icon_id": "item_default",
+      "max_stack_size": 99
     },
     {
       "id": "fish_phoenix_fish",
@@ -1366,7 +1413,8 @@
       "item_type": "material",
       "effect_id": "",
       "value": 220,
-      "icon_id": "item_default"
+      "icon_id": "item_default",
+      "max_stack_size": 99
     },
     {
       "id": "fish_storm_sturgeon",
@@ -1375,7 +1423,8 @@
       "item_type": "material",
       "effect_id": "",
       "value": 250,
-      "icon_id": "item_default"
+      "icon_id": "item_default",
+      "max_stack_size": 99
     },
     {
       "id": "fish_leviathan_fry",
@@ -1384,7 +1433,8 @@
       "item_type": "material",
       "effect_id": "",
       "value": 600,
-      "icon_id": "item_default"
+      "icon_id": "item_default",
+      "max_stack_size": 99
     },
     {
       "id": "fish_world_serpent_scale",
@@ -1393,7 +1443,8 @@
       "item_type": "material",
       "effect_id": "",
       "value": 750,
-      "icon_id": "item_default"
+      "icon_id": "item_default",
+      "max_stack_size": 99
     },
     {
       "id": "wyrm_lore_1",
@@ -1402,7 +1453,8 @@
       "item_type": "key",
       "effect_id": "",
       "value": 0,
-      "icon_id": "item_default"
+      "icon_id": "item_default",
+      "max_stack_size": 1
     },
     {
       "id": "wyrm_lore_2",
@@ -1411,7 +1463,8 @@
       "item_type": "key",
       "effect_id": "",
       "value": 0,
-      "icon_id": "item_default"
+      "icon_id": "item_default",
+      "max_stack_size": 1
     },
     {
       "id": "wyrm_lore_3",
@@ -1420,7 +1473,8 @@
       "item_type": "key",
       "effect_id": "",
       "value": 0,
-      "icon_id": "item_default"
+      "icon_id": "item_default",
+      "max_stack_size": 1
     },
     {
       "id": "shadow_lore_1",
@@ -1429,7 +1483,8 @@
       "item_type": "key",
       "effect_id": "",
       "value": 0,
-      "icon_id": "item_default"
+      "icon_id": "item_default",
+      "max_stack_size": 1
     },
     {
       "id": "shadow_lore_2",
@@ -1438,7 +1493,8 @@
       "item_type": "key",
       "effect_id": "",
       "value": 0,
-      "icon_id": "item_default"
+      "icon_id": "item_default",
+      "max_stack_size": 1
     },
     {
       "id": "shadow_crown_fragment",
@@ -1447,7 +1503,307 @@
       "item_type": "key",
       "effect_id": "",
       "value": 0,
-      "icon_id": "item_default"
+      "icon_id": "item_default",
+      "max_stack_size": 1
+    },
+    {
+      "id": "shadow_cloak",
+      "name": "Shadow Cloak",
+      "description": "A cloak woven from living shadows that muffles sound and softens blows.",
+      "item_type": "equipment",
+      "effect_id": "",
+      "equip_slot": "armor",
+      "stat_modifiers": {
+        "defense": 6,
+        "speed": 2
+      },
+      "granted_skills": [],
+      "value": 800,
+      "icon_id": "item_default",
+      "max_stack_size": 1
+    },
+    {
+      "id": "flame_crown",
+      "name": "Flame Crown",
+      "description": "A crown that radiates intense heat, granting mastery over fire.",
+      "item_type": "equipment",
+      "effect_id": "",
+      "equip_slot": "helmet",
+      "stat_modifiers": {
+        "magic": 5,
+        "attack": 2
+      },
+      "granted_skills": [
+        "fire_breath"
+      ],
+      "value": 1000,
+      "icon_id": "item_default",
+      "max_stack_size": 1
+    },
+    {
+      "id": "frost_edge",
+      "name": "Frost Edge",
+      "description": "A blade chilled by ancient ice, freezing foes with each strike.",
+      "item_type": "equipment",
+      "effect_id": "",
+      "equip_slot": "weapon",
+      "stat_modifiers": {
+        "attack": 10,
+        "magic": 3
+      },
+      "granted_skills": [
+        "ice_shard"
+      ],
+      "value": 1200,
+      "icon_id": "item_default",
+      "max_stack_size": 1
+    },
+    {
+      "id": "vampire_fang",
+      "name": "Vampire Fang",
+      "description": "A cruel fang dripping with cursed blood. Valuable to collectors of dark relics.",
+      "item_type": "material",
+      "effect_id": "",
+      "value": 400,
+      "icon_id": "item_default",
+      "max_stack_size": 99
+    },
+    {
+      "id": "gear_cog",
+      "name": "Ancient Gear Cog",
+      "description": "A perfectly machined cog from a forgotten automaton.",
+      "item_type": "key",
+      "effect_id": "",
+      "value": 0,
+      "icon_id": "item_default",
+      "max_stack_size": 1
+    },
+    {
+      "id": "void_crystal",
+      "name": "Void Crystal",
+      "description": "A crystal pulsing with void energy. It hums when near dimensional rifts.",
+      "item_type": "key",
+      "effect_id": "",
+      "value": 0,
+      "icon_id": "item_default",
+      "max_stack_size": 1
+    },
+    {
+      "id": "eternal_medal",
+      "name": "Eternal Medal",
+      "description": "A medal awarded to those who conquer timeless trials.",
+      "item_type": "key",
+      "effect_id": "",
+      "value": 0,
+      "icon_id": "item_default",
+      "max_stack_size": 1
+    },
+    {
+      "id": "wyrm_fang",
+      "name": "Ancient Wyrm Fang",
+      "description": "A razor-sharp fang taken from the Ancient Wyrm.",
+      "item_type": "material",
+      "effect_id": "",
+      "value": 600,
+      "icon_id": "item_default",
+      "max_stack_size": 99
+    },
+    {
+      "id": "ancient_dragon_heart",
+      "name": "Ancient Dragon Heart",
+      "description": "A still-warm heart filled with primordial power.",
+      "item_type": "material",
+      "effect_id": "",
+      "value": 1200,
+      "icon_id": "item_default",
+      "max_stack_size": 99
+    },
+    {
+      "id": "sovereign_blade",
+      "name": "Sovereign Blade",
+      "description": "A blade claimed from the Shadow Sovereign, hungry for darkness.",
+      "item_type": "equipment",
+      "effect_id": "",
+      "equip_slot": "weapon",
+      "stat_modifiers": {
+        "attack": 14,
+        "speed": 4
+      },
+      "granted_skills": [
+        "shadow_dance"
+      ],
+      "value": 1400,
+      "icon_id": "item_default",
+      "max_stack_size": 1
+    },
+    {
+      "id": "cloak_of_shadows",
+      "name": "Cloak of Shadows",
+      "description": "A regal cloak worn by the Shadow Sovereign.",
+      "item_type": "equipment",
+      "effect_id": "",
+      "equip_slot": "armor",
+      "stat_modifiers": {
+        "defense": 8,
+        "speed": 3
+      },
+      "granted_skills": [
+        "shadow_step"
+      ],
+      "value": 1300,
+      "icon_id": "item_default",
+      "max_stack_size": 1
+    },
+    {
+      "id": "champions_shield",
+      "name": "Champion's Shield",
+      "description": "A shield carried by the Forgotten Champion.",
+      "item_type": "equipment",
+      "effect_id": "",
+      "equip_slot": "shield",
+      "stat_modifiers": {
+        "defense": 12,
+        "luck": 2
+      },
+      "granted_skills": [
+        "iron_defense"
+      ],
+      "value": 1100,
+      "icon_id": "item_default",
+      "max_stack_size": 1
+    },
+    {
+      "id": "oath_of_valor",
+      "name": "Oath of Valor",
+      "description": "A vow etched into steel. Reading it fills you with courage.",
+      "item_type": "key",
+      "effect_id": "",
+      "value": 0,
+      "icon_id": "item_default",
+      "max_stack_size": 1
+    },
+    {
+      "id": "void_scepter",
+      "name": "Void Scepter",
+      "description": "A staff that channels the emptiness between dimensions.",
+      "item_type": "equipment",
+      "effect_id": "",
+      "equip_slot": "weapon",
+      "stat_modifiers": {
+        "magic": 15,
+        "speed": 2
+      },
+      "granted_skills": [
+        "void_emperor_strike"
+      ],
+      "value": 1500,
+      "icon_id": "item_default",
+      "max_stack_size": 1
+    },
+    {
+      "id": "dimensional_armor",
+      "name": "Dimensional Armor",
+      "description": "Armor that flickers between planes, reducing incoming harm.",
+      "item_type": "equipment",
+      "effect_id": "",
+      "equip_slot": "armor",
+      "stat_modifiers": {
+        "defense": 14,
+        "magic": 4
+      },
+      "granted_skills": [],
+      "value": 1400,
+      "icon_id": "item_default",
+      "max_stack_size": 1
+    },
+    {
+      "id": "primal_essence",
+      "name": "Primal Essence",
+      "description": "Raw elemental force condensed into a shimmering orb.",
+      "item_type": "material",
+      "effect_id": "",
+      "value": 700,
+      "icon_id": "item_default",
+      "max_stack_size": 99
+    },
+    {
+      "id": "beast_claws",
+      "name": "Beast Claws",
+      "description": "Razor claws from the Primordial Beast.",
+      "item_type": "material",
+      "effect_id": "",
+      "value": 500,
+      "icon_id": "item_default",
+      "max_stack_size": 99
+    },
+    {
+      "id": "mirror_shard",
+      "name": "Mirror Shard",
+      "description": "A shard from a mirror that shows more than reflections.",
+      "item_type": "key",
+      "effect_id": "",
+      "value": 0,
+      "icon_id": "item_default",
+      "max_stack_size": 1
+    },
+    {
+      "id": "shadow_self_essence",
+      "name": "Shadow Self Essence",
+      "description": "Residue from defeating your own shadow.",
+      "item_type": "material",
+      "effect_id": "",
+      "value": 650,
+      "icon_id": "item_default",
+      "max_stack_size": 99
+    },
+    {
+      "id": "ultimate_weapon",
+      "name": "Ultimate Weapon",
+      "description": "A weapon forged to end all battles.",
+      "item_type": "equipment",
+      "effect_id": "",
+      "equip_slot": "weapon",
+      "stat_modifiers": {
+        "attack": 20,
+        "magic": 10,
+        "speed": 5
+      },
+      "granted_skills": [
+        "arcane_blast"
+      ],
+      "value": 2000,
+      "icon_id": "item_default",
+      "max_stack_size": 1
+    },
+    {
+      "id": "true_ending_key",
+      "name": "True Ending Key",
+      "description": "A key that unlocks the path to the ultimate challenge.",
+      "item_type": "key",
+      "effect_id": "",
+      "value": 0,
+      "icon_id": "item_default",
+      "max_stack_size": 1
+    },
+    {
+      "id": "void_key",
+      "name": "Void Key",
+      "description": "An obsidian key that opens the gateway to the void.",
+      "item_type": "key",
+      "effect_id": "",
+      "value": 0,
+      "icon_id": "item_default",
+      "max_stack_size": 1
+    },
+    {
+      "id": "champion_medal",
+      "name": "Champion Medal",
+      "description": "A medal awarded for triumph in the arena.",
+      "item_type": "key",
+      "effect_id": "",
+      "value": 0,
+      "icon_id": "item_default",
+      "max_stack_size": 1
     }
   ]
 }

@@ -256,12 +256,13 @@ class PuzzleManager:
                                 linked.solid = False
                                 changed_ids.append(linked_id)
                         else:
-                            if linked.state == "closed":
+                            if linked.state == "open":
                                 linked.state = "closed"
                                 linked.solid = True
                                 changed_ids.append(linked_id)
 
-        return changed_ids
+                return changed_ids
+
 
     def _check_door_conditions(self, door: PuzzleElement, puzzle: DungeonPuzzle) -> bool:
         """Check if door should be open based on linked elements."""
@@ -576,6 +577,8 @@ class PuzzleManager:
                 "solved": puzzle.solved,
                 "elements": {}
             }
+            if isinstance(puzzle, SequencePuzzle):
+                puzzle_data["current_sequence"] = list(puzzle.current_sequence)
             for element_id, element in puzzle.elements.items():
                 puzzle_data["elements"][element_id] = {
                     "x": element.x,
@@ -599,6 +602,8 @@ class PuzzleManager:
 
             puzzle = manager.puzzles[puzzle_id]
             puzzle.solved = puzzle_data.get("solved", False)
+            if isinstance(puzzle, SequencePuzzle):
+                puzzle.current_sequence = list(puzzle_data.get("current_sequence", []))
 
             elements_data = puzzle_data.get("elements", {})
             for element_id, element_data in elements_data.items():
@@ -620,6 +625,8 @@ class PuzzleManager:
 
             puzzle = self.puzzles[puzzle_id]
             puzzle.solved = puzzle_data.get("solved", False)
+            if isinstance(puzzle, SequencePuzzle):
+                puzzle.current_sequence = list(puzzle_data.get("current_sequence", []))
 
             elements_data = puzzle_data.get("elements", {})
             for element_id, element_data in elements_data.items():

@@ -225,6 +225,10 @@ class SecretBossManager:
         if boss.post_game_only and not is_post_game:
             return False
 
+        # No rematch allowed after first defeat
+        if not boss.rematch_available and boss_id in self.defeated:
+            return False
+
         # Check all unlock conditions
         for condition in boss.unlock_conditions:
             # Level requirement (removed post-game)
@@ -317,6 +321,9 @@ class SecretBossManager:
 
         first_defeat = boss_id not in self.defeated
         self.defeated.add(boss_id)
+
+        if not boss.rematch_available:
+            self.available.discard(boss_id)
 
         rewards = dict(boss.rewards)
         if first_defeat:
