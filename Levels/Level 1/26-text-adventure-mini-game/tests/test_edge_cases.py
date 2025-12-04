@@ -150,11 +150,11 @@ class TestInvalidJSONData(unittest.TestCase):
     def test_load_json_unicode_encoding(self):
         """Test JSON with unicode characters."""
         with open(self.test_file, 'w', encoding='utf-8') as f:
-            json.dump({"name": "テスト", "emoji": "🎮"}, f, ensure_ascii=False)
+            json.dump({"name": "テスト", "unicode_text": "Hello 世界"}, f, ensure_ascii=False)
 
         result = load_json_file(self.test_file)
         self.assertEqual(result["name"], "テスト")
-        self.assertEqual(result["emoji"], "🎮")
+        self.assertEqual(result["unicode_text"], "Hello 世界")
 
 
 class TestMissingAssets(unittest.TestCase):

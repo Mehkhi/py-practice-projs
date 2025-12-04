@@ -481,12 +481,12 @@ class TestAIValidationHelpers(unittest.TestCase):
             return importlib.import_module("engine.world_scene").WorldScene
 
     def test_validation_warns_for_missing_skill_and_item(self):
-        WorldScene = self._world_scene_class()
+        from engine.world.ai_validation_service import AIValidationService
         ai_profile = {
             "rules": [
                 {
                     "conditions": {},
-                    "action": {"type": "skill", "skill_id": "missing_skill", "target_strategy": "random_enemy"},
+                    "action": {"type": "skill", "skill_id": "missing_skill", "target_strategy": "self"},
                 },
                 {
                     "conditions": {},
@@ -495,7 +495,8 @@ class TestAIValidationHelpers(unittest.TestCase):
             ]
         }
         warnings = []
-        WorldScene._validate_ai_profile_dict(
+        validator = AIValidationService({})
+        validator._validate_ai_profile_dict(
             ai_profile,
             skills={"known": object()},
             items_db={"health_potion": object()},
@@ -507,13 +508,14 @@ class TestAIValidationHelpers(unittest.TestCase):
         self.assertTrue(any("missing_item" in w for w in warnings))
 
     def test_missing_profile_warning_respects_allow_default(self):
-        WorldScene = self._world_scene_class()
+        from engine.world.ai_validation_service import AIValidationService
         warnings = []
-        WorldScene._warn_missing_profile("enc_id", {"id": "enemy_no_ai"}, warn=warnings.append)
+        validator = AIValidationService({})
+        validator._warn_missing_profile("enc_id", {"id": "enemy_no_ai"}, warn=warnings.append)
         self.assertTrue(warnings)
 
         warnings.clear()
-        WorldScene._warn_missing_profile("enc_id", {"id": "enemy_default", "allow_default_ai": True}, warn=warnings.append)
+        validator._warn_missing_profile("enc_id", {"id": "enemy_default", "allow_default_ai": True}, warn=warnings.append)
         self.assertFalse(warnings)
 
 

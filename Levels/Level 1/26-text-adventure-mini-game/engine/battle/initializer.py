@@ -20,7 +20,7 @@ from ..theme import Colors
 
 if TYPE_CHECKING:
     from . import BattleStateManager
-    from .scene import SceneManager
+    from ..scene import SceneManager
     from .battle_scene import BattleScene  # type: ignore  # circular at runtime
 
 

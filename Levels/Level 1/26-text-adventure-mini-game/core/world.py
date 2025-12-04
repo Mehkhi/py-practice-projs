@@ -4,7 +4,7 @@ This module provides the World class for managing game state and maps,
 along with re-exports of map-related types for backward compatibility.
 """
 
-from typing import Any, Callable, Dict, List, Optional, Set, Tuple
+from typing import Any, Callable, Dict, List, Optional, Set, Tuple, TYPE_CHECKING
 
 # Re-export models for backward compatibility
 from .map_models import (
@@ -31,6 +31,10 @@ from .map_analysis import (
 )
 
 from .logging_utils import log_warning
+
+if TYPE_CHECKING:
+    # Imported for type checking only to avoid runtime circular imports
+    from .entities import Entity, OverworldEnemy
 
 
 class World:
