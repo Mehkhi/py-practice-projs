@@ -16,9 +16,11 @@ from typing import Any, Dict, Mapping, MutableMapping, Optional, Sequence, Tuple
 from core.logging_utils import (
     format_schema_message,
     log_debug,
+    log_error,
     log_schema_warning,
     log_warning,
 )
+from core.path_validation import validate_path_inside_base
 
 STRICT_SCHEMA = os.environ.get("STRICT_SCHEMA", "").lower() in {"1", "true", "yes", "on"}
 
@@ -108,6 +110,7 @@ def load_json_file(
     use_cache: bool = True,
     force_reload: bool = False,
     copy_data: bool = True,
+    base_dir: Optional[str] = None,
 ) -> Any:
     """
     Load a JSON file with standardized error handling and caching.
@@ -123,6 +126,8 @@ def load_json_file(
         force_reload: Skip cache and re-read from disk even if cached.
         copy_data: Return a deep copy of cached data to prevent accidental
             mutation of the cached payload.
+        base_dir: Optional base directory to validate path against (prevents path traversal).
+            If provided, path must stay within this directory.
 
     Returns:
         Parsed JSON data (deep-copied by default), or default value on failure.
@@ -131,7 +136,19 @@ def load_json_file(
     if default is None:
         default = {}
 
-    canonical_path = _canonical_path(path)
+    # Validate path if base_dir is provided
+    if base_dir:
+        is_valid, validated_path = validate_path_inside_base(path, base_dir, allow_absolute=False)
+        if not is_valid or not validated_path:
+            msg = f"Invalid path (potential path traversal): {path}"
+            if context:
+                msg = f"{context}: {msg}"
+            log_warning(msg)
+            return _copy_data(default) if copy_data else default
+        canonical_path = validated_path
+    else:
+        canonical_path = _canonical_path(path)
+
     mtime = _safe_get_mtime(canonical_path)
 
     if force_reload and use_cache:
@@ -157,13 +174,29 @@ def load_json_file(
         return _copy_data(default) if copy_data else default
 
     try:
-        with open(canonical_path, "r") as file_handle:
+        with open(canonical_path, "r", encoding="utf-8") as file_handle:
             data = json.load(file_handle)
-    except Exception as exc:  # pylint: disable=broad-except
+    except (OSError, PermissionError) as exc:
         msg = f"Failed to load JSON file from {canonical_path}: {exc}"
         if context:
             msg = f"{context}: {msg}"
         log_warning(msg)
+        _JSON_CACHE.pop(canonical_path, None)
+        _invalidate_lookups_for(canonical_path)
+        return _copy_data(default) if copy_data else default
+    except json.JSONDecodeError as exc:
+        msg = f"Invalid JSON in file {canonical_path}: {exc}"
+        if context:
+            msg = f"{context}: {msg}"
+        log_warning(msg)
+        _JSON_CACHE.pop(canonical_path, None)
+        _invalidate_lookups_for(canonical_path)
+        return _copy_data(default) if copy_data else default
+    except Exception as exc:  # pylint: disable=broad-except
+        msg = f"Unexpected error loading JSON file from {canonical_path}: {exc}"
+        if context:
+            msg = f"{context}: {msg}"
+        log_error(msg)
         _JSON_CACHE.pop(canonical_path, None)
         _invalidate_lookups_for(canonical_path)
         return _copy_data(default) if copy_data else default

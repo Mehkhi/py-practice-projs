@@ -153,6 +153,19 @@ class QuestManager:
         # Rebuild indexes after loading
         self._rebuild_indexes()
 
+    def add_quest(self, quest: Quest) -> None:
+        """Add a quest and rebuild indexes.
+
+        This method should be used when programmatically adding quests at runtime
+        (e.g., in tests or dynamic quest generation). It ensures the objective
+        indexes are properly updated.
+
+        Args:
+            quest: Quest instance to add
+        """
+        self.quests[quest.id] = quest
+        self._rebuild_indexes()
+
     def get_quest(self, quest_id: str) -> Optional[Quest]:
         """Get a quest by ID."""
         return self.quests.get(quest_id)

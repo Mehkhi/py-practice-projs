@@ -41,6 +41,8 @@ class PostGameWelcomeScene(Scene):
         self.scale = max(1, int(scale))
         self.current_page = 0
         self.unlocks_per_page = 5
+        self._blink_timer = 0.0
+        self._blink_visible = True
         if manager and hasattr(manager, 'tutorial_manager') and manager.tutorial_manager:
             manager.tutorial_manager.trigger_tip(TipTrigger.POST_GAME_START)
 
@@ -60,7 +62,10 @@ class PostGameWelcomeScene(Scene):
 
     def update(self, dt: float) -> None:
         """Update scene state."""
-        pass
+        self._blink_timer += dt
+        if self._blink_timer >= 0.8:
+            self._blink_timer = 0.0
+            self._blink_visible = not self._blink_visible
 
     def draw(self, surface: pygame.Surface) -> None:
         """
@@ -140,7 +145,8 @@ class PostGameWelcomeScene(Scene):
         # Draw continue prompt
         continue_y = height - 50
         continue_text = "Press ENTER to continue"
-        continue_surf = small_font.render(continue_text, True, (180, 180, 180))
+        continue_color = (200, 200, 200) if self._blink_visible else (120, 120, 120)
+        continue_surf = small_font.render(continue_text, True, continue_color)
         continue_rect = continue_surf.get_rect(center=(center_x, continue_y))
         surface.blit(continue_surf, continue_rect)
 

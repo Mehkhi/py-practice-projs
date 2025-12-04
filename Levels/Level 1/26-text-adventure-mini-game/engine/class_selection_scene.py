@@ -1,115 +1,20 @@
 """Class selection scene for choosing player class and subclass."""
 
-import json
 import math
-import os
-import sys
-import pygame
 from typing import Any, Callable, Dict, List, Optional, Tuple, TYPE_CHECKING
+
+import pygame
 
 from .base_menu_scene import BaseMenuScene
 from .assets import AssetManager
 from .theme import Colors
-from .onboarding_theme import generate_stars, generate_particles, update_particles
+from .onboarding_background import OnboardingBackgroundRenderer, draw_title_text
+from .class_data_loader import load_classes_data, ClassSpriteLoader
 from .config_loader import load_config
 from core.constants import DEFAULT_WINDOW_WIDTH, DEFAULT_WINDOW_HEIGHT
-from core.logging_utils import log_warning
 
 if TYPE_CHECKING:
     from .scene import SceneManager
-
-# Import sprite generation for dynamic class sprite creation
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'tools'))
-try:
-    from generate_sprites import generate_class_sprite, SUBCLASS_COLORS
-    HAS_SPRITE_GENERATOR = True
-except ImportError:
-    HAS_SPRITE_GENERATOR = False
-    SUBCLASS_COLORS = {}
-
-
-def load_classes_data(path: str = os.path.join("data", "classes.json")) -> Dict[str, Any]:
-    """Load class definitions from JSON."""
-    if not os.path.exists(path):
-        return {"classes": {}, "subclass_bonuses": {}}
-    try:
-        with open(path, "r") as f:
-            return json.load(f)
-    except Exception as e:
-        log_warning(f"Failed to load classes data from {path}: {e}")
-        return {"classes": {}, "subclass_bonuses": {}}
-
-
-def draw_onboarding_background(surface: pygame.Surface, cache: dict, anim_timer: float,
-                                stars: List[dict], particles: List[dict]) -> None:
-    """Draw the shared onboarding background with gradient, stars, particles, vignette."""
-    width, height = surface.get_size()
-
-    # Gradient background (cached)
-    if cache.get("gradient") is None or cache["gradient"].get_size() != (width, height):
-        grad = pygame.Surface((width, height))
-        top, bottom = Colors.BG_ONBOARDING_TOP, Colors.BG_ONBOARDING_BOTTOM
-        for y in range(height):
-            ratio = y / height
-            ratio = ratio * ratio * (3 - 2 * ratio)
-            r = int(top[0] + (bottom[0] - top[0]) * ratio)
-            g = int(top[1] + (bottom[1] - top[1]) * ratio)
-            b = int(top[2] + (bottom[2] - top[2]) * ratio)
-            pygame.draw.line(grad, (r, g, b), (0, y), (width, y))
-        cache["gradient"] = grad
-    surface.blit(cache["gradient"], (0, 0))
-
-    # Stars
-    for star in stars:
-        twinkle = math.sin(anim_timer * star["twinkle_speed"] + star["twinkle_offset"])
-        brightness = max(40, min(255, int(star["base_brightness"] + 60 * twinkle)))
-        if star["layer"] == 0:
-            color = (brightness, brightness, int(brightness * 1.1))
-        elif star["layer"] == 1:
-            color = (brightness, int(brightness * 0.95), brightness)
-        else:
-            color = (int(brightness * 1.1), int(brightness * 1.05), brightness)
-        x, y = int(star["x"]), int(star["y"])
-        size = star["size"]
-        if size > 1.5:
-            pygame.draw.circle(surface, (color[0]//4, color[1]//4, color[2]//4), (x, y), int(size + 2))
-        pygame.draw.circle(surface, color, (x, y), max(1, int(size)))
-
-    # Particles
-    for p in particles:
-        x, y = int(p["x"]), int(p["y"])
-        if 0 <= x < width and 0 <= y < height:
-            size = int(p["size"])
-            alpha = int(p["alpha"] * (0.5 + 0.5 * math.sin(anim_timer * 2 + x * 0.1)))
-            color = (*p["color"], max(20, min(255, alpha)))
-            ps = pygame.Surface((size * 2, size * 2), pygame.SRCALPHA)
-            pygame.draw.circle(ps, color, (size, size), size)
-            surface.blit(ps, (x - size, y - size))
-
-    # Vignette (cached)
-    if cache.get("vignette") is None or cache["vignette"].get_size() != (width, height):
-        vig = pygame.Surface((width, height), pygame.SRCALPHA)
-        cx, cy = width // 2, height // 2
-        max_dist = math.sqrt(cx ** 2 + cy ** 2)
-        for vy in range(0, height, 4):
-            for vx in range(0, width, 4):
-                dist = math.sqrt((vx - cx) ** 2 + (vy - cy) ** 2)
-                alpha = int(min(80, (dist / max_dist) ** 2 * 120))
-                pygame.draw.rect(vig, (0, 0, 0, alpha), (vx, vy, 4, 4))
-        cache["vignette"] = vig
-    surface.blit(cache["vignette"], (0, 0))
-
-
-def draw_title_text(surface: pygame.Surface, text: str, font: pygame.font.Font,
-                    center_x: int, y: int) -> None:
-    """Draw title text with glow and shadow effects."""
-    shadow = font.render(text, True, Colors.TITLE_SHADOW)
-    surface.blit(shadow, shadow.get_rect(center=(center_x + 2, y + 2)))
-    glow = font.render(text, True, Colors.TITLE_GLOW)
-    for off in [(-1, 0), (1, 0), (0, -1), (0, 1)]:
-        surface.blit(glow, glow.get_rect(center=(center_x + off[0], y + off[1])))
-    main = font.render(text, True, Colors.TITLE_MAIN)
-    surface.blit(main, main.get_rect(center=(center_x, y)))
 
 
 class SelectionSceneBase(BaseMenuScene):
@@ -137,18 +42,16 @@ class SelectionSceneBase(BaseMenuScene):
         self.screen_height = self.config.get("window_height", DEFAULT_WINDOW_HEIGHT)
 
         # Animation state
-        self.anim_timer = 0.0
         self.fade_in = 0.0
-        self.stars = generate_stars(50, self.screen_width, self.screen_height, seed=star_seed)
-        self.particles = generate_particles(15, self.screen_width, self.screen_height, seed=particle_seed)
-        self._bg_cache: Dict[str, pygame.Surface] = {}
+        self.background_renderer = OnboardingBackgroundRenderer(
+            self.screen_width, self.screen_height, star_seed=star_seed, particle_seed=particle_seed
+        )
 
     def update(self, dt: float) -> None:
         """Update shared animation state."""
-        self.anim_timer += dt
         if self.fade_in < 1.0:
             self.fade_in = min(1.0, self.fade_in + dt * 2.0)
-        update_particles(self.particles, dt, self.screen_width, self.screen_height)
+        self.background_renderer.update(dt)
 
     def _draw_selection_list(
         self,
@@ -219,7 +122,7 @@ class SelectionSceneBase(BaseMenuScene):
                 )
                 surface.blit(highlight_surf, highlight_rect.topleft)
 
-                cursor_offset = 2 * math.sin(self.anim_timer * 5)
+                cursor_offset = 2 * math.sin(self.background_renderer.anim_timer * 5)
                 cursor_x = x + 10 + cursor_offset
                 arrow_points = [
                     (cursor_x, item_y + 3),
@@ -365,33 +268,8 @@ class ClassSelectionScene(SelectionSceneBase):
         self.selection_confirmed = False
         self.selected_class: Optional[str] = None
 
-        # Class sprite cache
-        self.class_sprites: Dict[str, pygame.Surface] = {}
-        self._load_class_sprites()
-
-    def _load_class_sprites(self) -> None:
-        """Load or generate class sprites for preview."""
-        for class_id in self.class_ids:
-            # Try to load pre-generated sprite first
-            sprite_name = f"class_{class_id}"
-            try:
-                sprite = self.assets.get_image(sprite_name)
-                if sprite:
-                    scaled = pygame.transform.scale(sprite, (96, 96))
-                    self.class_sprites[class_id] = scaled
-                    continue
-            except Exception:
-                pass
-
-            # Fall back to dynamic generation
-            if HAS_SPRITE_GENERATOR:
-                try:
-                    sprite = generate_class_sprite(class_id)
-                    if sprite:
-                        scaled = pygame.transform.scale(sprite, (96, 96))
-                        self.class_sprites[class_id] = scaled
-                except Exception as e:
-                    log_warning(f"Failed to generate sprite for class {class_id}: {e}")
+        # Class sprite loader
+        self.sprite_loader = ClassSpriteLoader(self.assets)
 
     def handle_event(self, event: pygame.event.Event) -> None:
         """Handle input events."""
@@ -413,7 +291,7 @@ class ClassSelectionScene(SelectionSceneBase):
         center_x = width // 2
 
         # Draw polished background
-        draw_onboarding_background(surface, self._bg_cache, self.anim_timer, self.stars, self.particles)
+        self.background_renderer.draw(surface, fade_in=self.fade_in)
 
         # Draw title with effects - proportional to height
         font_large = self.assets.get_font("large", 40) or pygame.font.Font(None, 40)
@@ -536,14 +414,11 @@ class ClassSelectionScene(SelectionSceneBase):
             return
 
         class_id = self.class_ids[self.selected_index]
-        sprite = self.class_sprites.get(class_id)
-
         sprite_x, sprite_y, sprite_size, _ = self._draw_preview_frame(surface)
 
+        sprite = self.sprite_loader.get_class_sprite(class_id, size=sprite_size)
         if sprite:
-            # Scale sprite to match proportional size
-            scaled_sprite = pygame.transform.scale(sprite, (sprite_size, sprite_size))
-            surface.blit(scaled_sprite, (sprite_x, sprite_y))
+            surface.blit(sprite, (sprite_x, sprite_y))
         else:
             # Draw placeholder with proportional size
             pygame.draw.rect(surface, Colors.PLACEHOLDER_BG, (sprite_x, sprite_y, sprite_size, sprite_size), border_radius=4)
@@ -586,39 +461,8 @@ class SubclassSelectionScene(SelectionSceneBase):
         self.selection_confirmed = False
         self.selected_subclass: Optional[str] = None
 
-        # Sprite cache for class+subclass combinations
-        self.combo_sprites: Dict[str, pygame.Surface] = {}
-
-    def _get_combo_sprite(self, subclass_id: str) -> Optional[pygame.Surface]:
-        """Get or generate sprite for primary class with subclass coloring."""
-        cache_key = f"{self.primary_class}_{subclass_id}"
-
-        if cache_key in self.combo_sprites:
-            return self.combo_sprites[cache_key]
-
-        # Try to load pre-generated sprite
-        sprite_name = f"player_{self.primary_class}_{subclass_id}"
-        try:
-            sprite = self.assets.get_image(sprite_name)
-            if sprite:
-                scaled = pygame.transform.scale(sprite, (96, 96))
-                self.combo_sprites[cache_key] = scaled
-                return scaled
-        except Exception:
-            pass
-
-        # Fall back to dynamic generation
-        if HAS_SPRITE_GENERATOR:
-            try:
-                sprite = generate_class_sprite(self.primary_class, subclass_id)
-                if sprite:
-                    scaled = pygame.transform.scale(sprite, (96, 96))
-                    self.combo_sprites[cache_key] = scaled
-                    return scaled
-            except Exception as e:
-                log_warning(f"Failed to generate combo sprite for {cache_key}: {e}")
-
-        return None
+        # Sprite loader for class+subclass combinations
+        self.sprite_loader = ClassSpriteLoader(self.assets)
 
     def handle_event(self, event: pygame.event.Event) -> None:
         """Handle input events."""
@@ -640,7 +484,7 @@ class SubclassSelectionScene(SelectionSceneBase):
         center_x = width // 2
 
         # Draw polished background
-        draw_onboarding_background(surface, self._bg_cache, self.anim_timer, self.stars, self.particles)
+        self.background_renderer.draw(surface, fade_in=self.fade_in)
 
         # Draw title with effects - proportional to height
         font_large = self.assets.get_font("large", 40) or pygame.font.Font(None, 40)
@@ -747,14 +591,11 @@ class SubclassSelectionScene(SelectionSceneBase):
             return
 
         subclass_id = self.subclass_ids[self.selected_index]
-        sprite = self._get_combo_sprite(subclass_id)
-
         sprite_x, sprite_y, sprite_size, sprite_center_x = self._draw_preview_frame(surface)
 
+        sprite = self.sprite_loader.get_combo_sprite(self.primary_class, subclass_id, size=sprite_size)
         if sprite:
-            # Scale sprite to match proportional size
-            scaled_sprite = pygame.transform.scale(sprite, (sprite_size, sprite_size))
-            surface.blit(scaled_sprite, (sprite_x, sprite_y))
+            surface.blit(sprite, (sprite_x, sprite_y))
         else:
             # Draw placeholder with proportional size
             pygame.draw.rect(surface, Colors.PLACEHOLDER_BG, (sprite_x, sprite_y, sprite_size, sprite_size), border_radius=4)

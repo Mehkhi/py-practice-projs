@@ -39,7 +39,7 @@ class TutorialBattleScene(BattleScene):
 
     def __init__(
         self,
-        manager: Optional["SceneManager"],
+        manager: "SceneManager",
         battle_system: BattleSystem,
         world: World,
         player: Player,

@@ -12,6 +12,7 @@ from .config_loader import load_config
 from .cutscene_controller import CutsceneController
 from .ng_plus import NewGamePlusManager
 from .ending_renderer import EndingRenderer
+from .post_game_welcome_scene import PostGameWelcomeScene
 from core.constants import DEFAULT_WINDOW_WIDTH, DEFAULT_WINDOW_HEIGHT
 from core.world import World
 from core.entities import Player
@@ -65,6 +66,7 @@ class EndingScene(Scene):
 
         # Post-game unlock tracking
         self._newly_unlocked = []
+        self._welcome_shown = False
 
     def _init_components(self) -> None:
         """Initialize the specialized components for ending scene management."""
@@ -285,6 +287,17 @@ class EndingScene(Scene):
         # Set world flag (already done in autosave, but ensure it's set)
         self.world.set_flag("final_boss_defeated", True)
         self.world.set_flag(f"ending_{self.ending_id}_seen", True)
+
+        # Surface unlocks immediately after credits
+        if self._newly_unlocked and self.manager and not self._welcome_shown:
+            welcome_scene = PostGameWelcomeScene(
+                manager=self.manager,
+                unlocks=self._newly_unlocked,
+                assets=self.assets,
+                scale=self.scale,
+            )
+            self.manager.push(welcome_scene)
+            self._welcome_shown = True
 
     def handle_event(self, event: pygame.event.Event) -> None:
         """Handle input events for cutscene progression."""

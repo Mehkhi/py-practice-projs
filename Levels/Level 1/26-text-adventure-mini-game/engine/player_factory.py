@@ -7,7 +7,7 @@ from core.items import Inventory
 from core.moves import get_moves_database
 from core.stats import Stats
 
-from .class_selection_scene import load_classes_data
+from .class_data_loader import load_classes_data
 
 
 class PlayerFactory:

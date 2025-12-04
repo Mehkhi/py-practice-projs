@@ -1,9 +1,10 @@
 """Helper functions for loading game data and systems."""
 
+import json
 import os
 from typing import Any, Dict, Optional
 
-from core.logging_utils import log_warning
+from core.logging_utils import log_warning, log_error
 from core.world import Map, Tile, World, load_world_from_data
 from core.dialogue import DialogueTree, load_dialogue_from_json
 from core.items import Item, load_items_from_json
@@ -69,8 +70,10 @@ def load_dialogue() -> Optional[DialogueTree]:
     if os.path.exists(dialogue_path):
         try:
             return load_dialogue_from_json(dialogue_path)
-        except Exception as exc:
+        except (OSError, json.JSONDecodeError) as exc:
             log_warning(f"Failed to load dialogue from {dialogue_path}: {exc}")
+        except Exception as exc:
+            log_error(f"Unexpected error loading dialogue from {dialogue_path}: {exc}")
     return None
 
 
@@ -98,8 +101,11 @@ def load_quest_manager_safe(world_flags: Dict[str, Any]) -> Optional[QuestManage
         manager = load_quest_manager(os.path.join("data", "quests.json"))
         manager.check_prerequisites(world_flags)
         return manager
-    except Exception as exc:
+    except (OSError, json.JSONDecodeError, ValueError) as exc:
         log_warning(f"Failed to load quest manager from data/quests.json: {exc}")
+        return None
+    except Exception as exc:
+        log_error(f"Unexpected error loading quest manager: {exc}")
         return None
 
 
@@ -132,8 +138,11 @@ def load_achievement_manager_safe(event_bus: Any) -> Optional[AchievementManager
     """Load achievement definitions and create achievement manager."""
     try:
         return load_achievement_manager(ACHIEVEMENTS_JSON, event_bus=event_bus)
-    except Exception as exc:
+    except (OSError, json.JSONDecodeError, ValueError) as exc:
         log_warning(f"Failed to load achievement manager from {ACHIEVEMENTS_JSON}: {exc}")
+        return None
+    except Exception as exc:
+        log_error(f"Unexpected error loading achievement manager: {exc}")
         return None
 
 
@@ -144,8 +153,11 @@ def load_party_prototypes(items_db: Dict[str, Item]) -> Dict[str, Any]:
             os.path.join("data", "party_members.json"),
             items_db=items_db
         )
-    except Exception as exc:
+    except (OSError, json.JSONDecodeError, ValueError) as exc:
         log_warning(f"Failed to load party prototypes from data/party_members.json: {exc}")
+        return {}
+    except Exception as exc:
+        log_error(f"Unexpected error loading party prototypes: {exc}")
         return {}
 
 
@@ -159,8 +171,11 @@ def create_tutorial_manager() -> TutorialManager:
         for entry in help_entries.values():
             manager.register_help_entry(entry)
         return manager
-    except Exception as exc:
+    except (OSError, json.JSONDecodeError, ValueError) as exc:
         log_warning(f"Failed to load tutorial manager from data/tutorial_tips.json: {exc}")
+        return TutorialManager()
+    except Exception as exc:
+        log_error(f"Unexpected error loading tutorial manager: {exc}")
         return TutorialManager()
 
 
@@ -169,8 +184,11 @@ def load_fishing_system() -> FishingSystem:
     try:
         fish_db, spots = load_fishing_data(FISHING_JSON)
         return FishingSystem(fish_db, spots)
-    except Exception as exc:
+    except (OSError, json.JSONDecodeError, ValueError) as exc:
         log_warning(f"Failed to load fishing system from {FISHING_JSON}: {exc}")
+        return FishingSystem({}, {})
+    except Exception as exc:
+        log_error(f"Unexpected error loading fishing system: {exc}")
         return FishingSystem({}, {})
 
 
@@ -179,8 +197,11 @@ def load_brain_teaser_manager() -> BrainTeaserManager:
     try:
         teasers = load_brain_teasers(os.path.join("data", "brain_teasers.json"))
         return BrainTeaserManager(teasers)
-    except Exception as exc:
+    except (OSError, json.JSONDecodeError, ValueError) as exc:
         log_warning(f"Failed to load brain teaser manager from data/brain_teasers.json: {exc}")
+        return BrainTeaserManager({})
+    except Exception as exc:
+        log_error(f"Unexpected error loading brain teaser manager: {exc}")
         return BrainTeaserManager({})
 
 
@@ -188,8 +209,11 @@ def load_arena_manager() -> ArenaManager:
     """Load arena data and create ArenaManager."""
     try:
         return load_arena_data(os.path.join("data", "arena.json"))
-    except Exception as exc:
+    except (OSError, json.JSONDecodeError, ValueError) as exc:
         log_warning(f"Failed to load arena manager from data/arena.json: {exc}")
+        return ArenaManager({})
+    except Exception as exc:
+        log_error(f"Unexpected error loading arena manager: {exc}")
         return ArenaManager({})
 
 
@@ -204,8 +228,11 @@ def load_challenge_dungeon_manager() -> ChallengeDungeonManager:
     try:
         dungeons, modifiers = load_challenge_dungeons(os.path.join("data", "challenge_dungeons.json"))
         return ChallengeDungeonManager(dungeons, modifiers)
-    except Exception as exc:
+    except (OSError, json.JSONDecodeError, ValueError) as exc:
         log_warning(f"Failed to load challenge dungeon manager from data/challenge_dungeons.json: {exc}")
+        return ChallengeDungeonManager({}, {})
+    except Exception as exc:
+        log_error(f"Unexpected error loading challenge dungeon manager: {exc}")
         return ChallengeDungeonManager({}, {})
 
 
@@ -214,8 +241,11 @@ def load_secret_boss_manager() -> SecretBossManager:
     try:
         bosses = load_secret_bosses(os.path.join("data", "secret_bosses.json"))
         return SecretBossManager(bosses)
-    except Exception as exc:
+    except (OSError, json.JSONDecodeError, ValueError) as exc:
         log_warning(f"Failed to load secret boss manager from data/secret_bosses.json: {exc}")
+        return SecretBossManager({})
+    except Exception as exc:
+        log_error(f"Unexpected error loading secret boss manager: {exc}")
         return SecretBossManager({})
 
 
@@ -224,8 +254,11 @@ def load_hint_manager() -> HintManager:
     try:
         hints = load_secret_boss_hints(os.path.join("data", "secret_boss_hints.json"))
         return HintManager(hints)
-    except Exception as exc:
+    except (OSError, json.JSONDecodeError, ValueError) as exc:
         log_warning(f"Failed to load hint manager from data/secret_boss_hints.json: {exc}")
+        return HintManager({})
+    except Exception as exc:
+        log_error(f"Unexpected error loading hint manager: {exc}")
         return HintManager({})
 
 

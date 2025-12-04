@@ -13,6 +13,13 @@ if TYPE_CHECKING:
     from core.combat import BattleCommand, BattleParticipant, BattleState
 
 from .action_handlers import get_action_handler_registry
+from core.constants import (
+    CRITICAL_HIT_MULTIPLIER,
+    FLEE_LUCK_BONUS_MAX,
+    FLEE_LUCK_DIVISOR,
+    FLEE_TURN_BONUS_PER_TURN,
+    FLEE_TURN_BONUS_MAX,
+)
 
 
 class ActionExecutorMixin:
@@ -226,7 +233,10 @@ class ActionExecutorMixin:
             is_crit = False
             current_turn = getattr(self, 'turn_counter', 0)
             if self.rng.random() < (actor.get_cached_effective_luck(current_turn) / 100.0):
-                damage = int(damage * 1.5)
+                # Validate damage is numeric before multiplication
+                if not isinstance(damage, (int, float)):
+                    raise ValueError(f"Damage must be numeric, got {type(damage)}")
+                damage = int(damage * CRITICAL_HIT_MULTIPLIER)
                 is_crit = True
 
             # Handle absorption (negative multiplier = healing)
@@ -593,12 +603,12 @@ class ActionExecutorMixin:
         speed_diff = (actor_speed - avg_enemy_speed) / 100.0
         speed_bonus = max(-0.20, min(0.20, speed_diff))
 
-        # Luck bonus (up to 10%)
+        # Luck bonus (up to max)
         current_turn = getattr(self, 'turn_counter', 0)
-        luck_bonus = min(0.10, actor.get_cached_effective_luck(current_turn) / 200.0)
+        luck_bonus = min(FLEE_LUCK_BONUS_MAX, actor.get_cached_effective_luck(current_turn) / FLEE_LUCK_DIVISOR)
 
-        # Turn bonus (5% per turn, up to 25%)
-        turn_bonus = min(0.25, self.turn_counter * 0.05)
+        # Turn bonus (per turn, up to max)
+        turn_bonus = min(FLEE_TURN_BONUS_MAX, self.turn_counter * FLEE_TURN_BONUS_PER_TURN)
 
         # Low HP desperation bonus
         hp_percent = actor.stats.hp / actor.stats.max_hp if actor.stats.max_hp > 0 else 1.0

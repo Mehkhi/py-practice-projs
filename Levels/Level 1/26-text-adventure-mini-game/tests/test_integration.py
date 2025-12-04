@@ -196,7 +196,7 @@ class TestQuestCompletionFlow(unittest.TestCase):
                 )
             ]
         )
-        self.quest_manager.quests["kill_quest"] = quest
+        self.quest_manager.add_quest(quest)
 
         # Kill 4 goblins (not enough to complete)
         for _ in range(4):
@@ -233,7 +233,7 @@ class TestQuestCompletionFlow(unittest.TestCase):
                 )
             ]
         )
-        self.quest_manager.quests["collect_quest"] = quest
+        self.quest_manager.add_quest(quest)
 
         # Collect 2 items (not enough to complete)
         self.inventory.add("herb", 2)
@@ -271,7 +271,7 @@ class TestQuestCompletionFlow(unittest.TestCase):
                 )
             ]
         )
-        self.quest_manager.quests["talk_quest"] = quest
+        self.quest_manager.add_quest(quest)
 
         # Talk to NPC
         updated_quests = self.quest_manager.on_npc_talked("merchant")
@@ -297,7 +297,7 @@ class TestQuestCompletionFlow(unittest.TestCase):
                 )
             ]
         )
-        self.quest_manager.quests["reach_quest"] = quest
+        self.quest_manager.add_quest(quest)
 
         # Enter map
         updated_quests = self.quest_manager.on_map_entered("cave")
@@ -323,7 +323,7 @@ class TestQuestCompletionFlow(unittest.TestCase):
                 )
             ]
         )
-        self.quest_manager.quests["flag_quest"] = quest
+        self.quest_manager.add_quest(quest)
 
         # Set flag
         self.world.set_flag("objective_flag", True)

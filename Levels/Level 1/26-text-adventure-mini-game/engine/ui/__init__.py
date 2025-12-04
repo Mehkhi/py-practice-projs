@@ -1,16 +1,25 @@
 """UI components package.
 
 This package contains modular UI components split by concern:
-- panels: NineSlicePanel, MessageBox, ConfirmationDialog, ToastNotification
+- toast: ToastNotification for temporary notifications
+- nine_slice: NineSlicePanel for UI framing
+- message_box: MessageBox for text display with pagination
+- dialog: ConfirmationDialog for modal dialogs
+- combat_log: CombatLog for battle action history
 - bars: HP/SP bars and status icon drawing functions
 - menus: Menu, Tooltip
 - minimap: Minimap HUD component
 - transitions: TransitionManager for screen transitions
 - tutorial: HelpOverlay, TipPopup, HintButton
 - comparison: EquipmentComparisonPanel for stat comparisons
+- utils: Shared utility functions like draw_rounded_panel
 """
 
-from .panels import NineSlicePanel, MessageBox, ConfirmationDialog, ToastNotification, CombatLog
+from .toast import ToastNotification
+from .nine_slice import NineSlicePanel
+from .message_box import MessageBox
+from .dialog import ConfirmationDialog
+from .combat_log import CombatLog
 from .bars import (
     draw_hp_bar,
     draw_sp_bar,

@@ -562,21 +562,20 @@ class TestInventoryEdgeCases(unittest.TestCase):
         self.inventory = Inventory()
 
     def test_add_zero_quantity(self):
-        """Test adding zero quantity creates entry with zero count."""
-        # Current behavior: adds item with zero quantity
+        """Test adding zero quantity is rejected and returns 0."""
+        # Zero quantity should be rejected - no item entry created
         added = self.inventory.add("potion", 0)
         self.assertEqual(added, 0)
         self.assertEqual(self.inventory.get_quantity("potion"), 0)
-        # Note: This creates an entry - consider if this should be prevented
-        self.assertIn("potion", self.inventory.items)
+        # Zero quantities should not create an entry
+        self.assertNotIn("potion", self.inventory.items)
 
     def test_add_negative_quantity(self):
-        """Test adding negative quantity returns that value (potential bug)."""
-        # Current behavior: returns negative value, creates negative entry
-        # This documents existing behavior - may want to fix in future
+        """Test adding negative quantity is rejected and returns 0."""
+        # Negative quantities should be rejected - no item entry created
         added = self.inventory.add("potion", -5)
-        self.assertEqual(added, -5)  # Returns the negative value
-        self.assertEqual(self.inventory.get_quantity("potion"), -5)
+        self.assertEqual(added, 0)  # Returns 0 (nothing added)
+        self.assertEqual(self.inventory.get_quantity("potion"), 0)
 
     def test_remove_clears_hotbar_assignment(self):
         """Test that removing all of an item clears its hotbar slot."""

@@ -14,6 +14,7 @@ from core.gambling import (
     DiceGame,
     BlackjackGame,
     SlotsGame,
+    CoinFlipGame,
     CupsGame,
 )
 from core.world import World
@@ -61,6 +62,8 @@ class GamblingScene(BaseMenuScene):
         self.blackjack_action: Optional[str] = None  # "hit" or "stand"
         self.cups_guess: Optional[int] = None
         self.slots_spun = False
+        self.coin_guess: Optional[str] = None  # "heads" or "tails"
+        self.coin_result: Optional[str] = None
         self._entered_tip_triggered = False
         self._win_tip_triggered = False
         self._loss_tip_triggered = False
@@ -86,6 +89,8 @@ class GamblingScene(BaseMenuScene):
             return SlotsGame()
         elif self.game_type == GamblingGameType.CUPS_GAME:
             return CupsGame()
+        elif self.game_type == GamblingGameType.COIN_FLIP:
+            return CoinFlipGame()
         return None
 
     def _get_gold(self) -> int:
@@ -155,6 +160,8 @@ class GamblingScene(BaseMenuScene):
             elif self.game_type == GamblingGameType.CUPS_GAME and self.cups_guess is None:
                 if isinstance(self.game_instance, CupsGame):
                     self.message_box.set_text(f"Which cup? (1-{self.game_instance.num_cups}, ENTER to guess)")
+            elif self.game_type == GamblingGameType.COIN_FLIP and not self.coin_guess:
+                self.message_box.set_text("Heads or Tails? (UP/DOWN, ENTER to confirm)")
         elif self.phase == "result":
             self.message_box.set_text(self.result_message)
 
@@ -213,16 +220,16 @@ class GamblingScene(BaseMenuScene):
                         self.blackjack_action = "stand"
                         self._update_message()
                     elif event.key == pygame.K_RETURN and self.blackjack_action:
-                         if self.blackjack_action == "hit":
-                             self.game_instance.hit()
-                             if self.game_instance.is_bust(self.game_instance.player_hand):
-                                 self._finish_blackjack()
-                             else:
-                                 self._update_message()
-                         else:
-                             self.game_instance.player_standing = True
-                             self.game_instance.dealer_play()
-                             self._finish_blackjack()
+                        if self.blackjack_action == "hit":
+                            self.game_instance.hit()
+                            if self.game_instance.is_bust(self.game_instance.player_hand):
+                                self._finish_blackjack()
+                            else:
+                                self._update_message()
+                        else:
+                            self.game_instance.player_standing = True
+                            self.game_instance.dealer_play()
+                            self._finish_blackjack()
 
         elif self.game_type == GamblingGameType.SLOTS:
             if not self.slots_spun:
@@ -238,6 +245,18 @@ class GamblingScene(BaseMenuScene):
                         if cup_num < self.game_instance.num_cups:
                             self.cups_guess = cup_num
                             self._play_cups()
+            elif event.key in (pygame.K_SPACE, pygame.K_RETURN):
+                self._show_result()
+        elif self.game_type == GamblingGameType.COIN_FLIP:
+            if not self.coin_guess:
+                if event.key == pygame.K_UP:
+                    self.coin_guess = "heads"
+                    self._update_message()
+                elif event.key == pygame.K_DOWN:
+                    self.coin_guess = "tails"
+                    self._update_message()
+                elif event.key == pygame.K_RETURN and self.coin_guess:
+                    self._play_coin()
             elif event.key in (pygame.K_SPACE, pygame.K_RETURN):
                 self._show_result()
 
@@ -337,6 +356,25 @@ class GamblingScene(BaseMenuScene):
             self._check_achievements()
             self._trigger_result_tip(self.result_type)
 
+    def _play_coin(self) -> None:
+        """Play coin flip game."""
+        if isinstance(self.game_instance, CoinFlipGame) and self.coin_guess:
+            result = self.game_instance.flip()
+            self.coin_result = result
+            if result == self.coin_guess:
+                winnings = self.gm.win(2.0, self.world)
+                self.result_type = "win"
+                self.result_message = f"The coin lands on {result.title()}! You win +{winnings}g"
+                self.gm.track_game_win(self.game_type)
+            else:
+                self.gm.lose()
+                self.result_type = "lose"
+                self.result_message = f"The coin lands on {result.title()}. You lose!"
+            self.phase = "result"
+            self._update_message()
+            self._check_achievements()
+            self._trigger_result_tip(self.result_type)
+
     def _show_result(self) -> None:
         """Show result and return to betting."""
         self.phase = "betting"
@@ -345,6 +383,8 @@ class GamblingScene(BaseMenuScene):
         self.blackjack_action = None
         self.cups_guess = None
         self.slots_spun = False
+        self.coin_guess = None
+        self.coin_result = None
         self.game_instance = self._create_game()
         self._update_message()
 
@@ -392,7 +432,9 @@ class GamblingScene(BaseMenuScene):
 
     def update(self, dt: float) -> None:
         """Update scene state."""
-        pass
+        # Keep message box cursor animation active
+        if self.message_box:
+            self.message_box.update(dt)
 
     def draw(self, surface: pygame.Surface) -> None:
         """Draw gambling UI."""
@@ -427,6 +469,8 @@ class GamblingScene(BaseMenuScene):
                 self._draw_slots(surface, small_font)
             elif self.game_type == GamblingGameType.CUPS_GAME:
                 self._draw_cups(surface, small_font)
+            elif self.game_type == GamblingGameType.COIN_FLIP:
+                self._draw_coin(surface, small_font)
 
         # Draw message box
         self.message_box.draw(surface, small_font or self.assets.get_font(Fonts.DEFAULT), panel=self.panel)
@@ -497,6 +541,21 @@ class GamblingScene(BaseMenuScene):
             guess_text = font.render(f"You chose cup {self.cups_guess + 1}", True, Colors.TEXT_HIGHLIGHT)
             surface.blit(guess_text, (20, y))
 
+    def _draw_coin(self, surface: pygame.Surface, font: pygame.font.Font) -> None:
+        """Draw coin flip UI."""
+        if not isinstance(self.game_instance, CoinFlipGame):
+            return
+
+        y = 120
+        if self.coin_guess:
+            guess_text = font.render(f"Your guess: {self.coin_guess.title()}", True, Colors.TEXT_HIGHLIGHT)
+            surface.blit(guess_text, (20, y))
+
+        if self.phase == "result" and self.coin_result:
+            y += 40
+            result_text = font.render(f"Result: {self.coin_result.title()}", True, Colors.TEXT_PRIMARY)
+            surface.blit(result_text, (20, y))
+
     def _draw_help_text(self, surface: pygame.Surface, font: pygame.font.Font) -> None:
         """Draw standardized help text at the bottom of the screen."""
         if not font:
@@ -515,6 +574,8 @@ class GamblingScene(BaseMenuScene):
                 help_text = "Space: Spin"
             elif self.game_type == GamblingGameType.CUPS_GAME:
                 help_text = "1-3: Choose Cup  •  Enter: Confirm"
+            elif self.game_type == GamblingGameType.COIN_FLIP:
+                help_text = "↑: Heads  •  ↓: Tails  •  Enter: Flip"
             else:
                 help_text = "Follow on-screen prompts"
         else:

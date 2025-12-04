@@ -12,6 +12,11 @@ from datetime import datetime
 from typing import TYPE_CHECKING, Any, Dict, List, Optional, Tuple
 
 from .logging_utils import log_warning
+from .path_validation import (
+    ensure_directory_exists,
+    validate_path_inside_base,
+    validate_save_slot,
+)
 from .save import (
     DEFAULT_STARTING_MAP,
     SAVE_FILE_VERSION,
@@ -65,9 +70,15 @@ class SaveManager:
         Args:
             save_dir: Directory to store save files in
             resources: Optional cache of asset data/loaders reused across loads
+
+        Raises:
+            ValueError: If save_dir is invalid or cannot be created
         """
-        self.save_dir = save_dir
-        os.makedirs(save_dir, exist_ok=True)
+        # Validate and resolve save directory
+        success, resolved_dir = ensure_directory_exists(save_dir, create_if_missing=True)
+        if not success or not resolved_dir:
+            raise ValueError(f"Invalid save directory: {save_dir}")
+        self.save_dir = resolved_dir
         self.deserialization_resources: Optional[DeserializationResources] = resources or DeserializationResources()
 
     def _resolve_resources(
@@ -237,8 +248,21 @@ class SaveManager:
             post_game_manager: Optional PostGameManager for post-game state
             tutorial_manager: Optional TutorialManager for tutorial state
             schedule_manager: Optional ScheduleManager for NPC schedule state
+
+        Raises:
+            ValueError: If slot number is invalid
         """
-        save_path = os.path.join(self.save_dir, f"save_{slot}.json")
+        # Validate slot number and generate safe filename
+        is_valid, filename = validate_save_slot(slot)
+        if not is_valid or not filename:
+            raise ValueError(f"Invalid save slot number: {slot}")
+
+        # Validate path stays within save directory
+        is_valid_path, save_path = validate_path_inside_base(
+            filename, self.save_dir, allow_absolute=False
+        )
+        if not is_valid_path or not save_path:
+            raise ValueError(f"Invalid save path for slot {slot}")
         data = self.serialize_state(
             world, player, quest_manager, day_night_cycle,
             achievement_manager, weather_system, fishing_system, puzzle_manager,
@@ -315,9 +339,19 @@ class SaveManager:
 
         Raises:
             FileNotFoundError: If the save slot does not exist
-            ValueError: If the save file is corrupted (invalid JSON syntax)
+            ValueError: If the save file is corrupted (invalid JSON syntax) or slot is invalid
         """
-        save_path = os.path.join(self.save_dir, f"save_{slot}.json")
+        # Validate slot number and generate safe filename
+        is_valid, filename = validate_save_slot(slot)
+        if not is_valid or not filename:
+            raise ValueError(f"Invalid save slot number: {slot}")
+
+        # Validate path stays within save directory
+        is_valid_path, save_path = validate_path_inside_base(
+            filename, self.save_dir, allow_absolute=False
+        )
+        if not is_valid_path or not save_path:
+            raise ValueError(f"Invalid save path for slot {slot}")
 
         if not os.path.exists(save_path):
             raise FileNotFoundError(f"Save slot {slot} not found")
@@ -331,7 +365,7 @@ class SaveManager:
             # For completely corrupted JSON (syntax errors), we cannot recover
             # Only valid JSON with missing fields can be recovered
             raise ValueError(f"Save slot {slot} is corrupted (invalid JSON syntax) and cannot be recovered: {exc}") from exc
-        except IOError as exc:
+        except OSError as exc:
             log_warning(f"Save slot {slot}: IO error reading {save_path}: {exc}")
             raise ValueError(f"Save slot {slot} cannot be read: {exc}") from exc
 
@@ -354,7 +388,16 @@ class SaveManager:
         Returns:
             True if the slot exists, False otherwise
         """
-        save_path = os.path.join(self.save_dir, f"save_{slot}.json")
+        is_valid, filename = validate_save_slot(slot)
+        if not is_valid or not filename:
+            return False
+
+        is_valid_path, save_path = validate_path_inside_base(
+            filename, self.save_dir, allow_absolute=False
+        )
+        if not is_valid_path or not save_path:
+            return False
+
         return os.path.exists(save_path)
 
     def get_slot_preview(self, slot: int) -> Optional[Dict[str, Any]]:
@@ -375,7 +418,15 @@ class SaveManager:
         Returns:
             Preview dictionary or None if slot doesn't exist or can't be read
         """
-        save_path = os.path.join(self.save_dir, f"save_{slot}.json")
+        is_valid, filename = validate_save_slot(slot)
+        if not is_valid or not filename:
+            return None
+
+        is_valid_path, save_path = validate_path_inside_base(
+            filename, self.save_dir, allow_absolute=False
+        )
+        if not is_valid_path or not save_path:
+            return None
 
         if not os.path.exists(save_path):
             return None
@@ -427,7 +478,7 @@ class SaveManager:
                 "player_class": player_data.get("player_class", ""),
                 "player_subclass": player_data.get("player_subclass", ""),
             }
-        except (json.JSONDecodeError, IOError, KeyError):
+        except (json.JSONDecodeError, OSError, KeyError):
             return None
 
     def delete_slot(self, slot: int) -> bool:
@@ -439,7 +490,16 @@ class SaveManager:
         Returns:
             True if deleted successfully, False if not found or deletion failed
         """
-        save_path = os.path.join(self.save_dir, f"save_{slot}.json")
+        is_valid, filename = validate_save_slot(slot)
+        if not is_valid or not filename:
+            return False
+
+        is_valid_path, save_path = validate_path_inside_base(
+            filename, self.save_dir, allow_absolute=False
+        )
+        if not is_valid_path or not save_path:
+            return False
+
         if os.path.exists(save_path):
             try:
                 os.remove(save_path)
@@ -498,8 +558,19 @@ class SaveManager:
         Args:
             slot: Save slot number (1-based).
             context: SaveContext containing world, player, and registered managers.
+
+        Raises:
+            ValueError: If slot number is invalid
         """
-        save_path = os.path.join(self.save_dir, f"save_{slot}.json")
+        is_valid, filename = validate_save_slot(slot)
+        if not is_valid or not filename:
+            raise ValueError(f"Invalid save slot number: {slot}")
+
+        is_valid_path, save_path = validate_path_inside_base(
+            filename, self.save_dir, allow_absolute=False
+        )
+        if not is_valid_path or not save_path:
+            raise ValueError(f"Invalid save path for slot {slot}")
         data = self.serialize_with_context(context)
 
         # Write to a temporary file first, then atomically rename
@@ -545,9 +616,17 @@ class SaveManager:
 
         Raises:
             FileNotFoundError: If the save slot does not exist.
-            ValueError: If the save file is corrupted (invalid JSON syntax).
+            ValueError: If the save file is corrupted (invalid JSON syntax) or slot is invalid.
         """
-        save_path = os.path.join(self.save_dir, f"save_{slot}.json")
+        is_valid, filename = validate_save_slot(slot)
+        if not is_valid or not filename:
+            raise ValueError(f"Invalid save slot number: {slot}")
+
+        is_valid_path, save_path = validate_path_inside_base(
+            filename, self.save_dir, allow_absolute=False
+        )
+        if not is_valid_path or not save_path:
+            raise ValueError(f"Invalid save path for slot {slot}")
 
         if not os.path.exists(save_path):
             raise FileNotFoundError(f"Save slot {slot} not found")
@@ -560,7 +639,7 @@ class SaveManager:
             raise ValueError(
                 f"Save slot {slot} is corrupted (invalid JSON syntax): {exc}"
             ) from exc
-        except IOError as exc:
+        except OSError as exc:
             log_warning(f"Save slot {slot}: IO error reading {save_path}: {exc}")
             raise ValueError(f"Save slot {slot} cannot be read: {exc}") from exc
 

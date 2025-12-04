@@ -102,6 +102,12 @@ class PostGameManager:
             return True  # All level locks removed
         return player_level >= required_level
 
+    def add_post_game_time(self, dt: float) -> None:
+        """Accumulate post-game playtime once credits have been cleared."""
+        if dt < 0 or not self.state.final_boss_defeated:
+            return
+        self.state.post_game_time += float(dt)
+
     def get_post_game_message(self) -> str:
         """
         Get message to display on return to world after credits.

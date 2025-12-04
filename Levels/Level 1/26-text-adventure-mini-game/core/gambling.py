@@ -189,6 +189,18 @@ class SlotsGame:
         return tuple(self.reels) == ("seven", "seven", "seven")
 
 
+class CoinFlipGame:
+    """Fair coin flip game."""
+
+    def __init__(self) -> None:
+        self.result: Optional[str] = None  # "heads" or "tails"
+
+    def flip(self) -> str:
+        """Flip the coin and store the result."""
+        self.result = random.choice(["heads", "tails"])
+        return self.result
+
+
 class CupsGame:
     """Shell game - find the ball under cups."""
 

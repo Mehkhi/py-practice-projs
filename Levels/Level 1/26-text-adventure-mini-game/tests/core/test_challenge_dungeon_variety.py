@@ -68,7 +68,7 @@ class TestChallengeDungeonVariety(unittest.TestCase):
         self.assertGreater(modifier_count, 1)
 
         # Check that modifiers were applied
-        has_stat_mod = any(
+        has_stat_mod = (
             "enemy_hp_multiplier" in result or
             "enemy_damage_multiplier" in result or
             "enemy_speed_multiplier" in result or

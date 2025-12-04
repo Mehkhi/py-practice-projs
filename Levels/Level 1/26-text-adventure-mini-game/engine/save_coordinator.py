@@ -2,13 +2,14 @@
 
 from typing import TYPE_CHECKING
 
-from core.logging_utils import log_warning
+from core.logging_utils import log_warning, log_error
 from core.save import SaveContext
 
 if TYPE_CHECKING:
     from engine.scene import SceneManager
-    from engine.game import RpgGame
     from core.save_load import SaveManager
+    # Note: RpgGame is not imported to avoid circular dependency with engine.game
+    # The string literal annotation "RpgGame" is sufficient for type checking
 
 
 class SaveCoordinator:
@@ -51,8 +52,10 @@ class SaveCoordinator:
         try:
             context = SaveContext.from_game(self.game)
             self.save_manager.save_to_slot_with_context(self.game.save_slot, context)
-        except Exception as exc:
+        except (OSError, ValueError, KeyError, AttributeError) as exc:
             log_warning(f"Failed to create save profile for slot {self.game.save_slot}: {exc}")
+        except Exception as exc:
+            log_error(f"Unexpected error saving to slot {self.game.save_slot}: {exc}")
 
     def load_from_slot(self, slot: int) -> bool:
         """Load saved game from a specific slot and transition to world scene."""
@@ -86,6 +89,9 @@ class SaveCoordinator:
             )
             self.game.scene_manager.replace(world_scene)
             return True
-        except Exception as exc:
+        except (OSError, ValueError, KeyError, AttributeError, FileNotFoundError) as exc:
             log_warning(f"Failed to load save from slot {slot}: {exc}")
+            return False
+        except Exception as exc:
+            log_error(f"Unexpected error loading save from slot {slot}: {exc}")
             return False

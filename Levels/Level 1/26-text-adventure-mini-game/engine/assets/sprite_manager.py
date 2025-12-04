@@ -6,7 +6,7 @@ from typing import Callable, Dict, List, Optional, Tuple
 
 import pygame
 
-from core.logging_utils import log_warning, log_debug
+from core.logging_utils import log_warning, log_debug, log_error
 from .cache_utils import clean_sprite_transparency, make_placeholder, ENABLE_TRANSPARENCY_CLEANUP
 
 
@@ -85,8 +85,14 @@ class SpriteManager:
             self.images[sprite_id] = image
             # Clear any scaled placeholder caches now that the real sprite is available
             self._invalidate_scaled_cache(sprite_id)
+        except OSError as e:
+            log_warning(f"File system error loading sprite {sprite_id} from {sprite_path}: {e}")
+        except pygame.error as e:
+            log_warning(f"Pygame error loading sprite {sprite_id} from {sprite_path}: {e}")
+        except (ValueError, TypeError) as e:
+            log_warning(f"Invalid sprite data for {sprite_id} from {sprite_path}: {e}")
         except Exception as e:
-            log_warning(f"Failed to load sprite {sprite_id} from {sprite_path}: {e}")
+            log_error(f"Unexpected error loading sprite {sprite_id} from {sprite_path}: {e}")
 
     def _load_sprites_from_dir(self, directory: str, recursive: bool = False) -> None:
         """Load loose sprite files from a directory (legacy synchronous method).
@@ -250,10 +256,22 @@ class SpriteManager:
                 # Pre-generate scaled versions for all common sizes
                 for size in common_sizes:
                     self.get_image(sprite_id, size)
+            except OSError as e:
+                if strict:
+                    raise RuntimeError(f"Critical sprite preload failed (file error): {sprite_id}") from e
+                log_warning(f"File system error preloading sprite {sprite_id}: {e}")
+            except pygame.error as e:
+                if strict:
+                    raise RuntimeError(f"Critical sprite preload failed (pygame error): {sprite_id}") from e
+                log_warning(f"Pygame error preloading sprite {sprite_id}: {e}")
+            except (ValueError, TypeError) as e:
+                if strict:
+                    raise RuntimeError(f"Critical sprite preload failed (invalid data): {sprite_id}") from e
+                log_warning(f"Invalid sprite data preloading {sprite_id}: {e}")
             except Exception as e:
                 if strict:
-                    raise RuntimeError(f"Critical sprite preload failed: {sprite_id}") from e
-                log_warning(f"Failed to preload sprite {sprite_id}: {e}")
+                    raise RuntimeError(f"Critical sprite preload failed (unexpected error): {sprite_id}") from e
+                log_error(f"Unexpected error preloading sprite {sprite_id}: {e}")
 
     def _get_default_common_sprites(self) -> List[str]:
         """
@@ -276,8 +294,12 @@ class SpriteManager:
                     if external_sprites:
                         log_debug(f"Loaded {len(external_sprites)} sprites from preload config")
                         return external_sprites
+            except OSError as e:
+                log_warning(f"File system error loading preload config from {preload_config_path}: {e}")
+            except json.JSONDecodeError as e:
+                log_warning(f"Invalid JSON in preload config {preload_config_path}: {e}")
             except Exception as e:
-                log_warning(f"Failed to load preload config from {preload_config_path}: {e}")
+                log_error(f"Unexpected error loading preload config from {preload_config_path}: {e}")
 
         # Fall back to built-in defaults
         sprites: List[str] = []
@@ -364,8 +386,10 @@ class SpriteManager:
                 for size in common_sizes:
                     try:
                         self.get_image(sprite_id, size)
-                    except Exception as e:
+                    except (OSError, pygame.error) as e:
                         log_debug(f"Failed to warm cache for {sprite_id} at {size}: {e}")
+                    except Exception as e:
+                        log_warning(f"Unexpected error warming cache for {sprite_id} at {size}: {e}")
 
     def _load_status_icon_sprites(self, data_dir: str = "data") -> List[str]:
         """
@@ -383,14 +407,20 @@ class SpriteManager:
             return status_icons
 
         try:
-            with open(path, "r") as f:
+            with open(path, "r", encoding="utf-8") as f:
                 icon_map = json.load(f)
                 # Extract unique sprite IDs from the mapping
                 for sprite_id in icon_map.values():
                     if sprite_id not in status_icons:
                         status_icons.append(sprite_id)
+        except OSError as e:
+            log_warning(f"File system error loading status icon sprites from {path}: {e}")
+        except json.JSONDecodeError as e:
+            log_warning(f"Invalid JSON in status icon sprites file {path}: {e}")
+        except (KeyError, TypeError, ValueError) as e:
+            log_warning(f"Invalid data structure in status icon sprites file {path}: {e}")
         except Exception as e:
-            log_warning(f"Failed to load status icon sprites from {path}: {e}")
+            log_error(f"Unexpected error loading status icon sprites from {path}: {e}")
 
         return status_icons
 
@@ -420,7 +450,9 @@ class SpriteManager:
             if progress_callback:
                 try:
                     progress_callback(loaded, total)
+                except (TypeError, ValueError) as e:
+                    log_warning(f"Progress callback failed (invalid arguments): {e}")
                 except Exception as e:
-                    log_warning(f"Progress callback failed: {e}")
+                    log_error(f"Unexpected error in progress callback: {e}")
 
         log_debug(f"Background loading complete: {loaded} sprites loaded")

@@ -1,5 +1,6 @@
 import pygame
 import random
+from collections import OrderedDict
 from typing import Tuple, Optional
 from engine.theme import Colors, Gradients
 
@@ -7,11 +8,13 @@ class BattleBackgroundRenderer:
     """
     Handles procedural generation of battle backgrounds based on biomes.
     """
+    MAX_CACHE_ENTRIES = 8
+
     def __init__(self, width: int, height: int):
         self.width = width
         self.height = height
         self.surface = pygame.Surface((width, height))
-        self.cache = {}
+        self.cache: "OrderedDict[Tuple[Optional[str], Optional[str], int, int], pygame.Surface]" = OrderedDict()
 
     def draw(self, biome: Optional[str], backdrop_id: Optional[str] = None) -> pygame.Surface:
         """
@@ -26,8 +29,10 @@ class BattleBackgroundRenderer:
         """
         # Check cache
         cache_key = (biome, backdrop_id, self.width, self.height)
-        if cache_key in self.cache:
-            return self.cache[cache_key]
+        cached_surface = self.cache.get(cache_key)
+        if cached_surface:
+            self.cache.move_to_end(cache_key)
+            return cached_surface
 
         # Reset surface
         self.surface.fill((0, 0, 0))
@@ -56,6 +61,9 @@ class BattleBackgroundRenderer:
         # Cache the result
         result = self.surface.copy()
         self.cache[cache_key] = result
+        self.cache.move_to_end(cache_key)
+        while len(self.cache) > self.MAX_CACHE_ENTRIES:
+            self.cache.popitem(last=False)
         return result
 
     def _draw_gradient_rect(self, top_color: Tuple[int, int, int], bottom_color: Tuple[int, int, int], rect: pygame.Rect):

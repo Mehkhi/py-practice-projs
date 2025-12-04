@@ -79,8 +79,8 @@ class ConditionEvaluatorMixin:
         - At least 1 enemy ally is alive
         - At least one player has poison status
         """
-        # Import cache size limit from ai module
-        from .ai import _RULE_CACHE_MAX_SIZE
+        # Import cache size limit from ai_cache module
+        from .ai_cache import _RULE_CACHE_MAX_SIZE
 
         conditions = rule.get('conditions', {})
 
@@ -96,8 +96,8 @@ class ConditionEvaluatorMixin:
             hp_bucket = self._get_hp_bucket(hp_percent)
             sp_percent = (enemy.stats.sp / enemy.stats.max_sp * 100) if enemy.stats.max_sp > 0 else 0
             sp_bucket = self._get_sp_bucket(sp_percent)
-            rule_id = id(rule)  # Use rule identity as part of cache key
-            cache_key = (enemy.entity.entity_id, rule_id, hp_bucket, sp_bucket, self.turn_counter)
+            rule_hash = self._get_profile_hash(rule)  # Use content-based hash for stability
+            cache_key = (enemy.entity.entity_id, rule_hash, hp_bucket, sp_bucket, self.turn_counter)
 
             rule_cache = self._get_rule_evaluation_cache()
             if cache_key in rule_cache:

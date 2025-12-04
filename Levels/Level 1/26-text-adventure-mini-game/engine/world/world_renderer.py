@@ -8,7 +8,7 @@ from core.entities import NPC
 from core.logging_utils import log_warning
 from core.world import Map, Prop
 
-from .overworld_renderer import OverworldRenderer
+from .overworld_renderer_coordinator import OverworldRendererCoordinator
 
 if TYPE_CHECKING:
     from core.entities import Entity, NPC, OverworldEnemy
@@ -20,7 +20,7 @@ class WorldRenderer:
 
     def __init__(self, scene: "WorldScene"):
         self.scene = scene
-        self._overworld_renderer = OverworldRenderer(scene)
+        self._overworld_renderer = OverworldRendererCoordinator(scene)
         # Reusable lists to avoid per-frame allocations
         self._visible_entities_cache: List["Entity"] = []
         self._visible_props_cache: List[Prop] = []

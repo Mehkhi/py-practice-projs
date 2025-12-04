@@ -12,6 +12,7 @@ if TYPE_CHECKING:
     from core.combat import BattleState
 
 from ..theme import Colors, Layout
+from ..ui.utils import draw_rounded_panel
 
 
 class BattleHudMixin:
@@ -97,7 +98,6 @@ class BattleHudMixin:
                         name_surf.get_width() + name_padding * 2,
                         name_surf.get_height() + name_padding * 2
                     )
-                    from ..world.overworld_renderer import draw_rounded_panel
                     PANEL_BG = (20, 25, 40, 180)
                     draw_rounded_panel(
                         surface,
@@ -119,7 +119,6 @@ class BattleHudMixin:
                         hp_surf.get_width() + hp_padding * 2,
                         hp_surf.get_height() + hp_padding * 2
                     )
-                    from ..world.overworld_renderer import draw_rounded_panel
                     PANEL_BG = (20, 25, 40, 180)
                     draw_rounded_panel(
                         surface,
@@ -321,7 +320,6 @@ class BattleHudMixin:
             self.panel.draw(surface, hotbar_bg_rect)
         else:
             # Draw semi-transparent hotbar background with rounded corners matching weather/time styling
-            from ..world.overworld_renderer import draw_rounded_panel
             PANEL_BG = (20, 25, 40, 180)
             draw_rounded_panel(
                 surface,
@@ -339,7 +337,6 @@ class BattleHudMixin:
             slot_rect = pygame.Rect(slot_x, hotbar_y, slot_width, slot_height)
 
             # Slot background with semi-transparent rounded corners matching weather/time styling
-            from ..world.overworld_renderer import draw_rounded_panel
             PANEL_BG = (20, 25, 40, 180)
             draw_rounded_panel(
                 surface,

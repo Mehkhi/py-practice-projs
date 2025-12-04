@@ -1,5 +1,7 @@
 """Challenge dungeon system for post-game high-difficulty content."""
 
+import hashlib
+import json
 import time
 from dataclasses import dataclass, field
 from enum import Enum
@@ -278,6 +280,24 @@ class ChallengeDungeonManager:
 
         modifiers = self.get_active_modifiers()
 
+        def _get_hazard_hash(hazard: Any) -> str:
+            """Generate a stable hash for a hazard (dict or other value).
+
+            Uses content-based hashing for dicts to ensure stability even if
+            the dict object is recreated. This is faster than using json.dumps
+            strings as set keys, especially for large hazard dictionaries.
+
+            Args:
+                hazard: Hazard value (dict or other hashable type)
+
+            Returns:
+                Hexadecimal MD5 hash string for dicts, original value otherwise
+            """
+            if isinstance(hazard, dict):
+                content = json.dumps(hazard, sort_keys=True)
+                return hashlib.md5(content.encode()).hexdigest()
+            return hazard
+
         multipliers = {
             "enemy_stat_multiplier": float(ctx.get("enemy_stat_multiplier", 1.0)),
             "enemy_hp_multiplier": float(ctx.get("enemy_hp_multiplier", 1.0)),
@@ -289,7 +309,8 @@ class ChallengeDungeonManager:
         magic_disabled = bool(ctx.get("magic_disabled", False))
         stat_scramble = bool(ctx.get("stat_scramble", False))
         hazards = list(ctx.get("hazards", []))
-        hazard_seen = set(hazards)
+        # Track seen hazards by their hash (faster than JSON strings for large dicts)
+        hazard_seen = {_get_hazard_hash(h) for h in hazards}
 
         for mod in modifiers:
             effect_type = mod.effect_type
@@ -314,9 +335,10 @@ class ChallengeDungeonManager:
 
             elif effect_type == "hazard":
                 for hazard in data.get("hazards", []):
-                    if hazard not in hazard_seen:
+                    hazard_key = _get_hazard_hash(hazard)
+                    if hazard_key not in hazard_seen:
                         hazards.append(hazard)
-                        hazard_seen.add(hazard)
+                        hazard_seen.add(hazard_key)
                 if data.get("stat_scramble"):
                     stat_scramble = True
 

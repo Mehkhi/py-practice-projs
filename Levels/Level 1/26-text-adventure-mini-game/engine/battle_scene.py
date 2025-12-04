@@ -4,12 +4,14 @@ import json
 import math
 import os
 import random
+from collections import OrderedDict
 import pygame
 from typing import Optional, Dict, List, Tuple, Any, TYPE_CHECKING
 
 from .scene import Scene
 from .assets import AssetManager
 from .ui import Menu, MessageBox, NineSlicePanel, draw_hp_bar, draw_sp_bar, draw_status_icons, CombatLog
+from .ui.utils import draw_rounded_panel
 from .theme import Colors, Fonts, Layout, Gradients
 from .battle import (
     PartyAIMixin,
@@ -49,6 +51,9 @@ if TYPE_CHECKING:
 # BIOME_TO_BACKDROP, BIOME_GRADIENTS, FLASH_INITIAL_INTENSITY,
 # FLASH_DECAY_RATE, AI_NOTIFICATION_DURATION
 
+_SHADOW_CACHE_LIMIT = 16
+_GLOW_CACHE_LIMIT = 8
+
 
 class BattleScene(
     PartyAIMixin,
@@ -73,7 +78,7 @@ class BattleScene(
 
     def __init__(
         self,
-        manager: Optional["SceneManager"],
+        manager: "SceneManager",
         battle_system: BattleSystem,
         world: World,
         player: Player,
@@ -85,6 +90,18 @@ class BattleScene(
         source_trigger: Optional["Trigger"] = None,
         encounter_id: Optional[str] = None,
     ):
+        # Type validation for required parameters
+        if manager is None:
+            raise ValueError("BattleScene requires a non-None SceneManager instance")
+        if not isinstance(battle_system, BattleSystem):
+            raise TypeError(f"battle_system must be a BattleSystem instance, got {type(battle_system).__name__}")
+        if not isinstance(world, World):
+            raise TypeError(f"world must be a World instance, got {type(world).__name__}")
+        if not isinstance(player, Player):
+            raise TypeError(f"player must be a Player instance, got {type(player).__name__}")
+        if not isinstance(scale, int) or scale < 1:
+            raise ValueError(f"scale must be a positive integer, got {scale}")
+
         super().__init__(manager)
         self.battle_system = battle_system
         self.world = world
@@ -118,8 +135,8 @@ class BattleScene(
         # Reusable surfaces for overlays/effects
         self._overlay_surface_cache: Optional[pygame.Surface] = None
         self._overlay_surface_size: Optional[Tuple[int, int]] = None
-        self._shadow_surface_cache: Dict[Tuple[int, int, int], pygame.Surface] = {}
-        self._glow_surface_cache: Dict[Tuple[int, int], pygame.Surface] = {}
+        self._shadow_surface_cache: "OrderedDict[Tuple[int, int, int], pygame.Surface]" = OrderedDict()
+        self._glow_surface_cache: "OrderedDict[Tuple[int, int], pygame.Surface]" = OrderedDict()
 
     def _default_rewards(self) -> Dict[str, Any]:
         """Return base rewards structure when none is provided."""
@@ -170,30 +187,46 @@ class BattleScene(
             self._overlay_surface_size = size
         return self._overlay_surface_cache
 
+    @staticmethod
+    def _prune_surface_cache(cache: "OrderedDict", max_entries: int) -> None:
+        """Trim cache to a bounded size to avoid unbounded surface accumulation."""
+        while len(cache) > max_entries:
+            cache.popitem(last=False)
+
     def _get_enemy_shadow_surface(self, size: Tuple[int, int], alpha: int = 100) -> pygame.Surface:
         """Get or build a cached enemy shadow surface for the given size/alpha."""
         key = (size[0], size[1], alpha)
         surf = self._shadow_surface_cache.get(key)
-        if surf is None or surf.get_size() != size:
-            surf = pygame.Surface(size, pygame.SRCALPHA)
-            pygame.draw.ellipse(surf, (0, 0, 0, alpha), (0, 0, size[0], size[1]))
-            self._shadow_surface_cache[key] = surf
+        if surf is not None and surf.get_size() == size:
+            self._shadow_surface_cache.move_to_end(key)
+            return surf
+
+        surf = pygame.Surface(size, pygame.SRCALPHA)
+        pygame.draw.ellipse(surf, (0, 0, 0, alpha), (0, 0, size[0], size[1]))
+        self._shadow_surface_cache[key] = surf
+        self._shadow_surface_cache.move_to_end(key)
+        self._prune_surface_cache(self._shadow_surface_cache, _SHADOW_CACHE_LIMIT)
         return surf
 
     def _get_coordinated_glow_surface(self, size: Tuple[int, int]) -> pygame.Surface:
         """Get or build the cached coordinated-attack glow surface."""
         surf = self._glow_surface_cache.get(size)
-        if surf is None or surf.get_size() != size:
-            surf = pygame.Surface(size, pygame.SRCALPHA)
-            for i in range(3):
-                alpha = 100 - (i * 30)
-                pygame.draw.rect(
-                    surf,
-                    (100, 150, 255, alpha),
-                    pygame.Rect(i, i, size[0] - i * 2, size[1] - i * 2),
-                    2
-                )
-            self._glow_surface_cache[size] = surf
+        if surf is not None and surf.get_size() == size:
+            self._glow_surface_cache.move_to_end(size)
+            return surf
+
+        surf = pygame.Surface(size, pygame.SRCALPHA)
+        for i in range(3):
+            alpha = 100 - (i * 30)
+            pygame.draw.rect(
+                surf,
+                (100, 150, 255, alpha),
+                pygame.Rect(i, i, size[0] - i * 2, size[1] - i * 2),
+                2
+            )
+        self._glow_surface_cache[size] = surf
+        self._glow_surface_cache.move_to_end(size)
+        self._prune_surface_cache(self._glow_surface_cache, _GLOW_CACHE_LIMIT)
         return surf
 
     # Menu handling methods (_queue_attack through _queue_memory_operation)
@@ -652,8 +685,11 @@ class BattleScene(
                         scaled_backdrop = pygame.transform.scale(backdrop, (width, height))
                         self._bg_surface.blit(scaled_backdrop, (0, 0))
                         backdrop_loaded = True
-                except Exception as e:
+                except (OSError, pygame.error, ValueError, TypeError) as e:
                     log_warning(f"Failed to load backdrop '{backdrop_id}': {e}")
+                    backdrop_loaded = False
+                except Exception as e:
+                    log_error(f"Unexpected error loading backdrop '{backdrop_id}': {e}")
                     backdrop_loaded = False
 
             # Fallback to procedural background if no backdrop loaded
@@ -782,7 +818,6 @@ class BattleScene(
                         name_surf.get_width() + name_padding * 2,
                         name_surf.get_height() + name_padding * 2
                     )
-                    from engine.world.overworld_renderer import draw_rounded_panel
                     PANEL_BG = (20, 25, 40, 180)
                     draw_rounded_panel(
                         surface,

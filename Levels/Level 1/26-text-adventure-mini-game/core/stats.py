@@ -9,36 +9,38 @@ if TYPE_CHECKING:
 # Status effects that prevent the entity from acting
 INCAPACITATING_EFFECTS = frozenset({"stun", "sleep", "frozen"})
 
-# Status effect damage/heal per stack
-POISON_DAMAGE_PER_STACK = 5
-BLEED_DAMAGE_PER_STACK = 3
-TERROR_SP_DRAIN_PER_STACK = 2
-BURN_DAMAGE_PER_STACK = 4
-SLEEP_HEAL_PER_STACK = 2
+# Status effect damage/heal per stack (imported from constants for single source of truth)
+from core.constants import (
+    STATUS_POISON_DAMAGE_PER_STACK,
+    STATUS_BLEED_DAMAGE_PER_STACK,
+    STATUS_TERROR_SP_DRAIN_PER_STACK,
+    STATUS_BURN_DAMAGE_PER_STACK,
+    STATUS_SLEEP_HEAL_PER_STACK,
+)
 
 
 # --- Status Effect Tick Handlers ---
 
 def _apply_poison(effect: "StatusEffect", stats: "Stats") -> None:
     """Poison: damage over time, ignores defense."""
-    damage = POISON_DAMAGE_PER_STACK * effect.stacks
+    damage = STATUS_POISON_DAMAGE_PER_STACK * effect.stacks
     stats.hp = max(0, stats.hp - damage)
 
 
 def _apply_bleed(effect: "StatusEffect", stats: "Stats") -> None:
     """Bleed: damage over time, ignores defense."""
-    damage = BLEED_DAMAGE_PER_STACK * effect.stacks
+    damage = STATUS_BLEED_DAMAGE_PER_STACK * effect.stacks
     stats.hp = max(0, stats.hp - damage)
 
 
 def _apply_terror(effect: "StatusEffect", stats: "Stats") -> None:
     """Terror: drains SP over time."""
-    stats.sp = max(0, stats.sp - TERROR_SP_DRAIN_PER_STACK * effect.stacks)
+    stats.sp = max(0, stats.sp - STATUS_TERROR_SP_DRAIN_PER_STACK * effect.stacks)
 
 
 def _apply_burn(effect: "StatusEffect", stats: "Stats") -> None:
     """Burn: fire damage over time, also reduces attack (handled in get_effective_attack)."""
-    damage = BURN_DAMAGE_PER_STACK * effect.stacks
+    damage = STATUS_BURN_DAMAGE_PER_STACK * effect.stacks
     stats.hp = max(0, stats.hp - damage)
 
 
@@ -54,7 +56,7 @@ def _apply_stun(effect: "StatusEffect", stats: "Stats") -> None:
 
 def _apply_sleep(effect: "StatusEffect", stats: "Stats") -> None:
     """Sleep: cannot act, but heals slightly each turn. Wakes up when damaged."""
-    heal_amount = SLEEP_HEAL_PER_STACK * effect.stacks
+    heal_amount = STATUS_SLEEP_HEAL_PER_STACK * effect.stacks
     stats.hp = min(stats.max_hp, stats.hp + heal_amount)
 
 
@@ -149,12 +151,18 @@ from .enemy_scaling import (
     get_scaled_enemy_stats,
 )
 
-
-# Element damage multipliers
-ELEMENT_WEAK_MULTIPLIER = 1.5  # 50% more damage when hitting weakness
-ELEMENT_RESIST_MULTIPLIER = 0.5  # 50% less damage when hitting resistance
-ELEMENT_IMMUNE_MULTIPLIER = 0.0  # No damage when immune
-ELEMENT_ABSORB_MULTIPLIER = -0.5  # Heals for 50% of damage when absorbing
+# Element damage multipliers (imported from constants for single source of truth)
+from core.constants import (
+    ELEMENT_WEAK_MULTIPLIER,
+    ELEMENT_RESIST_MULTIPLIER,
+    ELEMENT_IMMUNE_MULTIPLIER,
+    ELEMENT_ABSORB_MULTIPLIER,
+    STAT_REDUCTION_ARM_MISSING,
+    STAT_REDUCTION_LEG_MISSING,
+    STAT_REDUCTION_BURN_ATTACK_MIN,
+    STAT_REDUCTION_BURN_ATTACK_PER_STACK,
+    STAT_REDUCTION_FROZEN_SPEED,
+)
 
 
 @dataclass
@@ -314,13 +322,13 @@ class Stats:
         attack = self._get_base_with_equipment("attack")
         # Limb missing reduces attack
         if "limb_arm_left_missing" in self.status_effects:
-            attack = int(attack * 0.7)  # 30% reduction
+            attack = int(attack * STAT_REDUCTION_ARM_MISSING)
         if "limb_arm_right_missing" in self.status_effects:
-            attack = int(attack * 0.7)
-        # Burn reduces attack by 20% per stack
+            attack = int(attack * STAT_REDUCTION_ARM_MISSING)
+        # Burn reduces attack per stack
         if "burn" in self.status_effects:
             burn_stacks = self.status_effects["burn"].stacks
-            attack = int(attack * max(0.2, 1.0 - 0.2 * burn_stacks))
+            attack = int(attack * max(STAT_REDUCTION_BURN_ATTACK_MIN, 1.0 - STAT_REDUCTION_BURN_ATTACK_PER_STACK * burn_stacks))
 
         if use_cache and cached_stats is not None:
             cached_stats[cache_key] = attack
@@ -407,12 +415,12 @@ class Stats:
         speed = self._get_base_with_equipment("speed")
         # Leg missing reduces speed
         if "limb_leg_left_missing" in self.status_effects:
-            speed = int(speed * 0.6)
+            speed = int(speed * STAT_REDUCTION_LEG_MISSING)
         if "limb_leg_right_missing" in self.status_effects:
-            speed = int(speed * 0.6)
+            speed = int(speed * STAT_REDUCTION_LEG_MISSING)
         # Frozen drastically reduces speed
         if "frozen" in self.status_effects:
-            speed = int(speed * 0.1)  # 90% reduction
+            speed = int(speed * STAT_REDUCTION_FROZEN_SPEED)
 
         if use_cache and cached_stats is not None:
             cached_stats[cache_key] = speed

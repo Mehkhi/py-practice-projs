@@ -340,6 +340,15 @@ class WorldScene(PartyOverlayMixin, Scene):
         if self.hint_button:
             self.hint_button.update(dt)
 
+        # Track time spent in post-game for stats/achievements
+        post_game_manager = self.get_manager_attr("post_game_manager", "world_post_game_time")
+        if post_game_manager:
+            try:
+                post_game_manager.add_post_game_time(dt)
+            except Exception:
+                # Keep overworld running even if post-game timing fails
+                pass
+
     def _check_party_recruitment(self) -> None:
         """Check world flags for recruited NPCs and add them to the party."""
         prototypes = self.get_manager_attr("party_prototypes", "_check_party_recruitment")

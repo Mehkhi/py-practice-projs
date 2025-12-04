@@ -7,7 +7,7 @@ from typing import Any, Dict, List, Optional, TYPE_CHECKING
 import pygame
 
 from .scene import SceneManager
-from core.logging_utils import log_warning
+from core.logging_utils import log_warning, log_error
 from .world_scene import WorldScene
 from .name_entry_scene import NameEntryScene
 from .title_scene import TitleScene
@@ -36,7 +36,7 @@ from core.data_loader import load_npc_schedules, warm_data_caches
 from core.loaders import build_bestiary_metadata
 from core.tutorial_system import TipTrigger
 from core.time_system import TimeOfDay
-from engine.ui.panels import ToastNotification
+from engine.ui.toast import ToastNotification
 from core.constants import NPC_SCHEDULES_JSON
 from .game_loaders import (
     create_day_night_cycle,
@@ -195,8 +195,14 @@ class RpgGame:
         """Capture a screenshot and save it to the screenshots directory."""
         # Ensure screenshots directory exists
         screenshots_dir = "screenshots"
-        if not os.path.exists(screenshots_dir):
-            os.makedirs(screenshots_dir)
+        try:
+            if not os.path.exists(screenshots_dir):
+                os.makedirs(screenshots_dir, exist_ok=True)
+        except (OSError, PermissionError) as e:
+            log_error(f"Failed to create screenshots directory {screenshots_dir}: {e}")
+            toast = ToastNotification("Screenshot failed: Cannot create directory", duration=2.0, position="top-center")
+            self._toast_notifications.append(toast)
+            return
 
         # Generate filename with timestamp
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
@@ -208,9 +214,16 @@ class RpgGame:
             # Show toast notification
             toast = ToastNotification(f"Screenshot saved: {filename}", duration=2.0, position="top-center")
             self._toast_notifications.append(toast)
+        except pygame.error as e:
+            log_error(f"Pygame error saving screenshot to {filepath}: {e}")
+            toast = ToastNotification("Screenshot failed: Pygame error", duration=2.0, position="top-center")
+            self._toast_notifications.append(toast)
+        except OSError as e:
+            log_error(f"File system error saving screenshot to {filepath}: {e}")
+            toast = ToastNotification("Screenshot failed: File system error", duration=2.0, position="top-center")
+            self._toast_notifications.append(toast)
         except Exception as e:
-            log_warning(f"Failed to save screenshot: {e}")
-            # Show error toast
+            log_error(f"Unexpected error saving screenshot to {filepath}: {e}")
             toast = ToastNotification("Screenshot failed!", duration=2.0, position="top-center")
             self._toast_notifications.append(toast)
 
@@ -239,8 +252,14 @@ class RpgGame:
         target_dir = os.path.dirname(target_path) or "."
         try:
             os.makedirs(target_dir, exist_ok=True)
-        except Exception as exc:
-            log_warning(f"Failed to create replay directory {target_dir}: {exc}")
+        except PermissionError as e:
+            log_error(f"Permission denied creating replay directory {target_dir}: {e}")
+            return
+        except OSError as e:
+            log_error(f"OS error creating replay directory {target_dir}: {e}")
+            return
+        except Exception as e:
+            log_error(f"Unexpected error creating replay directory {target_dir}: {e}")
             return
 
         if not self.replay_recorder.save(target_path):

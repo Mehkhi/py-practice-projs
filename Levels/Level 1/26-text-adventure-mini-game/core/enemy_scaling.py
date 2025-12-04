@@ -5,6 +5,10 @@ as well as calculating EXP and gold rewards for defeating enemies.
 """
 
 from typing import Dict
+from core.constants import (
+    ENEMY_EXP_LEVEL_MULTIPLIER,
+    ENEMY_GOLD_LEVEL_MULTIPLIER,
+)
 
 
 # --- Enemy Level Scaling ---
@@ -87,7 +91,7 @@ def calculate_enemy_exp_reward(enemy_level: int, difficulty: str = "normal", bas
     """
     if base_exp > 0:
         # Scale provided base EXP by level and difficulty
-        level_multiplier = 1.0 + (enemy_level - 1) * 0.20  # +20% per level
+        level_multiplier = 1.0 + (enemy_level - 1) * ENEMY_EXP_LEVEL_MULTIPLIER
         difficulty_multiplier = DIFFICULTY_REWARD_MULTIPLIERS.get(difficulty, 1.0)
         return max(1, int(base_exp * level_multiplier * difficulty_multiplier))
 
@@ -111,7 +115,7 @@ def calculate_enemy_gold_reward(enemy_level: int, difficulty: str = "normal", ba
     """
     if base_gold > 0:
         # Scale provided base gold by level and difficulty
-        level_multiplier = 1.0 + (enemy_level - 1) * 0.15  # +15% per level
+        level_multiplier = 1.0 + (enemy_level - 1) * ENEMY_GOLD_LEVEL_MULTIPLIER
         difficulty_multiplier = DIFFICULTY_REWARD_MULTIPLIERS.get(difficulty, 1.0)
         return max(1, int(base_gold * level_multiplier * difficulty_multiplier))
 

@@ -6,7 +6,7 @@ from typing import Dict, Optional, TYPE_CHECKING
 
 from core.loaders.base import ensure_dict, ensure_list, validate_required_keys
 from ..constants import DEFAULT_FORMATION_POSITION, FORMATION_POSITIONS, SUPPORTED_EQUIP_SLOTS
-from ..logging_utils import log_schema_warning, log_warning
+from ..logging_utils import log_schema_warning, log_warning, log_error
 from ..stats import Stats
 from .base import EQUIPMENT_LOG_PREFIX
 from .npc import NPC
@@ -35,9 +35,14 @@ def load_party_members_from_json(
                 from ..items import load_items_from_json
 
                 items_db_cache = load_items_from_json(os.path.join("data", "items.json"))
-            except Exception as exc:
+            except (OSError, json.JSONDecodeError, ValueError) as exc:
                 log_warning(
                     f"{EQUIPMENT_LOG_PREFIX} Party member loader: failed to load items for equipment recompute: {exc}"
+                )
+                items_db_cache = {}
+            except Exception as exc:
+                log_error(
+                    f"{EQUIPMENT_LOG_PREFIX} Party member loader: unexpected error loading items: {exc}"
                 )
                 items_db_cache = {}
         return items_db_cache or {}
@@ -45,8 +50,11 @@ def load_party_members_from_json(
     try:
         with open(path, "r") as f:
             raw_data = json.load(f)
-    except Exception as exc:
+    except (OSError, json.JSONDecodeError) as exc:
         log_warning(f"Failed to load party member data: {exc}")
+        return members
+    except Exception as exc:
+        log_error(f"Unexpected error loading party member data: {exc}")
         return members
 
     data = ensure_dict(raw_data, context=context, section="root")
@@ -157,9 +165,14 @@ def load_npcs_from_json(
                 from ..items import load_items_from_json
 
                 items_db_cache = load_items_from_json(os.path.join("data", "items.json"))
-            except Exception as exc:
+            except (OSError, json.JSONDecodeError, ValueError) as exc:
                 log_warning(
                     f"{EQUIPMENT_LOG_PREFIX} NPC loader: failed to load items for equipment recompute: {exc}"
+                )
+                items_db_cache = {}
+            except Exception as exc:
+                log_error(
+                    f"{EQUIPMENT_LOG_PREFIX} NPC loader: unexpected error loading items: {exc}"
                 )
                 items_db_cache = {}
         return items_db_cache or {}
@@ -167,8 +180,11 @@ def load_npcs_from_json(
     try:
         with open(path, "r") as f:
             raw_data = json.load(f)
-    except Exception as exc:
+    except (OSError, json.JSONDecodeError) as exc:
         log_warning(f"Failed to load NPC data: {exc}")
+        return npcs
+    except Exception as exc:
+        log_error(f"Unexpected error loading NPC data: {exc}")
         return npcs
 
     data = ensure_dict(raw_data, context=context, section="root")

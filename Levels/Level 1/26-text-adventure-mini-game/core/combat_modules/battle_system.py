@@ -11,6 +11,12 @@ from typing import TYPE_CHECKING, Any, Dict, List, Optional, Tuple
 if TYPE_CHECKING:
     from core.combat import BattleCommand, BattleParticipant, BattleState
 
+from core.constants import (
+    COMBO_CHAIN_ATTACK_BONUS_PER_ATTACKER,
+    COMBO_ALL_OUT_ATTACK_MULTIPLIER,
+    COMBO_ELEMENTAL_FUSION_BONUS,
+)
+
 
 class BattleSystemCore:
     """Mixin providing core battle infrastructure for BattleSystem.
@@ -235,11 +241,11 @@ class BattleSystemCore:
             # All-Out Attack: all alive players attack same target
             if len(attacks) >= alive_players and alive_players >= 2:
                 combo_type = "All-Out Attack"
-                combo_bonus = 1.5
+                combo_bonus = COMBO_ALL_OUT_ATTACK_MULTIPLIER
             # Chain Attack: 2+ attackers
             elif len(attacks) >= 2:
                 combo_type = "Chain Attack"
-                combo_bonus = 1.0 + (0.2 * (len(attacks) - 1))  # +20% per extra attacker
+                combo_bonus = 1.0 + (COMBO_CHAIN_ATTACK_BONUS_PER_ATTACKER * (len(attacks) - 1))
 
             # Check for elemental combo (different elements)
             elements = set()
@@ -249,7 +255,7 @@ class BattleSystemCore:
                     elements.add(element)
 
             if len(elements) >= 2:
-                combo_bonus += 0.15  # Extra 15% for elemental variety
+                combo_bonus += COMBO_ELEMENTAL_FUSION_BONUS
                 if combo_type:
                     combo_type += " + Elemental Fusion"
                 else:
