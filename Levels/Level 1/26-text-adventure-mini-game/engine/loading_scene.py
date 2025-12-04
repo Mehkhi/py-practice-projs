@@ -215,4 +215,6 @@ class LoadingScene(Scene):
         # Draw progress fill
         if self.progress > 0:
             fill_width = int(bar_width * self.progress)
-            pygame.draw.rect(surface, Colors.ACCENT, (bar_x + 2, bar_y + 2, fill_width - 4, bar_height - 4))
+            inner_fill_width = max(0, fill_width - 4)
+            if inner_fill_width > 0:
+                pygame.draw.rect(surface, Colors.ACCENT, (bar_x + 2, bar_y + 2, inner_fill_width, bar_height - 4))

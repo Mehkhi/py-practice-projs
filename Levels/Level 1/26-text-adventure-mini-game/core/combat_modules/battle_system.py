@@ -126,7 +126,7 @@ class BattleSystemCore:
         for participant in self.players + self.enemies:
             participant._cached_stats.clear()
             participant._cache_turn = -1
-            participant.stats._cache_invalidated = False
+            participant.stats._invalidated_stats.clear()  # All stats valid after cache clear
 
         # Pre-compute party state for this turn
         self._compute_party_state()
@@ -289,7 +289,7 @@ class BattleSystemCore:
                 participant.stats.defense -= participant.guard_bonus
                 participant.guard_bonus = 0
                 # Invalidate stat cache when defense changes
-                participant.stats._cache_invalidated = True
+                participant.stats._invalidate_all_stats()
 
     def _process_memory_boost_decay(self, participant: "BattleParticipant") -> None:
         """Clear memory modifiers when boost expires."""
@@ -419,7 +419,7 @@ class BattleSystemCore:
         if (cache_turn_key in participant._cached_stats and
             participant._cached_stats[cache_turn_key] == current_turn and
             cache_key in participant._cached_stats and
-            not participant.stats._cache_invalidated):
+            not participant.stats._invalidated_stats):
             return participant._cached_stats[cache_key]
 
         # Compute and cache

@@ -219,7 +219,8 @@ class World:
         """Register a callback to be called when flags change.
 
         Args:
-            callback: Function that takes (flag_name: str, flag_value: bool) and returns None.
+            callback: Function that takes (flag_name: str, flag_value: Any) and returns None.
+                      Flag values can be bool, int, float, str, or dict depending on the flag.
                       Pass None to unregister.
         """
         self._flag_change_callback = callback
