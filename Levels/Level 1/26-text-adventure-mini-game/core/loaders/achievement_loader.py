@@ -3,7 +3,13 @@
 from typing import Dict, TYPE_CHECKING
 
 from core.constants import ACHIEVEMENTS_JSON
-from core.loaders.base import ensure_dict, ensure_list, load_json_file, validate_required_keys
+from core.loaders.base import (
+    detach_json_data,
+    ensure_dict,
+    ensure_list,
+    load_json_file,
+    validate_required_keys,
+)
 from core.logging_utils import log_schema_warning
 
 if TYPE_CHECKING:
@@ -29,6 +35,7 @@ def load_achievements_from_json(
         default={"achievements": []},
         context="Loading achievements",
         warn_on_missing=True,
+        copy_data=False,
     )
 
     data = ensure_dict(data, context=context, section="root")
@@ -40,11 +47,13 @@ def load_achievements_from_json(
         section="achievements",
     ):
         achievement_id = ach_data.get("id") if isinstance(ach_data, dict) else None
-        ach_entry = ensure_dict(
-            ach_data,
-            context=context,
-            section="achievement",
-            identifier=achievement_id,
+        ach_entry = detach_json_data(
+            ensure_dict(
+                ach_data,
+                context=context,
+                section="achievement",
+                identifier=achievement_id,
+            )
         )
         if not validate_required_keys(
             ach_entry,

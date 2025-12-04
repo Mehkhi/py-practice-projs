@@ -29,7 +29,7 @@ Dependencies on WorldScene:
 """
 
 import math
-from typing import TYPE_CHECKING, Tuple, List, Optional
+from typing import TYPE_CHECKING, Tuple, List, Optional, Dict, Any
 
 import pygame
 
@@ -183,6 +183,302 @@ class OverworldRenderer:
         except Exception:
             self.panel = None
 
+        # Reusable surfaces for effects to avoid per-frame allocations
+        self._shadow_surface_cache: Dict[Tuple[int, int], pygame.Surface] = {}
+        self._detection_surface_cache: Optional[pygame.Surface] = None
+        self._overlay_surface_cache: Optional[pygame.Surface] = None
+        self._overlay_surface_size: Optional[Tuple[int, int]] = None
+        self._particle_surface_cache: Dict[Tuple[WeatherType, int], pygame.Surface] = {}
+        self._tile_surface_cache: Dict[str, pygame.Surface] = {}
+        self._tile_surface_cache_map_id: Optional[str] = None
+        self._tile_surface_cache_tile_size: Optional[int] = None
+        self._time_display_cache: Dict[str, Any] = {}
+        self._quest_tracker_cache: Dict[str, Any] = {}
+        self._party_ui_cache: Dict[str, Any] = {}
+        self._enemy_detection_cache: Dict[int, Dict[str, Any]] = {}
+
+    def _get_overlay_surface(self, size: Tuple[int, int]) -> pygame.Surface:
+        """Get or create a reusable full-screen surface for color overlays."""
+        if (
+            self._overlay_surface_cache is None
+            or self._overlay_surface_size != size
+            or self._overlay_surface_cache.get_size() != size
+        ):
+            self._overlay_surface_cache = pygame.Surface(size, pygame.SRCALPHA)
+            self._overlay_surface_size = size
+        return self._overlay_surface_cache
+
+    def _render_text_with_shadow_surface(
+        self,
+        font: pygame.font.Font,
+        text: str,
+        color: tuple,
+        shadow_color: tuple = Colors.BLACK,
+        offset: int = Layout.TEXT_SHADOW_OFFSET
+    ) -> Tuple[pygame.Surface, int]:
+        """Render text with shadow to a reusable surface and return it with raw text width."""
+        main = font.render(text, True, color)
+        shadow = font.render(text, True, shadow_color)
+        width = main.get_width()
+        height = main.get_height()
+        surface = pygame.Surface((width + offset, height + offset), pygame.SRCALPHA)
+        surface.blit(shadow, (offset, offset))
+        surface.blit(main, (0, 0))
+        return surface, width
+
+    def _prepare_tile_surface_cache(self, current_map: "Map") -> Dict[str, pygame.Surface]:
+        """Cache tile surfaces for the current map/tile size to avoid per-tile lookups."""
+        if not current_map or not current_map.tiles:
+            return self._tile_surface_cache
+
+        tile_size = self.scene.tile_size
+        if (self._tile_surface_cache_map_id != current_map.map_id or
+                self._tile_surface_cache_tile_size != tile_size):
+            self._tile_surface_cache.clear()
+            override_grass = current_map.map_id == "forest_path"
+
+            for row in current_map.tiles:
+                for tile in row:
+                    sprite_id = getattr(tile, "sprite_id", None) or getattr(tile, "tile_type", None)
+                    if not sprite_id:
+                        continue
+                    if override_grass and sprite_id == "grass_dark":
+                        sprite_id = "grass"
+                    if sprite_id not in self._tile_surface_cache:
+                        self._tile_surface_cache[sprite_id] = self.scene.assets.get_tile_surface(sprite_id, tile_size)
+
+            self._tile_surface_cache_map_id = current_map.map_id
+            self._tile_surface_cache_tile_size = tile_size
+
+        return self._tile_surface_cache
+
+    def _get_particle_surface(self, weather_type: WeatherType, size: int, base_color: Tuple[int, int, int]) -> pygame.Surface:
+        """Return a cached particle surface for snow/sand/ash to avoid per-particle allocations."""
+        key = (weather_type, size)
+        cached = self._particle_surface_cache.get(key)
+        expected_size = size * 2
+
+        if cached is None or cached.get_size() != (expected_size, expected_size):
+            surf = pygame.Surface((expected_size, expected_size), pygame.SRCALPHA)
+            pygame.draw.circle(surf, (*base_color, 255), (size, size), size)
+            self._particle_surface_cache[key] = surf
+            cached = surf
+
+        return cached
+
+    def _get_detection_tiles(self, enemy: "OverworldEnemy") -> List[Tuple[int, int]]:
+        """Precompute detection tile positions in world space for reuse."""
+        tile_size = self.scene.draw_tile
+        cache_key = (
+            enemy.x,
+            enemy.y,
+            enemy.facing,
+            enemy.detection_range,
+            tile_size,
+            self.scene.projection,
+        )
+        cached = self._enemy_detection_cache.get(id(enemy))
+        if cached and cached.get("key") == cache_key:
+            return cached["positions"]
+
+        dx, dy = enemy.get_facing_offset()
+        positions: List[Tuple[int, int]] = []
+        for dist in range(1, enemy.detection_range + 1):
+            tile_x = enemy.x + dx * dist
+            tile_y = enemy.y + dy * dist
+            world_x = tile_x * tile_size
+            world_y = tile_y * tile_size
+            if self.scene.projection == "oblique":
+                world_y -= (tile_x % 2) * (tile_size // 4)
+            positions.append((world_x, world_y))
+
+        self._enemy_detection_cache[id(enemy)] = {
+            "key": cache_key,
+            "positions": positions,
+        }
+        return positions
+
+    def _build_time_display_cache(
+        self,
+        day_night: Any,
+        font: pygame.font.Font
+    ) -> Dict[str, Any]:
+        """Build or reuse cached time display text surfaces."""
+        time_str = day_night.get_12hour_time()
+        time_of_day = day_night.get_time_of_day().value
+        day_count = day_night.day_count
+        if day_night.is_daytime():
+            time_color = (255, 255, 200)
+        else:
+            time_color = (180, 200, 255)
+
+        cache_key = (time_str, time_of_day, day_count, time_color, font)
+        if self._time_display_cache.get("key") == cache_key:
+            return self._time_display_cache
+
+        time_surface, time_width = self._render_text_with_shadow_surface(font, time_str, time_color)
+        period_surface, period_width = self._render_text_with_shadow_surface(
+            font, time_of_day.title(), Colors.TEXT_DISABLED
+        )
+        day_surface, day_width = self._render_text_with_shadow_surface(
+            font, f"Day {day_count}", Colors.TEXT_SECONDARY
+        )
+
+        self._time_display_cache = {
+            "key": cache_key,
+            "time": {"surface": time_surface, "width": time_width},
+            "period": {"surface": period_surface, "width": period_width},
+            "day": {"surface": day_surface, "width": day_width},
+        }
+        return self._time_display_cache
+
+    def _build_quest_tracker_cache(
+        self,
+        active_quests: List[Any],
+        font: pygame.font.Font,
+        max_quests: int,
+        max_objectives: int
+    ) -> Dict[str, Any]:
+        """Cache rendered quest tracker lines until quest data changes."""
+        key_data = []
+        for quest in active_quests[:max_quests]:
+            obj_data = tuple(
+                (obj.id, obj.description, obj.completed, obj.get_progress_text())
+                for obj in quest.objectives[:max_objectives]
+            )
+            key_data.append((quest.id, quest.name, quest.is_complete(), obj_data, len(quest.objectives)))
+
+        cache_key = (tuple(key_data), len(active_quests), font)
+        if self._quest_tracker_cache.get("key") == cache_key:
+            return self._quest_tracker_cache
+
+        header_surface, _ = self._render_text_with_shadow_surface(font, "Active Quests", Colors.TEXT_HIGHLIGHT)
+        quest_entries = []
+        for quest in active_quests[:max_quests]:
+            quest_color = Colors.TEXT_SUCCESS if quest.is_complete() else Colors.TEXT_PRIMARY
+            quest_surface, _ = self._render_text_with_shadow_surface(
+                font, f"* {quest.name[:25]}", quest_color
+            )
+
+            objective_surfaces = []
+            for obj in quest.objectives[:max_objectives]:
+                if obj.completed:
+                    obj_color = Colors.TEXT_SUCCESS
+                    status = "v"
+                else:
+                    obj_color = Colors.TEXT_SECONDARY
+                    status = obj.get_progress_text()
+                obj_surface, _ = self._render_text_with_shadow_surface(
+                    font, f"  {status} {obj.description[:22]}", obj_color
+                )
+                objective_surfaces.append(obj_surface)
+
+            more_obj_surface = None
+            if len(quest.objectives) > max_objectives:
+                more_obj_surface, _ = self._render_text_with_shadow_surface(
+                    font,
+                    f"  ... +{len(quest.objectives) - max_objectives} more",
+                    Colors.TEXT_DISABLED
+                )
+
+            quest_entries.append(
+                {
+                    "name": quest_surface,
+                    "objectives": objective_surfaces,
+                    "more_objectives": more_obj_surface,
+                }
+            )
+
+        more_quests_surface = None
+        if len(active_quests) > max_quests:
+            more_quests_surface, _ = self._render_text_with_shadow_surface(
+                font,
+                f"+{len(active_quests) - max_quests} more quests (J: Journal)",
+                Colors.TEXT_DISABLED
+            )
+
+        self._quest_tracker_cache = {
+            "key": cache_key,
+            "header": header_surface,
+            "quests": quest_entries,
+            "more_quests": more_quests_surface,
+        }
+        return self._quest_tracker_cache
+
+    def _build_party_panel_cache(
+        self,
+        font_small: Optional[pygame.font.Font],
+        bar_width: int,
+        bar_height: int,
+        padding: int,
+        panel_padding: int,
+        member_height: int,
+        panel_width: int,
+        panel_height: int
+    ) -> Optional[pygame.Surface]:
+        """Cache party HUD contents until HP/SP or membership changes."""
+        members = [m for m in self.scene.player.party if m.stats]
+        party_signature = tuple(
+            (m.name, m.stats.hp, m.stats.max_hp, m.stats.sp, m.stats.max_sp, m.is_alive())
+            for m in members
+        )
+        cache_key = (party_signature, font_small, bar_width, bar_height, member_height)
+        cached = self._party_ui_cache.get("surface")
+        if (
+            cached
+            and self._party_ui_cache.get("key") == cache_key
+            and self._party_ui_cache.get("panel_size") == (panel_width, panel_height)
+        ):
+            return cached
+
+        if not members:
+            self._party_ui_cache = {}
+            return None
+
+        panel_surface = pygame.Surface((panel_width, panel_height), pygame.SRCALPHA)
+        content_x = panel_padding
+        content_y = panel_padding
+
+        for i, member in enumerate(members):
+            y_offset = i * member_height
+            if font_small:
+                name_color = Colors.TEXT_PRIMARY if member.is_alive() else Colors.TEXT_DISABLED
+                name_surface, _ = self._render_text_with_shadow_surface(font_small, member.name, name_color)
+                panel_surface.blit(name_surface, (content_x, content_y + y_offset))
+
+            hp_y = content_y + y_offset + Layout.HUD_NAME_HEIGHT
+            draw_hp_bar(
+                panel_surface,
+                content_x,
+                hp_y,
+                bar_width,
+                bar_height,
+                member.stats.hp,
+                member.stats.max_hp,
+                "",
+                font=font_small
+            )
+
+            sp_y = hp_y + bar_height + padding
+            draw_sp_bar(
+                panel_surface,
+                content_x,
+                sp_y,
+                bar_width,
+                bar_height,
+                member.stats.sp,
+                member.stats.max_sp,
+                "",
+                font=font_small
+            )
+
+        self._party_ui_cache = {
+            "key": cache_key,
+            "panel_size": (panel_width, panel_height),
+            "surface": panel_surface,
+        }
+        return panel_surface
+
     def draw(self, surface: pygame.Surface) -> None:
         """Draw the overworld."""
         current_map, entities = self.scene.renderer.get_current_entities()
@@ -197,6 +493,8 @@ class OverworldRenderer:
         start_tile_y = max(0, self.scene.camera_offset[1] // self.scene.draw_tile)
         end_tile_x = min(map_width, (self.scene.camera_offset[0] + screen_width) // self.scene.draw_tile + 2)
         end_tile_y = min(map_height, (self.scene.camera_offset[1] + screen_height) // self.scene.draw_tile + 2)
+
+        tile_surface_cache = self._prepare_tile_surface_cache(current_map)
 
         for y in range(start_tile_y, end_tile_y):
             row = current_map.tiles[y]
@@ -222,7 +520,10 @@ class OverworldRenderer:
                 if current_map.map_id == "forest_path" and sprite_id == "grass_dark":
                     sprite_id = "grass"
 
-                tile_surface = self.scene.assets.get_tile_surface(sprite_id, self.scene.tile_size)
+                tile_surface = tile_surface_cache.get(sprite_id)
+                if tile_surface is None:
+                    tile_surface = self.scene.assets.get_tile_surface(sprite_id, self.scene.tile_size)
+                    tile_surface_cache[sprite_id] = tile_surface
 
                 screen_x, screen_y = self.scene.renderer.project(x, y)
                 surface.blit(tile_surface, (screen_x, screen_y))
@@ -230,18 +531,20 @@ class OverworldRenderer:
         # Draw puzzle elements (between tiles and entities)
         self._draw_puzzle_elements(surface, current_map)
 
+        # Draw entities (already culled to viewport by get_current_entities)
         for entity in entities:
             sprite = self.scene.assets.get_image(entity.sprite_id, (self.scene.tile_size, self.scene.tile_size))
             screen_x, screen_y = self.scene.renderer.project(entity.x, entity.y)
             surface.blit(sprite, (screen_x, screen_y))
 
-        # Draw decorative props
-        for prop in current_map.props:
+        # Draw decorative props (culled to viewport)
+        visible_props = self.scene.renderer.get_visible_props(current_map, screen_width, screen_height)
+        for prop in visible_props:
             self._draw_prop(surface, prop)
 
-        # Draw overworld enemies
-        active_enemies = self.scene.world.get_active_overworld_enemies(current_map.map_id)
-        for enemy in active_enemies:
+        # Draw overworld enemies (culled to viewport)
+        visible_enemies = self.scene.renderer.get_visible_enemies(current_map, screen_width, screen_height)
+        for enemy in visible_enemies:
             self._draw_overworld_enemy(surface, enemy)
 
         # Draw player with improved walking animation
@@ -473,16 +776,21 @@ class OverworldRenderer:
         if self.scene.player_facing == "left":
             player_surface = pygame.transform.flip(player_surface, True, False)
 
-        # Draw shadow under player
+        # Draw shadow under player (reuse cached surface)
         shadow_rect = pygame.Rect(
             screen_x + self.scene.draw_tile // 4,
             screen_y + self.scene.draw_tile - 4 * self.scene.scale,
             self.scene.draw_tile // 2,
             4 * self.scene.scale
         )
-        shadow_surface = pygame.Surface((shadow_rect.width, shadow_rect.height), pygame.SRCALPHA)
-        pygame.draw.ellipse(shadow_surface, (0, 0, 0, 60), shadow_surface.get_rect())
-        surface.blit(shadow_surface, shadow_rect)
+        shadow_key = (shadow_rect.width, shadow_rect.height)
+        if shadow_key not in self._shadow_surface_cache:
+            shadow_surf = pygame.Surface((shadow_rect.width, shadow_rect.height), pygame.SRCALPHA)
+            pygame.draw.ellipse(shadow_surf, (0, 0, 0, 60), shadow_surf.get_rect())
+            self._shadow_surface_cache[shadow_key] = shadow_surf
+        else:
+            shadow_surf = self._shadow_surface_cache[shadow_key]
+        surface.blit(shadow_surf, shadow_rect)
 
         # Draw the player sprite
         surface.blit(player_surface, (draw_x, draw_y))
@@ -617,7 +925,7 @@ class OverworldRenderer:
         # Get the prop sprite
         sprite = self.scene.assets.get_image(prop.sprite_id, (self.scene.tile_size, self.scene.tile_size))
 
-        # Draw shadow under solid props for depth
+        # Draw shadow under solid props for depth (reuse cached surface)
         if prop.solid:
             shadow_rect = pygame.Rect(
                 screen_x + self.scene.draw_tile // 4,
@@ -625,9 +933,14 @@ class OverworldRenderer:
                 self.scene.draw_tile // 2,
                 3 * self.scene.scale
             )
-            shadow_surface = pygame.Surface((shadow_rect.width, shadow_rect.height), pygame.SRCALPHA)
-            pygame.draw.ellipse(shadow_surface, (0, 0, 0, 40), shadow_surface.get_rect())
-            surface.blit(shadow_surface, shadow_rect)
+            shadow_key = (shadow_rect.width, shadow_rect.height)
+            if shadow_key not in self._shadow_surface_cache:
+                shadow_surf = pygame.Surface((shadow_rect.width, shadow_rect.height), pygame.SRCALPHA)
+                pygame.draw.ellipse(shadow_surf, (0, 0, 0, 40), shadow_surf.get_rect())
+                self._shadow_surface_cache[shadow_key] = shadow_surf
+            else:
+                shadow_surf = self._shadow_surface_cache[shadow_key]
+            surface.blit(shadow_surf, shadow_rect)
 
         # Draw the prop sprite
         surface.blit(sprite, (screen_x, screen_y))
@@ -654,16 +967,22 @@ class OverworldRenderer:
         )
 
         # Draw detection range visualization (optional - shows line of sight)
-        dx, dy = enemy.get_facing_offset()
-        for dist in range(1, enemy.detection_range + 1):
-            check_x = enemy.x + dx * dist
-            check_y = enemy.y + dy * dist
-            tile_screen_x, tile_screen_y = self.scene.renderer.project(check_x, check_y)
-            # Draw a subtle red tint on tiles in detection range
-            detection_rect = pygame.Rect(tile_screen_x, tile_screen_y, self.scene.draw_tile, self.scene.draw_tile)
-            detection_surface = pygame.Surface((self.scene.draw_tile, self.scene.draw_tile), pygame.SRCALPHA)
-            detection_surface.fill((255, 0, 0, 30))  # Semi-transparent red
-            surface.blit(detection_surface, detection_rect)
+        # Reuse cached detection surface
+        detection_size = (self.scene.draw_tile, self.scene.draw_tile)
+        if self._detection_surface_cache is None or self._detection_surface_cache.get_size() != detection_size:
+            self._detection_surface_cache = pygame.Surface(detection_size, pygame.SRCALPHA)
+            self._detection_surface_cache.fill((255, 0, 0, 30))  # Semi-transparent red
+
+        detection_tiles = self._get_detection_tiles(enemy)
+        cam_x, cam_y = self.scene.camera_offset
+        for tile_world_x, tile_world_y in detection_tiles:
+            detection_rect = pygame.Rect(
+                tile_world_x - cam_x,
+                tile_world_y - cam_y,
+                self.scene.draw_tile,
+                self.scene.draw_tile
+            )
+            surface.blit(self._detection_surface_cache, detection_rect)
 
     def _draw_party_ui(self, surface: pygame.Surface) -> None:
         """Draw party member HP/SP bars in the HUD."""
@@ -672,6 +991,9 @@ class OverworldRenderer:
 
         font_small = self.scene.assets.get_font("small") or self.scene.assets.get_font("default")
         screen_width = surface.get_width()
+        members = [m for m in self.scene.player.party if m.stats]
+        if not members:
+            return
 
         # Use layout constants for consistent spacing
         bar_width = 150
@@ -681,9 +1003,7 @@ class OverworldRenderer:
 
         # Calculate panel dimensions based on party size
         member_height = Layout.HUD_NAME_HEIGHT + bar_height * 2 + padding * 2
-        num_members = sum(1 for m in self.scene.player.party if m.stats)
-        if num_members == 0:
-            return
+        num_members = len(members)
 
         panel_width = bar_width + panel_padding * 2
         panel_height = num_members * member_height + panel_padding * 2
@@ -711,38 +1031,18 @@ class OverworldRenderer:
                 radius=Layout.CORNER_RADIUS
             )
 
-        # Draw each party member's stats
-        content_x = panel_x + panel_padding
-        content_y = panel_y + panel_padding
-
-        for i, member in enumerate(self.scene.player.party):
-            if not member.stats:
-                continue
-
-            y_offset = i * member_height
-
-            # Draw member name with shadow
-            if font_small:
-                name_color = Colors.TEXT_PRIMARY if member.is_alive() else Colors.TEXT_DISABLED
-                draw_text_shadow(
-                    surface, font_small, member.name,
-                    (content_x, content_y + y_offset),
-                    name_color
-                )
-
-            # Draw HP bar
-            hp_y = content_y + y_offset + Layout.HUD_NAME_HEIGHT
-            draw_hp_bar(
-                surface, content_x, hp_y, bar_width, bar_height,
-                member.stats.hp, member.stats.max_hp, "", font=font_small
-            )
-
-            # Draw SP bar
-            sp_y = hp_y + bar_height + padding
-            draw_sp_bar(
-                surface, content_x, sp_y, bar_width, bar_height,
-                member.stats.sp, member.stats.max_sp, "", font=font_small
-            )
+        content_surface = self._build_party_panel_cache(
+            font_small,
+            bar_width,
+            bar_height,
+            padding,
+            panel_padding,
+            member_height,
+            panel_width,
+            panel_height
+        )
+        if content_surface:
+            surface.blit(content_surface, (panel_x, panel_y))
 
         # Update stacking position for next element (only if drawn)
         self._right_hud_y += panel_height + Layout.ELEMENT_GAP
@@ -769,6 +1069,7 @@ class OverworldRenderer:
         line_height = Layout.LINE_HEIGHT_COMPACT
         max_quests = 2  # Show at most 2 active quests
         max_objectives = 3  # Show at most 3 objectives per quest
+        quest_cache = self._build_quest_tracker_cache(active_quests, font, max_quests, max_objectives)
 
         # Calculate panel dimensions
         panel_width = 220
@@ -857,70 +1158,42 @@ class OverworldRenderer:
                 # Draw header with shadow
                 header_y = panel_y + Layout.PADDING_XS
                 if header_y >= 0 and header_y < screen_height:
-                    draw_text_shadow(
-                        surface, font, "Active Quests",
-                        (panel_x + panel_padding, header_y),
-                        Colors.TEXT_HIGHLIGHT
-                    )
+                    header_surface = quest_cache.get("header")
+                    if header_surface:
+                        surface.blit(header_surface, (panel_x + panel_padding, header_y))
 
                 y = panel_y + 25
 
-                for quest in active_quests[:max_quests]:
+                for quest_entry in quest_cache.get("quests", []):
                     # Skip drawing if we're past the visible area
                     if y > screen_height - padding:
                         break
 
                     # Quest name
                     if y >= 0:
-                        quest_color = Colors.TEXT_SUCCESS if quest.is_complete() else Colors.TEXT_PRIMARY
-                        draw_text_shadow(
-                            surface, font, f"* {quest.name[:25]}",
-                            (panel_x + panel_padding, y),
-                            quest_color
-                        )
+                        surface.blit(quest_entry["name"], (panel_x + panel_padding, y))
                     y += line_height
 
                     # Objectives
-                    for obj in quest.objectives[:max_objectives]:
+                    for obj_surface in quest_entry["objectives"]:
                         if y > screen_height - padding:
                             break
                         if y >= 0:
-                            if obj.completed:
-                                obj_color = Colors.TEXT_SUCCESS
-                                status = "v"
-                            else:
-                                obj_color = Colors.TEXT_SECONDARY
-                                status = obj.get_progress_text()
-
-                            draw_text_shadow(
-                                surface, font, f"  {status} {obj.description[:22]}",
-                                (panel_x + panel_padding, y),
-                                obj_color
-                            )
+                            surface.blit(obj_surface, (panel_x + panel_padding, y))
                         y += line_height
 
                     # Show if more objectives exist
-                    if len(quest.objectives) > max_objectives:
+                    if quest_entry.get("more_objectives"):
                         if y <= screen_height - padding and y >= 0:
-                            more_text = f"  ... +{len(quest.objectives) - max_objectives} more"
-                            draw_text_shadow(
-                                surface, font, more_text,
-                                (panel_x + panel_padding, y),
-                                Colors.TEXT_DISABLED
-                            )
+                            surface.blit(quest_entry["more_objectives"], (panel_x + panel_padding, y))
                         y += line_height
 
                     y += Layout.PADDING_XS  # Spacing between quests
 
                 # Show if more quests exist
-                if len(active_quests) > max_quests:
+                if quest_cache.get("more_quests") and len(active_quests) > max_quests:
                     if y <= screen_height - padding and y >= 0:
-                        more_quests = f"+{len(active_quests) - max_quests} more quests (J: Journal)"
-                        draw_text_shadow(
-                            surface, font, more_quests,
-                            (panel_x + panel_padding, y),
-                            Colors.TEXT_DISABLED
-                        )
+                        surface.blit(quest_cache["more_quests"], (panel_x + panel_padding, y))
             finally:
                 # Restore original clipping region
                 surface.set_clip(old_clip)
@@ -941,13 +1214,13 @@ class OverworldRenderer:
         if a <= 0:
             return
 
-        # Create overlay surface
+        # Create overlay surface (reuse cached surface)
         screen_width, screen_height = surface.get_size()
-        overlay = pygame.Surface((screen_width, screen_height), pygame.SRCALPHA)
-        overlay.fill((r, g, b, a))
+        overlay_surface = self._get_overlay_surface((screen_width, screen_height))
+        overlay_surface.fill((r, g, b, a))
 
         # Apply overlay with blend mode
-        surface.blit(overlay, (0, 0))
+        surface.blit(overlay_surface, (0, 0))
 
     def _draw_time_display(self, surface: pygame.Surface) -> None:
         """Draw the current time in the HUD."""
@@ -967,25 +1240,13 @@ class OverworldRenderer:
             return
 
         screen_width, _ = surface.get_size()
-
-        # Get time info
-        time_str = day_night.get_12hour_time()
-        time_of_day = day_night.get_time_of_day()
-        day_count = day_night.day_count
-
-        # Choose color based on time of day
-        if day_night.is_daytime():
-            time_color = (255, 255, 200)  # Warm yellow for day
-        else:
-            time_color = (180, 200, 255)  # Cool blue for night
-
-        # Render text to measure dimensions
-        time_text = font.render(time_str, True, time_color)
-        day_text = font.render(f"Day {day_count}", True, Colors.TEXT_SECONDARY)
-        period_text = font.render(time_of_day.value.title(), True, Colors.TEXT_DISABLED)
+        time_cache = self._build_time_display_cache(day_night, font)
+        time_entry = time_cache["time"]
+        period_entry = time_cache["period"]
+        day_entry = time_cache["day"]
 
         # Calculate panel dimensions
-        text_widths = [time_text.get_width(), day_text.get_width(), period_text.get_width()]
+        text_widths = [time_entry["width"], day_entry["width"], period_entry["width"]]
         panel_width = max(text_widths) + Layout.PADDING_MD * 2
         # Panel height: 3 lines of compact text + vertical padding
         panel_height = Layout.LINE_HEIGHT_COMPACT * 3 + Layout.PADDING_SM
@@ -1017,23 +1278,11 @@ class OverworldRenderer:
         # Use compact line height for consistent vertical spacing
         text_x = panel_x + panel_width - Layout.PADDING_SM
         line_y = panel_y + Layout.PADDING_XS
-        draw_text_shadow(
-            surface, font, time_str,
-            (text_x - time_text.get_width(), line_y),
-            time_color
-        )
+        surface.blit(time_entry["surface"], (text_x - time_entry["width"], line_y))
         line_y += Layout.LINE_HEIGHT_COMPACT
-        draw_text_shadow(
-            surface, font, time_of_day.value.title(),
-            (text_x - period_text.get_width(), line_y),
-            Colors.TEXT_DISABLED
-        )
+        surface.blit(period_entry["surface"], (text_x - period_entry["width"], line_y))
         line_y += Layout.LINE_HEIGHT_COMPACT
-        draw_text_shadow(
-            surface, font, f"Day {day_count}",
-            (text_x - day_text.get_width(), line_y),
-            Colors.TEXT_SECONDARY
-        )
+        surface.blit(day_entry["surface"], (text_x - day_entry["width"], line_y))
 
         # Update stacking position for next element (only if drawn)
         self._right_hud_y += panel_height + Layout.ELEMENT_GAP
@@ -1056,7 +1305,7 @@ class OverworldRenderer:
 
         # Create overlay surface
         screen_width, screen_height = surface.get_size()
-        overlay = pygame.Surface((screen_width, screen_height), pygame.SRCALPHA)
+        overlay = self._get_overlay_surface((screen_width, screen_height))
         overlay.fill((r, g, b, a))
 
         # Apply overlay
@@ -1065,7 +1314,7 @@ class OverworldRenderer:
         # Draw lightning flash for thunderstorms
         if weather.lightning_flash > 0:
             flash_alpha = int(weather.lightning_flash * 200)
-            flash_overlay = pygame.Surface((screen_width, screen_height), pygame.SRCALPHA)
+            flash_overlay = self._get_overlay_surface((screen_width, screen_height))
             flash_overlay.fill((255, 255, 255, flash_alpha))
             surface.blit(flash_overlay, (0, 0))
 
@@ -1086,6 +1335,8 @@ class OverworldRenderer:
             # Calculate alpha based on lifetime
             life_ratio = particle.lifetime / particle.max_lifetime
             alpha = int(particle.alpha * (1.0 - life_ratio * 0.5))
+            if alpha <= 0:
+                continue
 
             if active_weather in (WeatherType.RAIN, WeatherType.HEAVY_RAIN, WeatherType.THUNDERSTORM):
                 # Draw rain as elongated lines
@@ -1101,23 +1352,17 @@ class OverworldRenderer:
                     max(1, particle.size // 2)
                 )
             elif active_weather in (WeatherType.SNOW, WeatherType.BLIZZARD):
-                # Draw snow as circles
-                color = (255, 255, 255, alpha)
-                snow_surface = pygame.Surface((particle.size * 2, particle.size * 2), pygame.SRCALPHA)
-                pygame.draw.circle(snow_surface, color, (particle.size, particle.size), particle.size)
-                surface.blit(snow_surface, (int(particle.x) - particle.size, int(particle.y) - particle.size))
+                particle_surface = self._get_particle_surface(WeatherType.SNOW, particle.size, (255, 255, 255))
+                particle_surface.set_alpha(alpha)
+                surface.blit(particle_surface, (int(particle.x) - particle.size, int(particle.y) - particle.size))
             elif active_weather == WeatherType.SANDSTORM:
-                # Draw sand as small tan particles
-                color = (210, 180, 130, alpha)
-                sand_surface = pygame.Surface((particle.size * 2, particle.size * 2), pygame.SRCALPHA)
-                pygame.draw.circle(sand_surface, color, (particle.size, particle.size), particle.size)
-                surface.blit(sand_surface, (int(particle.x) - particle.size, int(particle.y) - particle.size))
+                particle_surface = self._get_particle_surface(WeatherType.SANDSTORM, particle.size, (210, 180, 130))
+                particle_surface.set_alpha(alpha)
+                surface.blit(particle_surface, (int(particle.x) - particle.size, int(particle.y) - particle.size))
             elif active_weather == WeatherType.ASH:
-                # Draw ash as dark gray particles
-                color = (80, 80, 80, alpha)
-                ash_surface = pygame.Surface((particle.size * 2, particle.size * 2), pygame.SRCALPHA)
-                pygame.draw.circle(ash_surface, color, (particle.size, particle.size), particle.size)
-                surface.blit(ash_surface, (int(particle.x) - particle.size, int(particle.y) - particle.size))
+                particle_surface = self._get_particle_surface(WeatherType.ASH, particle.size, (80, 80, 80))
+                particle_surface.set_alpha(alpha)
+                surface.blit(particle_surface, (int(particle.x) - particle.size, int(particle.y) - particle.size))
 
     def _draw_weather_indicator(self, surface: pygame.Surface) -> None:
         """Draw weather indicator in the HUD."""

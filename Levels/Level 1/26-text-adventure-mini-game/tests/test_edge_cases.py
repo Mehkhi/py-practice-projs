@@ -410,16 +410,14 @@ class TestCorruptedSaveFiles(unittest.TestCase):
         self.assertIsNotNone(player.stats)
 
     def test_load_save_negative_level(self):
-        """Test save with negative level loads without validation (documents current behavior)."""
+        """Test save with negative level clamps to valid range."""
         save_data = self._make_valid_save_data(player={"stats": {"level": -5, "exp": 0}})
         self._write_save_data(save_data)
 
         player = self.save_manager.load_from_slot(1, self.world)
         self.assertIsNotNone(player)
-        # NOTE: Current behavior loads negative level as-is without validation.
-        # This test documents that the system handles invalid data gracefully without crashing.
-        # TODO: Consider whether level should be validated/clamped on load.
-        self.assertEqual(player.stats.level, -5)
+        # Level should be clamped to minimum valid value (1)
+        self.assertEqual(player.stats.level, 1)
 
     def test_load_save_extremely_large_values(self):
         """Test save with extremely large integer values."""

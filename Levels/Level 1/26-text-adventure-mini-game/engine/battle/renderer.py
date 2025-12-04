@@ -86,7 +86,7 @@ class BattleRendererMixin:
             return
 
         alpha = int(self.combo_flash * 100)
-        flash_surf = pygame.Surface(surface.get_size(), pygame.SRCALPHA)
+        flash_surf = self._get_overlay_surface(surface.get_size())
         flash_surf.fill((255, 200, 100, alpha))
         surface.blit(flash_surf, (0, 0))
 
@@ -107,7 +107,7 @@ class BattleRendererMixin:
             return
 
         alpha = int(self.coordinated_tactic_flash * 80)
-        flash_surf = pygame.Surface(surface.get_size(), pygame.SRCALPHA)
+        flash_surf = self._get_overlay_surface(surface.get_size())
         flash_surf.fill((100, 150, 255, alpha))
         surface.blit(flash_surf, (0, 0))
 
@@ -128,7 +128,7 @@ class BattleRendererMixin:
             return
 
         alpha = int(self.phase_transition_flash * 80)
-        flash_surf = pygame.Surface(surface.get_size(), pygame.SRCALPHA)
+        flash_surf = self._get_overlay_surface(surface.get_size())
         flash_surf.fill((255, 150, 100, alpha))
         surface.blit(flash_surf, (0, 0))
 

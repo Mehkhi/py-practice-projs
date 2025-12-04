@@ -115,6 +115,11 @@ class BattleScene(
 
         # Background renderer
         self.background_renderer: Optional[BattleBackgroundRenderer] = None
+        # Reusable surfaces for overlays/effects
+        self._overlay_surface_cache: Optional[pygame.Surface] = None
+        self._overlay_surface_size: Optional[Tuple[int, int]] = None
+        self._shadow_surface_cache: Dict[Tuple[int, int, int], pygame.Surface] = {}
+        self._glow_surface_cache: Dict[Tuple[int, int], pygame.Surface] = {}
 
     def _default_rewards(self) -> Dict[str, Any]:
         """Return base rewards structure when none is provided."""
@@ -153,6 +158,43 @@ class BattleScene(
         if self.world and self.world.current_map_id:
             return get_biome_for_map(self.world.current_map_id)
         return None
+
+    def _get_overlay_surface(self, size: Tuple[int, int]) -> pygame.Surface:
+        """Get a cached full-screen overlay surface."""
+        if (
+            self._overlay_surface_cache is None
+            or self._overlay_surface_size != size
+            or self._overlay_surface_cache.get_size() != size
+        ):
+            self._overlay_surface_cache = pygame.Surface(size, pygame.SRCALPHA)
+            self._overlay_surface_size = size
+        return self._overlay_surface_cache
+
+    def _get_enemy_shadow_surface(self, size: Tuple[int, int], alpha: int = 100) -> pygame.Surface:
+        """Get or build a cached enemy shadow surface for the given size/alpha."""
+        key = (size[0], size[1], alpha)
+        surf = self._shadow_surface_cache.get(key)
+        if surf is None or surf.get_size() != size:
+            surf = pygame.Surface(size, pygame.SRCALPHA)
+            pygame.draw.ellipse(surf, (0, 0, 0, alpha), (0, 0, size[0], size[1]))
+            self._shadow_surface_cache[key] = surf
+        return surf
+
+    def _get_coordinated_glow_surface(self, size: Tuple[int, int]) -> pygame.Surface:
+        """Get or build the cached coordinated-attack glow surface."""
+        surf = self._glow_surface_cache.get(size)
+        if surf is None or surf.get_size() != size:
+            surf = pygame.Surface(size, pygame.SRCALPHA)
+            for i in range(3):
+                alpha = 100 - (i * 30)
+                pygame.draw.rect(
+                    surf,
+                    (100, 150, 255, alpha),
+                    pygame.Rect(i, i, size[0] - i * 2, size[1] - i * 2),
+                    2
+                )
+            self._glow_surface_cache[size] = surf
+        return surf
 
     # Menu handling methods (_queue_attack through _queue_memory_operation)
     # are now in BattleMenuMixin - see engine/battle/menu.py
@@ -645,7 +687,7 @@ class BattleScene(
             return  # No tint or fully transparent
 
         # Create and apply the overlay
-        overlay = pygame.Surface((width, height), pygame.SRCALPHA)
+        overlay = self._get_overlay_surface((width, height))
         overlay.fill(tint)
         surface.blit(overlay, (0, 0))
 
@@ -796,116 +838,6 @@ class BattleScene(
                         (render_x, render_y + self.draw_size + 4)
                     )
 
-            # Apply colorkey to remove black background from battle sprites
-            ally_surface.set_colorkey((0, 0, 0))
-            ally_x = ally_base_x + idx * ally_spacing
-            surface.blit(ally_surface, (ally_x, ally_y))
-
-            # Ally selection or active highlight
-            if selected_ally_id and ally.entity.entity_id == selected_ally_id:
-                highlight_rect = pygame.Rect(
-                    ally_x - 4,
-                    ally_y - 4,
-                    self.draw_size + 8,
-                    self.draw_size + 8
-                )
-                pygame.draw.rect(surface, (255, 255, 0), highlight_rect, 2)
-            elif active_actor_id and ally.entity.entity_id == active_actor_id:
-                active_rect = pygame.Rect(
-                    ally_x - 6,
-                    ally_y - 6,
-                    self.draw_size + 12,
-                    self.draw_size + 12
-                )
-                sp_color = Colors.get_sp_color()
-                pygame.draw.rect(surface, sp_color, active_rect, 2)
-
-            # Ally HP bar + status icons
-            if ally.stats:
-                bar_height = 6
-                bar_y = ally_y - 12
-                # Draw ally name above sprite
-                if hp_font:
-                    name_surf = hp_font.render(ally.entity.name, True, (255, 255, 255))
-                    name_shadow = hp_font.render(ally.entity.name, True, (0, 0, 0))
-                    name_x = ally_x + (self.draw_size - name_surf.get_width()) // 2
-                    name_padding = 4
-                    hp_padding = 4
-
-                    # Precompute positions so name, HP, and bar never overlap
-                    hp_text = f"{ally.stats.hp}/{ally.stats.max_hp}"
-                    hp_surf = hp_font.render(hp_text, True, (255, 255, 255))
-                    hp_shadow = hp_font.render(hp_text, True, (0, 0, 0))
-                    hp_x = ally_x + (self.draw_size - hp_surf.get_width()) // 2
-
-                    hp_box_height = hp_surf.get_height() + hp_padding * 2
-                    name_box_height = name_surf.get_height() + name_padding * 2
-                    hp_y = bar_y - hp_box_height - Layout.ELEMENT_GAP_SMALL
-                    name_y = hp_y - name_box_height - Layout.ELEMENT_GAP_SMALL
-
-                    # Draw semi-transparent name tag background matching weather/time styling
-                    name_bg_rect = pygame.Rect(
-                        name_x - name_padding,
-                        name_y - name_padding,
-                        name_surf.get_width() + name_padding * 2,
-                        name_surf.get_height() + name_padding * 2
-                    )
-                    from engine.world.overworld_renderer import draw_rounded_panel
-                    PANEL_BG = (20, 25, 40, 180)
-                    draw_rounded_panel(
-                        surface,
-                        name_bg_rect,
-                        PANEL_BG,
-                        Colors.BORDER,
-                        border_width=Layout.BORDER_WIDTH_THIN,
-                        radius=Layout.CORNER_RADIUS_SMALL
-                    )
-
-                    surface.blit(name_shadow, (name_x + 1, name_y + 1))
-                    surface.blit(name_surf, (name_x, name_y))
-
-                    # Draw HP numbers below name with spacing from bar
-                    hp_bg_rect = pygame.Rect(
-                        hp_x - hp_padding,
-                        hp_y - hp_padding,
-                        hp_surf.get_width() + hp_padding * 2,
-                        hp_surf.get_height() + hp_padding * 2
-                    )
-                    from engine.world.overworld_renderer import draw_rounded_panel
-                    PANEL_BG = (20, 25, 40, 180)
-                    draw_rounded_panel(
-                        surface,
-                        hp_bg_rect,
-                        PANEL_BG,
-                        Colors.BORDER,
-                        border_width=Layout.BORDER_WIDTH_THIN,
-                        radius=Layout.CORNER_RADIUS_SMALL
-                    )
-
-                    surface.blit(hp_shadow, (hp_x + 1, hp_y + 1))
-                    surface.blit(hp_surf, (hp_x, hp_y))
-
-                # Draw HP bar (small, no text)
-                draw_hp_bar(
-                    surface,
-                    ally_x,
-                    bar_y,
-                    self.draw_size,
-                    bar_height,
-                    ally.stats.hp,
-                    ally.stats.max_hp,
-                    "",
-                    font=hp_font,
-                    show_text=False,
-                )
-                icons = self._collect_status_icons(ally.stats.status_effects)
-                if icons:
-                    draw_status_icons(
-                        surface,
-                        icons,
-                        (ally_x, ally_y + self.draw_size + 4)
-                    )
-
         # --- Party HUD (player + party members) ---
         self._draw_party_hud(surface, hp_font)
 
@@ -952,9 +884,8 @@ class BattleScene(
 
                 # Draw shadow
                 shadow_rect = pygame.Rect(render_x + 10, render_y + self.sprite_size - 6, self.sprite_size - 20, 8)
-                s = pygame.Surface((shadow_rect.width, shadow_rect.height), pygame.SRCALPHA)
-                pygame.draw.ellipse(s, (0, 0, 0, 100), (0, 0, shadow_rect.width, shadow_rect.height))
-                surface.blit(s, shadow_rect.topleft)
+                shadow_surf = self._get_enemy_shadow_surface((shadow_rect.width, shadow_rect.height))
+                surface.blit(shadow_surf, shadow_rect.topleft)
 
                 # Draw coordinating enemy indicator (blue glow/outline)
                 if enemy.coordinated_action:
@@ -964,16 +895,7 @@ class BattleScene(
                         self.sprite_size + 8,
                         self.sprite_size + 8
                     )
-                    glow_surf = pygame.Surface((glow_rect.width, glow_rect.height), pygame.SRCALPHA)
-                    # Draw blue glow
-                    for i in range(3):
-                        alpha = 100 - (i * 30)
-                        pygame.draw.rect(
-                            glow_surf,
-                            (100, 150, 255, alpha),
-                            pygame.Rect(i, i, glow_rect.width - i*2, glow_rect.height - i*2),
-                            2
-                        )
+                    glow_surf = self._get_coordinated_glow_surface((glow_rect.width, glow_rect.height))
                     surface.blit(glow_surf, glow_rect.topleft)
 
                 # Draw sprite

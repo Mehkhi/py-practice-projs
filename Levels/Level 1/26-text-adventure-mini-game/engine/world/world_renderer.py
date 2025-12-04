@@ -6,12 +6,12 @@ import pygame
 
 from core.entities import NPC
 from core.logging_utils import log_warning
-from core.world import Map
+from core.world import Map, Prop
 
 from .overworld_renderer import OverworldRenderer
 
 if TYPE_CHECKING:
-    from core.entities import Entity, NPC
+    from core.entities import Entity, NPC, OverworldEnemy
     from engine.world_scene import WorldScene
 
 
@@ -21,6 +21,13 @@ class WorldRenderer:
     def __init__(self, scene: "WorldScene"):
         self.scene = scene
         self._overworld_renderer = OverworldRenderer(scene)
+        # Reusable lists to avoid per-frame allocations
+        self._visible_entities_cache: List["Entity"] = []
+        self._visible_props_cache: List[Prop] = []
+        self._visible_enemies_cache: List["OverworldEnemy"] = []
+        # Track last camera position for cache invalidation
+        self._last_camera_offset: Tuple[int, int] = (-1, -1)
+        self._camera_move_threshold: int = 32  # Recompute culling if camera moved more than this
 
     def preload_map_sprites(self) -> None:
         """Preload sprites for the current map to prevent stuttering during gameplay."""
@@ -60,8 +67,48 @@ class WorldRenderer:
             except Exception as exc:
                 log_warning(f"Failed to preload map sprite {sprite_id}: {exc}")
 
-    def get_current_entities(self) -> Tuple[Optional[Map], List["Entity"]]:
-        """Return the current map and any instantiated entities on it."""
+    def _cull_to_viewport(
+        self,
+        items: List,
+        get_position,
+        screen_width: int,
+        screen_height: int,
+        margin: int = 1
+    ) -> List:
+        """Cull items to viewport bounds using screen-space coordinates.
+
+        Args:
+            items: List of items to cull (entities, props, etc.)
+            get_position: Function(item) -> (x, y) that returns map coordinates
+            screen_width: Screen width in pixels
+            screen_height: Screen height in pixels
+            margin: Extra margin in tiles to include items slightly off-screen
+
+        Returns:
+            List of items visible in viewport
+        """
+        visible = []
+        # Calculate viewport bounds in map coordinates
+        cam_x, cam_y = self.scene.camera_offset
+        start_tile_x = max(0, cam_x // self.scene.draw_tile - margin)
+        start_tile_y = max(0, cam_y // self.scene.draw_tile - margin)
+        end_tile_x = (cam_x + screen_width) // self.scene.draw_tile + margin + 1
+        end_tile_y = (cam_y + screen_height) // self.scene.draw_tile + margin + 1
+
+        for item in items:
+            x, y = get_position(item)
+            # Check if item is within viewport bounds
+            if start_tile_x <= x < end_tile_x and start_tile_y <= y < end_tile_y:
+                visible.append(item)
+
+        return visible
+
+    def get_current_entities(self, cull_to_viewport: bool = True) -> Tuple[Optional[Map], List["Entity"]]:
+        """Return the current map and any instantiated entities on it.
+
+        Args:
+            cull_to_viewport: If True, only return entities visible in viewport
+        """
         try:
             current_map = self.scene.world.get_current_map()
         except Exception as exc:
@@ -70,7 +117,9 @@ class WorldRenderer:
 
         all_entities = getattr(self.scene.world, "map_entities", {}).get(current_map.map_id, [])
 
-        visible_entities = []
+        # Reuse cached list instead of creating new one
+        self._visible_entities_cache.clear()
+
         for entity in all_entities:
             requires_flag = getattr(entity, "visibility_requires_flag", None)
             hide_if_flag = getattr(entity, "visibility_hide_if_flag", None)
@@ -80,9 +129,81 @@ class WorldRenderer:
             if hide_if_flag and self.scene.world.get_flag(hide_if_flag):
                 continue
 
-            visible_entities.append(entity)
+            self._visible_entities_cache.append(entity)
 
-        return current_map, visible_entities
+        # Apply viewport culling if requested
+        if cull_to_viewport and self.scene.manager:
+            try:
+                screen = pygame.display.get_surface()
+                if screen:
+                    screen_width, screen_height = screen.get_size()
+                    self._visible_entities_cache = self._cull_to_viewport(
+                        self._visible_entities_cache,
+                        lambda e: (e.x, e.y),
+                        screen_width,
+                        screen_height
+                    )
+            except Exception:
+                # Fallback if screen not available
+                pass
+
+        return current_map, self._visible_entities_cache
+
+    def get_visible_props(self, current_map: Optional[Map], screen_width: int, screen_height: int) -> List[Prop]:
+        """Get props visible in the current viewport.
+
+        Args:
+            current_map: Current map instance
+            screen_width: Screen width in pixels
+            screen_height: Screen height in pixels
+
+        Returns:
+            List of props visible in viewport
+        """
+        if not current_map:
+            return []
+
+        # Reuse cached list
+        self._visible_props_cache.clear()
+
+        # Cull props to viewport
+        self._visible_props_cache = self._cull_to_viewport(
+            current_map.props,
+            lambda p: (p.x, p.y),
+            screen_width,
+            screen_height
+        )
+
+        return self._visible_props_cache
+
+    def get_visible_enemies(self, current_map: Optional[Map], screen_width: int, screen_height: int) -> List["OverworldEnemy"]:
+        """Get overworld enemies visible in the current viewport.
+
+        Args:
+            current_map: Current map instance
+            screen_width: Screen width in pixels
+            screen_height: Screen height in pixels
+
+        Returns:
+            List of enemies visible in viewport
+        """
+        if not current_map:
+            return []
+
+        active_enemies = self.scene.world.get_active_overworld_enemies(current_map.map_id)
+
+        # Reuse cached list
+        self._visible_enemies_cache.clear()
+
+        # Cull enemies to viewport
+        self._visible_enemies_cache = self._cull_to_viewport(
+            active_enemies,
+            lambda e: (e.x, e.y),
+            screen_width,
+            screen_height
+        )
+
+        return self._visible_enemies_cache
 
     def find_npc_by_id(self, npc_id: str) -> Optional["NPC"]:
         """Find an NPC by id on the current map."""

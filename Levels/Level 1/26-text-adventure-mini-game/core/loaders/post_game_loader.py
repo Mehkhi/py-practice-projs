@@ -3,7 +3,7 @@
 from typing import Dict, TYPE_CHECKING
 
 from core.constants import POST_GAME_UNLOCKS_JSON
-from core.loaders.base import ensure_dict, load_json_file, validate_required_keys
+from core.loaders.base import detach_json_data, ensure_dict, load_json_file, validate_required_keys
 
 if TYPE_CHECKING:
     from core.post_game import PostGameUnlock
@@ -28,6 +28,7 @@ def load_post_game_unlocks(
         default={"unlocks": {}},
         context="Loading post-game unlocks",
         warn_on_missing=True,
+        copy_data=False,
     )
 
     unlocks: Dict[str, PostGameUnlock] = {}
@@ -39,11 +40,13 @@ def load_post_game_unlocks(
     )
 
     for unlock_id, unlock_data in unlocks_data.items():
-        unlock_entry = ensure_dict(
-            unlock_data,
-            context=context,
-            section="unlock",
-            identifier=unlock_id,
+        unlock_entry = detach_json_data(
+            ensure_dict(
+                unlock_data,
+                context=context,
+                section="unlock",
+                identifier=unlock_id,
+            )
         )
         if not validate_required_keys(
             unlock_entry,

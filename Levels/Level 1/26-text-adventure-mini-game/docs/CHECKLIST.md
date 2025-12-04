@@ -55,4 +55,4 @@
 - [x] Multiple endings based on player choices
 - [x] New Game+ with progression carryover
 - [x] Accessibility options (colorblind, font scaling)
-- [x] 762 unit tests passing
+- [x] Automated test suite passing

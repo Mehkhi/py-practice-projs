@@ -1,15 +1,19 @@
 """Brain teaser data loader."""
 
-from typing import Dict
+from typing import Dict, TYPE_CHECKING
 
 from core.constants import BRAIN_TEASERS_JSON
 from core.loaders.base import (
+    detach_json_data,
     ensure_dict,
     ensure_list,
     load_json_file,
     validate_required_keys,
 )
 from core.logging_utils import log_schema_warning
+
+if TYPE_CHECKING:
+    from core.brain_teasers import BrainTeaser
 
 
 def load_brain_teasers(
@@ -40,6 +44,7 @@ def load_brain_teasers(
         default={"teasers": {}},
         context="Loading brain teasers",
         warn_on_missing=True,
+        copy_data=False,
     )
 
     data = ensure_dict(data, context=context, section="root")
@@ -52,11 +57,13 @@ def load_brain_teasers(
     )
 
     for teaser_id, teaser_data in teasers_data.items():
-        teaser_entry = ensure_dict(
-            teaser_data,
-            context=context,
-            section="teasers",
-            identifier=teaser_id,
+        teaser_entry = detach_json_data(
+            ensure_dict(
+                teaser_data,
+                context=context,
+                section="teasers",
+                identifier=teaser_id,
+            )
         )
         if not validate_required_keys(
             teaser_entry,
@@ -92,11 +99,13 @@ def load_brain_teasers(
             continue
 
         # Parse puzzle data based on type
-        puzzle_data = ensure_dict(
-            teaser_entry["data"],
-            context=context,
-            section="teaser.data",
-            identifier=teaser_id,
+        puzzle_data = detach_json_data(
+            ensure_dict(
+                teaser_entry["data"],
+                context=context,
+                section="teaser.data",
+                identifier=teaser_id,
+            )
         )
         puzzle_obj = None
 

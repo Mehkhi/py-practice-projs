@@ -4,6 +4,7 @@ from typing import Dict, List, Tuple, TYPE_CHECKING
 
 from core.constants import SECRET_BOSS_HINTS_JSON, SECRET_BOSSES_JSON
 from core.loaders.base import (
+    detach_json_data,
     ensure_dict,
     ensure_list,
     load_json_file,
@@ -35,6 +36,7 @@ def load_secret_bosses(
         default={"bosses": {}},
         context="Loading secret bosses",
         warn_on_missing=True,
+        copy_data=False,
     )
 
     bosses: Dict[str, SecretBoss] = {}
@@ -46,11 +48,13 @@ def load_secret_bosses(
     )
 
     for boss_id, boss_data in bosses_data.items():
-        boss_entry = ensure_dict(
-            boss_data,
-            context=context,
-            section="boss",
-            identifier=boss_id,
+        boss_entry = detach_json_data(
+            ensure_dict(
+                boss_data,
+                context=context,
+                section="boss",
+                identifier=boss_id,
+            )
         )
         if not validate_required_keys(
             boss_entry,
@@ -69,11 +73,13 @@ def load_secret_bosses(
             section="boss.unlock_conditions",
             identifier=boss_id,
         ):
-            cond_entry = ensure_dict(
-                cond_data,
-                context=context,
-                section="unlock_condition",
-                identifier=boss_id,
+            cond_entry = detach_json_data(
+                ensure_dict(
+                    cond_data,
+                    context=context,
+                    section="unlock_condition",
+                    identifier=boss_id,
+                )
             )
             if not validate_required_keys(
                 cond_entry,
@@ -147,6 +153,7 @@ def load_secret_boss_hints(
         default={"hints": {}},
         context="Loading secret boss hints",
         warn_on_missing=True,
+        copy_data=False,
     )
 
     hints: Dict[str, BossHint] = {}
@@ -158,11 +165,13 @@ def load_secret_boss_hints(
     )
 
     for hint_id, hint_data in hints_data.items():
-        hint_entry = ensure_dict(
-            hint_data,
-            context=context,
-            section="hint",
-            identifier=hint_id,
+        hint_entry = detach_json_data(
+            ensure_dict(
+                hint_data,
+                context=context,
+                section="hint",
+                identifier=hint_id,
+            )
         )
         if not validate_required_keys(
             hint_entry,

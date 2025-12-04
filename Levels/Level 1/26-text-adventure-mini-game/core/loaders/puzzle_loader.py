@@ -1,15 +1,19 @@
 """Puzzle data loader."""
 
-from typing import Dict
+from typing import Dict, TYPE_CHECKING
 
 from core.constants import PUZZLES_JSON
 from core.loaders.base import (
+    detach_json_data,
     ensure_dict,
     ensure_list,
     load_json_file,
     validate_required_keys,
 )
 from core.logging_utils import log_schema_warning
+
+if TYPE_CHECKING:
+    from core.puzzles import DungeonPuzzle
 
 
 def load_puzzles_from_json(
@@ -30,6 +34,7 @@ def load_puzzles_from_json(
         default={"puzzles": {}},
         context="Loading puzzles",
         warn_on_missing=True,
+        copy_data=False,
     )
 
     context = "puzzle loader"
@@ -43,11 +48,13 @@ def load_puzzles_from_json(
     )
 
     for puzzle_id, puzzle_data in puzzles_data.items():
-        puzzle_entry = ensure_dict(
-            puzzle_data,
-            context=context,
-            section="puzzle",
-            identifier=puzzle_id,
+        puzzle_entry = detach_json_data(
+            ensure_dict(
+                puzzle_data,
+                context=context,
+                section="puzzle",
+                identifier=puzzle_id,
+            )
         )
         if not validate_required_keys(
             puzzle_entry,
@@ -68,11 +75,13 @@ def load_puzzles_from_json(
         )
 
         for element_id, element_data in elements_data.items():
-            element_entry = ensure_dict(
-                element_data,
-                context=context,
-                section="element",
-                identifier=element_id,
+            element_entry = detach_json_data(
+                ensure_dict(
+                    element_data,
+                    context=context,
+                    section="element",
+                    identifier=element_id,
+                )
             )
             if not validate_required_keys(
                 element_entry,

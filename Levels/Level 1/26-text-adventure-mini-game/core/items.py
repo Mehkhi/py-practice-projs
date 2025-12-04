@@ -5,6 +5,7 @@ from enum import Enum
 from dataclasses import dataclass, field
 from typing import Any, Dict, List, Optional, Tuple
 
+from core.loaders.base import detach_json_data
 from .data_loader import load_json_file
 
 
@@ -259,9 +260,10 @@ def load_items_from_json(
 ) -> Dict[str, Item]:
     """Load item definitions from JSON into a mapping."""
     items: Dict[str, Item] = {}
-    data_source = data if data is not None else load_json_file(path, default={}, context="Loading items")
+    data_source = data if data is not None else load_json_file(path, default={}, context="Loading items", copy_data=False)
 
     for item_data in data_source.get("items", []):
+        item_data = detach_json_data(item_data)
         max_stack_size = item_data.get("max_stack_size")
         if max_stack_size is not None:
             max_stack_size = int(max_stack_size)

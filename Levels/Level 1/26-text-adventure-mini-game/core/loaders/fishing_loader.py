@@ -1,15 +1,19 @@
 """Fishing data loader."""
 
-from typing import Dict, List, Tuple
+from typing import Dict, List, Tuple, TYPE_CHECKING
 
 from core.constants import FISHING_JSON
 from core.loaders.base import (
+    detach_json_data,
     ensure_dict,
     ensure_list,
     load_json_file,
     validate_required_keys,
 )
 from core.logging_utils import log_schema_warning
+
+if TYPE_CHECKING:
+    from core.fishing import Fish, FishingSpot
 
 
 def load_fishing_data(
@@ -31,6 +35,7 @@ def load_fishing_data(
         default={"fish": [], "spots": []},
         context="Loading fishing data",
         warn_on_missing=True,
+        copy_data=False,
     )
 
     data = ensure_dict(data, context=context, section="root")
@@ -47,11 +52,13 @@ def load_fishing_data(
     # Load fish
     for fish_data in fish_entries:
         candidate_id = fish_data.get("fish_id") if isinstance(fish_data, dict) else None
-        fish_entry = ensure_dict(
-            fish_data,
-            context=context,
-            section="fish",
-            identifier=candidate_id,
+        fish_entry = detach_json_data(
+            ensure_dict(
+                fish_data,
+                context=context,
+                section="fish",
+                identifier=candidate_id,
+            )
         )
         fish_id = fish_entry.get("fish_id", candidate_id or "unknown")
         if not validate_required_keys(
@@ -136,11 +143,13 @@ def load_fishing_data(
     # Load fishing spots
     for spot_data in spots_entries:
         candidate_id = spot_data.get("spot_id") if isinstance(spot_data, dict) else None
-        spot_entry = ensure_dict(
-            spot_data,
-            context=context,
-            section="spots",
-            identifier=candidate_id,
+        spot_entry = detach_json_data(
+            ensure_dict(
+                spot_data,
+                context=context,
+                section="spots",
+                identifier=candidate_id,
+            )
         )
         spot_id = spot_entry.get("spot_id", candidate_id or "unknown")
         if not validate_required_keys(

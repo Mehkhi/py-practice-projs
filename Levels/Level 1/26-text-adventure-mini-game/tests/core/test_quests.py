@@ -368,6 +368,8 @@ class TestQuestManager(unittest.TestCase):
             status=QuestStatus.LOCKED,
             required_flags=["quest2_complete"],
         )
+        # Rebuild indexes after manually adding quests
+        self.manager._rebuild_indexes()
 
     def test_get_quest(self):
         quest = self.manager.get_quest("quest1")
@@ -432,6 +434,174 @@ class TestQuestManager(unittest.TestCase):
         self.assertIn("quest2", updated)
         self.assertTrue(self.manager.quests["quest2"].objectives[0].completed)
 
+    def test_indexes_rebuilt_after_start_quest(self):
+        """Test that indexes are rebuilt when a quest becomes active."""
+        # Add a quest with kill objective
+        quest = Quest(
+            id="kill_quest",
+            name="Kill Quest",
+            description="",
+            status=QuestStatus.AVAILABLE,
+            objectives=[
+                QuestObjective(
+                    id="kill_obj",
+                    description="Kill wolf",
+                    objective_type=ObjectiveType.KILL,
+                    target="wolf"
+                )
+            ]
+        )
+        self.manager.quests["kill_quest"] = quest
+
+        # Indexes should not have wolf before starting
+        self.assertNotIn("wolf", self.manager._kill_objectives_by_target)
+
+        # Start the quest
+        self.manager.start_quest("kill_quest")
+
+        # Indexes should now include wolf
+        self.assertIn("wolf", self.manager._kill_objectives_by_target)
+        self.assertEqual(len(self.manager._kill_objectives_by_target["wolf"]), 1)
+        self.assertEqual(self.manager._kill_objectives_by_target["wolf"][0], ("kill_quest", "kill_obj"))
+
+    def test_indexes_rebuilt_after_complete_quest(self):
+        """Test that indexes are cleared when a quest is completed."""
+        # quest2 is already active with a goblin kill objective
+        self.assertIn("goblin", self.manager._kill_objectives_by_target)
+
+        # Complete the objective and quest
+        self.manager.quests["quest2"].objectives[0].set_completed()
+        self.manager.complete_quest("quest2")
+
+        # Indexes should no longer include goblin
+        self.assertNotIn("goblin", self.manager._kill_objectives_by_target)
+
+    def test_indexes_rebuilt_after_fail_quest(self):
+        """Test that indexes are cleared when a quest fails."""
+        # quest2 is already active with a goblin kill objective
+        self.assertIn("goblin", self.manager._kill_objectives_by_target)
+
+        # Fail the quest
+        self.manager.fail_quest("quest2")
+
+        # Indexes should no longer include goblin
+        self.assertNotIn("goblin", self.manager._kill_objectives_by_target)
+
+    def test_indexes_include_all_objective_types(self):
+        """Test that indexes are built for all objective types."""
+        quest = Quest(
+            id="multi_quest",
+            name="Multi Quest",
+            description="",
+            status=QuestStatus.ACTIVE,
+            objectives=[
+                QuestObjective(id="kill", description="Kill", objective_type=ObjectiveType.KILL, target="enemy1"),
+                QuestObjective(id="talk", description="Talk", objective_type=ObjectiveType.TALK, target="npc1"),
+                QuestObjective(id="collect", description="Collect", objective_type=ObjectiveType.COLLECT, target="item1"),
+                QuestObjective(id="reach", description="Reach", objective_type=ObjectiveType.REACH, target="map1"),
+                QuestObjective(id="flag", description="Flag", objective_type=ObjectiveType.FLAG, target="flag1"),
+            ]
+        )
+        self.manager.quests["multi_quest"] = quest
+        self.manager._rebuild_indexes()
+
+        self.assertIn("enemy1", self.manager._kill_objectives_by_target)
+        self.assertIn("npc1", self.manager._talk_objectives_by_npc)
+        self.assertIn("item1", self.manager._collect_objectives_by_item)
+        self.assertIn("map1", self.manager._reach_objectives_by_map)
+        self.assertIn("flag1", self.manager._flag_objectives_by_flag)
+
+    def test_indexes_exclude_completed_objectives(self):
+        """Test that completed objectives are not included in indexes."""
+        quest = Quest(
+            id="partial_quest",
+            name="Partial Quest",
+            description="",
+            status=QuestStatus.ACTIVE,
+            objectives=[
+                QuestObjective(id="kill1", description="Kill 1", objective_type=ObjectiveType.KILL, target="enemy1", completed=True),
+                QuestObjective(id="kill2", description="Kill 2", objective_type=ObjectiveType.KILL, target="enemy2", completed=False),
+            ]
+        )
+        self.manager.quests["partial_quest"] = quest
+        self.manager._rebuild_indexes()
+
+        # Completed objective should not be in index
+        self.assertNotIn("enemy1", self.manager._kill_objectives_by_target)
+        # Incomplete objective should be in index
+        self.assertIn("enemy2", self.manager._kill_objectives_by_target)
+
+    def test_event_hooks_use_indexes(self):
+        """Test that event hooks use indexes for efficient lookups."""
+        # Add multiple active quests with different objectives
+        quest1 = Quest(
+            id="q1",
+            name="Quest 1",
+            description="",
+            status=QuestStatus.ACTIVE,
+            objectives=[QuestObjective(id="o1", description="Kill wolf", objective_type=ObjectiveType.KILL, target="wolf")]
+        )
+        quest2 = Quest(
+            id="q2",
+            name="Quest 2",
+            description="",
+            status=QuestStatus.ACTIVE,
+            objectives=[QuestObjective(id="o2", description="Talk to npc", objective_type=ObjectiveType.TALK, target="merchant")]
+        )
+        quest3 = Quest(
+            id="q3",
+            name="Quest 3",
+            description="",
+            status=QuestStatus.ACTIVE,
+            objectives=[QuestObjective(id="o3", description="Collect item", objective_type=ObjectiveType.COLLECT, target="key")]
+        )
+        self.manager.quests["q1"] = quest1
+        self.manager.quests["q2"] = quest2
+        self.manager.quests["q3"] = quest3
+        self.manager._rebuild_indexes()
+
+        # Verify indexes are populated
+        self.assertIn("wolf", self.manager._kill_objectives_by_target)
+        self.assertIn("merchant", self.manager._talk_objectives_by_npc)
+        self.assertIn("key", self.manager._collect_objectives_by_item)
+
+        # Test that event hooks work correctly with indexes
+        updated = self.manager.on_enemy_killed("wolf")
+        self.assertIn("q1", updated)
+        self.assertTrue(quest1.objectives[0].completed)
+
+        updated = self.manager.on_npc_talked("merchant")
+        self.assertIn("q2", updated)
+        self.assertTrue(quest2.objectives[0].completed)
+
+        updated = self.manager.on_item_collected("key")
+        self.assertIn("q3", updated)
+        self.assertTrue(quest3.objectives[0].completed)
+
+    def test_check_flag_objectives_uses_indexes(self):
+        """Test that check_flag_objectives uses indexes efficiently."""
+        quest = Quest(
+            id="flag_quest",
+            name="Flag Quest",
+            description="",
+            status=QuestStatus.ACTIVE,
+            objectives=[
+                QuestObjective(id="flag_obj", description="Set flag", objective_type=ObjectiveType.FLAG, target="test_flag")
+            ]
+        )
+        self.manager.quests["flag_quest"] = quest
+        self.manager._rebuild_indexes()
+
+        # Verify index is populated
+        self.assertIn("test_flag", self.manager._flag_objectives_by_flag)
+
+        # Check flag objectives with only the set flag
+        world_flags = {"test_flag": True, "other_flag": False, "unrelated_flag": True}
+        updated = self.manager.check_flag_objectives(world_flags)
+
+        self.assertIn("flag_quest", updated)
+        self.assertTrue(quest.objectives[0].completed)
+
     def test_on_enemy_killed_with_progress(self):
         """Test on_enemy_killed with return_progress=True returns detailed info."""
         # Set up a kill objective that requires 3 kills
@@ -442,6 +612,8 @@ class TestQuestManager(unittest.TestCase):
             target="goblin",
             required_count=3,
         )
+        # Rebuild indexes after modifying objectives
+        self.manager._rebuild_indexes()
 
         # First kill - partial progress
         progress = self.manager.on_enemy_killed("goblin", return_progress=True)
@@ -474,6 +646,8 @@ class TestQuestManager(unittest.TestCase):
             target="herb",
             required_count=3,
         )
+        # Rebuild indexes after modifying objectives
+        self.manager._rebuild_indexes()
         updated = self.manager.on_item_collected("herb", 3)
         self.assertIn("quest2", updated)
 
@@ -484,6 +658,8 @@ class TestQuestManager(unittest.TestCase):
             objective_type=ObjectiveType.TALK,
             target="elder_npc",
         )
+        # Rebuild indexes after modifying objectives
+        self.manager._rebuild_indexes()
         updated = self.manager.on_npc_talked("elder_npc")
         self.assertIn("quest2", updated)
 
@@ -494,6 +670,8 @@ class TestQuestManager(unittest.TestCase):
             objective_type=ObjectiveType.REACH,
             target="dark_forest",
         )
+        # Rebuild indexes after modifying objectives
+        self.manager._rebuild_indexes()
         updated = self.manager.on_map_entered("dark_forest")
         self.assertIn("quest2", updated)
 

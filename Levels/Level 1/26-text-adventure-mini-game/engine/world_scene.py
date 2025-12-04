@@ -94,10 +94,16 @@ class WorldScene(Scene):
         if not self.encounters_data:
             return
         for encounter_id, encounter in self.encounters_data.items():
-            enemies = encounter.get("enemies", []) if encounter else []
+            if not isinstance(encounter, dict):
+                continue
+            enemies = encounter.get("enemies", [])
+            if not isinstance(enemies, list):
+                continue
             for enemy_data in enemies:
-                ai_profile = enemy_data.get("ai_profile") if isinstance(enemy_data, dict) else None
-                enemy_id = enemy_data.get("id", "enemy") if isinstance(enemy_data, dict) else "enemy"
+                if not isinstance(enemy_data, dict):
+                    continue
+                ai_profile = enemy_data.get("ai_profile")
+                enemy_id = enemy_data.get("id", "enemy")
                 WorldScene._validate_ai_profile_dict(
                     ai_profile,
                     self.skills,
@@ -145,6 +151,8 @@ class WorldScene(Scene):
             tile_size=tile_size,
             sprite_size=tile_size,  # World scenes use tile_size for entities
         )
+        # Warm cache for current tileset resolution to avoid per-frame scaling on first use
+        self.assets.warm_cache_for_resolution(tile_size, tile_size)
         self.dialogue_tree = dialogue_tree
         self.items_db = items_db or {}
         if self.dialogue_tree is None:

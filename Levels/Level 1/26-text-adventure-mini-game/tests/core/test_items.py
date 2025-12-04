@@ -5,6 +5,7 @@ import os
 import tempfile
 import unittest
 
+from core.data_loader import clear_json_cache
 from core.items import Item, Inventory, load_items_from_json
 
 
@@ -519,6 +520,38 @@ class TestLoadItemsFromJson(unittest.TestCase):
             self.assertEqual(item.description, "")
             self.assertEqual(item.value, 0)
         finally:
+            os.unlink(temp_path)
+
+    def test_items_load_does_not_taint_cached_json(self):
+        """Mutating loaded items should not mutate the cached JSON payload."""
+        data = {
+            "items": [
+                {
+                    "id": "ring",
+                    "item_type": "equipment",
+                    "effect_id": "buff",
+                    "stat_modifiers": {"magic": 3},
+                    "granted_skills": ["blink"],
+                }
+            ]
+        }
+        with tempfile.NamedTemporaryFile(mode="w", suffix=".json", delete=False) as f:
+            json.dump(data, f)
+            temp_path = f.name
+
+        try:
+            loaded = load_items_from_json(temp_path)
+            ring = loaded["ring"]
+            ring.stat_modifiers["magic"] = 999
+            ring.granted_skills.append("tainted")
+
+            reloaded = load_items_from_json(temp_path)
+            fresh_ring = reloaded["ring"]
+
+            self.assertEqual(fresh_ring.stat_modifiers["magic"], 3)
+            self.assertEqual(fresh_ring.granted_skills, ["blink"])
+        finally:
+            clear_json_cache(temp_path)
             os.unlink(temp_path)
 
 

@@ -6,7 +6,7 @@ import tempfile
 import unittest
 from unittest.mock import patch
 
-from core.data_loader import load_json_file
+from core.data_loader import clear_json_cache, load_json_file
 
 
 class TestLoadJsonFile(unittest.TestCase):
@@ -41,6 +41,42 @@ class TestLoadJsonFile(unittest.TestCase):
             self.assertEqual(len(result), 2)
             self.assertEqual(result[0]["id"], "item1")
         finally:
+            os.unlink(temp_path)
+
+    def test_cache_hit_returns_deep_copy_without_reopen(self):
+        """Cache returns a fresh copy while avoiding a second disk read."""
+        payload = {"key": "value", "nested": {"a": 1}}
+        with tempfile.NamedTemporaryFile(mode="w", suffix=".json", delete=False) as f:
+            json.dump(payload, f)
+            temp_path = f.name
+
+        try:
+            first = load_json_file(temp_path)
+            with patch("builtins.open", side_effect=AssertionError("cache should skip reopen")):
+                second = load_json_file(temp_path)
+
+            self.assertEqual(first, payload)
+            self.assertEqual(second, payload)
+            self.assertIsNot(first, second)
+        finally:
+            clear_json_cache(temp_path)
+            os.unlink(temp_path)
+
+    def test_copy_data_false_returns_shared_reference(self):
+        """Opting out of deep copy returns the cached reference."""
+        payload = {"key": "value"}
+        with tempfile.NamedTemporaryFile(mode="w", suffix=".json", delete=False) as f:
+            json.dump(payload, f)
+            temp_path = f.name
+
+        try:
+            shared_first = load_json_file(temp_path, copy_data=False)
+            with patch("builtins.open", side_effect=AssertionError("cache should be reused")):
+                shared_second = load_json_file(temp_path, copy_data=False)
+
+            self.assertIs(shared_first, shared_second)
+        finally:
+            clear_json_cache(temp_path)
             os.unlink(temp_path)
 
     def test_load_empty_json_object(self):

@@ -261,7 +261,7 @@ class PuzzleManager:
                                 linked.solid = True
                                 changed_ids.append(linked_id)
 
-                return changed_ids
+        return changed_ids
 
 
     def _check_door_conditions(self, door: PuzzleElement, puzzle: DungeonPuzzle) -> bool:

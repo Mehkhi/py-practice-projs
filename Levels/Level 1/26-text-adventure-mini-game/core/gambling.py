@@ -255,7 +255,7 @@ class GamblingManager:
 
     def place_bet(self, amount: int, world: "World") -> bool:
         """Place a bet. Returns False if can't afford."""
-        self.current_bet = 0
+        self.current_bet = 0  # reset bet in case validation fails
         try:
             amount = int(amount)
         except (TypeError, ValueError):

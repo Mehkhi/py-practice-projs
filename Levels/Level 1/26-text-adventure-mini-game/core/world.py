@@ -3,7 +3,7 @@
 import copy
 import os
 from dataclasses import dataclass, field, replace
-from typing import Dict, List, Optional, Set, Tuple
+from typing import Any, Callable, Dict, List, Optional, Set, Tuple
 import json
 from .entities import load_npcs_from_json
 from .logging_utils import log_warning
@@ -180,12 +180,13 @@ class World:
     def __init__(self):
         self.maps: Dict[str, Map] = {}
         self.current_map_id: str = "forest_path"
-        self.flags: Dict[str, bool] = {}
+        self.flags: Dict[str, Any] = {}
         self.map_entities: Dict[str, List["Entity"]] = {}
         self.map_overworld_enemies: Dict[str, List["OverworldEnemy"]] = {}
         self.npc_interaction_active: bool = False
         self.visited_maps: Set[str] = set()
         self.mark_map_visited(self.current_map_id)
+        self._flag_change_callback: Optional[Callable[[str, Any], None]] = None
 
     def get_current_map(self) -> Map:
         """Get the currently active map."""
@@ -199,11 +200,31 @@ class World:
         else:
             raise ValueError(f"Map {map_id} not found")
 
-    def set_flag(self, flag_name: str, value: bool = True) -> None:
-        """Set a world flag."""
-        self.flags[flag_name] = value
+    def set_flag(self, flag_name: str, value: Any = True) -> None:
+        """Set a world flag.
 
-    def get_flag(self, flag_name: str, default: bool = False) -> bool:
+        Args:
+            flag_name: Name of the flag to set
+            value: Value to set (default True)
+
+        If a flag change callback is registered, it will be called after
+        setting the flag. This allows systems like quest manager to react
+        to flag changes without polling.
+        """
+        self.flags[flag_name] = value
+        if self._flag_change_callback:
+            self._flag_change_callback(flag_name, value)
+
+    def set_flag_change_callback(self, callback: Optional[Callable[[str, Any], None]]) -> None:
+        """Register a callback to be called when flags change.
+
+        Args:
+            callback: Function that takes (flag_name: str, flag_value: bool) and returns None.
+                      Pass None to unregister.
+        """
+        self._flag_change_callback = callback
+
+    def get_flag(self, flag_name: str, default: Any = False) -> Any:
         """Get a world flag value."""
         return self.flags.get(flag_name, default)
 
@@ -390,9 +411,14 @@ def load_map_from_json(json_path: str) -> Map:
 
     # Load tiles with tolerance for malformed entries
     tiles: List[List[Tile]] = []
+    max_width_seen = 0
     for y, row in enumerate(raw_tiles):
         if not isinstance(row, list):
-            log_warning(f"map {map_id}: row {y} is not a list, skipping row")
+            log_warning(f"map {map_id}: row {y} is not a list, replacing with placeholder tiles")
+            # Determine width for placeholder row: use declared_width if available, otherwise max width seen so far, or 1 as fallback
+            placeholder_width = declared_width if declared_width else (max_width_seen if max_width_seen > 0 else 1)
+            placeholder_row = [_placeholder_tile() for _ in range(placeholder_width)]
+            tiles.append(placeholder_row)
             continue
         tile_row: List[Tile] = []
         for x, tile_data in enumerate(row):
@@ -411,8 +437,12 @@ def load_map_from_json(json_path: str) -> Map:
                     sprite_id=tile_data.get("sprite_id", tile_data["tile_id"]),
                 )
             )
-        if tile_row:
-            tiles.append(tile_row)
+        if not tile_row:
+            # Preserve row position even when every entry is invalid by filling placeholders
+            placeholder_width = declared_width or max(len(row), max_width_seen, 1)
+            tile_row = [_placeholder_tile() for _ in range(placeholder_width)]
+        tiles.append(tile_row)
+        max_width_seen = max(max_width_seen, len(tile_row))
 
     actual_height = len(tiles)
     actual_width = max((len(r) for r in tiles), default=0)

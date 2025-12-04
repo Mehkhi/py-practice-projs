@@ -32,7 +32,7 @@ if TYPE_CHECKING:
     from core.quests import QuestManager
     from core.achievements import AchievementManager
 
-from core.data_loader import load_npc_schedules
+from core.data_loader import load_npc_schedules, warm_data_caches
 from core.loaders import build_bestiary_metadata
 from core.tutorial_system import TipTrigger
 from core.time_system import TimeOfDay
@@ -73,9 +73,19 @@ class RpgGame:
         self.event_bus = EventBus()
         self._load_domain_data()
 
+        # Warm data caches once at startup to avoid repeated JSON loads
+        warm_data_caches()
+
         self.save_manager = SaveManager()
         self.save_coordinator = SaveCoordinator(self, self.save_manager)
         self.quest_manager = load_quest_manager_safe(self.world.flags)
+
+        # Wire up quest manager to listen to flag changes
+        def on_flag_change(flag_name: str, flag_value: bool) -> None:
+            """Callback for flag changes to check flag-based quest objectives."""
+            if flag_value and self.quest_manager is not None:  # Only check when flag is set (truthy) and manager exists
+                self.quest_manager.check_flag_objectives(self.world.flags)
+        self.world.set_flag_change_callback(on_flag_change)
 
         self.day_night_cycle = create_day_night_cycle(self.config)
         self.weather_system = create_weather_system(self.config)
@@ -282,9 +292,7 @@ class RpgGame:
 
     def _update_time_systems(self, dt: float) -> None:
         """Advance world time, schedules, and weather."""
-        current_playtime = self.world.get_flag("play_time_seconds")
-        if current_playtime is False or current_playtime is True or not isinstance(current_playtime, (int, float)):
-            current_playtime = 0.0
+        current_playtime = self.world.get_flag("play_time_seconds", 0.0)
         self.world.set_flag("play_time_seconds", float(current_playtime) + dt)
 
         if self.day_night_cycle and not self.day_night_cycle.paused:

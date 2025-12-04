@@ -197,8 +197,9 @@ class ActionExecutorMixin:
             self.message_log.append(f"{actor.entity.name}'s {move_name} missed!")
             return
 
-        # Calculate base damage
-        attack_power = actor.stats.get_effective_attack()
+        # Calculate base damage (use cached stats for performance)
+        current_turn = getattr(self, 'turn_counter', 0)
+        attack_power = actor.get_cached_effective_attack(current_turn)
         base_damage = attack_power + move_power + self.rng.randint(-2, 2)
 
         # Apply formation modifiers
@@ -221,9 +222,10 @@ class ActionExecutorMixin:
             if actor.combo_bonus > 1.0:
                 damage = int(damage * actor.combo_bonus)
 
-            # Critical hit chance based on luck
+            # Critical hit chance based on luck (use cached stats)
             is_crit = False
-            if self.rng.random() < (actor.stats.get_effective_luck() / 100.0):
+            current_turn = getattr(self, 'turn_counter', 0)
+            if self.rng.random() < (actor.get_cached_effective_luck(current_turn) / 100.0):
                 damage = int(damage * 1.5)
                 is_crit = True
 
@@ -321,6 +323,7 @@ class ActionExecutorMixin:
 
         # Get targets based on pattern
         targets = self._get_targets(skill.target_pattern, cmd.target_ids, actor)
+        current_turn = getattr(self, 'turn_counter', 0)
 
         for target in targets:
             if not target or not target.is_alive():
@@ -339,13 +342,13 @@ class ActionExecutorMixin:
                 # Damage skill
                 base_damage = skill.power
                 if actor.is_player_side:
-                    base_damage += actor.stats.get_effective_magic()
+                    base_damage += actor.get_cached_effective_magic(current_turn)
                 else:
                     # Enemy spells should scale from magic to respect caster stats
                     offensive_stat = (
-                        actor.stats.get_effective_magic()
+                        actor.get_cached_effective_magic(current_turn)
                         if skill.element != "physical"
-                        else actor.stats.get_effective_attack()
+                        else actor.get_cached_effective_attack(current_turn)
                     )
                     base_damage += offensive_stat
 
@@ -578,18 +581,21 @@ class ActionExecutorMixin:
         # Calculate average enemy speed
         alive_enemies = [e for e in self.enemies if e.is_alive()]
         if alive_enemies:
-            avg_enemy_speed = sum(e.stats.get_effective_speed() for e in alive_enemies) / len(alive_enemies)
+            current_turn = getattr(self, 'turn_counter', 0)
+            avg_enemy_speed = sum(e.get_cached_effective_speed(current_turn) for e in alive_enemies) / len(alive_enemies)
         else:
             avg_enemy_speed = 0
 
-        actor_speed = actor.stats.get_effective_speed()
+        current_turn = getattr(self, 'turn_counter', 0)
+        actor_speed = actor.get_cached_effective_speed(current_turn)
 
         # Speed differential bonus/penalty (capped at +/-20%)
         speed_diff = (actor_speed - avg_enemy_speed) / 100.0
         speed_bonus = max(-0.20, min(0.20, speed_diff))
 
         # Luck bonus (up to 10%)
-        luck_bonus = min(0.10, actor.stats.get_effective_luck() / 200.0)
+        current_turn = getattr(self, 'turn_counter', 0)
+        luck_bonus = min(0.10, actor.get_cached_effective_luck(current_turn) / 200.0)
 
         # Turn bonus (5% per turn, up to 25%)
         turn_bonus = min(0.25, self.turn_counter * 0.05)
@@ -684,10 +690,10 @@ class ActionExecutorMixin:
             return 0
 
         stat_map = {
-            "attack": lambda: actor.stats.get_effective_attack(),
-            "defense": lambda: actor.stats.get_effective_defense(),
-            "magic": lambda: actor.stats.get_effective_magic(),
-            "speed": lambda: actor.stats.get_effective_speed(),
+            "attack": lambda: actor.get_cached_effective_attack(getattr(self, 'turn_counter', 0)),
+            "defense": lambda: actor.get_cached_effective_defense(getattr(self, 'turn_counter', 0)),
+            "magic": lambda: actor.get_cached_effective_magic(getattr(self, 'turn_counter', 0)),
+            "speed": lambda: actor.get_cached_effective_speed(getattr(self, 'turn_counter', 0)),
             "current_hp": lambda: actor.stats.hp,
             "last_damage": lambda: actor.last_damage_dealt,
         }

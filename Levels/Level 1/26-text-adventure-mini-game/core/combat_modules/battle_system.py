@@ -28,10 +28,76 @@ class BattleSystemCore:
     - self.turn_counter: int
     """
 
+    def _get_party_state_cache(self) -> Dict[str, Any]:
+        """Get or create the party state cache."""
+        if not hasattr(self, '_party_state_cache'):
+            self._party_state_cache = {}
+        return self._party_state_cache
+
+    def _compute_party_state(self) -> None:
+        """Pre-compute and cache party state for the current turn.
+
+        Caches:
+        - allies_alive_count: Number of alive enemy allies
+        - enemies_alive_count: Number of alive player characters
+        - party_status_sets: Dict mapping party type to set of active status IDs
+        - party_status_versions: Aggregate status version snapshots for cache validation
+        """
+        cache = self._get_party_state_cache()
+        current_turn = getattr(self, 'turn_counter', 0)
+
+        # Compute alive counts
+        cache['allies_alive_count'] = len([e for e in self.enemies if e.is_alive()])
+        cache['enemies_alive_count'] = len([p for p in self.players if p.is_alive()])
+
+        # Compute status sets for each party
+        enemy_status_set = set()
+        player_status_set = set()
+
+        for enemy in self.enemies:
+            if enemy.is_alive():
+                enemy_status_set.update(enemy.stats.status_effects.keys())
+
+        for player in self.players:
+            if player.is_alive():
+                player_status_set.update(player.stats.status_effects.keys())
+
+        cache['party_status_sets'] = {
+            'enemies': enemy_status_set,
+            'players': player_status_set
+        }
+        cache['party_status_versions'] = self._get_party_status_versions()
+
+        cache['_cache_turn'] = current_turn
+
+    def _get_party_status_versions(self) -> Dict[str, Tuple[int, int]]:
+        """Aggregate status effect version counters for each party.
+
+        Uses per-participant status_effects_version to detect mid-turn changes
+        without scanning full status dictionaries on every lookup. Snapshot
+        includes both alive count and summed versions to catch roster changes.
+        """
+        def party_version(party: List["BattleParticipant"]) -> Tuple[int, int]:
+            alive_members = [p for p in party if p.is_alive()]
+            version_sum = sum(
+                getattr(p.stats, "status_effects_version", 0) for p in alive_members
+            )
+            return (len(alive_members), version_sum)
+
+        return {
+            'enemies': party_version(self.enemies),
+            'players': party_version(self.players)
+        }
+
     def compute_turn_order(self) -> None:
         """Sort all alive participants by speed (Pokemon-style)."""
         all_participants = [p for p in self.players + self.enemies if p.is_alive()]
-        all_participants.sort(key=lambda p: p.stats.get_effective_speed(), reverse=True)
+        # Use cached stats for performance
+        current_turn = getattr(self, 'turn_counter', 0)
+        all_participants.sort(
+            key=lambda p: p.get_cached_effective_speed(current_turn),
+            reverse=True
+        )
         self.turn_order = all_participants
 
     def queue_player_command(self, cmd: "BattleCommand") -> None:
@@ -55,6 +121,16 @@ class BattleSystemCore:
         if self.state != BattleState.RESOLVE_ACTIONS:
             return
 
+        # Clear all stat caches at turn start (lazy recomputation on first access)
+        current_turn = getattr(self, 'turn_counter', 0)
+        for participant in self.players + self.enemies:
+            participant._cached_stats.clear()
+            participant._cache_turn = -1
+            participant.stats._cache_invalidated = False
+
+        # Pre-compute party state for this turn
+        self._compute_party_state()
+
         # Check for player combo attacks before processing
         self._apply_player_combo_bonuses()
 
@@ -75,10 +151,19 @@ class BattleSystemCore:
                 break
 
         # Tick status effects
+        party_state_changed = False
         for participant in self.players + self.enemies:
+            was_alive = participant.is_alive()
             if participant.is_alive():
                 participant.stats.tick_status_effects()
             self._process_memory_boost_decay(participant)
+            # Check if participant died/revived (for party state cache invalidation)
+            if was_alive != participant.is_alive():
+                party_state_changed = True
+
+        # Invalidate party state cache if participants died/revived
+        if party_state_changed:
+            self._compute_party_state()
 
         # Remove any guard bonuses now that the round is over
         self._reset_guard_bonuses()
@@ -203,6 +288,8 @@ class BattleSystemCore:
             if participant.guard_bonus:
                 participant.stats.defense -= participant.guard_bonus
                 participant.guard_bonus = 0
+                # Invalidate stat cache when defense changes
+                participant.stats._cache_invalidated = True
 
     def _process_memory_boost_decay(self, participant: "BattleParticipant") -> None:
         """Clear memory modifiers when boost expires."""
@@ -320,7 +407,24 @@ class BattleSystemCore:
         return attack_mod, defense_mod
 
     def _hp_percent(self, participant: "BattleParticipant") -> float:
-        """Return HP percentage for a participant."""
+        """Return HP percentage for a participant (cached per turn)."""
         if participant.stats.max_hp <= 0:
             return 0.0
-        return (participant.stats.hp / participant.stats.max_hp) * 100
+
+        # Use cache if available
+        current_turn = getattr(self, 'turn_counter', 0)
+        cache_key = "hp_percent"
+        cache_turn_key = "_cache_turn"
+
+        if (cache_turn_key in participant._cached_stats and
+            participant._cached_stats[cache_turn_key] == current_turn and
+            cache_key in participant._cached_stats and
+            not participant.stats._cache_invalidated):
+            return participant._cached_stats[cache_key]
+
+        # Compute and cache
+        hp_percent = (participant.stats.hp / participant.stats.max_hp) * 100
+        participant._cached_stats[cache_key] = hp_percent
+        participant._cached_stats[cache_turn_key] = current_turn
+
+        return hp_percent

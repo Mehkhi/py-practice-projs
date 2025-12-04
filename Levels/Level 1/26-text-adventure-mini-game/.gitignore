@@ -10,3 +10,8 @@ __pycache__/
 .venv/
 venv/
 assets/sprites/backgrounds/*.png
+
+# Save files and test progress
+saves/*.json
+saves/*.tmp
+replays/

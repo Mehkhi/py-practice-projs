@@ -1,6 +1,6 @@
 """QuestManager for managing all quests and their state."""
 
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Tuple
 
 from .data_loader import load_json_file
 from .logging_utils import log_warning
@@ -74,6 +74,67 @@ class QuestManager:
         self.quests: Dict[str, Quest] = {}
         self._definitions: Dict[str, Dict[str, Any]] = {}  # Original definitions for reset
 
+        # Performance optimization: indexed lookups for objectives
+        # Maps target -> [(quest_id, objective_id), ...]
+        self._kill_objectives_by_target: Dict[str, List[Tuple[str, str]]] = {}
+        self._talk_objectives_by_npc: Dict[str, List[Tuple[str, str]]] = {}
+        self._collect_objectives_by_item: Dict[str, List[Tuple[str, str]]] = {}
+        self._reach_objectives_by_map: Dict[str, List[Tuple[str, str]]] = {}
+        self._flag_objectives_by_flag: Dict[str, List[Tuple[str, str]]] = {}
+
+    def _rebuild_indexes(self) -> None:
+        """Rebuild all objective indexes from active quests.
+
+        This method clears and repopulates the index dictionaries to ensure
+        they accurately reflect the current state of active quests. Should be
+        called whenever quest status changes (start, complete, fail) or after
+        loading quests/state.
+        """
+        # Clear all indexes
+        self._kill_objectives_by_target.clear()
+        self._talk_objectives_by_npc.clear()
+        self._collect_objectives_by_item.clear()
+        self._reach_objectives_by_map.clear()
+        self._flag_objectives_by_flag.clear()
+
+        # Rebuild from active quests
+        for quest in self.get_active_quests():
+            for obj in quest.objectives:
+                if obj.completed:
+                    continue  # Skip completed objectives
+
+                quest_obj_pair = (quest.id, obj.id)
+
+                if obj.objective_type == ObjectiveType.KILL:
+                    if obj.target:
+                        if obj.target not in self._kill_objectives_by_target:
+                            self._kill_objectives_by_target[obj.target] = []
+                        self._kill_objectives_by_target[obj.target].append(quest_obj_pair)
+
+                elif obj.objective_type == ObjectiveType.TALK:
+                    if obj.target:
+                        if obj.target not in self._talk_objectives_by_npc:
+                            self._talk_objectives_by_npc[obj.target] = []
+                        self._talk_objectives_by_npc[obj.target].append(quest_obj_pair)
+
+                elif obj.objective_type == ObjectiveType.COLLECT:
+                    if obj.target:
+                        if obj.target not in self._collect_objectives_by_item:
+                            self._collect_objectives_by_item[obj.target] = []
+                        self._collect_objectives_by_item[obj.target].append(quest_obj_pair)
+
+                elif obj.objective_type == ObjectiveType.REACH:
+                    if obj.target:
+                        if obj.target not in self._reach_objectives_by_map:
+                            self._reach_objectives_by_map[obj.target] = []
+                        self._reach_objectives_by_map[obj.target].append(quest_obj_pair)
+
+                elif obj.objective_type == ObjectiveType.FLAG:
+                    if obj.target:
+                        if obj.target not in self._flag_objectives_by_flag:
+                            self._flag_objectives_by_flag[obj.target] = []
+                        self._flag_objectives_by_flag[obj.target].append(quest_obj_pair)
+
     def load_quests(self, json_path: str) -> None:
         """Load quest definitions from JSON file."""
         data = load_json_file(
@@ -88,6 +149,9 @@ class QuestManager:
             quest_id = quest_data["id"]
             self._definitions[quest_id] = quest_data
             self.quests[quest_id] = Quest.from_definition(quest_data)
+
+        # Rebuild indexes after loading
+        self._rebuild_indexes()
 
     def get_quest(self, quest_id: str) -> Optional[Quest]:
         """Get a quest by ID."""
@@ -155,6 +219,7 @@ class QuestManager:
         if quest.status not in (QuestStatus.AVAILABLE, QuestStatus.LOCKED):
             return False
         quest.status = QuestStatus.ACTIVE
+        self._rebuild_indexes()  # Rebuild indexes when quest becomes active
         return True
 
     def complete_quest(self, quest_id: str) -> Optional[Quest]:
@@ -186,6 +251,7 @@ class QuestManager:
         if not quest.is_complete():
             return None
         quest.status = QuestStatus.COMPLETED
+        self._rebuild_indexes()  # Rebuild indexes when quest becomes inactive
         return quest
 
     def fail_quest(self, quest_id: str) -> bool:
@@ -194,6 +260,7 @@ class QuestManager:
         if not quest or quest.status != QuestStatus.ACTIVE:
             return False
         quest.status = QuestStatus.FAILED
+        self._rebuild_indexes()  # Rebuild indexes when quest becomes inactive
         return True
 
     def update_objective(self, quest_id: str, objective_id: str, amount: int = 1) -> bool:
@@ -271,8 +338,8 @@ class QuestManager:
     def check_flag_objectives(self, world_flags: Dict[str, Any]) -> List[str]:
         """Check all active quests for flag-based objective completion.
 
-        This method iterates through all active quests and checks their
-        FLAG-type objectives. If a flag is set in world_flags and matches
+        This method checks only flags that are set in world_flags and uses
+        indexed lookups to find matching objectives. If a flag is set and matches
         an objective's target, the objective is marked as completed.
 
         Args:
@@ -287,14 +354,28 @@ class QuestManager:
         - Exploration flags (e.g., "ancient_ruins_discovered")
         - Choice flags (e.g., "spared_enemy", "killed_enemy")
 
-        This method should be called periodically (e.g., after flag changes)
-        to update flag-based objectives. Unlike other objective types that
-        are event-driven, flag objectives require polling.
+        This method should be called on map transitions and when flags change,
+        not every frame. Unlike other objective types that are event-driven,
+        flag objectives require polling but are now optimized with indexes.
         """
         updated_quests = []
-        for quest in self.get_active_quests():
-            if quest.check_flag_objectives(world_flags):
-                updated_quests.append(quest.id)
+        # Only check flags that are actually set (truthy values)
+        for flag_name, flag_value in world_flags.items():
+            if not flag_value:
+                continue  # Skip unset flags
+
+            # Use indexed lookup instead of iterating all quests
+            objectives = self._flag_objectives_by_flag.get(flag_name, [])
+            for quest_id, obj_id in objectives:
+                quest = self.quests.get(quest_id)
+                if not quest or quest.status != QuestStatus.ACTIVE:
+                    continue
+                obj = quest.get_objective(obj_id)
+                if obj and not obj.completed:
+                    obj.set_completed()
+                    if quest_id not in updated_quests:
+                        updated_quests.append(quest_id)
+
         return updated_quests
 
     def on_enemy_killed(self, enemy_type: str, return_progress: bool = False) -> List[Any]:
@@ -313,28 +394,38 @@ class QuestManager:
                 List of dicts with keys: quest_name, objective_desc, current, required, completed
                 for each objective that was updated (whether completed or not).
         """
+        # Use indexed lookup instead of iterating all quests
+        objectives = self._kill_objectives_by_target.get(enemy_type, [])
+
         if return_progress:
             progress_info = []
-            for quest in self.get_active_quests():
-                for obj in quest.objectives:
-                    if obj.objective_type == ObjectiveType.KILL and obj.target == enemy_type:
-                        if not obj.completed:  # Only update if not already complete
-                            was_completed = obj.update_progress(1)
-                            progress_info.append({
-                                "quest_name": quest.name,
-                                "objective_desc": obj.description,
-                                "current": obj.current_count,
-                                "required": obj.required_count,
-                                "completed": was_completed,
-                            })
+            for quest_id, obj_id in objectives:
+                quest = self.quests.get(quest_id)
+                if not quest or quest.status != QuestStatus.ACTIVE:
+                    continue
+                obj = quest.get_objective(obj_id)
+                if not obj or obj.completed:
+                    continue
+                was_completed = obj.update_progress(1)
+                progress_info.append({
+                    "quest_name": quest.name,
+                    "objective_desc": obj.description,
+                    "current": obj.current_count,
+                    "required": obj.required_count,
+                    "completed": was_completed,
+                })
             return progress_info
         else:
             updated = []
-            for quest in self.get_active_quests():
-                for obj in quest.objectives:
-                    if obj.objective_type == ObjectiveType.KILL and obj.target == enemy_type:
-                        if obj.update_progress(1):
-                            updated.append(quest.id)
+            for quest_id, obj_id in objectives:
+                quest = self.quests.get(quest_id)
+                if not quest or quest.status != QuestStatus.ACTIVE:
+                    continue
+                obj = quest.get_objective(obj_id)
+                if obj and not obj.completed:
+                    if obj.update_progress(1):
+                        if quest_id not in updated:
+                            updated.append(quest_id)
             return updated
 
     def on_item_collected(self, item_id: str, amount: int = 1) -> List[str]:
@@ -349,12 +440,18 @@ class QuestManager:
             List of quest IDs where at least one objective was newly completed
             (not quests that were merely updated without completing an objective).
         """
+        # Use indexed lookup instead of iterating all quests
+        objectives = self._collect_objectives_by_item.get(item_id, [])
         updated = []
-        for quest in self.get_active_quests():
-            for obj in quest.objectives:
-                if obj.objective_type == ObjectiveType.COLLECT and obj.target == item_id:
-                    if obj.update_progress(amount):
-                        updated.append(quest.id)
+        for quest_id, obj_id in objectives:
+            quest = self.quests.get(quest_id)
+            if not quest or quest.status != QuestStatus.ACTIVE:
+                continue
+            obj = quest.get_objective(obj_id)
+            if obj and not obj.completed:
+                if obj.update_progress(amount):
+                    if quest_id not in updated:
+                        updated.append(quest_id)
         return updated
 
     def on_npc_talked(self, npc_id: str) -> List[str]:
@@ -368,12 +465,18 @@ class QuestManager:
             List of quest IDs where at least one objective was newly completed
             (not quests that were merely updated without completing an objective).
         """
+        # Use indexed lookup instead of iterating all quests
+        objectives = self._talk_objectives_by_npc.get(npc_id, [])
         updated = []
-        for quest in self.get_active_quests():
-            for obj in quest.objectives:
-                if obj.objective_type == ObjectiveType.TALK and obj.target == npc_id:
-                    if obj.update_progress(1):
-                        updated.append(quest.id)
+        for quest_id, obj_id in objectives:
+            quest = self.quests.get(quest_id)
+            if not quest or quest.status != QuestStatus.ACTIVE:
+                continue
+            obj = quest.get_objective(obj_id)
+            if obj and not obj.completed:
+                if obj.update_progress(1):
+                    if quest_id not in updated:
+                        updated.append(quest_id)
         return updated
 
     def on_map_entered(self, map_id: str) -> List[str]:
@@ -387,12 +490,18 @@ class QuestManager:
             List of quest IDs where at least one objective was newly completed
             (not quests that were merely updated without completing an objective).
         """
+        # Use indexed lookup instead of iterating all quests
+        objectives = self._reach_objectives_by_map.get(map_id, [])
         updated = []
-        for quest in self.get_active_quests():
-            for obj in quest.objectives:
-                if obj.objective_type == ObjectiveType.REACH and obj.target == map_id:
-                    if obj.update_progress(1):
-                        updated.append(quest.id)
+        for quest_id, obj_id in objectives:
+            quest = self.quests.get(quest_id)
+            if not quest or quest.status != QuestStatus.ACTIVE:
+                continue
+            obj = quest.get_objective(obj_id)
+            if obj and not obj.completed:
+                if obj.update_progress(1):
+                    if quest_id not in updated:
+                        updated.append(quest_id)
         return updated
 
     def check_failure_conditions(self, world_flags: Dict[str, Any]) -> List[str]:
@@ -520,6 +629,7 @@ class QuestManager:
                     )
                     quest.status = QuestStatus.LOCKED
                 quest.tracked = state.get("tracked", False)
+                quest.turns_elapsed = state.get("turns_elapsed", 0)
 
                 # Restore objective progress
                 obj_states = {o["id"]: o for o in state.get("objectives", [])}
@@ -529,6 +639,9 @@ class QuestManager:
                         obj_state = obj_states[obj.id]
                         obj.current_count = obj_state.get("current_count", 0)
                         obj.completed = obj_state.get("completed", False)
+
+        # Rebuild indexes after deserializing state
+        self._rebuild_indexes()
 
 
 def load_quest_manager(json_path: str = "data/quests.json") -> QuestManager:

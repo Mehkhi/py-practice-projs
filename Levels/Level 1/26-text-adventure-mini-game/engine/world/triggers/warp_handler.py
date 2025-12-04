@@ -123,6 +123,11 @@ class WarpHandler:
         track_exploration_achievement(scene, map_id)
         try_auto_save(scene, AUTO_SAVE_MANAGER_ATTRS)
 
+        # Check flag objectives on map transition (throttled from every-frame polling)
+        quest_manager = scene.get_manager_attr("quest_manager", "_perform_warp")
+        if quest_manager:
+            quest_manager.check_flag_objectives(scene.world.flags)
+
         challenge_manager = scene.get_manager_attr(
             "challenge_dungeon_manager", "do_warp_challenge_floor_check"
         )

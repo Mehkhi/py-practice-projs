@@ -29,6 +29,9 @@ class ConditionEvaluatorMixin:
     - self._get_hp_bucket(hp_percent) -> int
     - self._get_sp_bucket(sp_percent) -> int
     - self._get_rule_evaluation_cache() -> Dict
+    - self._get_party_state_cache() -> Dict (from BattleSystemCore)
+    - self._compute_party_state() -> None (from BattleSystemCore)
+    - self._get_party_status_versions() -> Dict (from BattleSystemCore)
     """
 
     def _evaluate_ai_rule(self, rule: Dict[str, Any], enemy: "BattleParticipant") -> bool:
@@ -81,7 +84,7 @@ class ConditionEvaluatorMixin:
 
         conditions = rule.get('conditions', {})
 
-        # Check if this is a simple rule (only HP/SP/turn/morale) that can be cached
+        # Check if this is a simple rule (only HP/SP/turn) that can be cached
         has_complex_conditions = any(key in conditions for key in [
             'allies_alive', 'enemies_alive', 'status_effects',
             'ally_status_effects', 'enemy_status_effects', 'morale'
@@ -162,17 +165,29 @@ class ConditionEvaluatorMixin:
             if not (min_turn <= self.turn_counter <= max_turn):
                 return False
 
-        # Allies alive condition (early exit)
+        # Allies alive condition (early exit) - use cached party state
         if 'allies_alive' in conditions:
-            alive_allies = len([e for e in self.enemies if e.is_alive()])
+            cache = self._get_party_state_cache()
+            current_turn = getattr(self, 'turn_counter', 0)
+            # Use cache if valid, otherwise compute live
+            if cache.get('_cache_turn') == current_turn and 'allies_alive_count' in cache:
+                alive_allies = cache['allies_alive_count']
+            else:
+                alive_allies = len([e for e in self.enemies if e.is_alive()])
             min_allies = conditions['allies_alive'].get('min', 0)
             max_allies = conditions['allies_alive'].get('max', 99)
             if not (min_allies <= alive_allies <= max_allies):
                 return False
 
-        # Enemies alive condition (early exit)
+        # Enemies alive condition (early exit) - use cached party state
         if 'enemies_alive' in conditions:
-            alive_enemies = len([p for p in self.players if p.is_alive()])
+            cache = self._get_party_state_cache()
+            current_turn = getattr(self, 'turn_counter', 0)
+            # Use cache if valid, otherwise compute live
+            if cache.get('_cache_turn') == current_turn and 'enemies_alive_count' in cache:
+                alive_enemies = cache['enemies_alive_count']
+            else:
+                alive_enemies = len([p for p in self.players if p.is_alive()])
             min_enemies = conditions['enemies_alive'].get('min', 0)
             max_enemies = conditions['enemies_alive'].get('max', 99)
             if not (min_enemies <= alive_enemies <= max_enemies):
@@ -274,6 +289,8 @@ class ConditionEvaluatorMixin:
     ) -> bool:
         """Return True if any member of the party has a status effect.
 
+        Uses cached party status sets when available for performance.
+
         Args:
             party: List of participants to check
             status_id: Status effect ID to look for
@@ -282,6 +299,32 @@ class ConditionEvaluatorMixin:
         Returns:
             True if any alive party member (except excluded) has the status
         """
+        party_key = 'players' if party and party[0].is_player_side else 'enemies'
+
+        # Try to use cached status set first
+        cache = self._get_party_state_cache()
+        current_turn = getattr(self, 'turn_counter', 0)
+
+        if cache.get('_cache_turn') == current_turn and 'party_status_sets' in cache:
+            cached_versions = cache.get('party_status_versions')
+            # Recompute party state if status versions changed mid-turn
+            if cached_versions is None or cached_versions != self._get_party_status_versions():
+                self._compute_party_state()
+                cache = self._get_party_state_cache()
+
+            status_set = cache.get('party_status_sets', {}).get(party_key, set())
+            if status_id in status_set:
+                # Status exists in party, but need to verify exclude doesn't have it
+                if exclude and status_id in exclude.stats.status_effects:
+                    # Excluded participant has it, check if anyone else does
+                    for participant in party:
+                        if participant != exclude and participant.is_alive():
+                            if status_id in participant.stats.status_effects:
+                                return True
+                    return False
+                return True
+
+        # Fall back to live computation if cache miss
         for participant in party:
             if participant == exclude or not participant.is_alive():
                 continue
@@ -301,7 +344,13 @@ class ConditionEvaluatorMixin:
         conditions = tactic.trigger_conditions
 
         if 'enemies_alive' in conditions:
-            alive = len([e for e in self.enemies if e.is_alive()])
+            cache = self._get_party_state_cache()
+            current_turn = getattr(self, 'turn_counter', 0)
+            # Use cache if valid, otherwise compute live
+            if cache.get('_cache_turn') == current_turn and 'allies_alive_count' in cache:
+                alive = cache['allies_alive_count']  # Note: enemies_alive in tactic context means enemy party
+            else:
+                alive = len([e for e in self.enemies if e.is_alive()])
             min_val = conditions['enemies_alive'].get('min', 0)
             max_val = conditions['enemies_alive'].get('max', 99)
             if not (min_val <= alive <= max_val):

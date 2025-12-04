@@ -1,15 +1,19 @@
 """Tutorial data loaders."""
 
-from typing import Dict, Tuple
+from typing import Dict, Tuple, TYPE_CHECKING
 
 from core.constants import TUTORIAL_TIPS_JSON
 from core.loaders.base import (
+    detach_json_data,
     ensure_dict,
     ensure_list,
     load_json_file,
     validate_required_keys,
 )
 from core.logging_utils import log_schema_warning
+
+if TYPE_CHECKING:
+    from core.tutorial_system import HelpEntry, TutorialTip
 
 
 def _parse_tutorial_file(
@@ -23,6 +27,7 @@ def _parse_tutorial_file(
         default={"tips": [], "help_entries": []},
         context="Loading tutorial tips",
         warn_on_missing=True,
+        copy_data=False,
     )
     data = ensure_dict(raw_data, context=context, section="root")
 
@@ -33,11 +38,13 @@ def _parse_tutorial_file(
         section="tips",
     ):
         tip_identifier = tip_data.get("tip_id") if isinstance(tip_data, dict) else None
-        tip_entry = ensure_dict(
-            tip_data,
-            context=context,
-            section="tip",
-            identifier=tip_identifier,
+        tip_entry = detach_json_data(
+            ensure_dict(
+                tip_data,
+                context=context,
+                section="tip",
+                identifier=tip_identifier,
+            )
         )
         if not validate_required_keys(
             tip_entry,
@@ -82,11 +89,13 @@ def _parse_tutorial_file(
         section="help_entries",
     ):
         entry_identifier = entry_data.get("entry_id") if isinstance(entry_data, dict) else None
-        entry_entry = ensure_dict(
-            entry_data,
-            context=context,
-            section="help_entry",
-            identifier=entry_identifier,
+        entry_entry = detach_json_data(
+            ensure_dict(
+                entry_data,
+                context=context,
+                section="help_entry",
+                identifier=entry_identifier,
+            )
         )
         if not validate_required_keys(
             entry_entry,

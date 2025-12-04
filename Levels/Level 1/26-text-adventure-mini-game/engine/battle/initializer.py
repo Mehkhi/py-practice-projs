@@ -51,6 +51,8 @@ class BattleInitializer:
                 tile_size=32,  # Not used in battle, but needed for preload
                 sprite_size=scene.sprite_size,
             )
+            # Warm cache for battle sprite sizes to avoid per-frame scaling on first use
+            scene.assets.warm_cache_for_resolution(32, scene.sprite_size)
 
         # Basic containers / flags
         scene.rewards = scene.rewards if scene.rewards is not None else scene._default_rewards()

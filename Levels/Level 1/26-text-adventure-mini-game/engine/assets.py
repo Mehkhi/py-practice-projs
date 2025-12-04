@@ -2,11 +2,23 @@
 
 import json
 import os
-from typing import Dict, List, Optional, Tuple
+from typing import Callable, Dict, List, Optional, Set, Tuple
 
 import pygame
 
 from core.logging_utils import log_warning, log_error, log_debug
+
+# Check for numpy availability for faster pixel operations
+try:
+    import numpy  # type: ignore[reportMissingImports]  # Optional dependency
+    HAS_NUMPY = True
+except ImportError:
+    HAS_NUMPY = False
+    numpy = None  # type: ignore[assignment]  # Satisfy type checker when numpy is unavailable
+
+# Environment variable to disable sprite transparency cleanup for performance
+# Set ENABLE_SPRITE_TRANSPARENCY_CLEANUP=1 to enable (useful for fixing sprite artifacts)
+ENABLE_TRANSPARENCY_CLEANUP = os.environ.get("ENABLE_SPRITE_TRANSPARENCY_CLEANUP", "").lower() in {"1", "true", "yes", "on"}
 
 
 class AssetManager:
@@ -31,12 +43,14 @@ class AssetManager:
         self.fonts: Dict[str, pygame.font.Font] = {}
         self.font_variants: Dict[Tuple[str, int], pygame.font.Font] = {}
         self.font_base_sizes: Dict[str, int] = {}
+        self._alpha_surfaces: Set[str] = set()  # Track which sprites have alpha channel
+        self._pending_sprites: List[Tuple[str, str]] = []  # (sprite_path, sprite_id) for background loading
 
         self._load_fonts()
-        self._load_sprites()
+        self._load_sprites()  # Lightweight: only collects paths
         self._load_sounds()
 
-        # Preload common sprites if enabled
+        # Preload common sprites if enabled (will create placeholders for missing sprites)
         if preload_common:
             self.preload_common_sprites(tile_size=tile_size, sprite_size=sprite_size)
 
@@ -120,54 +134,110 @@ class AssetManager:
                 except Exception as e:
                     log_warning(f"Unexpected error loading font {filename}: {e}")
 
-    def _load_sprites_from_dir(self, directory: str, recursive: bool = False) -> None:
-        """Load loose sprite files from a directory.
+    def _collect_sprite_paths_from_dir(self, directory: str, recursive: bool = False) -> None:
+        """Collect sprite file paths from a directory (lightweight phase).
+
+        This method only collects file paths without loading images, allowing
+        the actual loading to be deferred to a background phase.
 
         Args:
-            directory: Path to the directory to load sprites from.
-            recursive: If True, also load sprites from subdirectories.
+            directory: Path to the directory to scan.
+            recursive: If True, also scan subdirectories.
         """
         if not os.path.exists(directory):
             return
         for entry in os.listdir(directory):
             full_path = os.path.join(directory, entry)
 
-            # Recursively load from subdirectories
+            # Recursively scan subdirectories
             if recursive and os.path.isdir(full_path):
-                self._load_sprites_from_dir(full_path, recursive=True)
+                self._collect_sprite_paths_from_dir(full_path, recursive=True)
                 continue
 
             if entry.lower().endswith((".png", ".jpg", ".bmp")):
                 sprite_id = os.path.splitext(entry)[0]
-                try:
-                    # Load image
-                    image = pygame.image.load(full_path)
+                # Always add to pending if not already pending (real sprites should replace placeholders)
+                # Check if already pending to avoid duplicates
+                if not any(pending_id == sprite_id for _, pending_id in self._pending_sprites):
+                    self._pending_sprites.append((full_path, sprite_id))
 
-                    # Ensure we are working with an SRCALPHA surface regardless of display state
-                    try:
-                        image = image.convert_alpha()
-                    except pygame.error:
-                        # convert_alpha requires a display; fall back to manual conversion
-                        temp_surface = pygame.Surface(image.get_size(), pygame.SRCALPHA)
-                        temp_surface.blit(image, (0, 0))
-                        image = temp_surface
+    def _load_sprite_background(self, sprite_path: str, sprite_id: str) -> None:
+        """Load a single sprite with heavy I/O operations (background phase).
 
-                    # Normalize transparency to avoid opaque boxes around sprites
-                    image = self._clean_sprite_transparency(image, entry)
+        This method performs the actual image loading, alpha conversion, and
+        optional transparency cleaning. Should be called during background loading.
 
-                    self.images[sprite_id] = image
-                except Exception as e:
-                    log_warning(f"Failed to load sprite {entry} from {full_path}: {e}")
+        Args:
+            sprite_path: Full path to the sprite file.
+            sprite_id: Sprite ID to use for caching.
+        """
+        try:
+            # Load image
+            image = pygame.image.load(sprite_path)
+
+            # Ensure we are working with an SRCALPHA surface regardless of display state
+            try:
+                image = image.convert_alpha()
+                self._alpha_surfaces.add(sprite_id)  # Track that this sprite has alpha
+            except pygame.error:
+                # convert_alpha requires a display; fall back to manual conversion
+                temp_surface = pygame.Surface(image.get_size(), pygame.SRCALPHA)
+                temp_surface.blit(image, (0, 0))
+                image = temp_surface
+                self._alpha_surfaces.add(sprite_id)  # Manual conversion also has alpha
+
+            # Normalize transparency to avoid opaque boxes around sprites
+            # Only if enabled via environment variable (disabled by default for performance)
+            if ENABLE_TRANSPARENCY_CLEANUP:
+                image = self._clean_sprite_transparency(image, os.path.basename(sprite_path))
+
+            self.images[sprite_id] = image
+            # Clear any scaled placeholder caches now that the real sprite is available
+            self._invalidate_scaled_cache(sprite_id)
+        except Exception as e:
+            log_warning(f"Failed to load sprite {sprite_id} from {sprite_path}: {e}")
+
+    def _load_sprites_from_dir(self, directory: str, recursive: bool = False) -> None:
+        """Load loose sprite files from a directory (legacy synchronous method).
+
+        This method is kept for backward compatibility but now delegates to
+        the background loading system. For new code, use _collect_sprite_paths_from_dir
+        and complete_background_loading().
+
+        Args:
+            directory: Path to the directory to load sprites from.
+            recursive: If True, also load sprites from subdirectories.
+        """
+        # Collect paths first (lightweight)
+        self._collect_sprite_paths_from_dir(directory, recursive)
+        # Then load immediately (for backward compatibility)
+        self._load_pending_sprites()
+
+    def _load_pending_sprites(self) -> None:
+        """Load all pending sprites (internal helper for background loading)."""
+        while self._pending_sprites:
+            sprite_path, sprite_id = self._pending_sprites.pop(0)
+            self._load_sprite_background(sprite_path, sprite_id)
 
     def _load_sprites(self) -> None:
-        """Load top-level sprites and optional tileset folder."""
+        """Load sprite files from the sprites directory.
+
+        This method collects sprite paths and loads them synchronously to ensure
+        all sprites are available immediately after AssetManager initialization.
+        For deferred/background loading (e.g., during a loading screen), use
+        complete_background_loading() after initialization with preload_common=False.
+        """
         sprites_dir = os.path.join(self.assets_dir, "sprites")
-        # Load sprites recursively to include subdirectories like portraits/
-        self._load_sprites_from_dir(sprites_dir, recursive=True)
+        # Collect sprite paths recursively to include subdirectories like portraits/
+        self._collect_sprite_paths_from_dir(sprites_dir, recursive=True)
 
         if self.tileset_name:
             tileset_dir = os.path.join(self.assets_dir, "tilesets", self.tileset_name)
-            self._load_sprites_from_dir(tileset_dir)
+            self._collect_sprite_paths_from_dir(tileset_dir)
+
+        # Load all collected sprites synchronously (eager loading)
+        # This ensures sprites are available immediately, not just placeholders
+        self._load_pending_sprites()
 
     def _load_sounds(self) -> None:
         """Load sound effects/music."""
@@ -184,7 +254,25 @@ class AssetManager:
                     log_warning(f"Failed to load sound {filename} from {audio_dir}: {e}")
 
     def _surface_has_transparency(self, surface: pygame.Surface) -> bool:
-        """Return True if any pixel has alpha < 255."""
+        """Return True if any pixel has alpha < 255.
+
+        Uses numpy surfarray for faster pixel access if available, otherwise
+        falls back to per-pixel get_at() checks.
+        """
+        if HAS_NUMPY:
+            try:
+                # Use surfarray for much faster alpha channel access
+                alpha_array = pygame.surfarray.pixels_alpha(surface)
+                # Check if any alpha value is less than 255
+                has_transparency = numpy.any(alpha_array < 255)
+                # Release the array reference
+                del alpha_array
+                return bool(has_transparency)
+            except (pygame.error, AttributeError):
+                # Fall back to per-pixel method if surfarray fails
+                pass
+
+        # Fallback: per-pixel check (slow but works without numpy)
         w, h = surface.get_size()
         for y in range(h):
             for x in range(w):
@@ -280,6 +368,15 @@ class AssetManager:
         """Check if an image exists (is loaded) without generating a placeholder."""
         return sprite_id in self.images
 
+    def _invalidate_scaled_cache(self, sprite_id: str) -> None:
+        """Remove scaled cache entries for a sprite to avoid stale placeholders."""
+        if not self.scaled_cache:
+            return
+
+        stale_keys = [key for key in self.scaled_cache if key[0] == sprite_id]
+        for key in stale_keys:
+            del self.scaled_cache[key]
+
     def get_image(self, sprite_id: str, size: Optional[Tuple[int, int]] = None) -> pygame.Surface:
         """
         Get an image by sprite ID. Creates a pixel-art placeholder if missing.
@@ -292,6 +389,7 @@ class AssetManager:
             log_debug(f"Generating placeholder for missing sprite: {sprite_id}")
             base_surface = self._make_placeholder(sprite_id, placeholder_size)
             self.images[sprite_id] = base_surface
+            self._alpha_surfaces.add(sprite_id)  # Placeholders are created with SRCALPHA
 
         if not size:
             return base_surface
@@ -306,12 +404,26 @@ class AssetManager:
         )
 
         # Preserve alpha channel on scaled surfaces to avoid black boxes reappearing
-        try:
-            scaled = scaled.convert_alpha()
-        except pygame.error:
-            temp_surface = pygame.Surface(scaled.get_size(), pygame.SRCALPHA)
-            temp_surface.blit(scaled, (0, 0))
-            scaled = temp_surface
+        # Only call convert_alpha if base surface doesn't already have alpha
+        # pygame.transform.scale preserves alpha, but convert_alpha ensures proper format
+        if sprite_id in self._alpha_surfaces:
+            # Base has alpha, scaled surface should preserve it
+            # Only need convert_alpha if display isn't initialized (for headless environments)
+            try:
+                scaled = scaled.convert_alpha()
+            except pygame.error:
+                # Fallback for headless environments
+                temp_surface = pygame.Surface(scaled.get_size(), pygame.SRCALPHA)
+                temp_surface.blit(scaled, (0, 0))
+                scaled = temp_surface
+        else:
+            # Base doesn't have alpha, need convert_alpha on scaled
+            try:
+                scaled = scaled.convert_alpha()
+            except pygame.error:
+                temp_surface = pygame.Surface(scaled.get_size(), pygame.SRCALPHA)
+                temp_surface.blit(scaled, (0, 0))
+                scaled = temp_surface
         self.scaled_cache[cache_key] = scaled
         return scaled
 
@@ -424,6 +536,7 @@ class AssetManager:
         tile_size: int = 32,
         sprite_size: int = 32,
         common_sprites: Optional[List[str]] = None,
+        common_sizes: Optional[List[Tuple[int, int]]] = None,
         strict: bool = False,
     ) -> None:
         """
@@ -446,6 +559,8 @@ class AssetManager:
             common_sprites: Optional list of specific sprite IDs to preload.
                           If None, uses default common sprite list from
                           _get_default_common_sprites() or data/preload_sprites.json.
+            common_sizes: Optional list of (width, height) tuples to pre-generate
+                         for each sprite. If None, defaults to [(tile_size, tile_size), (sprite_size, sprite_size)].
             strict: If True, raises RuntimeError on preload failure instead of
                    logging a warning. Useful for development/testing to catch
                    missing sprites early.
@@ -459,11 +574,20 @@ class AssetManager:
                 common_sprites=["boss_sprite", "special_effect_1"]
             )
 
+            # Preload with custom sizes
+            assets.preload_common_sprites(
+                common_sizes=[(32, 32), (64, 64), (16, 16)]
+            )
+
             # Strict mode for development testing
             assets.preload_common_sprites(strict=True)
         """
         if common_sprites is None:
             common_sprites = self._get_default_common_sprites()
+
+        # Default sizes if not provided
+        if common_sizes is None:
+            common_sizes = [(tile_size, tile_size), (sprite_size, sprite_size)]
 
         # Deduplicate while preserving order
         seen: set = set()
@@ -479,12 +603,9 @@ class AssetManager:
                 # Preload base image (will create placeholder if missing)
                 self.get_image(sprite_id)
 
-                # Pre-generate common scaled versions
-                # Tile size for world scenes
-                self.get_tile_surface(sprite_id, tile_size)
-
-                # Sprite size for battle scenes
-                self.get_image(sprite_id, (sprite_size, sprite_size))
+                # Pre-generate scaled versions for all common sizes
+                for size in common_sizes:
+                    self.get_image(sprite_id, size)
             except Exception as e:
                 if strict:
                     raise RuntimeError(f"Critical sprite preload failed: {sprite_id}") from e
@@ -578,6 +699,30 @@ class AssetManager:
 
         return sprites
 
+    def warm_cache_for_resolution(self, tile_size: int, sprite_size: int) -> None:
+        """
+        Pre-generate scaled versions for current tileset resolution to avoid per-frame scaling on first use.
+
+        This method warms the scaling cache by pre-generating scaled versions of common sprites
+        at the specified tile and sprite sizes. This prevents stuttering when sprites are first
+        used at a particular resolution.
+
+        Args:
+            tile_size: Tile size for the current tileset resolution.
+            sprite_size: Sprite size for the current tileset resolution.
+        """
+        common_sprites = self._get_default_common_sprites()
+        common_sizes = [(tile_size, tile_size), (sprite_size, sprite_size)]
+
+        for sprite_id in common_sprites:
+            if sprite_id in self.images:
+                # Pre-generate scaled versions for current resolution
+                for size in common_sizes:
+                    try:
+                        self.get_image(sprite_id, size)
+                    except Exception as e:
+                        log_debug(f"Failed to warm cache for {sprite_id} at {size}: {e}")
+
     def _load_status_icon_sprites(self, data_dir: str = "data") -> List[str]:
         """
         Load status icon sprite IDs from status_icons.json.
@@ -645,3 +790,34 @@ class AssetManager:
         pygame.draw.circle(surface, (255, 255, 255), (center_x, height // 4), head_radius, 1)
 
         return surface
+
+    def complete_background_loading(self, progress_callback: Optional[Callable[[int, int], None]] = None) -> None:
+        """
+        Complete background loading of sprites (heavy I/O phase).
+
+        This method loads all sprites that were collected during the lightweight
+        phase. It performs the actual image loading, alpha conversion, and
+        optional transparency cleaning.
+
+        Should be called during a loading screen or scene transition to avoid
+        blocking the main game loop.
+
+        Args:
+            progress_callback: Optional callback function(loaded_count, total_count)
+                            called after each sprite is loaded to report progress.
+        """
+        total = len(self._pending_sprites)
+        loaded = 0
+
+        while self._pending_sprites:
+            sprite_path, sprite_id = self._pending_sprites.pop(0)
+            self._load_sprite_background(sprite_path, sprite_id)
+            loaded += 1
+
+            if progress_callback:
+                try:
+                    progress_callback(loaded, total)
+                except Exception as e:
+                    log_warning(f"Progress callback failed: {e}")
+
+        log_debug(f"Background loading complete: {loaded} sprites loaded")

@@ -3,7 +3,12 @@
 This module re-exports common loader functions for convenience.
 """
 
-from core.loaders.base import load_json_file
+from core.loaders.base import (
+    clear_json_cache,
+    get_cached_lookup,
+    load_json_file,
+    warm_json_cache,
+)
 from core.loaders.achievement_loader import load_achievements_from_json
 from core.loaders.arena_loader import load_arena_data
 from core.loaders.bestiary_loader import build_bestiary_metadata
@@ -17,13 +22,12 @@ from core.loaders.secret_boss_loader import (
     load_secret_bosses,
     load_secret_boss_hints,
 )
-from core.loaders.tutorial_loader import (
-    load_tutorial_data,
-    load_tutorial_tips,
-)
+from core.loaders.tutorial_loader import load_tutorial_data, load_tutorial_tips
 
 __all__ = [
     "build_bestiary_metadata",
+    "clear_json_cache",
+    "get_cached_lookup",
     "load_achievements_from_json",
     "load_arena_data",
     "load_brain_teasers",
@@ -37,4 +41,5 @@ __all__ = [
     "load_secret_boss_hints",
     "load_tutorial_data",
     "load_tutorial_tips",
+    "warm_json_cache",
 ]

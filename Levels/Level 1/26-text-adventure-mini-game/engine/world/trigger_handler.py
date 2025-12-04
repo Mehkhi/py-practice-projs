@@ -32,6 +32,9 @@ class TriggerHandler:
 
     def check_triggers(self) -> None:
         current_map = self.scene.world.get_current_map()
+        if current_map is None:
+            return
+
         trigger = current_map.get_trigger_at(self.scene.player.x, self.scene.player.y)
         if trigger:
             self.handle_trigger(trigger)

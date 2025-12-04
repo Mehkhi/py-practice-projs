@@ -124,10 +124,53 @@ class BattleParticipant:
     memory_stat_type: Optional[str] = None  # Name of stat stored in memory
     last_damage_dealt: int = 0
     last_damage_received: int = 0
+    # Performance optimization: per-turn stat cache
+    _cached_stats: Dict[str, Any] = field(default_factory=dict)
+    _cache_turn: int = -1  # Track which turn the cache is valid for
 
     def is_alive(self) -> bool:
         """Check if participant is alive."""
         return not self.stats.is_dead() and not self.spared
+
+    def get_cached_effective_attack(self, cache_turn: int) -> int:
+        """Get cached effective attack value."""
+        return self.stats.get_effective_attack(
+            use_cache=True,
+            cache_turn=cache_turn,
+            cached_stats=self._cached_stats
+        )
+
+    def get_cached_effective_defense(self, cache_turn: int) -> int:
+        """Get cached effective defense value."""
+        return self.stats.get_effective_defense(
+            use_cache=True,
+            cache_turn=cache_turn,
+            cached_stats=self._cached_stats
+        )
+
+    def get_cached_effective_magic(self, cache_turn: int) -> int:
+        """Get cached effective magic value."""
+        return self.stats.get_effective_magic(
+            use_cache=True,
+            cache_turn=cache_turn,
+            cached_stats=self._cached_stats
+        )
+
+    def get_cached_effective_speed(self, cache_turn: int) -> int:
+        """Get cached effective speed value."""
+        return self.stats.get_effective_speed(
+            use_cache=True,
+            cache_turn=cache_turn,
+            cached_stats=self._cached_stats
+        )
+
+    def get_cached_effective_luck(self, cache_turn: int) -> int:
+        """Get cached effective luck value."""
+        return self.stats.get_effective_luck(
+            use_cache=True,
+            cache_turn=cache_turn,
+            cached_stats=self._cached_stats
+        )
 
 
 class BattleState(Enum):

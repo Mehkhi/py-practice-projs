@@ -3,7 +3,7 @@
 from typing import Dict, List
 
 from core.constants import NPC_SCHEDULES_JSON
-from core.loaders.base import ensure_dict, ensure_list, load_json_file, validate_required_keys
+from core.loaders.base import detach_json_data, ensure_dict, ensure_list, load_json_file, validate_required_keys
 from core.logging_utils import log_schema_warning
 from core.npc_schedules import NPCSchedule, ScheduleEntry, ScheduleManager
 from core.time_system import TimeOfDay
@@ -26,6 +26,7 @@ def load_npc_schedules(
         default={"schedules": {}},
         context="Loading NPC schedules",
         warn_on_missing=True,
+        copy_data=False,
     )
 
     data = ensure_dict(data, context=context, section="root")
@@ -37,11 +38,13 @@ def load_npc_schedules(
     )
 
     for npc_id, schedule_data in schedules_data.items():
-        schedule_entry = ensure_dict(
-            schedule_data,
-            context=context,
-            section="schedule",
-            identifier=npc_id,
+        schedule_entry = detach_json_data(
+            ensure_dict(
+                schedule_data,
+                context=context,
+                section="schedule",
+                identifier=npc_id,
+            )
         )
         if not validate_required_keys(
             schedule_entry,
@@ -60,11 +63,13 @@ def load_npc_schedules(
             section="schedule.entries",
             identifier=npc_id,
         ):
-            entry_entry = ensure_dict(
-                entry_data,
-                context=context,
-                section="schedule.entry",
-                identifier=npc_id,
+            entry_entry = detach_json_data(
+                ensure_dict(
+                    entry_data,
+                    context=context,
+                    section="schedule.entry",
+                    identifier=npc_id,
+                )
             )
             # Convert time period strings to TimeOfDay enum values
             time_periods: List[TimeOfDay] = []

@@ -1,13 +1,13 @@
 # Agent Guidelines
 
 ## Environment
-**IMPORTANT:** Use `.venv/bin/python3` for all commands. Dependencies (pygame) are in the venv, not system Python.
+**IMPORTANT:** Use `venv/bin/python3` for all commands. Dependencies (pygame) live in the bundled `venv/`, not system Python.
 
 ## Commands
-- Run all tests: `.venv/bin/python3 -m unittest discover -s . -p "test_*.py"`
-- Run single test file: `.venv/bin/python3 -m unittest test_stats`
-- Run single test: `.venv/bin/python3 -m unittest test_stats.TestStats.test_is_dead_true`
-- Run game: `.venv/bin/python3 text_adventure_mini_game.py`
+- Run all tests: `venv/bin/python3 -m unittest discover -s . -p "test_*.py"`
+- Run single test file: `venv/bin/python3 -m unittest test_stats`
+- Run single test: `venv/bin/python3 -m unittest test_stats.TestStats.test_is_dead_true`
+- Run game: `venv/bin/python3 text_adventure_mini_game.py`
 
 ## Code Style
 - **Imports:** stdlib → third-party (pygame) → local. Use `TYPE_CHECKING` for type-only imports.

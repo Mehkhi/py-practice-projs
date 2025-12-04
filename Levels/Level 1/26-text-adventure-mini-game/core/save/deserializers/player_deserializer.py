@@ -9,7 +9,7 @@ from ...entities.base import MAX_LEARNED_MOVES
 from ...items import Inventory
 from ...logging_utils import log_warning
 from ...skill_tree import SkillTreeManager, SkillTreeProgress
-from ...stats import Stats, StatusEffect, create_default_player_stats
+from ...stats import Stats, StatusEffect, create_default_player_stats, MAX_LEVEL
 from ...crafting import CraftingProgress
 from .base import DeserializationResources, DeserializerContext, DomainDeserializer, safe_log_warning
 
@@ -18,6 +18,10 @@ def deserialize_stats(stats_data: Optional[Dict[str, Any]]) -> Optional[Stats]:
     """Deserialize stats from a dict."""
     if not stats_data:
         return None
+
+    # Clamp level to valid range (1 to MAX_LEVEL)
+    raw_level = stats_data.get("level", 1)
+    clamped_level = max(1, min(MAX_LEVEL, raw_level))
 
     stats = Stats(
         max_hp=stats_data["max_hp"],
@@ -29,7 +33,7 @@ def deserialize_stats(stats_data: Optional[Dict[str, Any]]) -> Optional[Stats]:
         magic=stats_data["magic"],
         speed=stats_data["speed"],
         luck=stats_data["luck"],
-        level=stats_data.get("level", 1),
+        level=clamped_level,
         exp=stats_data.get("exp", 0),
     )
 

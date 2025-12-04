@@ -314,6 +314,16 @@ class Stats:
     immunities: List[str] = field(default_factory=list)  # Takes no damage
     absorbs: List[str] = field(default_factory=list)  # Heals from damage
 
+    # Performance optimization: per-stat cache invalidation tracking
+    # Set of stat keys that need recomputation (empty = all stats are valid)
+    _invalidated_stats: set = field(default_factory=lambda: {"attack", "defense", "magic", "speed", "luck"})
+    # Version counter to detect status effect changes for caching
+    status_effects_version: int = 0
+
+    def _invalidate_all_stats(self) -> None:
+        """Mark all stats as needing recomputation."""
+        self._invalidated_stats = {"attack", "defense", "magic", "speed", "luck"}
+
     def get_element_multiplier(self, element: str) -> Tuple[float, str]:
         """
         Get the damage multiplier for an incoming element.
@@ -352,16 +362,22 @@ class Stats:
         # Simple damage calculation: damage = amount - effective defense
         actual_damage = max(1, amount - self.get_effective_defense())
         self.hp = max(0, self.hp - actual_damage)
+        # Invalidate caches when HP changes (status effects may affect stats)
+        self._invalidate_all_stats()
         return self.hp
 
     def heal(self, amount: int) -> int:
         """Heal HP."""
         self.hp = min(self.max_hp, self.hp + amount)
+        # Invalidate caches when HP changes
+        self._invalidate_all_stats()
         return self.hp
 
     def restore_sp(self, amount: int) -> int:
         """Restore SP."""
         self.sp = min(self.max_sp, self.sp + amount)
+        # Invalidate caches when SP changes
+        self._invalidate_all_stats()
         return self.sp
 
     def add_status_effect(self, status_id: str, duration: int, stacks: int = 1) -> None:
@@ -378,11 +394,17 @@ class Stats:
                 duration=duration,
                 stacks=stacks
             )
+        # Invalidate all stat caches when status effects change
+        self.status_effects_version += 1
+        self._invalidate_all_stats()
 
     def remove_status_effect(self, status_id: str) -> bool:
         """Remove a status effect."""
         if status_id in self.status_effects:
             del self.status_effects[status_id]
+            # Invalidate all stat caches when status effects change
+            self.status_effects_version += 1
+            self._invalidate_all_stats()
             return True
         return False
 
@@ -395,9 +417,30 @@ class Stats:
 
         for status_id in to_remove:
             self.remove_status_effect(status_id)
+        # Invalidate all caches in case HP/SP changed from tick effects
+        if to_remove or any(effect.id in ("poison", "bleed", "burn", "terror", "sleep")
+                           for effect in self.status_effects.values()):
+            self._invalidate_all_stats()
 
-    def get_effective_attack(self) -> int:
-        """Get attack value with equipment and status effect modifiers."""
+    def get_effective_attack(self, use_cache: bool = True, cache_turn: int = -1, cached_stats: Optional[Dict[str, Any]] = None) -> int:
+        """Get attack value with equipment and status effect modifiers.
+
+        Args:
+            use_cache: If True, use cached value if available and valid
+            cache_turn: Current turn number for cache validation
+            cached_stats: Optional cache dict to store/retrieve values
+
+        Returns:
+            Effective attack value
+        """
+        cache_key = "effective_attack"
+        stat_key = "attack"
+        cache_turn_key = "_cache_turn_attack"  # Per-stat turn stamp
+        if use_cache and cached_stats is not None:
+            if cache_turn_key in cached_stats and cached_stats[cache_turn_key] == cache_turn:
+                if cache_key in cached_stats and stat_key not in self._invalidated_stats:
+                    return cached_stats[cache_key]
+
         attack = self._get_base_with_equipment("attack")
         # Limb missing reduces attack
         if "limb_arm_left_missing" in self.status_effects:
@@ -408,18 +451,89 @@ class Stats:
         if "burn" in self.status_effects:
             burn_stacks = self.status_effects["burn"].stacks
             attack = int(attack * max(0.2, 1.0 - 0.2 * burn_stacks))
+
+        if use_cache and cached_stats is not None:
+            cached_stats[cache_key] = attack
+            cached_stats[cache_turn_key] = cache_turn
+            self._invalidated_stats.discard(stat_key)
+
         return attack
 
-    def get_effective_defense(self) -> int:
-        """Get defense value with equipment modifiers."""
-        return self._get_base_with_equipment("defense")
+    def get_effective_defense(self, use_cache: bool = True, cache_turn: int = -1, cached_stats: Optional[Dict[str, Any]] = None) -> int:
+        """Get defense value with equipment modifiers.
 
-    def get_effective_magic(self) -> int:
-        """Get magic value with equipment modifiers."""
-        return self._get_base_with_equipment("magic")
+        Args:
+            use_cache: If True, use cached value if available and valid
+            cache_turn: Current turn number for cache validation
+            cached_stats: Optional cache dict to store/retrieve values
 
-    def get_effective_speed(self) -> int:
-        """Get speed value with equipment and status effect modifiers."""
+        Returns:
+            Effective defense value
+        """
+        cache_key = "effective_defense"
+        stat_key = "defense"
+        cache_turn_key = "_cache_turn_defense"  # Per-stat turn stamp
+        if use_cache and cached_stats is not None:
+            if cache_turn_key in cached_stats and cached_stats[cache_turn_key] == cache_turn:
+                if cache_key in cached_stats and stat_key not in self._invalidated_stats:
+                    return cached_stats[cache_key]
+
+        defense = self._get_base_with_equipment("defense")
+
+        if use_cache and cached_stats is not None:
+            cached_stats[cache_key] = defense
+            cached_stats[cache_turn_key] = cache_turn
+            self._invalidated_stats.discard(stat_key)
+
+        return defense
+
+    def get_effective_magic(self, use_cache: bool = True, cache_turn: int = -1, cached_stats: Optional[Dict[str, Any]] = None) -> int:
+        """Get magic value with equipment modifiers.
+
+        Args:
+            use_cache: If True, use cached value if available and valid
+            cache_turn: Current turn number for cache validation
+            cached_stats: Optional cache dict to store/retrieve values
+
+        Returns:
+            Effective magic value
+        """
+        cache_key = "effective_magic"
+        stat_key = "magic"
+        cache_turn_key = "_cache_turn_magic"  # Per-stat turn stamp
+        if use_cache and cached_stats is not None:
+            if cache_turn_key in cached_stats and cached_stats[cache_turn_key] == cache_turn:
+                if cache_key in cached_stats and stat_key not in self._invalidated_stats:
+                    return cached_stats[cache_key]
+
+        magic = self._get_base_with_equipment("magic")
+
+        if use_cache and cached_stats is not None:
+            cached_stats[cache_key] = magic
+            cached_stats[cache_turn_key] = cache_turn
+            self._invalidated_stats.discard(stat_key)
+
+        return magic
+
+    def get_effective_speed(self, use_cache: bool = True, cache_turn: int = -1, cached_stats: Optional[Dict[str, Any]] = None) -> int:
+        """Get speed value with equipment and status effect modifiers.
+
+        Args:
+            use_cache: If True, use cached value if available and valid
+            cache_turn: Current turn number for cache validation
+            cached_stats: Optional cache dict to store/retrieve values
+
+        Returns:
+            Effective speed value
+        """
+        cache_key = "effective_speed"
+        stat_key = "speed"
+        cache_turn_key = "_cache_turn_speed"  # Per-stat turn stamp
+        if use_cache and cached_stats is not None:
+            if cache_turn_key in cached_stats and cached_stats[cache_turn_key] == cache_turn:
+                if cache_key in cached_stats and stat_key not in self._invalidated_stats:
+                    return cached_stats[cache_key]
+
         speed = self._get_base_with_equipment("speed")
         # Leg missing reduces speed
         if "limb_leg_left_missing" in self.status_effects:
@@ -429,6 +543,12 @@ class Stats:
         # Frozen drastically reduces speed
         if "frozen" in self.status_effects:
             speed = int(speed * 0.1)  # 90% reduction
+
+        if use_cache and cached_stats is not None:
+            cached_stats[cache_key] = speed
+            cached_stats[cache_turn_key] = cache_turn
+            self._invalidated_stats.discard(stat_key)
+
         return speed
 
     def can_act(self) -> bool:
@@ -444,14 +564,35 @@ class Stats:
 
     def wake_from_sleep(self) -> bool:
         """Wake up from sleep if sleeping. Returns True if was sleeping."""
-        if "sleep" in self.status_effects:
-            del self.status_effects["sleep"]
-            return True
-        return False
+        return self.remove_status_effect("sleep")
 
-    def get_effective_luck(self) -> int:
-        """Get luck value with equipment modifiers."""
-        return self._get_base_with_equipment("luck")
+    def get_effective_luck(self, use_cache: bool = True, cache_turn: int = -1, cached_stats: Optional[Dict[str, Any]] = None) -> int:
+        """Get luck value with equipment modifiers.
+
+        Args:
+            use_cache: If True, use cached value if available and valid
+            cache_turn: Current turn number for cache validation
+            cached_stats: Optional cache dict to store/retrieve values
+
+        Returns:
+            Effective luck value
+        """
+        cache_key = "effective_luck"
+        stat_key = "luck"
+        cache_turn_key = "_cache_turn_luck"  # Per-stat turn stamp
+        if use_cache and cached_stats is not None:
+            if cache_turn_key in cached_stats and cached_stats[cache_turn_key] == cache_turn:
+                if cache_key in cached_stats and stat_key not in self._invalidated_stats:
+                    return cached_stats[cache_key]
+
+        luck = self._get_base_with_equipment("luck")
+
+        if use_cache and cached_stats is not None:
+            cached_stats[cache_key] = luck
+            cached_stats[cache_turn_key] = cache_turn
+            self._invalidated_stats.discard(stat_key)
+
+        return luck
 
     # --- Experience and Leveling ---
 

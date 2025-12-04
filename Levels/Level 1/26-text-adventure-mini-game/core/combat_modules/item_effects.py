@@ -135,7 +135,8 @@ def _heal_all_50(
 ) -> ItemEffectResult:
     participants = context.get("participants", [])
     for ally in participants:
-        if ally.is_alive() and ally.is_player_side == actor.is_player_side:
+        same_side = ally.is_player_side == actor.is_player_side
+        if same_side and ally.is_alive():
             ally.stats.heal(50)
     return ItemEffectResult(
         success=True,

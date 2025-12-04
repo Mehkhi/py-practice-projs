@@ -4,8 +4,8 @@ import logging
 import os
 from typing import Optional
 
-# Global logger instance
-_logger: Optional[logging.Logger] = None
+# Global flag to track if logging has been configured
+_logging_configured: bool = False
 
 
 def get_logger(name: str = "game") -> logging.Logger:
@@ -18,9 +18,9 @@ def get_logger(name: str = "game") -> logging.Logger:
     Returns:
         Configured logger instance
     """
-    global _logger
+    global _logging_configured
 
-    if _logger is None:
+    if not _logging_configured:
         # Configure root logger once
         log_level_str = os.environ.get("LOG_LEVEL", "INFO").upper()
         log_level = getattr(logging, log_level_str, logging.INFO)
@@ -30,8 +30,10 @@ def get_logger(name: str = "game") -> logging.Logger:
             format='%(levelname)s: %(message)s',
             datefmt='%Y-%m-%d %H:%M:%S'
         )
-        _logger = logging.getLogger(name)
+        # Mark logging as configured
+        _logging_configured = True
 
+    # Always return the logger for the requested name to respect the parameter
     return logging.getLogger(name)
 
 
