@@ -121,6 +121,8 @@ def create_task(
 
     priority = options.get("priority")
     priority = str(priority) if priority else None
+    category = options.get("category")
+    category = str(category) if category else "General"
     due_date = options.get("due_date")
     size_points = int(options.get("size_points", 1) or 1)
     recurrence_interval_days = options.get("recurrence_interval_days")
@@ -169,6 +171,7 @@ def create_task(
         user_id=user_id,
         status=status,
         priority=priority,
+        category=category,
         due_date=due_date,
         size_points=size_points,
         recurrence_interval_days=recurrence_interval_days,
@@ -228,6 +231,7 @@ def get_tasks(
     per_page: int = 10,
     status: Optional[str] = None,
     priority: Optional[str] = None,
+    category: Optional[str] = None,
     due_before: Optional[datetime] = None,
     due_after: Optional[datetime] = None,
 ) -> tuple[List[Task], int]:
@@ -244,6 +248,9 @@ def get_tasks(
 
     if priority:
         query = query.filter_by(priority=priority)
+
+    if category:
+        query = query.filter_by(category=category)
 
     if due_before:
         query = query.filter(Task.due_date <= due_before)
@@ -273,6 +280,7 @@ def update_task(
     description: Optional[str] = None,
     status: Optional[str] = None,
     priority: Optional[str] = None,
+    category: Optional[str] = None,
     due_date: Optional[datetime] = None,
     size_points: Optional[int] = None,
     recurrence_interval_days: Optional[int] = None,
@@ -299,6 +307,8 @@ def update_task(
         )
     if priority is not None:
         task.priority = priority
+    if category is not None:
+        task.category = category
     if due_date is not None:
         task.due_date = due_date
     if size_points is not None:
@@ -393,6 +403,7 @@ def apply_recurrence(task: Task) -> Optional[Task]:
         user_id=task.user_id,
         status="backlog",
         priority=task.priority,
+        category=task.category,
         due_date=next_due,
         size_points=task.size_points,
         recurrence_interval_days=task.recurrence_interval_days,

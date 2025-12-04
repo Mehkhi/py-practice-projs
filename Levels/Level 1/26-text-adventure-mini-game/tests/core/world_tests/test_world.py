@@ -523,7 +523,7 @@ class TestMapConnectivity(unittest.TestCase):
         invalid_warp = Warp(x=0, y=0, target_map_id="nonexistent", target_x=0, target_y=0)
         self.map1.warps.append(invalid_warp)
 
-        with patch('core.world.log_warning') as mock_warn:
+        with patch('core.map_loader.log_warning') as mock_warn:
             _validate_warps(self.world)
             mock_warn.assert_called()
             # Verify the warning mentions the non-existent map
@@ -538,7 +538,7 @@ class TestMapConnectivity(unittest.TestCase):
         invalid_warp = Warp(x=0, y=0, target_map_id="middle", target_x=10, target_y=10)
         self.map1.warps.append(invalid_warp)
 
-        with patch('core.world.log_warning') as mock_warn:
+        with patch('core.map_loader.log_warning') as mock_warn:
             _validate_warps(self.world)
             mock_warn.assert_called()
             call_args = mock_warn.call_args[0][0]
@@ -552,7 +552,7 @@ class TestMapConnectivity(unittest.TestCase):
         invalid_warp = Warp(x=0, y=0, target_map_id="middle", target_x=-1, target_y=-1)
         self.map1.warps.append(invalid_warp)
 
-        with patch('core.world.log_warning') as mock_warn:
+        with patch('core.map_loader.log_warning') as mock_warn:
             _validate_warps(self.world)
             mock_warn.assert_called()
             call_args = mock_warn.call_args[0][0]
@@ -568,7 +568,7 @@ class TestMapConnectivity(unittest.TestCase):
         invalid_warp = Warp(x=0, y=0, target_map_id="middle", target_x=2, target_y=2)
         self.map1.warps.append(invalid_warp)
 
-        with patch('core.world.log_warning') as mock_warn:
+        with patch('core.map_loader.log_warning') as mock_warn:
             _validate_warps(self.world)
             mock_warn.assert_called()
             call_args = mock_warn.call_args[0][0]

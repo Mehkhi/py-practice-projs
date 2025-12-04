@@ -33,46 +33,57 @@
                     <label for="status">Kanban lane</label>
                     <select id="status" name="status">
                         {% for status in statuses %}
-                            <option value="{{ status }}" {% if task.status == status %}selected{% endif %}>{{ status|replace('_',' ')|title }}</option>
+                        <option value="{{ status }}" {% if task.status==status %}selected{% endif %}>{{
+                            status|replace('_',' ')|title }}</option>
                         {% endfor %}
                     </select>
                 </div>
                 <div class="form-group">
                     <label for="priority">Priority</label>
                     <select id="priority" name="priority">
-                        <option value="low" {% if task.priority == 'low' %}selected{% endif %}>Low</option>
-                        <option value="medium" {% if task.priority == 'medium' %}selected{% endif %}>Medium</option>
-                        <option value="high" {% if task.priority == 'high' %}selected{% endif %}>High</option>
-                        <option value="urgent" {% if task.priority == 'urgent' %}selected{% endif %}>Urgent</option>
+                        <option value="low" {% if task.priority=='low' %}selected{% endif %}>Low</option>
+                        <option value="medium" {% if task.priority=='medium' %}selected{% endif %}>Medium</option>
+                        <option value="high" {% if task.priority=='high' %}selected{% endif %}>High</option>
+                        <option value="urgent" {% if task.priority=='urgent' %}selected{% endif %}>Urgent</option>
                     </select>
+                </div>
+                <div class="form-group">
+                    <label for="category">Category</label>
+                    <input type="text" id="category" name="category" value="{{ task.category or '' }}"
+                        placeholder="e.g. Work">
                 </div>
             </div>
 
             <div class="form-grid two-col">
                 <div class="form-group">
                     <label for="due_date">Due date</label>
-                    <input type="date" id="due_date" name="due_date" value="{{ task.due_date.strftime('%Y-%m-%d') if task.due_date }}">
+                    <input type="date" id="due_date" name="due_date"
+                        value="{{ task.due_date.strftime('%Y-%m-%d') if task.due_date }}">
                 </div>
                 <div class="form-group">
                     <label for="size_points">Size (points)</label>
-                    <input type="number" id="size_points" name="size_points" value="{{ task.size_points }}" min="1" max="13">
+                    <input type="number" id="size_points" name="size_points" value="{{ task.size_points }}" min="1"
+                        max="13">
                 </div>
             </div>
 
             <div class="form-grid two-col">
                 <div class="form-group">
                     <label for="recurrence_interval_days">Recurs every (days)</label>
-                    <input type="number" id="recurrence_interval_days" name="recurrence_interval_days" value="{{ task.recurrence_interval_days or '' }}" min="0">
+                    <input type="number" id="recurrence_interval_days" name="recurrence_interval_days"
+                        value="{{ task.recurrence_interval_days or '' }}" min="0">
                 </div>
                 <div class="form-group">
                     <label for="recurrence_end_date">Recurrence end date</label>
-                    <input type="date" id="recurrence_end_date" name="recurrence_end_date" value="{{ task.recurrence_end_date.strftime('%Y-%m-%d') if task.recurrence_end_date }}">
+                    <input type="date" id="recurrence_end_date" name="recurrence_end_date"
+                        value="{{ task.recurrence_end_date.strftime('%Y-%m-%d') if task.recurrence_end_date }}">
                 </div>
             </div>
 
             <div class="form-group">
                 <label for="blocked_reason">Blocked reason</label>
-                <textarea id="blocked_reason" name="blocked_reason" placeholder="Document policy, constraint, or dependency blocking this work.">{{ task.blocked_reason or '' }}</textarea>
+                <textarea id="blocked_reason" name="blocked_reason"
+                    placeholder="Document policy, constraint, or dependency blocking this work.">{{ task.blocked_reason or '' }}</textarea>
             </div>
 
             <div class="form-grid two-col">
@@ -104,22 +115,23 @@
             </div>
             <ul class="mini-list">
                 {% if task.dependencies %}
-                    {% for link in task.dependencies %}
-                        <li>
-                            <span>{{ link.depends_on.title }}</span>
-                        </li>
-                    {% endfor %}
+                {% for link in task.dependencies %}
+                <li>
+                    <span>{{ link.depends_on.title }}</span>
+                </li>
+                {% endfor %}
                 {% else %}
-                    <li class="muted">No dependencies yet</li>
+                <li class="muted">No dependencies yet</li>
                 {% endif %}
             </ul>
-            <form method="POST" action="{{ url_for('tasks.add_dependency_route', task_id=task.id) }}" class="form-grid two-col">
+            <form method="POST" action="{{ url_for('tasks.add_dependency_route', task_id=task.id) }}"
+                class="form-grid two-col">
                 <div class="form-group">
                     <label for="dependency_id">Add dependency</label>
                     <select id="dependency_id" name="dependency_id">
                         <option value="">Select task</option>
                         {% for candidate in other_tasks %}
-                            <option value="{{ candidate.id }}">{{ candidate.title }}</option>
+                        <option value="{{ candidate.id }}">{{ candidate.title }}</option>
                         {% endfor %}
                     </select>
                 </div>
@@ -135,7 +147,8 @@
                 </div>
                 <span class="pill subtle">{{ task.notes|length }} notes</span>
             </div>
-            <form method="POST" action="{{ url_for('tasks.add_note_route', task_id=task.id) }}" class="form-grid two-col">
+            <form method="POST" action="{{ url_for('tasks.add_note_route', task_id=task.id) }}"
+                class="form-grid two-col">
                 <div class="form-group">
                     <label for="content">Add note</label>
                     <textarea id="content" name="content" required></textarea>
@@ -152,7 +165,8 @@
                 </div>
             </form>
 
-            <form method="POST" action="{{ url_for('tasks.add_attachment_route', task_id=task.id) }}" class="form-grid two-col">
+            <form method="POST" action="{{ url_for('tasks.add_attachment_route', task_id=task.id) }}"
+                class="form-grid two-col">
                 <div class="form-group">
                     <label for="title">Attachment title</label>
                     <input type="text" name="title" required>
@@ -166,22 +180,22 @@
 
             <div class="knowledge-list">
                 {% for note in task.notes|sort(attribute='created_at', reverse=True) %}
-                    <div class="knowledge-item">
-                        <div class="knowledge-meta">
-                            <span class="pill subtle">{{ note.kind|title }}</span>
-                            <span class="pill subtle">{{ note.created_at.strftime('%b %d, %Y') }}</span>
-                        </div>
-                        <p>{{ note.content }}</p>
+                <div class="knowledge-item">
+                    <div class="knowledge-meta">
+                        <span class="pill subtle">{{ note.kind|title }}</span>
+                        <span class="pill subtle">{{ note.created_at.strftime('%b %d, %Y') }}</span>
                     </div>
+                    <p>{{ note.content }}</p>
+                </div>
                 {% endfor %}
                 {% for attachment in task.attachments %}
-                    <div class="knowledge-item attachment">
-                        <div class="knowledge-meta">
-                            <span class="pill subtle">Attachment</span>
-                            <span class="pill subtle">{{ attachment.created_at.strftime('%b %d, %Y') }}</span>
-                        </div>
-                        <a href="{{ attachment.url }}" target="_blank">{{ attachment.title }}</a>
+                <div class="knowledge-item attachment">
+                    <div class="knowledge-meta">
+                        <span class="pill subtle">Attachment</span>
+                        <span class="pill subtle">{{ attachment.created_at.strftime('%b %d, %Y') }}</span>
                     </div>
+                    <a href="{{ attachment.url }}" target="_blank">{{ attachment.title }}</a>
+                </div>
                 {% endfor %}
             </div>
         </div>
@@ -195,10 +209,12 @@
                 <span class="pill subtle">{{ task.time_entries|length }} sessions</span>
             </div>
             <div class="flex-gap-10">
-                <form method="POST" action="{{ url_for('tasks.start_timer_route', task_id=task.id) }}" class="inline-form">
+                <form method="POST" action="{{ url_for('tasks.start_timer_route', task_id=task.id) }}"
+                    class="inline-form">
                     <button type="submit" class="btn">Start timer</button>
                 </form>
-                <form method="POST" action="{{ url_for('tasks.stop_timer_route', task_id=task.id) }}" class="inline-form">
+                <form method="POST" action="{{ url_for('tasks.stop_timer_route', task_id=task.id) }}"
+                    class="inline-form">
                     <button type="submit" class="btn btn-secondary">Stop</button>
                 </form>
             </div>
@@ -206,9 +222,10 @@
             <p class="lede">Total logged: {{ total_minutes|default(0)|int }} minutes</p>
             <ul class="mini-list">
                 {% for entry in task.time_entries|sort(attribute='started_at', reverse=True) %}
-                    <li>{{ entry.started_at.strftime('%b %d %H:%M') }} → {{ entry.ended_at.strftime('%H:%M') if entry.ended_at else 'running' }} ({{ entry.duration_minutes or '?' }}m)</li>
+                <li>{{ entry.started_at.strftime('%b %d %H:%M') }} → {{ entry.ended_at.strftime('%H:%M') if
+                    entry.ended_at else 'running' }} ({{ entry.duration_minutes or '?' }}m)</li>
                 {% else %}
-                    <li class="muted">No time tracked yet</li>
+                <li class="muted">No time tracked yet</li>
                 {% endfor %}
             </ul>
         </div>
@@ -222,14 +239,14 @@
                 <span class="pill subtle">{% if task.requires_approval %}Required{% else %}Optional{% endif %}</span>
             </div>
             {% if task.requires_approval and not task.approved_at %}
-                <form method="POST" action="{{ url_for('tasks.approve_task', task_id=task.id) }}">
-                    <button type="submit" class="btn">Approve</button>
-                    <p class="mini muted">Only task owners can self-approve in this demo.</p>
-                </form>
+            <form method="POST" action="{{ url_for('tasks.approve_task', task_id=task.id) }}">
+                <button type="submit" class="btn">Approve</button>
+                <p class="mini muted">Only task owners can self-approve in this demo.</p>
+            </form>
             {% elif task.approved_at %}
-                <p class="lede">Approved on {{ task.approved_at.strftime('%b %d, %Y') }}</p>
+            <p class="lede">Approved on {{ task.approved_at.strftime('%b %d, %Y') }}</p>
             {% else %}
-                <p class="muted">Approval not required.</p>
+            <p class="muted">Approval not required.</p>
             {% endif %}
         </div>
     </div>

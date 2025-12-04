@@ -1,0 +1,368 @@
+/* Premium Design System - Nord Theme (Frost & Aurora) */
+:root {
+    /* Nord Palette */
+    --nord0: #2E3440;
+    --nord1: #3B4252;
+    --nord2: #434C5E;
+    --nord3: #4C566A;
+    --nord4: #D8DEE9;
+    --nord5: #E5E9F0;
+    --nord6: #ECEFF4;
+    --nord7: #8FBCBB;
+    --nord8: #88C0D0;
+    --nord9: #81A1C1;
+    --nord10: #5E81AC;
+    --nord11: #BF616A;
+    /* Red */
+    --nord12: #D08770;
+    /* Orange */
+    --nord13: #EBCB8B;
+    /* Yellow */
+    --nord14: #A3BE8C;
+    /* Green */
+    --nord15: #B48EAD;
+    /* Purple */
+
+    /* Theme Mapping */
+    --bg-dark: var(--nord0);
+    --bg-card: rgba(59, 66, 82, 0.8);
+    /* nord1 */
+    --bg-glass: rgba(46, 52, 64, 0.6);
+    /* nord0 */
+
+    --primary: var(--nord8);
+    /* Frost Blue */
+    --primary-glow: rgba(136, 192, 208, 0.4);
+    --secondary: var(--nord9);
+    --accent: var(--nord10);
+
+    --text-main: var(--nord6);
+    --text-muted: var(--nord4);
+
+    --success: var(--nord14);
+    --warning: var(--nord13);
+    --danger: var(--nord11);
+
+    --border-color: rgba(216, 222, 233, 0.1);
+    --glass-border: 1px solid rgba(236, 239, 244, 0.1);
+
+    --shadow-glow: 0 0 20px rgba(136, 192, 208, 0.1);
+    --shadow-card: 0 8px 32px rgba(0, 0, 0, 0.3);
+
+    --font-sans: 'Inter', 'Space Grotesk', system-ui, sans-serif;
+}
+
+body {
+    background-color: var(--bg-dark);
+    background-image:
+        radial-gradient(circle at 10% 20%, rgba(136, 192, 208, 0.1), transparent 20%),
+        radial-gradient(circle at 90% 80%, rgba(94, 129, 172, 0.1), transparent 20%);
+    color: var(--text-main);
+    font-family: var(--font-sans);
+}
+
+a {
+    color: var(--primary);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+a:hover {
+    color: var(--primary-glow);
+    text-decoration: underline;
+}
+
+::placeholder {
+    color: var(--text-muted);
+    opacity: 0.6;
+}
+
+/* Glassmorphism Utilities - Frost Effect */
+.glass-panel {
+    background: var(--bg-glass);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: var(--glass-border);
+    box-shadow: var(--shadow-card);
+}
+
+/* Overrides for existing classes */
+.page-surface {
+    background: var(--bg-card);
+    backdrop-filter: blur(16px);
+    border: var(--glass-border);
+    box-shadow: var(--shadow-card);
+    border-radius: 24px;
+}
+
+.nav-elevated {
+    background: rgba(46, 52, 64, 0.9);
+    border-bottom: var(--glass-border);
+}
+
+.nav-brand {
+    color: var(--text-main);
+    font-size: 1.5rem;
+    letter-spacing: -0.02em;
+}
+
+.brand-icon {
+    background: linear-gradient(135deg, var(--nord8), var(--nord9));
+    box-shadow: 0 0 15px var(--primary-glow);
+    border-radius: 12px;
+    color: var(--nord0);
+}
+
+.nav-link {
+    color: var(--text-muted);
+    border-radius: 12px;
+}
+
+.nav-link:hover,
+.nav-link.active {
+    color: var(--text-main);
+    background: rgba(236, 239, 244, 0.1);
+}
+
+.nav-link-primary {
+    background: linear-gradient(135deg, var(--nord8), var(--nord10));
+    box-shadow: 0 4px 15px var(--primary-glow);
+    border: none;
+    color: var(--nord0);
+}
+
+.nav-link-primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px var(--primary-glow);
+}
+
+/* Cards */
+.stat-card,
+.task-card,
+.filters,
+.activity-section {
+    background: rgba(59, 66, 82, 0.6);
+    /* nord1 */
+    border: var(--glass-border);
+    border-radius: 20px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.stat-card:hover,
+.task-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-glow);
+    border-color: rgba(136, 192, 208, 0.3);
+}
+
+.stat-card-value {
+    background: linear-gradient(to right, var(--nord6), var(--nord4));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Global Text Color Overrides */
+body,
+p,
+span,
+div,
+li,
+td,
+th,
+label,
+strong,
+small,
+a:not(.nav-link-primary):not(.btn),
+.task-title,
+.task-body,
+.task-description,
+.task-card-content,
+.meta-value,
+.progress-ring-text,
+.progress-ring-number,
+.stat-card-value,
+.activity-day-indicator,
+.activity-item,
+.filter-form label,
+.form-stack label,
+.eyebrow {
+    color: var(--text-main) !important;
+}
+
+.muted,
+.text-muted,
+.lede,
+.stat-card-subtitle,
+.stat-card-title,
+.meta-label,
+.activity-day-header,
+.guide-list,
+.brand-subtitle,
+.nav-link:not(:hover):not(.active):not(.nav-link-primary) {
+    color: var(--text-muted) !important;
+}
+
+/* Pill text - ensure readable */
+.pill {
+    color: var(--text-main) !important;
+}
+
+.pill.subtle {
+    color: var(--text-muted) !important;
+    background: rgba(76, 86, 106, 0.5) !important;
+}
+
+/* Priority pills need specific colors */
+.priority-pill.priority-low {
+    color: var(--nord14) !important;
+}
+
+.priority-pill.priority-medium {
+    color: var(--nord9) !important;
+}
+
+.priority-pill.priority-high {
+    color: var(--nord11) !important;
+}
+
+.priority-pill.priority-urgent {
+    color: #fff !important;
+}
+
+/* Status pills */
+.status-pill {
+    color: var(--text-main) !important;
+}
+
+/* Category pills */
+.category-pill {
+    color: var(--text-main) !important;
+    background: rgba(136, 192, 208, 0.2) !important;
+    border-color: rgba(136, 192, 208, 0.3) !important;
+}
+
+/* Typography */
+h1,
+h2,
+h3,
+h4 {
+    color: var(--text-main) !important;
+    letter-spacing: -0.03em;
+}
+
+.text-muted {
+    color: var(--text-muted) !important;
+}
+
+/* Pills & Badges */
+.pill {
+    border: var(--glass-border);
+    backdrop-filter: blur(4px);
+}
+
+.pill.success {
+    background: rgba(163, 190, 140, 0.2);
+    color: var(--nord14);
+    border-color: rgba(163, 190, 140, 0.3);
+}
+
+.pill.warning {
+    background: rgba(235, 203, 139, 0.2);
+    color: var(--nord13);
+    border-color: rgba(235, 203, 139, 0.3);
+}
+
+.pill.danger {
+    background: rgba(191, 97, 106, 0.2);
+    color: var(--nord11);
+    border-color: rgba(191, 97, 106, 0.3);
+}
+
+/* Form Elements */
+input,
+select,
+textarea {
+    background: rgba(46, 52, 64, 0.8) !important;
+    border: var(--glass-border) !important;
+    color: var(--text-main) !important;
+    border-radius: 12px !important;
+    transition: all 0.2s ease;
+}
+
+option {
+    background: var(--bg-dark);
+    color: var(--text-main);
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    border-color: var(--primary) !important;
+    box-shadow: 0 0 0 2px var(--primary-glow) !important;
+}
+
+/* Buttons */
+.btn,
+button,
+input[type="submit"] {
+    border-radius: 12px;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    background: var(--primary);
+    color: var(--nord0);
+    border: none;
+    padding: 10px 20px;
+}
+
+.btn:hover {
+    filter: brightness(1.1);
+    transform: translateY(-1px);
+}
+
+.btn-secondary {
+    background: rgba(236, 239, 244, 0.1);
+    color: var(--text-main);
+}
+
+.btn-ghost {
+    background: transparent;
+    color: var(--text-muted);
+}
+
+/* Animations */
+@keyframes float {
+    0% {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(-5px);
+    }
+
+    100% {
+        transform: translateY(0px);
+    }
+}
+
+.animate-float {
+    animation: float 4s ease-in-out infinite;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-dark);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--bg-card);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--text-muted);
+}

@@ -48,9 +48,12 @@
 
 <div class="filters filters-enhanced">
     <div class="filter-chips">
-        <a class="pill actionable {% if not completed_filter %}active{% endif %}" href="{{ url_for('tasks.list_tasks', search=search, sort_by=sort_by, order=order, status=status_filter, priority=priority_filter) }}">All</a>
-        <a class="pill actionable {% if completed_filter == 'false' %}active{% endif %}" href="{{ url_for('tasks.list_tasks', completed='false', search=search, sort_by=sort_by, order=order, status=status_filter, priority=priority_filter) }}">Incomplete</a>
-        <a class="pill actionable {% if completed_filter == 'true' %}active{% endif %}" href="{{ url_for('tasks.list_tasks', completed='true', search=search, sort_by=sort_by, order=order, status=status_filter, priority=priority_filter) }}">Completed</a>
+        <a class="pill actionable {% if not completed_filter %}active{% endif %}"
+            href="{{ url_for('tasks.list_tasks', search=search, sort_by=sort_by, order=order, status=status_filter, priority=priority_filter) }}">All</a>
+        <a class="pill actionable {% if completed_filter == 'false' %}active{% endif %}"
+            href="{{ url_for('tasks.list_tasks', completed='false', search=search, sort_by=sort_by, order=order, status=status_filter, priority=priority_filter) }}">Incomplete</a>
+        <a class="pill actionable {% if completed_filter == 'true' %}active{% endif %}"
+            href="{{ url_for('tasks.list_tasks', completed='true', search=search, sort_by=sort_by, order=order, status=status_filter, priority=priority_filter) }}">Completed</a>
     </div>
     <form class="filter-form" method="GET" action="{{ url_for('tasks.list_tasks') }}">
         <div class="form-stack">
@@ -60,18 +63,19 @@
         <div class="form-stack">
             <label for="sort_by">Sort</label>
             <select id="sort_by" name="sort_by">
-                <option value="created_at" {% if sort_by == 'created_at' %}selected{% endif %}>Date created</option>
-                <option value="title" {% if sort_by == 'title' %}selected{% endif %}>Title</option>
-                <option value="completed" {% if sort_by == 'completed' %}selected{% endif %}>Completion state</option>
-                <option value="due_date" {% if sort_by == 'due_date' %}selected{% endif %}>Due date</option>
-                <option value="priority" {% if sort_by == 'priority' %}selected{% endif %}>Priority</option>
+                <option value="created_at" {% if sort_by=='created_at' %}selected{% endif %}>Date created</option>
+                <option value="title" {% if sort_by=='title' %}selected{% endif %}>Title</option>
+                <option value="completed" {% if sort_by=='completed' %}selected{% endif %}>Completion state</option>
+                <option value="due_date" {% if sort_by=='due_date' %}selected{% endif %}>Due date</option>
+                <option value="priority" {% if sort_by=='priority' %}selected{% endif %}>Priority</option>
+                <option value="category" {% if sort_by=='category' %}selected{% endif %}>Category</option>
             </select>
         </div>
         <div class="form-stack">
             <label for="order">Order</label>
             <select id="order" name="order">
-                <option value="desc" {% if order == 'desc' %}selected{% endif %}>Descending</option>
-                <option value="asc" {% if order == 'asc' %}selected{% endif %}>Ascending</option>
+                <option value="desc" {% if order=='desc' %}selected{% endif %}>Descending</option>
+                <option value="asc" {% if order=='asc' %}selected{% endif %}>Ascending</option>
             </select>
         </div>
         <div class="form-stack">
@@ -79,7 +83,8 @@
             <select id="status" name="status">
                 <option value="">All</option>
                 {% for status in statuses %}
-                <option value="{{ status }}" {% if status_filter == status %}selected{% endif %}>{{ status|replace('_',' ')|title }}</option>
+                <option value="{{ status }}" {% if status_filter==status %}selected{% endif %}>{{ status|replace('_','
+                    ')|title }}</option>
                 {% endfor %}
             </select>
         </div>
@@ -87,11 +92,16 @@
             <label for="priority">Priority</label>
             <select id="priority" name="priority">
                 <option value="">Any</option>
-                <option value="low" {% if priority_filter == 'low' %}selected{% endif %}>Low</option>
-                <option value="medium" {% if priority_filter == 'medium' %}selected{% endif %}>Medium</option>
-                <option value="high" {% if priority_filter == 'high' %}selected{% endif %}>High</option>
-                <option value="urgent" {% if priority_filter == 'urgent' %}selected{% endif %}>Urgent</option>
+                <option value="low" {% if priority_filter=='low' %}selected{% endif %}>Low</option>
+                <option value="medium" {% if priority_filter=='medium' %}selected{% endif %}>Medium</option>
+                <option value="high" {% if priority_filter=='high' %}selected{% endif %}>High</option>
+                <option value="urgent" {% if priority_filter=='urgent' %}selected{% endif %}>Urgent</option>
             </select>
+        </div>
+        <div class="form-stack">
+            <label for="category">Category</label>
+            <input type="text" id="category" name="category" value="{{ category_filter or '' }}"
+                placeholder="Filter by category">
         </div>
         <button type="submit" class="btn">Apply</button>
     </form>
@@ -99,118 +109,262 @@
 
 <div class="task-list task-board">
     {% if tasks %}
-        {% for task in tasks %}
-            {% set is_overdue = task.due_date and task.due_date.date() < current_time.date() and not task.completed %}
-            <article class="task-card {% if task.completed %}is-complete{% endif %} {% if task.id in critical_path_ids %}critical-path{% endif %}">
-                <div class="task-card-top">
-                    <div>
-                        <div class="task-pill-row">
-                            <span class="pill status-pill status-{{ task.status }}">
-                                {{ task.status|replace('_', ' ')|title }}
-                            </span>
-                            <span class="pill priority-pill priority-{{ task.priority|default('medium') }}">
-                                {{ task.priority|title }}
-                            </span>
-                            {% if task.recurrence_interval_days %}
-                                <span class="pill subtle">Repeats every {{ task.recurrence_interval_days }}d</span>
-                            {% endif %}
-                            {% if task.requires_approval and not task.approved_at %}
-                                <span class="pill destructive subtle">Needs approval</span>
-                            {% elif task.approved_at %}
-                                <span class="pill success subtle">Approved</span>
-                            {% endif %}
-                            <span class="pill subtle">Created {{ task.created_at.strftime('%b %d, %Y') }}</span>
-                        </div>
-                        <h3 class="task-title">
-                            <a href="{{ url_for('tasks.view_task', task_id=task.id) }}">{{ task.title }}</a>
-                        </h3>
-                    </div>
-                    <div class="task-actions">
-                        <a href="{{ url_for('tasks.edit_task', task_id=task.id) }}" class="pill actionable">Edit</a>
-                        <form method="POST" action="{{ url_for('tasks.delete_task_route', task_id=task.id) }}" class="inline-form" onsubmit="return confirm('Are you sure you want to delete this task?');">
-                            <button type="submit" class="pill destructive">Delete</button>
-                        </form>
-                    </div>
+    {% for task in tasks %}
+    {% set is_overdue = task.due_date and task.due_date.date() < current_time.date() and not task.completed %} <article
+        class="task-card {% if task.completed %}is-complete{% endif %} {% if task.id in critical_path_ids %}critical-path{% endif %}">
+        <div class="task-card-top">
+            <div>
+                <div class="task-pill-row">
+                    <span class="pill status-pill status-{{ task.status }}">
+                        {{ task.status|replace('_', ' ')|title }}
+                    </span>
+                    <span class="pill priority-pill priority-{{ task.priority|default('medium') }}">
+                        {{ task.priority|title }}
+                    </span>
+                    {% if task.category %}
+                    <span class="pill subtle">{{ task.category }}</span>
+                    {% endif %}
+                    {% if task.recurrence_interval_days %}
+                    <span class="pill subtle">Repeats every {{ task.recurrence_interval_days }}d</span>
+                    {% endif %}
+                    {% if task.requires_approval and not task.approved_at %}
+                    <span class="pill destructive subtle">Needs approval</span>
+                    {% elif task.approved_at %}
+                    <span class="pill success subtle">Approved</span>
+                    {% endif %}
+                    <span class="pill subtle">Created {{ task.created_at.strftime('%b %d, %Y') }}</span>
                 </div>
-                <div class="task-meta-grid">
-                    <div class="meta-line">
-                        <span class="meta-label">Due</span>
-                        <span class="meta-value {% if is_overdue %}overdue{% endif %}">
-                            {% if task.due_date %}{{ task.due_date.strftime('%b %d, %Y') }}{% else %}TBD{% endif %}
-                        </span>
-                    </div>
-                    <div class="meta-line">
-                        <span class="meta-label">Size</span>
-                        <span class="meta-value">{{ task.size_points }} pts</span>
-                    </div>
-                    <div class="meta-line">
-                        <span class="meta-label">Dependencies</span>
-                        <span class="meta-value">{{ task.dependencies|length }} inbound / {{ task.dependents|length }} outbound</span>
-                    </div>
-                    <div class="meta-line">
-                        <span class="meta-label">Knowledge</span>
-                        <span class="meta-value">{{ task.notes|length }} notes · {{ task.attachments|length }} files</span>
-                    </div>
-                    <div class="meta-line">
-                        <span class="meta-label">Time</span>
-                        {% set tmins = task.time_entries|map(attribute='duration_minutes')|select|sum %}
-                        <span class="meta-value">{{ tmins|default(0)|int }}m tracked</span>
-                    </div>
-                </div>
-                {% if task.description %}
-                    <p class="task-body">{{ task.description }}</p>
-                {% else %}
-                    <p class="task-body muted">No description provided</p>
-                {% endif %}
-                <div class="task-card-footer">
-                    <div class="footer-left">
-                        <form method="POST" action="{{ url_for('tasks.toggle_task_route', task_id=task.id) }}" class="inline-form">
-                            <button type="submit" class="btn font-size-12 {% if task.completed %}btn-success{% endif %}">
-                                {% if task.completed %}Mark Incomplete{% else %}Mark Complete{% endif %}
-                            </button>
-                        </form>
-                        <form method="POST" action="{{ url_for('tasks.change_status_route', task_id=task.id) }}" class="inline-form">
-                            <select name="status" onchange="this.form.submit()">
-                                {% for status in statuses %}
-                                    <option value="{{ status }}" {% if task.status == status %}selected{% endif %}>{{ status|replace('_',' ')|title }}</option>
-                                {% endfor %}
-                            </select>
-                        </form>
-                    </div>
-                    <div class="footer-actions">
-                        <form method="POST" action="{{ url_for('tasks.start_timer_route', task_id=task.id) }}" class="inline-form">
-                            <button type="submit" class="pill actionable">Start timer</button>
-                        </form>
-                        <form method="POST" action="{{ url_for('tasks.stop_timer_route', task_id=task.id) }}" class="inline-form">
-                            <button type="submit" class="pill subtle">Stop</button>
-                        </form>
-                    </div>
-                </div>
-            </article>
+                <h3 class="task-title">
+                    <a href="{{ url_for('tasks.view_task', task_id=task.id) }}">{{ task.title }}</a>
+                </h3>
+            </div>
+            <div class="task-actions">
+                <a href="{{ url_for('tasks.edit_task', task_id=task.id) }}" class="pill actionable">Edit</a>
+                <form method="POST" action="{{ url_for('tasks.delete_task_route', task_id=task.id) }}"
+                    class="inline-form" onsubmit="return confirm('Are you sure you want to delete this task?');">
+                    <button type="submit" class="pill destructive">Delete</button>
+                </form>
+            </div>
+        </div>
+        <div class="task-meta-grid">
+            <div class="meta-line">
+                <span class="meta-label">Due</span>
+                <span class="meta-value {% if is_overdue %}overdue{% endif %}">
+                    {% if task.due_date %}{{ task.due_date.strftime('%b %d, %Y') }}{% else %}TBD{% endif %}
+                </span>
+            </div>
+            <div class="meta-line">
+                <span class="meta-label">Size</span>
+                <span class="meta-value">{{ task.size_points }} pts</span>
+            </div>
+            <div class="meta-line">
+                <span class="meta-label">Dependencies</span>
+                <span class="meta-value">{{ task.dependencies|length }} inbound / {{ task.dependents|length }}
+                    outbound</span>
+            </div>
+            <div class="meta-line">
+                <span class="meta-label">Knowledge</span>
+                <span class="meta-value">{{ task.notes|length }} notes · {{ task.attachments|length }} files</span>
+            </div>
+            <div class="meta-line">
+                <span class="meta-label">Time</span>
+                {% set tmins = task.time_entries|map(attribute='duration_minutes')|select|sum %}
+                <span class="meta-value">{{ tmins|default(0)|int }}m tracked</span>
+            </div>
+        </div>
+        {% if task.description %}
+        <p class="task-body">{{ task.description }}</p>
+        {% else %}
+        <p class="task-body muted">No description provided</p>
+        {% endif %}
+        <div class="task-card-footer">
+            <div class="footer-left">
+                <form method="POST" action="{{ url_for('tasks.toggle_task_route', task_id=task.id) }}"
+                    class="inline-form">
+                    <button type="submit" class="btn font-size-12 {% if task.completed %}btn-success{% endif %}">
+                        {% if task.completed %}Mark Incomplete{% else %}Mark Complete{% endif %}
+                    </button>
+                </form>
+                <form method="POST" action="{{ url_for('tasks.change_status_route', task_id=task.id) }}"
+                    class="inline-form">
+                    <select name="status" onchange="this.form.submit()">
+                        {% for status in statuses %}
+                        <option value="{{ status }}" {% if task.status==status %}selected{% endif %}>{{
+                            status|replace('_',' ')|title }}</option>
+                        {% endfor %}
+                    </select>
+                </form>
+            </div>
+            <div class="footer-actions">
+                <form method="POST" action="{{ url_for('tasks.start_timer_route', task_id=task.id) }}"
+                    class="inline-form">
+                    <button type="submit" class="pill actionable">Start timer</button>
+                </form>
+                <form method="POST" action="{{ url_for('tasks.stop_timer_route', task_id=task.id) }}"
+                    class="inline-form">
+                    <button type="submit" class="pill subtle">Stop</button>
+                </form>
+            </div>
+        </div>
+        </article>
         {% endfor %}
 
         {% if total_pages > 1 %}
-            <div class="pagination">
-                {% if has_prev %}
-                    <a href="{{ url_for('tasks.list_tasks', page=page-1, completed=completed_filter, search=search, sort_by=sort_by, order=order, status=status_filter, priority=priority_filter) }}">Previous</a>
-                {% else %}
-                    <span>Previous</span>
-                {% endif %}
+        <div class="pagination">
+            {% if has_prev %}
+            <a
+                href="{{ url_for('tasks.list_tasks', page=page-1, completed=completed_filter, search=search, sort_by=sort_by, order=order, status=status_filter, priority=priority_filter) }}">Previous</a>
+            {% else %}
+            <span>Previous</span>
+            {% endif %}
 
-                <span class="current">Page {{ page }} of {{ total_pages }}</span>
+            <span class="current">Page {{ page }} of {{ total_pages }}</span>
 
-                {% if has_next %}
-                    <a href="{{ url_for('tasks.list_tasks', page=page+1, completed=completed_filter, search=search, sort_by=sort_by, order=order, status=status_filter, priority=priority_filter) }}">Next</a>
-                {% else %}
-                    <span>Next</span>
-                {% endif %}
-            </div>
+            {% if has_next %}
+            <a
+                href="{{ url_for('tasks.list_tasks', page=page+1, completed=completed_filter, search=search, sort_by=sort_by, order=order, status=status_filter, priority=priority_filter) }}">Next</a>
+            {% else %}
+            <span>Next</span>
+            {% endif %}
+        </div>
         {% endif %}
-    {% else %}
+        {% else %}
         <div class="empty-state">
             <h3>No tasks found</h3>
             <p>Ready to get productive? <a href="{{ url_for('tasks.new_task') }}">Create your first task!</a></p>
         </div>
-    {% endif %}
+        {% endif %}
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Helper to show toast/notification (using existing flash message structure if possible, or simple alert for now)
+        function showNotification(message, type = 'success') {
+            // Ideally, we'd append to the flash message container.
+            // For now, let's just log or use a simple alert if it's an error.
+            // A better approach is to reload the page if we want to show flash messages,
+            // but the point of AJAX is to avoid reload.
+            // Let's assume we want to update the UI silently or with a console log for success.
+            console.log(message);
+        }
+
+        // Handle Delete
+        document.querySelectorAll('form[action*="/delete"]').forEach(form => {
+            form.addEventListener('submit', async function (e) {
+                e.preventDefault();
+                if (!confirm('Are you sure you want to delete this task?')) return;
+
+                try {
+                    const response = await fetch(this.action, {
+                        method: 'POST',
+                        headers: {
+                            'X-Requested-With': 'XMLHttpRequest',
+                            'Content-Type': 'application/x-www-form-urlencoded'
+                        },
+                        body: new URLSearchParams(new FormData(this))
+                    });
+
+                    const data = await response.json();
+                    if (data.status === 'success') {
+                        // Remove the task card
+                        this.closest('.task-card').remove();
+                        // Update stats if needed (optional)
+                    } else {
+                        alert('Error deleting task');
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                    alert('An error occurred');
+                }
+            });
+        });
+
+        // Handle Toggle Completion
+        document.querySelectorAll('form[action*="/toggle"]').forEach(form => {
+            form.addEventListener('submit', async function (e) {
+                e.preventDefault();
+                const btn = this.querySelector('button');
+                const originalText = btn.innerText;
+                btn.innerText = '...';
+                btn.disabled = true;
+
+                try {
+                    const response = await fetch(this.action, {
+                        method: 'POST',
+                        headers: {
+                            'X-Requested-With': 'XMLHttpRequest',
+                            'Content-Type': 'application/x-www-form-urlencoded'
+                        },
+                        body: new URLSearchParams(new FormData(this))
+                    });
+
+                    const data = await response.json();
+                    if (data.status === 'success') {
+                        const card = this.closest('.task-card');
+                        if (data.completed) {
+                            card.classList.add('is-complete');
+                            btn.innerText = 'Mark Incomplete';
+                            btn.classList.remove('btn-success');
+                        } else {
+                            card.classList.remove('is-complete');
+                            btn.innerText = 'Mark Complete';
+                            btn.classList.add('btn-success');
+                        }
+                    } else {
+                        alert('Error updating task');
+                        btn.innerText = originalText;
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                    btn.innerText = originalText;
+                } finally {
+                    btn.disabled = false;
+                }
+            });
+        });
+
+        // Handle Status Change
+        document.querySelectorAll('select[name="status"]').forEach(select => {
+            select.addEventListener('change', async function (e) {
+                const form = this.form;
+                const originalValue = this.getAttribute('data-original-value') || this.value;
+
+                try {
+                    const response = await fetch(form.action, {
+                        method: 'POST',
+                        headers: {
+                            'X-Requested-With': 'XMLHttpRequest',
+                            'Content-Type': 'application/x-www-form-urlencoded'
+                        },
+                        body: new URLSearchParams(new FormData(form))
+                    });
+
+                    const data = await response.json();
+                    if (data.status === 'ok') {
+                        // Update the status pill
+                        const card = this.closest('.task-card');
+                        const statusPill = card.querySelector('.status-pill');
+                        // Remove old status class
+                        statusPill.className = statusPill.className.replace(/status-\w+/, '');
+                        // Add new status class
+                        statusPill.classList.add(`status-${this.value}`);
+                        // Update text
+                        statusPill.innerText = this.options[this.selectedIndex].text;
+
+                        // Update original value
+                        this.setAttribute('data-original-value', this.value);
+                    } else {
+                        alert('Error updating status');
+                        this.value = originalValue;
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                    this.value = originalValue;
+                }
+            });
+            // Store initial value
+            select.setAttribute('data-original-value', select.value);
+        });
+    });
+</script>
 {% endblock %}

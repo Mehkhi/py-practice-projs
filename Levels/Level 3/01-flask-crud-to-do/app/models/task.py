@@ -20,6 +20,7 @@ class Task(db.Model):  # type: ignore
     completed = db.Column(db.Boolean, default=False, nullable=False, index=True)
     status = db.Column(db.String(20), default="backlog", nullable=False, index=True)
     priority = db.Column(db.String(20), default="medium", nullable=False, index=True)
+    category = db.Column(db.String(50), default="General", nullable=True, index=True)
     due_date = db.Column(db.DateTime, nullable=True, index=True)
     started_at = db.Column(db.DateTime, nullable=True, index=True)
     completed_at = db.Column(db.DateTime, nullable=True, index=True)

@@ -22,7 +22,8 @@
 
             <div class="form-group">
                 <label for="description">Description</label>
-                <textarea id="description" name="description" placeholder="Optional details, links, or acceptance criteria"></textarea>
+                <textarea id="description" name="description"
+                    placeholder="Optional details, links, or acceptance criteria"></textarea>
                 <span class="form-helper-text">Skip the clutter. A crisp note beats a long essay.</span>
             </div>
 
@@ -31,7 +32,7 @@
                     <label for="status">Kanban lane</label>
                     <select id="status" name="status">
                         {% for status in statuses %}
-                            <option value="{{ status }}">{{ status|replace('_',' ')|title }}</option>
+                        <option value="{{ status }}">{{ status|replace('_',' ')|title }}</option>
                         {% endfor %}
                     </select>
                 </div>
@@ -43,6 +44,10 @@
                         <option value="high">High</option>
                         <option value="urgent">Urgent</option>
                     </select>
+                </div>
+                <div class="form-group">
+                    <label for="category">Category</label>
+                    <input type="text" id="category" name="category" placeholder="e.g. Work">
                 </div>
             </div>
 
@@ -60,7 +65,8 @@
             <div class="form-grid two-col">
                 <div class="form-group">
                     <label for="recurrence_interval_days">Recurs every (days)</label>
-                    <input type="number" id="recurrence_interval_days" name="recurrence_interval_days" min="0" placeholder="e.g. 7">
+                    <input type="number" id="recurrence_interval_days" name="recurrence_interval_days" min="0"
+                        placeholder="e.g. 7">
                 </div>
                 <div class="form-group">
                     <label for="recurrence_end_date">Recurrence end date</label>
@@ -73,7 +79,7 @@
                 <select id="template_id" name="template_id">
                     <option value="">None</option>
                     {% for template in templates %}
-                        <option value="{{ template.id }}">{{ template.name }}</option>
+                    <option value="{{ template.id }}">{{ template.name }}</option>
                     {% endfor %}
                 </select>
             </div>
@@ -95,7 +101,8 @@
 
             <div class="form-group">
                 <label for="blocked_reason">Blocked reason (optional)</label>
-                <textarea id="blocked_reason" name="blocked_reason" placeholder="If blocked, capture the policy or constraint."></textarea>
+                <textarea id="blocked_reason" name="blocked_reason"
+                    placeholder="If blocked, capture the policy or constraint."></textarea>
             </div>
 
             <div class="flex-gap-10">

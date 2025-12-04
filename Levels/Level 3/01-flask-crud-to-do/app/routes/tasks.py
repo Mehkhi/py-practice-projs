@@ -69,6 +69,7 @@ def list_tasks() -> str:
     page = request.args.get("page", 1, type=int)
     status_filter = request.args.get("status") or None
     priority_filter = request.args.get("priority") or None
+    category_filter = request.args.get("category") or None
 
     completed: bool | None = None
     if completed_filter == "true":
@@ -76,7 +77,7 @@ def list_tasks() -> str:
     elif completed_filter == "false":
         completed = False
 
-    valid_sort_fields = ["created_at", "title", "completed", "due_date", "priority"]
+    valid_sort_fields = ["created_at", "title", "completed", "due_date", "priority", "category"]
     if sort_by not in valid_sort_fields:
         sort_by = "created_at"
 
@@ -88,6 +89,7 @@ def list_tasks() -> str:
         completed=completed,
         status=status_filter,
         priority=priority_filter,
+        category=category_filter,
         search=search if search else None,
         sort_by=sort_by,
         order=order,
@@ -115,6 +117,7 @@ def list_tasks() -> str:
         order=order,
         status_filter=status_filter,
         priority_filter=priority_filter,
+        category_filter=category_filter,
         statuses=KANBAN_STATUSES,
         critical_path_ids=critical_path_ids,
         critical_length=critical_length,
@@ -139,6 +142,7 @@ def create_task_route() -> redirect:
     description = request.form.get("description", "").strip() or None
     status = request.form.get("status", "backlog")
     priority = request.form.get("priority") or None
+    category = request.form.get("category") or "General"
     due_date = _parse_datetime(request.form.get("due_date"))
     size_points = int(request.form.get("size_points", 1) or 1)
     recurrence_days = request.form.get("recurrence_interval_days")
@@ -163,6 +167,7 @@ def create_task_route() -> redirect:
             description,
             status=status,
             priority=priority,
+            category=category,
             due_date=due_date,
             size_points=size_points,
             recurrence_interval_days=recurrence_interval_days,
@@ -221,6 +226,7 @@ def update_task_route(task_id: int) -> redirect:
     description = request.form.get("description", "").strip() or None
     status = request.form.get("status")
     priority = request.form.get("priority")
+    category = request.form.get("category")
     due_date = _parse_datetime(request.form.get("due_date"))
     size_points = int(request.form.get("size_points", 1) or 1)
     recurrence_days = request.form.get("recurrence_interval_days")
@@ -241,6 +247,7 @@ def update_task_route(task_id: int) -> redirect:
             description=description,
             status=status,
             priority=priority,
+            category=category,
             due_date=due_date,
             size_points=size_points,
             recurrence_interval_days=recurrence_interval_days,
@@ -272,6 +279,9 @@ def delete_task_route(task_id: int) -> redirect:
     except TaskAccessDeniedError:
         flash("You don't have permission to delete this task.", "error")
 
+    if request.headers.get("X-Requested-With") == "XMLHttpRequest":
+        return jsonify({"status": "success", "message": "Task deleted successfully"})
+
     return redirect(url_for("tasks.list_tasks"))
 
 
@@ -288,6 +298,17 @@ def toggle_task_route(task_id: int) -> redirect:
         flash("Task not found.", "error")
     except TaskAccessDeniedError:
         flash("You don't have permission to modify this task.", "error")
+
+    if request.headers.get("X-Requested-With") == "XMLHttpRequest":
+        try:
+            task = Task.query.get(task_id)
+            return jsonify({
+                "status": "success",
+                "completed": task.completed,
+                "message": f"Task marked as {'completed' if task.completed else 'incomplete'}"
+            })
+        except Exception:
+             return jsonify({"status": "error", "message": "Could not fetch task status"}), 500
 
     return redirect(url_for("tasks.list_tasks"))
 
