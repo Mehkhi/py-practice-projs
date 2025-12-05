@@ -12,7 +12,11 @@ if TYPE_CHECKING:
     from core.combat import BattleState
 
 from ..theme import Colors, Layout
+from ..ui import draw_hp_bar, draw_sp_bar, draw_status_icons
 from ..ui.utils import draw_rounded_panel
+
+# Semi-transparent panel background color used across HUD elements
+_PANEL_BG = (20, 25, 40, 180)
 
 
 class BattleHudMixin:
@@ -41,19 +45,175 @@ class BattleHudMixin:
 
     def _draw_party_hud(self, surface: pygame.Surface, font) -> None:
         """
-        Draw HP/SP bars for player and all party members.
+        Draw HP/SP bars and status icons for player and all party members.
 
-        NOTE: User requested to remove the large HUD panel entirely and rely on
-        the small indicators near the sprites. This method is now a no-op
-        to fulfill that request while keeping the structure if needed later.
+        Renders compact HUD elements near each ally sprite:
+        - Name tag with semi-transparent background
+        - HP bar (green/yellow/red based on health)
+        - SP bar (blue)
+        - Status effect icons
+
+        Note: Iterates _alive_allies() to stay in sync with sprite rendering.
         """
-        pass
+        # Initialize name surface cache if not present
+        if not hasattr(self, "_name_surface_cache"):
+            self._name_surface_cache: Dict[Tuple[str, int], Tuple[pygame.Surface, pygame.Surface]] = {}
+
+        # Get ally positions synced with sprite rendering
+        ally_base_x, ally_y = self._get_ally_base_position()
+        spacing = self._get_ally_spacing()
+        offset_x, offset_y = getattr(self, "screen_shake_offset", (0, 0))
+
+        # Bar dimensions - compact to fit near sprites
+        bar_width = self.draw_size + 20  # Slightly wider than sprite
+        bar_height = 6
+        bar_gap = 2  # Gap between HP and SP bars
+        name_padding = 4
+
+        # Iterate alive allies only - matches sprite rendering order
+        alive_allies = self._alive_allies()
+        for idx, participant in enumerate(alive_allies):
+            if not participant.stats:
+                continue
+
+            # Calculate position based on index (synced with sprite rendering)
+            ally_x = ally_base_x + idx * spacing
+            render_x = ally_x + offset_x
+            render_y = ally_y + offset_y
+
+            # Center bars under the sprite
+            bar_x = render_x + (self.draw_size - bar_width) // 2
+
+            # Position bars below sprite with room for status icons
+            hp_bar_y = render_y + self.draw_size + 8
+            sp_bar_y = hp_bar_y + bar_height + bar_gap
+
+            # Initialize name-related variables before conditional to ensure safe scoping
+            name_x: int = render_x
+            name_y: int = render_y - name_padding * 2 - 4  # Default position above sprite
+            name_surf: Optional[pygame.Surface] = None
+            shadow_surf: Optional[pygame.Surface] = None
+
+            # Draw name tag above sprite
+            if font:
+                name_text = participant.entity.name
+
+                # Use cached name surfaces if available
+                cache_key = (name_text, id(font))
+                if cache_key not in self._name_surface_cache:
+                    shadow_surf = font.render(name_text, True, (0, 0, 0))
+                    name_surf = font.render(name_text, True, (255, 255, 255))
+                    self._name_surface_cache[cache_key] = (shadow_surf, name_surf)
+                shadow_surf, name_surf = self._name_surface_cache[cache_key]
+
+                # Center above sprite
+                name_x = render_x + (self.draw_size - name_surf.get_width()) // 2
+                name_y = render_y - name_surf.get_height() - name_padding * 2 - 4
+
+            has_sp = participant.stats.max_sp > 0
+            icons = self._collect_status_icons(participant.stats.status_effects)
+            last_bar_y = sp_bar_y if has_sp else hp_bar_y
+            icon_y = last_bar_y + bar_height + 4 if icons else 0
+
+            # Draw panel behind name + bars + status icons using the textured UI panel
+            if font:
+                name_width = name_surf.get_width()
+                name_height = name_surf.get_height()
+            else:
+                name_width = 0
+                name_height = 0
+
+            icon_spacing = getattr(Layout, "ICON_GAP", 4)
+            icons_width = 0
+            icons_height = 0
+            if icons:
+                first_icon = icons[0]
+                icons_height = first_icon.get_height()
+                icons_width = len(icons) * first_icon.get_width()
+                if len(icons) > 1:
+                    icons_width += icon_spacing * (len(icons) - 1)
+
+            max_content_width = max(
+                name_width + name_padding * 2,
+                bar_width,
+                icons_width,
+            )
+
+            # Determine content vertical bounds for the NAME PANEL only
+            # This prevents drawing a giant panel that covers the sprite
+            if font:
+                content_top = name_y - name_padding
+                content_bottom = name_y + name_height + name_padding
+
+                panel_padding = 6
+                panel_width = (name_width + name_padding * 2) + panel_padding * 2
+                panel_height = (content_bottom - content_top) + panel_padding * 2
+
+                # Safety check: ensure panel dimensions are positive
+                panel_width = max(panel_width, 1)
+                panel_height = max(panel_height, 1)
+
+                center_x = render_x + self.draw_size // 2
+                panel_x = center_x - panel_width // 2
+                panel_y = content_top - panel_padding
+                panel_rect = pygame.Rect(panel_x, panel_y, panel_width, panel_height)
+
+                if self.panel:
+                    self.panel.draw(surface, panel_rect)
+                else:
+                    draw_rounded_panel(
+                        surface,
+                        panel_rect,
+                        _PANEL_BG,
+                        Colors.BORDER,
+                        border_width=Layout.BORDER_WIDTH_THIN,
+                        radius=Layout.CORNER_RADIUS_SMALL
+                    )
+
+                # Draw text on top of the panel
+                surface.blit(shadow_surf, (name_x + 1, name_y + 1))
+                surface.blit(name_surf, (name_x, name_y))
+
+            # Draw HP bar
+            draw_hp_bar(
+                surface,
+                bar_x,
+                hp_bar_y,
+                bar_width,
+                bar_height,
+                participant.stats.hp,
+                participant.stats.max_hp,
+                "",
+                font=font,
+                show_text=True
+            )
+
+            # Draw SP bar (if character has SP) and track last bar position
+            has_sp = participant.stats.max_sp > 0
+            if has_sp:
+                draw_sp_bar(
+                    surface,
+                    bar_x,
+                    sp_bar_y,
+                    bar_width,
+                    bar_height,
+                    participant.stats.sp,
+                    participant.stats.max_sp,
+                    "",
+                    font=font,
+                    show_text=True
+                )
+
+            # Draw status icons below the last bar drawn
+            if icons:
+                draw_status_icons(
+                    surface,
+                    icons,
+                    (bar_x, icon_y)
+                )
 
     def _draw_enemy_hud(self, surface: pygame.Surface, font) -> None:
         """Draw enemy names and HP bars synced with sprite positions."""
-        from ..ui import draw_hp_bar, draw_status_icons
-        from ..theme import Colors
-
         # Use layout mixin methods to ensure sync with sprite rendering
         enemy_x, enemy_y = self._get_enemy_base_position()
         spacing = self._get_enemy_spacing()
@@ -98,15 +258,17 @@ class BattleHudMixin:
                         name_surf.get_width() + name_padding * 2,
                         name_surf.get_height() + name_padding * 2
                     )
-                    PANEL_BG = (20, 25, 40, 180)
-                    draw_rounded_panel(
-                        surface,
-                        name_bg_rect,
-                        PANEL_BG,
-                        Colors.BORDER,
-                        border_width=Layout.BORDER_WIDTH_THIN,
-                        radius=Layout.CORNER_RADIUS_SMALL
-                    )
+                    if self.panel:
+                        self.panel.draw(surface, name_bg_rect)
+                    else:
+                        draw_rounded_panel(
+                            surface,
+                            name_bg_rect,
+                            _PANEL_BG,
+                            Colors.BORDER,
+                            border_width=Layout.BORDER_WIDTH_THIN,
+                            radius=Layout.CORNER_RADIUS_SMALL
+                        )
 
                     # Blit shadow then text
                     surface.blit(shadow_surf, (name_x + 1, name_y + 1))
@@ -119,15 +281,17 @@ class BattleHudMixin:
                         hp_surf.get_width() + hp_padding * 2,
                         hp_surf.get_height() + hp_padding * 2
                     )
-                    PANEL_BG = (20, 25, 40, 180)
-                    draw_rounded_panel(
-                        surface,
-                        hp_bg_rect,
-                        PANEL_BG,
-                        Colors.BORDER,
-                        border_width=Layout.BORDER_WIDTH_THIN,
-                        radius=Layout.CORNER_RADIUS_SMALL
-                    )
+                    if self.panel:
+                        self.panel.draw(surface, hp_bg_rect)
+                    else:
+                        draw_rounded_panel(
+                            surface,
+                            hp_bg_rect,
+                            _PANEL_BG,
+                            Colors.BORDER,
+                            border_width=Layout.BORDER_WIDTH_THIN,
+                            radius=Layout.CORNER_RADIUS_SMALL
+                        )
 
                     surface.blit(hp_shadow, (hp_x + 1, hp_y + 1))
                     surface.blit(hp_surf, (hp_x, hp_y))
@@ -250,13 +414,11 @@ class BattleHudMixin:
             self.panel.draw(surface, pygame.Rect(panel_x, panel_y, panel_width, panel_height))
         else:
             # Fallback: draw panel matching weather/time styling
-            from ..world.overworld_renderer import draw_rounded_panel
-            PANEL_BG = (20, 25, 40, 180)
             panel_rect = pygame.Rect(panel_x, panel_y, panel_width, panel_height)
             draw_rounded_panel(
                 surface,
                 panel_rect,
-                PANEL_BG,
+                _PANEL_BG,
                 Colors.BORDER,
                 border_width=Layout.BORDER_WIDTH_THIN,
                 radius=Layout.CORNER_RADIUS_SMALL
@@ -320,11 +482,10 @@ class BattleHudMixin:
             self.panel.draw(surface, hotbar_bg_rect)
         else:
             # Draw semi-transparent hotbar background with rounded corners matching weather/time styling
-            PANEL_BG = (20, 25, 40, 180)
             draw_rounded_panel(
                 surface,
                 hotbar_bg_rect,
-                PANEL_BG,
+                _PANEL_BG,
                 Colors.BORDER,
                 border_width=Layout.BORDER_WIDTH_THIN,
                 radius=Layout.CORNER_RADIUS_SMALL
@@ -337,11 +498,10 @@ class BattleHudMixin:
             slot_rect = pygame.Rect(slot_x, hotbar_y, slot_width, slot_height)
 
             # Slot background with semi-transparent rounded corners matching weather/time styling
-            PANEL_BG = (20, 25, 40, 180)
             draw_rounded_panel(
                 surface,
                 slot_rect,
-                PANEL_BG,
+                _PANEL_BG,
                 Colors.BORDER,
                 border_width=Layout.BORDER_WIDTH_THIN,
                 radius=Layout.CORNER_RADIUS_SMALL

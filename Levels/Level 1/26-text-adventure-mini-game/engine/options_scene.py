@@ -16,6 +16,7 @@ from .options import (
     OptionsControlsMixin,
     OptionsAccessibilityMixin,
 )
+from core.logging_utils import log_warning
 
 if TYPE_CHECKING:
     from .scene import SceneManager
@@ -242,8 +243,8 @@ class OptionsScene(
             if "save_slot" in self.config:
                 try:
                     self.manager.save_slot = max(1, int(self.config["save_slot"]))
-                except Exception:
-                    pass
+                except (ValueError, TypeError) as e:
+                    log_warning(f"Invalid save_slot value in config: {self.config.get('save_slot')!r}: {e}")
 
     def _apply_audio_settings(self) -> None:
         """Update pygame mixer volumes based on current options."""
@@ -256,13 +257,14 @@ class OptionsScene(
 
         try:
             pygame.mixer.music.set_volume(master * music)
-        except Exception:
-            pass
+        except (pygame.error, TypeError, ValueError) as e:
+            log_warning(f"Failed to set music volume to {master * music:.2f}: {e}")
 
-        for sound in self.assets.sounds.values():
+        for sound_id, sound in self.assets.sounds.items():
             try:
                 sound.set_volume(master * sfx)
-            except Exception:
+            except (pygame.error, TypeError, ValueError) as e:
+                log_warning(f"Failed to set SFX volume for '{sound_id}' to {master * sfx:.2f}: {e}")
                 continue
 
     def _go_back(self) -> None:

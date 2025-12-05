@@ -257,8 +257,9 @@ class InventoryScene(BaseMenuScene):
                 self.message_box.set_text(f"{item.name} cannot be used from inventory.")
 
     def update(self, dt: float) -> None:
-        """Update scene state."""
-        pass
+        """Update scene state including message box animations."""
+        if self.message_box:
+            self.message_box.update(dt)
 
     def draw(self, surface: pygame.Surface) -> None:
         """Draw the inventory scene."""

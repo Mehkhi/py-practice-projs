@@ -12,6 +12,7 @@ from .theme import (
     PANEL_TAB, PANEL_TAB_SELECTED, PANEL_ITEM_SELECTED, PANEL_SUBPANEL,
 )
 from core.bestiary import Bestiary, BestiaryEntry, DiscoveryLevel
+from core.logging_utils import log_warning
 
 if TYPE_CHECKING:
     from .scene import SceneManager
@@ -42,6 +43,9 @@ class BestiaryScene(BaseMenuScene):
         self.scroll_offset = 0
         self.max_visible_entries = 8
         self.detail_scroll = 0
+
+        # Track sprites we've already warned about to avoid log spam in draw loop
+        self._warned_sprite_ids: set[str] = set()
 
         # Cache filtered entries
         self._refresh_entries()
@@ -252,7 +256,10 @@ class BestiaryScene(BaseMenuScene):
                     scaled = pygame.transform.scale(sprite, (thumb_size, thumb_size))
                     surface.blit(scaled, (sprite_x, y + 2))
                     sprite_x += thumb_size + Layout.PADDING_SM
-            except Exception:
+            except (pygame.error, ValueError, TypeError) as e:
+                if entry.sprite_id not in self._warned_sprite_ids:
+                    self._warned_sprite_ids.add(entry.sprite_id)
+                    log_warning(f"Failed to load bestiary sprite '{entry.sprite_id}' for '{entry.name}': {e}")
                 sprite_x += 34
 
             # Draw entry name
@@ -392,8 +399,10 @@ class BestiaryScene(BaseMenuScene):
                         sprite_size = 48
                         scaled = pygame.transform.scale(sprite, (sprite_size, sprite_size))
                         surface.blit(scaled, (details_rect.left + padding, y))
-                except Exception:
-                    pass
+                except (pygame.error, ValueError, TypeError) as e:
+                    if sprite_id not in self._warned_sprite_ids:
+                        self._warned_sprite_ids.add(sprite_id)
+                        log_warning(f"Failed to load bestiary detail sprite '{sprite_id}' for '{entry.name}': {e}")
 
                 # Draw name with shadow
                 name_shadow = font.render(content, True, Colors.BLACK)

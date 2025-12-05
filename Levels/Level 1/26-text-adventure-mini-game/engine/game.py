@@ -96,6 +96,9 @@ class RpgGame:
         self._last_time_period: Optional[TimeOfDay] = None
         self._toast_notifications: List[ToastNotification] = []
 
+        # Shared asset manager for all scenes (reduces redundant I/O)
+        self.assets = None
+
         # Stage 1: Initialize pygame
         try:
             pygame.init()
@@ -196,9 +199,25 @@ class RpgGame:
 
         # Wire up quest manager to listen to flag changes
         def on_flag_change(flag_name: str, flag_value: bool) -> None:
-            """Callback for flag changes to check flag-based quest objectives."""
-            if flag_value and self.quest_manager is not None:  # Only check when flag is set (truthy) and manager exists
+            """Callback for flag changes to check flag-based quest objectives and hint discovery."""
+            if not flag_value:
+                return  # Only process when flag is set (truthy)
+
+            # Check quest objectives
+            if self.quest_manager is not None:
                 self.quest_manager.check_flag_objectives(self.world.flags)
+
+            # Check for hint discovery flags (pattern: hint_{hint_id}_discovered)
+            if flag_name.startswith("hint_") and flag_name.endswith("_discovered"):
+                hint_id = flag_name[5:-11]  # Extract hint_id from "hint_{hint_id}_discovered"
+                if self.hint_manager is not None and hint_id and hint_id in self.hint_manager.hints:
+                    hint = self.hint_manager.discover_hint(hint_id)
+                    # Auto-discover the boss when first hint for that boss is found
+                    if hint is not None and self.secret_boss_manager is not None:
+                        self.secret_boss_manager.discover_boss(hint.boss_id)
+                elif self.hint_manager is not None and hint_id:
+                    log_warning(f"Unknown hint flag '{flag_name}': hint_id '{hint_id}' not in hint definitions")
+
         self.world.set_flag_change_callback(on_flag_change)
 
         # Stage 11: Initialize game subsystems (non-critical - use safe defaults)
@@ -322,6 +341,15 @@ class RpgGame:
         self.clock = pygame.time.Clock()
         self.running = True
 
+        # Create shared asset manager (after display init for convert_alpha)
+        from .assets import AssetManager
+        self.assets = AssetManager(
+            scale=self.scale,
+            tile_size=self.tile_size,
+            sprite_size=self.sprite_size,
+            preload_common=True,
+        )
+
     def _init_input_and_mods(self) -> None:
         """Initialize input manager and mod loader."""
         self.input_manager = get_input_manager()
@@ -360,7 +388,8 @@ class RpgGame:
         initial_scene = TitleScene(
             manager=None,
             save_manager=self.save_manager,
-            scale=self.scale
+            scale=self.scale,
+            assets=self.assets,
         )
         scene_manager = SceneManager(
             initial_scene,
@@ -654,7 +683,6 @@ class RpgGame:
     def _start_tutorial_battle(self) -> None:
         """Start the tutorial battle scene."""
         from .tutorial_battle_scene import TutorialBattleScene
-        from .assets import AssetManager
         from core.combat import BattleSystem, load_skills_from_json
 
         # Create encounter using shared factory
@@ -689,19 +717,14 @@ class RpgGame:
                 enemy_participant.skills = list(dict.fromkeys(computed_skills))
                 enemy_participant.items = metadata["items"]
 
-        # Create tutorial battle scene
-        assets = AssetManager(
-            scale=self.scale,
-            tile_size=self.tile_size,
-            sprite_size=self.sprite_size,
-        )
+        # Use shared asset manager instead of creating a new one
         tutorial_scene = TutorialBattleScene(
             self.scene_manager,
             battle_system,
             self.world,
             self.player,
             scale=self.scale,
-            assets=assets,
+            assets=self.assets,
             rewards=rewards,
             items_db=self.items_db,
             backdrop_id=backdrop_id,

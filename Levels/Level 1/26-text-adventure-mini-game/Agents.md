@@ -16,13 +16,6 @@ Guidance for automation agents working in this repository. Mirrors `CLAUDE.md` c
 - Run single file: `.venv/bin/python3 -m unittest test_stats`
 - Run specific test: `.venv/bin/python3 -m unittest test_stats.TestStats.test_is_dead_true`
 
-## Search Tooling (mgrep)
-- Use `mgrep` for all local searches instead of `rg`/`grep`.
-- Describe intent in natural language: `mgrep "How are map chunks defined?"`
-- Scope when helpful: `mgrep "battle loop" core`
-- Limit noisy output: `mgrep -m 10 "quest reward handling"`
-- Avoid vague queries like `mgrep "parser"`; be specific.
-
 ## Architecture Notes
 - Core (`core/`) contains domain logic only; pygame must not appear here.
 - Engine (`engine/`) handles rendering/input/scenes and can import Core.

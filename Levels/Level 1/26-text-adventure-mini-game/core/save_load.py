@@ -90,6 +90,94 @@ class SaveManager:
             return resources
         return self.deserialization_resources
 
+    def _validate_and_resolve_slot(self, slot: int) -> str:
+        """Validate slot number and resolve to a safe file path.
+
+        Args:
+            slot: Save slot number (1-based)
+
+        Returns:
+            Resolved absolute path to the save file
+
+        Raises:
+            ValueError: If slot number is invalid or path is unsafe
+        """
+        is_valid, filename = validate_save_slot(slot)
+        if not is_valid or not filename:
+            raise ValueError(f"Invalid save slot number: {slot}")
+
+        is_valid_path, save_path = validate_path_inside_base(
+            filename, self.save_dir, allow_absolute=False
+        )
+        if not is_valid_path or not save_path:
+            raise ValueError(f"Invalid save path for slot {slot}")
+
+        return save_path
+
+    def _atomic_write_json(self, save_path: str, data: Dict[str, Any]) -> None:
+        """Write JSON data to a file atomically.
+
+        Uses temp file + rename pattern to prevent corruption if interrupted.
+
+        Args:
+            save_path: Destination file path
+            data: JSON-serializable data to write
+
+        Raises:
+            Exception: If write fails (temp file is cleaned up before re-raising)
+        """
+        temp_fd = None
+        temp_path = None
+        try:
+            temp_fd, temp_path = tempfile.mkstemp(dir=self.save_dir, suffix=".json")
+            with os.fdopen(temp_fd, 'w') as f:
+                temp_fd = None  # os.fdopen takes ownership of the fd
+                json.dump(data, f, indent=2)
+            os.replace(temp_path, save_path)  # Atomic on POSIX; near-atomic on Windows
+            temp_path = None  # Successfully moved, don't clean up
+        except Exception:
+            # Clean up temp file if something went wrong
+            if temp_fd is not None:
+                try:
+                    os.close(temp_fd)
+                except OSError:
+                    pass
+            if temp_path is not None and os.path.exists(temp_path):
+                try:
+                    os.remove(temp_path)
+                except OSError:
+                    pass
+            raise
+
+    def _read_slot_json(self, slot: int, save_path: str) -> Dict[str, Any]:
+        """Read and parse JSON from a save slot file.
+
+        Args:
+            slot: Save slot number (for error messages)
+            save_path: Path to the save file
+
+        Returns:
+            Parsed JSON data as a dictionary
+
+        Raises:
+            FileNotFoundError: If the save file does not exist
+            ValueError: If JSON is corrupted or file cannot be read
+        """
+        try:
+            with open(save_path, 'r') as f:
+                return json.load(f)
+        except FileNotFoundError:
+            # Re-raise with a user-friendly message (preserves API contract)
+            raise FileNotFoundError(f"Save slot {slot} not found")
+        except json.JSONDecodeError as exc:
+            log_warning(f"Save slot {slot}: JSON decode error at {save_path}: {exc}")
+            raise ValueError(
+                f"Save slot {slot} is corrupted (invalid JSON syntax) and cannot be recovered: {exc}"
+            ) from exc
+        except OSError as exc:
+            log_warning(f"Save slot {slot}: IO error reading {save_path}: {exc}")
+            raise ValueError(f"Save slot {slot} cannot be read: {exc}") from exc
+
     def serialize_state(
         self,
         world: "World",
@@ -252,17 +340,7 @@ class SaveManager:
         Raises:
             ValueError: If slot number is invalid
         """
-        # Validate slot number and generate safe filename
-        is_valid, filename = validate_save_slot(slot)
-        if not is_valid or not filename:
-            raise ValueError(f"Invalid save slot number: {slot}")
-
-        # Validate path stays within save directory
-        is_valid_path, save_path = validate_path_inside_base(
-            filename, self.save_dir, allow_absolute=False
-        )
-        if not is_valid_path or not save_path:
-            raise ValueError(f"Invalid save path for slot {slot}")
+        save_path = self._validate_and_resolve_slot(slot)
         data = self.serialize_state(
             world, player, quest_manager, day_night_cycle,
             achievement_manager, weather_system, fishing_system, puzzle_manager,
@@ -270,31 +348,7 @@ class SaveManager:
             challenge_dungeon_manager, secret_boss_manager, hint_manager,
             post_game_manager, tutorial_manager, schedule_manager
         )
-
-        # Write to a temporary file first, then atomically rename
-        # This prevents corruption if the process is interrupted during write
-        temp_fd = None
-        temp_path = None
-        try:
-            temp_fd, temp_path = tempfile.mkstemp(dir=self.save_dir, suffix=".json")
-            with os.fdopen(temp_fd, 'w') as f:
-                temp_fd = None  # os.fdopen takes ownership of the fd
-                json.dump(data, f, indent=2)
-            os.replace(temp_path, save_path)  # Atomic on POSIX; near-atomic on Windows
-            temp_path = None  # Successfully moved, don't clean up
-        except Exception:
-            # Clean up temp file if something went wrong
-            if temp_fd is not None:
-                try:
-                    os.close(temp_fd)
-                except OSError:
-                    pass
-            if temp_path is not None and os.path.exists(temp_path):
-                try:
-                    os.remove(temp_path)
-                except OSError:
-                    pass
-            raise
+        self._atomic_write_json(save_path, data)
 
     def load_from_slot(
         self,
@@ -341,33 +395,8 @@ class SaveManager:
             FileNotFoundError: If the save slot does not exist
             ValueError: If the save file is corrupted (invalid JSON syntax) or slot is invalid
         """
-        # Validate slot number and generate safe filename
-        is_valid, filename = validate_save_slot(slot)
-        if not is_valid or not filename:
-            raise ValueError(f"Invalid save slot number: {slot}")
-
-        # Validate path stays within save directory
-        is_valid_path, save_path = validate_path_inside_base(
-            filename, self.save_dir, allow_absolute=False
-        )
-        if not is_valid_path or not save_path:
-            raise ValueError(f"Invalid save path for slot {slot}")
-
-        if not os.path.exists(save_path):
-            raise FileNotFoundError(f"Save slot {slot} not found")
-
-        # Attempt to load JSON with error handling
-        try:
-            with open(save_path, 'r') as f:
-                data = json.load(f)
-        except json.JSONDecodeError as exc:
-            log_warning(f"Save slot {slot}: JSON decode error at {save_path}: {exc}")
-            # For completely corrupted JSON (syntax errors), we cannot recover
-            # Only valid JSON with missing fields can be recovered
-            raise ValueError(f"Save slot {slot} is corrupted (invalid JSON syntax) and cannot be recovered: {exc}") from exc
-        except OSError as exc:
-            log_warning(f"Save slot {slot}: IO error reading {save_path}: {exc}")
-            raise ValueError(f"Save slot {slot} cannot be read: {exc}") from exc
+        save_path = self._validate_and_resolve_slot(slot)
+        data = self._read_slot_json(slot, save_path)
 
         # Validate, migrate, and recover if needed (handled in deserialize_state)
         resolved_resources = self._resolve_resources(resources)
@@ -562,39 +591,9 @@ class SaveManager:
         Raises:
             ValueError: If slot number is invalid
         """
-        is_valid, filename = validate_save_slot(slot)
-        if not is_valid or not filename:
-            raise ValueError(f"Invalid save slot number: {slot}")
-
-        is_valid_path, save_path = validate_path_inside_base(
-            filename, self.save_dir, allow_absolute=False
-        )
-        if not is_valid_path or not save_path:
-            raise ValueError(f"Invalid save path for slot {slot}")
+        save_path = self._validate_and_resolve_slot(slot)
         data = self.serialize_with_context(context)
-
-        # Write to a temporary file first, then atomically rename
-        temp_fd = None
-        temp_path = None
-        try:
-            temp_fd, temp_path = tempfile.mkstemp(dir=self.save_dir, suffix=".json")
-            with os.fdopen(temp_fd, 'w') as f:
-                temp_fd = None  # os.fdopen takes ownership of the fd
-                json.dump(data, f, indent=2)
-            os.replace(temp_path, save_path)  # Atomic on POSIX
-            temp_path = None  # Successfully moved
-        except Exception:
-            if temp_fd is not None:
-                try:
-                    os.close(temp_fd)
-                except OSError:
-                    pass
-            if temp_path is not None and os.path.exists(temp_path):
-                try:
-                    os.remove(temp_path)
-                except OSError:
-                    pass
-            raise
+        self._atomic_write_json(save_path, data)
 
     def load_from_slot_with_context(
         self,
@@ -618,29 +617,6 @@ class SaveManager:
             FileNotFoundError: If the save slot does not exist.
             ValueError: If the save file is corrupted (invalid JSON syntax) or slot is invalid.
         """
-        is_valid, filename = validate_save_slot(slot)
-        if not is_valid or not filename:
-            raise ValueError(f"Invalid save slot number: {slot}")
-
-        is_valid_path, save_path = validate_path_inside_base(
-            filename, self.save_dir, allow_absolute=False
-        )
-        if not is_valid_path or not save_path:
-            raise ValueError(f"Invalid save path for slot {slot}")
-
-        if not os.path.exists(save_path):
-            raise FileNotFoundError(f"Save slot {slot} not found")
-
-        try:
-            with open(save_path, 'r') as f:
-                data = json.load(f)
-        except json.JSONDecodeError as exc:
-            log_warning(f"Save slot {slot}: JSON decode error at {save_path}: {exc}")
-            raise ValueError(
-                f"Save slot {slot} is corrupted (invalid JSON syntax): {exc}"
-            ) from exc
-        except OSError as exc:
-            log_warning(f"Save slot {slot}: IO error reading {save_path}: {exc}")
-            raise ValueError(f"Save slot {slot} cannot be read: {exc}") from exc
-
+        save_path = self._validate_and_resolve_slot(slot)
+        data = self._read_slot_json(slot, save_path)
         return self.deserialize_with_context(data, context, resources)

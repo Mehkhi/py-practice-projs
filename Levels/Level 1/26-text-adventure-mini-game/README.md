@@ -215,6 +215,17 @@ This architecture makes the core logic testable and engine-agnostic.
 - Python 3.7+
 - pygame >= 2.0.0
 
+## Asset Notes
+
+### Deterministic Placeholders
+Missing sprites generate colored pixel-art placeholder images using a deterministic hash (blake2b) of the sprite ID. This ensures consistent colors across game runs, test environments, and different machines.
+
+### Duplicate Sprite ID Detection
+The asset system warns when the same sprite ID is found in multiple directories. Only the first sprite found is used. To detect duplicates before runtime:
+```bash
+python tools/lint_sprites.py
+```
+
 ## Modding & Replays
 
 - **Mods**: Place mods in `mods/<mod_id>/mod.json`. Required fields: `id`, `name`, `version`. Optional: `description`, `author`, `entry_point`, and `data_overrides` mapping a data key (e.g., `"items"`, `"encounters"`, `"classes"`, `"skills"`) to a relative JSON path inside the mod. Example:

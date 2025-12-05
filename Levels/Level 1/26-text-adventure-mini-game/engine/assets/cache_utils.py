@@ -1,5 +1,6 @@
 """Shared caching utilities for asset managers."""
 
+import hashlib
 import os
 from typing import Set, Tuple
 
@@ -134,11 +135,17 @@ def clean_sprite_transparency(image: pygame.Surface, entry: str = "") -> pygame.
 
 
 def make_placeholder(sprite_id: str, size: Tuple[int, int] = (16, 16)) -> pygame.Surface:
-    """Generate a pixel-art styled placeholder with a hash-based palette and transparency."""
+    """Generate a pixel-art styled placeholder with a hash-based palette and transparency.
+
+    Uses blake2b for deterministic hashing, ensuring consistent colors across
+    Python runs regardless of PYTHONHASHSEED randomization.
+    """
     width, height = size
     surface = pygame.Surface((width, height), pygame.SRCALPHA)
 
-    color_hash = hash(sprite_id) % 0xFFFFFF
+    # Use blake2b for deterministic hashing across Python runs
+    digest = hashlib.blake2b(sprite_id.encode('utf-8'), digest_size=4).digest()
+    color_hash = int.from_bytes(digest[:3], 'big')
     # Clamp to 50-205 range for visibility (avoid near-black/near-white)
     primary = (
         50 + ((color_hash >> 16) & 0xFF) % 156,

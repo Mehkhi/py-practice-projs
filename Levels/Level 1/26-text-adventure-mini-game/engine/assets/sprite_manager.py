@@ -23,6 +23,11 @@ class SpriteManager:
         self._alpha_surfaces: set[str] = set()  # Track which sprites have alpha channel
         self._pending_sprites: List[Tuple[str, str]] = []  # (sprite_path, sprite_id) for background loading
 
+        # Duplicate detection: track first path seen for each sprite_id
+        self._sprite_path_registry: Dict[str, str] = {}
+        # List of (sprite_id, first_path, duplicate_path) for detected duplicates
+        self._duplicate_warnings: List[Tuple[str, str, str]] = []
+
         self._load_sprites()
 
     def _collect_sprite_paths_from_dir(self, directory: str, recursive: bool = False) -> None:
@@ -30,6 +35,9 @@ class SpriteManager:
 
         This method only collects file paths without loading images, allowing
         the actual loading to be deferred to a background phase.
+
+        Detects duplicate sprite IDs from different paths and logs warnings.
+        The first sprite found wins (earlier directories take precedence).
 
         Args:
             directory: Path to the directory to scan.
@@ -47,8 +55,24 @@ class SpriteManager:
 
             if entry.lower().endswith((".png", ".jpg", ".bmp")):
                 sprite_id = os.path.splitext(entry)[0]
-                # Always add to pending if not already pending (real sprites should replace placeholders)
-                # Check if already pending to avoid duplicates
+
+                # Check for duplicates using registry
+                if sprite_id in self._sprite_path_registry:
+                    existing_path = self._sprite_path_registry[sprite_id]
+                    if existing_path != full_path:
+                        # Record duplicate for later reporting
+                        self._duplicate_warnings.append((sprite_id, existing_path, full_path))
+                        log_warning(
+                            f"Duplicate sprite ID '{sprite_id}' found: "
+                            f"{existing_path} vs {full_path}. Using first found."
+                        )
+                    # Skip adding duplicate to pending
+                    continue
+
+                # Register this sprite_id -> path mapping
+                self._sprite_path_registry[sprite_id] = full_path
+
+                # Add to pending for loading
                 if not any(pending_id == sprite_id for _, pending_id in self._pending_sprites):
                     self._pending_sprites.append((full_path, sprite_id))
 
@@ -139,6 +163,15 @@ class SpriteManager:
     def has_image(self, sprite_id: str) -> bool:
         """Check if an image exists (is loaded) without generating a placeholder."""
         return sprite_id in self.images
+
+    def get_duplicate_sprite_ids(self) -> List[Tuple[str, str, str]]:
+        """Return list of duplicate sprite ID detections.
+
+        Returns:
+            List of (sprite_id, first_path, duplicate_path) tuples for all
+            duplicate sprite IDs detected during sprite collection.
+        """
+        return list(self._duplicate_warnings)
 
     def _invalidate_scaled_cache(self, sprite_id: str) -> None:
         """Remove scaled cache entries for a sprite to avoid stale placeholders."""
