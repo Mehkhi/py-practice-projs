@@ -6,7 +6,11 @@ from typing import Dict, List, Optional, Tuple, TYPE_CHECKING
 from .base_menu_scene import BaseMenuScene
 from .assets import AssetManager
 from .ui import Menu, MessageBox, NineSlicePanel, draw_contextual_help
-from .theme import Colors, Fonts, Layout, SceneLayout
+from .ui.utils import draw_themed_panel
+from .theme import (
+    Colors, Fonts, Layout, SceneLayout,
+    PANEL_DEFAULT, PANEL_ITEM_SELECTED, PANEL_TAB, PANEL_TAB_SELECTED,
+)
 from core.world import World
 from core.entities import Player
 from core.items import Item, Inventory
@@ -330,7 +334,6 @@ class InventoryScene(BaseMenuScene):
             item_y = y_start + i * line_height
             is_selected = (self.scroll_offset + i) == self.selected_index
 
-            # Highlight selected item with rounded corners
             if is_selected:
                 highlight_rect = pygame.Rect(
                     x - Layout.PADDING_SM,
@@ -338,7 +341,7 @@ class InventoryScene(BaseMenuScene):
                     self.LAYOUT["menu_bg_width"] - Layout.PADDING_LG,
                     line_height
                 )
-                pygame.draw.rect(surface, Colors.BG_PANEL, highlight_rect, border_radius=Layout.CORNER_RADIUS_SMALL)
+                draw_themed_panel(surface, highlight_rect, PANEL_ITEM_SELECTED)
                 pygame.draw.rect(surface, Colors.ACCENT, highlight_rect, 1, border_radius=Layout.CORNER_RADIUS_SMALL)
 
             # Item name and quantity
@@ -371,8 +374,7 @@ class InventoryScene(BaseMenuScene):
         if self.panel:
             self.panel.draw(surface, details_rect)
         else:
-            pygame.draw.rect(surface, (40, 40, 50), details_rect, border_radius=Layout.CORNER_RADIUS)
-            pygame.draw.rect(surface, (100, 100, 120), details_rect, 2, border_radius=Layout.CORNER_RADIUS)
+            draw_themed_panel(surface, details_rect, PANEL_DEFAULT)
 
         selected = self._get_selected_item()
         if not selected:
@@ -461,11 +463,9 @@ class InventoryScene(BaseMenuScene):
 
             # Slot background with rounded corners
             if self.mode == "hotbar" and self.hotbar_slot_selected == slot:
-                pygame.draw.rect(surface, Colors.BG_PANEL, slot_rect, border_radius=Layout.CORNER_RADIUS_SMALL)
-                pygame.draw.rect(surface, Colors.ACCENT, slot_rect, 2, border_radius=Layout.CORNER_RADIUS_SMALL)
+                draw_themed_panel(surface, slot_rect, PANEL_TAB_SELECTED)
             else:
-                pygame.draw.rect(surface, Colors.BG_DARK, slot_rect, border_radius=Layout.CORNER_RADIUS_SMALL)
-            pygame.draw.rect(surface, Colors.BORDER, slot_rect, 1, border_radius=Layout.CORNER_RADIUS_SMALL)
+                draw_themed_panel(surface, slot_rect, PANEL_TAB)
 
             # Slot number
             num_text = small_font.render(str(slot), True, Colors.TEXT_SECONDARY)

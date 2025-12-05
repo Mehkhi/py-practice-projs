@@ -4,8 +4,9 @@ from typing import Dict, List, Optional, Tuple, TYPE_CHECKING
 
 import pygame
 
-from ..theme import Colors, Fonts, Layout
+from ..theme import Colors, Fonts, Layout, PANEL_OVERLAY
 from .text_utils import wrap_text
+from .utils import draw_themed_panel
 
 if TYPE_CHECKING:
     from core.tutorial_system import TutorialManager, HelpEntry
@@ -134,8 +135,7 @@ class HelpOverlay:
 
         # Draw main panel background
         panel_rect = pygame.Rect(panel_x, panel_y, panel_width, panel_height)
-        pygame.draw.rect(surface, Colors.BG_PANEL, panel_rect, border_radius=Layout.CORNER_RADIUS_LARGE)
-        pygame.draw.rect(surface, Colors.BORDER, panel_rect, Layout.BORDER_WIDTH, border_radius=Layout.CORNER_RADIUS_LARGE)
+        draw_themed_panel(surface, panel_rect, PANEL_OVERLAY)
 
         # Load fonts
         title_font = pygame.font.Font(None, Fonts.SIZE_HEADING)

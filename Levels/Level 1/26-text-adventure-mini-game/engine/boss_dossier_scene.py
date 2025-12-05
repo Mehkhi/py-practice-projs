@@ -6,6 +6,7 @@ from typing import List, Optional, TYPE_CHECKING
 from .base_menu_scene import BaseMenuScene
 from .assets import AssetManager
 from .theme import Colors, Fonts, Layout
+from .ui.utils import draw_themed_panel
 from core.secret_bosses import SecretBoss, SecretBossManager
 from .secret_boss_hints import HintManager
 
@@ -122,13 +123,7 @@ class BossDossierScene(BaseMenuScene):
         left_panel_rect = pygame.Rect(
             left_panel_x, left_panel_y, left_panel_width, left_panel_height
         )
-        if self.panel:
-            self.panel.draw(surface, left_panel_rect)
-        else:
-            pygame.draw.rect(surface, Colors.BG_PANEL, left_panel_rect)
-            pygame.draw.rect(
-                surface, Colors.BORDER, left_panel_rect, Layout.BORDER_WIDTH
-            )
+        draw_themed_panel(surface, left_panel_rect, panel=self.panel)
 
         # Draw boss list
         list_y = left_panel_y + 10
@@ -145,10 +140,10 @@ class BossDossierScene(BaseMenuScene):
             # Determine status
             if boss.boss_id in self.sbm.defeated:
                 status = "[DEFEATED]"
-                status_color = Colors.SUCCESS
+                status_color = Colors.TEXT_SUCCESS
             elif boss.boss_id in self.sbm.available:
                 status = "[AVAILABLE]"
-                status_color = Colors.WARNING
+                status_color = Colors.TEXT_HIGHLIGHT
             elif boss.boss_id in self.sbm.discovered:
                 status = "[DISCOVERED]"
                 status_color = Colors.TEXT_SECONDARY
@@ -174,13 +169,7 @@ class BossDossierScene(BaseMenuScene):
         right_panel_rect = pygame.Rect(
             right_panel_x, right_panel_y, right_panel_width, right_panel_height
         )
-        if self.panel:
-            self.panel.draw(surface, right_panel_rect)
-        else:
-            pygame.draw.rect(surface, Colors.BG_PANEL, right_panel_rect)
-            pygame.draw.rect(
-                surface, Colors.BORDER, right_panel_rect, Layout.BORDER_WIDTH
-            )
+        draw_themed_panel(surface, right_panel_rect, panel=self.panel)
 
         if selected_boss:
             detail_y = right_panel_y + 10
@@ -288,14 +277,14 @@ class BossDossierScene(BaseMenuScene):
                 fill_width = int(bar_width * progress_ratio)
                 if fill_width > 0:
                     fill_rect = pygame.Rect(bar_x, bar_y, fill_width, bar_height)
-                    pygame.draw.rect(surface, Colors.SUCCESS, fill_rect)
+                    pygame.draw.rect(surface, Colors.TEXT_SUCCESS, fill_rect)
 
                 detail_y += 20
 
             # "Conditions met!" indicator
             if selected_boss.boss_id in self.sbm.available:
                 available_text = font.render(
-                    "Conditions met! Boss is available.", True, Colors.SUCCESS
+                    "Conditions met! Boss is available.", True, Colors.TEXT_SUCCESS
                 )
                 surface.blit(available_text, (right_panel_x + 10, detail_y))
                 detail_y += 30

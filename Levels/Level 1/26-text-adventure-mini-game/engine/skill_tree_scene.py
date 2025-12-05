@@ -7,7 +7,8 @@ import pygame
 from .base_menu_scene import BaseMenuScene
 from .assets import AssetManager
 from .ui import Menu, MessageBox, NineSlicePanel, draw_contextual_help
-from .theme import Colors, Fonts, Layout
+from .ui.utils import draw_themed_panel
+from .theme import Colors, Fonts, Layout, PANEL_HIGHLIGHT, PANEL_SUBPANEL
 from core.entities import Player, PartyMember, Entity
 from core.skill_tree import (
     SkillTree, SkillNode, SkillTreeProgress, SkillTreeManager,
@@ -400,10 +401,9 @@ class SkillTreeScene(BaseMenuScene):
             # Draw selection highlight
             node_rect = pygame.Rect(x, node_y, 350, node_height - 2)
             if is_selected:
-                pygame.draw.rect(surface, Colors.BG_PANEL, node_rect)
-                pygame.draw.rect(surface, Colors.ACCENT, node_rect, 2)
+                draw_themed_panel(surface, node_rect, PANEL_HIGHLIGHT)
             else:
-                pygame.draw.rect(surface, bg_color, node_rect)
+                draw_themed_panel(surface, node_rect, PANEL_SUBPANEL)
 
             # Draw tier indicator
             tier_text = small_font.render(f"T{node.tier}", True, Colors.TEXT_DISABLED)
@@ -575,11 +575,7 @@ class SkillTreeScene(BaseMenuScene):
 
         # Draw panel background
         panel_rect = pygame.Rect(x, y, 220, 250)
-        if self.panel:
-            self.panel.draw(surface, panel_rect)
-        else:
-            pygame.draw.rect(surface, Colors.BG_PANEL, panel_rect)
-            pygame.draw.rect(surface, Colors.BORDER, panel_rect, 2)
+        draw_themed_panel(surface, panel_rect, panel=self.panel)
 
         # Draw node name
         name_surface = font.render(node.name, True, Colors.TEXT_PRIMARY)

@@ -6,6 +6,7 @@ from typing import Optional, Dict, List, TYPE_CHECKING
 from .base_menu_scene import BaseMenuScene
 from .assets import AssetManager
 from .ui import Menu, draw_contextual_help
+from .ui.utils import draw_themed_panel
 from .theme import Colors, Fonts, Layout
 
 if TYPE_CHECKING:
@@ -222,11 +223,7 @@ class StatisticsScene(BaseMenuScene):
         panel_height = height - 160
 
         panel_rect = pygame.Rect(panel_x, panel_y, panel_width, panel_height)
-        if self.panel:
-            self.panel.draw(surface, panel_rect)
-        else:
-            pygame.draw.rect(surface, Colors.BG_PANEL, panel_rect, border_radius=Layout.CORNER_RADIUS)
-            pygame.draw.rect(surface, Colors.BORDER, panel_rect, Layout.BORDER_WIDTH, border_radius=Layout.CORNER_RADIUS)
+        draw_themed_panel(surface, panel_rect, panel=self.panel)
 
         # Draw category name
         body_font = self.assets.get_font(Fonts.DEFAULT, Fonts.SIZE_BODY)

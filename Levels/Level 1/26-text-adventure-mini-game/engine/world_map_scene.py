@@ -7,6 +7,7 @@ import pygame
 
 from .base_menu_scene import BaseMenuScene
 from .theme import Colors, Fonts, Layout
+from .ui.utils import draw_themed_panel
 from core.world import World, get_map_graph
 
 if TYPE_CHECKING:
@@ -78,11 +79,7 @@ class WorldMapScene(BaseMenuScene):
         self._draw_help_text(surface, small_font)
 
     def _draw_panel(self, surface: pygame.Surface, rect: pygame.Rect) -> None:
-        if self.panel:
-            self.panel.draw(surface, rect)
-        else:
-            pygame.draw.rect(surface, Colors.BG_PANEL, rect, border_radius=Layout.CORNER_RADIUS)
-            pygame.draw.rect(surface, Colors.BORDER, rect, Layout.BORDER_WIDTH, border_radius=Layout.CORNER_RADIUS)
+        draw_themed_panel(surface, rect, panel=self.panel)
 
     def _compute_node_positions(self, panel_rect: pygame.Rect) -> Dict[str, Tuple[int, int]]:
         """Compute circular positions for each map."""

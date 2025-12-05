@@ -5,6 +5,7 @@ from typing import Dict, List, Optional, Tuple
 import pygame
 
 from ..theme import Colors, Fonts, Layout
+from .utils import draw_themed_panel
 from core.items import Item
 
 
@@ -98,8 +99,7 @@ class EquipmentComparisonPanel:
         # Panel background
         panel_height = self._calculate_height(font)
         panel_rect = pygame.Rect(x, y, self.width, panel_height)
-        pygame.draw.rect(surface, Colors.BG_PANEL, panel_rect, border_radius=Layout.CORNER_RADIUS)
-        pygame.draw.rect(surface, Colors.BORDER, panel_rect, Layout.BORDER_WIDTH, border_radius=Layout.CORNER_RADIUS)
+        draw_themed_panel(surface, panel_rect)
 
         content_x = x + self.padding
         current_y = y + self.padding

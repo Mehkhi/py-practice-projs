@@ -68,6 +68,10 @@ class Colors:
     TEXT_SUCCESS = (100, 255, 120)
     TEXT_INFO = (100, 200, 255)
 
+    # Convenience aliases (for backward compat / shorter names)
+    SUCCESS = TEXT_SUCCESS
+    WARNING = TEXT_HIGHLIGHT  # Use gold/highlight as warning color
+
     # Status Bars
     HP_HIGH = (100, 255, 100)
     HP_MID = (255, 200, 50)
@@ -455,6 +459,151 @@ class UITheme:
 
     font_size: int = Fonts.SIZE_BODY
 
+
+# ==============================================
+# PANEL STYLE PRESETS
+# ==============================================
+
+@dataclass(frozen=True)
+class PanelStyle:
+    """
+    Style preset for panel rendering.
+
+    Used by draw_themed_panel() and UI components to ensure consistent
+    panel appearance across the game. Frozen for immutability.
+
+    Attributes:
+        bg: Background color (RGB tuple)
+        border: Border color (RGB tuple)
+        radius: Corner radius in pixels
+        border_width: Border thickness in pixels
+        alpha: Background transparency (0-255)
+    """
+    bg: Tuple[int, int, int] = Colors.BG_PANEL
+    border: Tuple[int, int, int] = Colors.BORDER
+    radius: int = Layout.CORNER_RADIUS
+    border_width: int = Layout.BORDER_WIDTH
+    alpha: int = 220
+
+
+# Standard textured/gold UI panel
+PANEL_DEFAULT = PanelStyle()
+
+# Higher alpha, darker bg for overlays and dialogs
+PANEL_OVERLAY = PanelStyle(
+    bg=Colors.BG_DARK,
+    border=Colors.BORDER_FOCUS,
+    alpha=230,
+)
+
+# HUD-friendly compact style for combat UI
+PANEL_COMBAT = PanelStyle(
+    bg=Colors.BG_DARK,
+    border=Colors.BORDER,
+    radius=Layout.CORNER_RADIUS_SMALL,
+    alpha=200,
+)
+
+# Accent/highlight border variant for selected items
+PANEL_HIGHLIGHT = PanelStyle(
+    border=Colors.BORDER_HIGHLIGHT,
+)
+
+# Inactive tab style (dark background, thin border)
+PANEL_TAB = PanelStyle(
+    bg=Colors.BG_DARK,
+    border=Colors.BORDER,
+    radius=Layout.CORNER_RADIUS_SMALL,
+    border_width=Layout.BORDER_WIDTH_THIN,
+    alpha=200,
+)
+
+# Active/selected tab style (panel bg, highlight border)
+PANEL_TAB_SELECTED = PanelStyle(
+    bg=Colors.BG_PANEL,
+    border=Colors.BORDER_HIGHLIGHT,
+    radius=Layout.CORNER_RADIUS_SMALL,
+    border_width=Layout.BORDER_WIDTH,
+    alpha=220,
+)
+
+# Selected list item style (focus border)
+PANEL_ITEM_SELECTED = PanelStyle(
+    bg=Colors.BG_PANEL,
+    border=Colors.BORDER_FOCUS,
+    radius=Layout.CORNER_RADIUS_SMALL,
+    border_width=Layout.BORDER_WIDTH_THIN,
+    alpha=220,
+)
+
+# Sub-panel / list container style (dark, thin border)
+PANEL_SUBPANEL = PanelStyle(
+    bg=Colors.BG_DARK,
+    border=Colors.BORDER,
+    radius=Layout.CORNER_RADIUS_SMALL,
+    border_width=Layout.BORDER_WIDTH_THIN,
+    alpha=200,
+)
+
+
+def _apply_panel_config_overrides() -> None:
+    """
+    Apply optional config.json overrides to panel style presets.
+
+    This allows customization of panel appearance without code changes.
+    Config format example:
+        {
+            "theme": {
+                "panel_default": {"alpha": 200},
+                "panel_overlay": {"alpha": 240}
+            }
+        }
+
+    Silently does nothing if config is unavailable or has no theme section.
+    """
+    global PANEL_DEFAULT, PANEL_OVERLAY, PANEL_COMBAT, PANEL_HIGHLIGHT
+    global PANEL_TAB, PANEL_TAB_SELECTED, PANEL_ITEM_SELECTED, PANEL_SUBPANEL
+
+    try:
+        from .config_loader import load_config
+        config = load_config()
+        theme_config = config.get("theme", {})
+
+        if not theme_config:
+            return
+
+        # Map config keys to preset names
+        preset_map = {
+            "panel_default": "PANEL_DEFAULT",
+            "panel_overlay": "PANEL_OVERLAY",
+            "panel_combat": "PANEL_COMBAT",
+            "panel_highlight": "PANEL_HIGHLIGHT",
+            "panel_tab": "PANEL_TAB",
+            "panel_tab_selected": "PANEL_TAB_SELECTED",
+            "panel_item_selected": "PANEL_ITEM_SELECTED",
+            "panel_subpanel": "PANEL_SUBPANEL",
+        }
+
+        for config_key, preset_name in preset_map.items():
+            if config_key in theme_config:
+                overrides = theme_config[config_key]
+                current = globals().get(preset_name)
+                if current and isinstance(overrides, dict):
+                    # Create new preset with overrides merged in
+                    new_params = {
+                        "bg": overrides.get("bg", current.bg),
+                        "border": overrides.get("border", current.border),
+                        "radius": overrides.get("radius", current.radius),
+                        "border_width": overrides.get("border_width", current.border_width),
+                        "alpha": overrides.get("alpha", current.alpha),
+                    }
+                    globals()[preset_name] = PanelStyle(**new_params)
+    except Exception:
+        pass  # Silently use defaults if config unavailable
+
+
+# Apply config overrides at module load (optional, non-breaking)
+_apply_panel_config_overrides()
 
 # ==============================================
 # SCENE LAYOUT PRESETS

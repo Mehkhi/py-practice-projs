@@ -7,7 +7,8 @@ by any scene that needs to display party formation management UI.
 import pygame
 from typing import Any, Dict, List, Optional, TYPE_CHECKING
 
-from ..theme import Colors, Layout
+from ..theme import Colors, Layout, PANEL_OVERLAY, PANEL_ITEM_SELECTED, PANEL_SUBPANEL
+from .utils import draw_themed_panel
 
 if TYPE_CHECKING:
     from core.entities import Entity, Player
@@ -133,8 +134,7 @@ class PartyOverlayMixin:
             width - margin * 2,
             height - margin * 2,
         )
-        pygame.draw.rect(surface, Colors.BG_PANEL, panel_rect)
-        pygame.draw.rect(surface, Colors.BORDER, panel_rect, 2)
+        draw_themed_panel(surface, panel_rect, PANEL_OVERLAY)
 
         title_font = self.assets.get_font("large", 28) or self.assets.get_font("default")
         font = self.assets.get_font("default")
@@ -152,17 +152,10 @@ class PartyOverlayMixin:
 
         for idx, member in enumerate(members):
             card_rect = pygame.Rect(row_x, row_y + idx * (row_height + 10), row_width, row_height)
-            pygame.draw.rect(
-                surface,
-                Colors.BG_DARK if idx != self.party_overlay_selection else Colors.BG_PANEL,
-                card_rect,
-            )
-            pygame.draw.rect(
-                surface,
-                Colors.ACCENT if idx == self.party_overlay_selection else Colors.BORDER,
-                card_rect,
-                2,
-            )
+            if idx == self.party_overlay_selection:
+                draw_themed_panel(surface, card_rect, PANEL_ITEM_SELECTED)
+            else:
+                draw_themed_panel(surface, card_rect, PANEL_SUBPANEL)
 
             if font:
                 role_label = "Leader" if idx == 0 else getattr(member, "role", "Ally").title()

@@ -6,7 +6,11 @@ from typing import Dict, List, Optional, Tuple, TYPE_CHECKING
 from .base_menu_scene import BaseMenuScene
 from .assets import AssetManager
 from .ui import Menu, NineSlicePanel, draw_contextual_help
-from .theme import Colors, Fonts, Layout
+from .ui.utils import draw_themed_panel
+from .theme import (
+    Colors, Fonts, Layout,
+    PANEL_TAB, PANEL_TAB_SELECTED, PANEL_ITEM_SELECTED, PANEL_SUBPANEL,
+)
 from core.quests import Quest, QuestManager, QuestStatus
 
 if TYPE_CHECKING:
@@ -278,11 +282,7 @@ class QuestJournalScene(BaseMenuScene):
 
         # Draw main panel background
         panel_rect = pygame.Rect(40, 40, 560, 400)
-        if self.panel:
-            self.panel.draw(surface, panel_rect)
-        else:
-            pygame.draw.rect(surface, Colors.BG_PANEL, panel_rect, border_radius=Layout.CORNER_RADIUS)
-            pygame.draw.rect(surface, Colors.BORDER, panel_rect, Layout.BORDER_WIDTH, border_radius=Layout.CORNER_RADIUS)
+        draw_themed_panel(surface, panel_rect, panel=self.panel)
 
         # Draw title with shadow
         title_shadow = title_font.render("Quest Journal", True, Colors.BLACK)
@@ -338,12 +338,10 @@ class QuestJournalScene(BaseMenuScene):
 
             # Draw tab background with rounded corners
             if i == self.current_tab:
-                pygame.draw.rect(surface, Colors.BG_PANEL, tab_rect, border_radius=Layout.CORNER_RADIUS_SMALL)
-                pygame.draw.rect(surface, Colors.BORDER_HIGHLIGHT, tab_rect, Layout.BORDER_WIDTH, border_radius=Layout.CORNER_RADIUS_SMALL)
+                draw_themed_panel(surface, tab_rect, PANEL_TAB_SELECTED)
                 color = Colors.TEXT_PRIMARY
             else:
-                pygame.draw.rect(surface, Colors.BG_DARK, tab_rect, border_radius=Layout.CORNER_RADIUS_SMALL)
-                pygame.draw.rect(surface, Colors.BORDER, tab_rect, Layout.BORDER_WIDTH_THIN, border_radius=Layout.CORNER_RADIUS_SMALL)
+                draw_themed_panel(surface, tab_rect, PANEL_TAB)
                 color = Colors.TEXT_SECONDARY
 
             # Draw tab text with count
@@ -390,8 +388,7 @@ class QuestJournalScene(BaseMenuScene):
         list_rect = pygame.Rect(panel_rect.left + Layout.PADDING_LG, 125, 200, 280)
 
         # Draw list background with rounded corners
-        pygame.draw.rect(surface, Colors.BG_DARK, list_rect, border_radius=Layout.CORNER_RADIUS_SMALL)
-        pygame.draw.rect(surface, Colors.BORDER, list_rect, Layout.BORDER_WIDTH_THIN, border_radius=Layout.CORNER_RADIUS_SMALL)
+        draw_themed_panel(surface, list_rect, PANEL_SUBPANEL)
 
         quests = self._get_current_quests()
 
@@ -411,8 +408,7 @@ class QuestJournalScene(BaseMenuScene):
             # Draw selection highlight with rounded corners
             item_rect = pygame.Rect(list_rect.left + 4, y - 2, list_rect.width - 8, 42)
             if is_selected:
-                pygame.draw.rect(surface, Colors.BG_PANEL, item_rect, border_radius=Layout.CORNER_RADIUS_SMALL)
-                pygame.draw.rect(surface, Colors.BORDER_FOCUS, item_rect, Layout.BORDER_WIDTH_THIN, border_radius=Layout.CORNER_RADIUS_SMALL)
+                draw_themed_panel(surface, item_rect, PANEL_ITEM_SELECTED)
 
             # Draw quest name with tracking indicator
             color = Colors.TEXT_PRIMARY if is_selected else Colors.TEXT_SECONDARY
@@ -464,8 +460,7 @@ class QuestJournalScene(BaseMenuScene):
         details_rect = pygame.Rect(panel_rect.left + 225, 125, 320, 280)
 
         # Draw details background with rounded corners
-        pygame.draw.rect(surface, Colors.BG_DARK, details_rect, border_radius=Layout.CORNER_RADIUS_SMALL)
-        pygame.draw.rect(surface, Colors.BORDER, details_rect, Layout.BORDER_WIDTH_THIN, border_radius=Layout.CORNER_RADIUS_SMALL)
+        draw_themed_panel(surface, details_rect, PANEL_SUBPANEL)
 
         quest = self._get_selected_quest()
         if not quest:

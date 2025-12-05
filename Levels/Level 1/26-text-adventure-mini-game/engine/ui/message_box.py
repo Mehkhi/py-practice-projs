@@ -4,10 +4,10 @@ from typing import List, Optional, Tuple
 
 import pygame
 
-from ..theme import Colors, Fonts, Layout
+from ..theme import Colors, Fonts, Layout, PANEL_DEFAULT, PanelStyle
 from .animation_utils import advance_timer
 from .nine_slice import NineSlicePanel
-from .utils import draw_rounded_panel
+from .utils import draw_themed_panel
 
 
 class MessageBox:
@@ -19,6 +19,7 @@ class MessageBox:
         width: int = 620,
         height: int = 80,
         portrait_surface: Optional[pygame.Surface] = None,
+        style: Optional[PanelStyle] = None,
     ):
         self.position = position
         self.width = width
@@ -26,6 +27,7 @@ class MessageBox:
         self.lines: List[str] = []
         self.text = ""
         self.portrait_surface = portrait_surface
+        self.style = style or PANEL_DEFAULT
 
         # Pagination state
         self.current_page = 0
@@ -187,6 +189,7 @@ class MessageBox:
         surface: pygame.Surface,
         font: Optional[pygame.font.Font] = None,
         panel: Optional[NineSlicePanel] = None,
+        style: Optional[PanelStyle] = None,
     ) -> None:
         """Draw the message box with improved spacing and visuals."""
         if font is None:
@@ -205,19 +208,7 @@ class MessageBox:
         shadow_rect.move_ip(4, 4)
         pygame.draw.rect(surface, (0, 0, 0, 120), shadow_rect, border_radius=Layout.CORNER_RADIUS)
 
-        if panel:
-            panel.draw(surface, bg_rect)
-        else:
-            # Fallback style matching weather/time panel styling
-            PANEL_BG = (20, 25, 40, 180)
-            draw_rounded_panel(
-                surface,
-                bg_rect,
-                PANEL_BG,
-                Colors.BORDER,
-                border_width=Layout.BORDER_WIDTH_THIN,
-                radius=Layout.CORNER_RADIUS_SMALL
-            )
+        draw_themed_panel(surface, bg_rect, style or self.style, panel)
 
         # Calculate text starting position
         text_x = x + padding

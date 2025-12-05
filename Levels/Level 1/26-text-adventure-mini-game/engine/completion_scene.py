@@ -7,6 +7,7 @@ import pygame
 from .base_menu_scene import BaseMenuScene
 from .assets import AssetManager
 from .theme import Colors, Fonts, Layout
+from .ui.utils import draw_themed_panel
 from core.tutorial_system import TipTrigger
 
 if TYPE_CHECKING:
@@ -218,11 +219,7 @@ class CompletionScene(BaseMenuScene):
 
         # Draw main panel
         panel_rect = pygame.Rect(50, 160, width - 100, height - 220)
-        if self.panel:
-            self.panel.draw(surface, panel_rect)
-        else:
-            pygame.draw.rect(surface, Colors.BG_PANEL, panel_rect, border_radius=Layout.CORNER_RADIUS)
-            pygame.draw.rect(surface, Colors.BORDER, panel_rect, Layout.BORDER_WIDTH, border_radius=Layout.CORNER_RADIUS)
+        draw_themed_panel(surface, panel_rect, panel=self.panel)
 
         # Draw completion items
         y_offset = 180

@@ -6,6 +6,7 @@ from typing import Any, Dict, List, Optional, Tuple, TYPE_CHECKING
 from .base_menu_scene import BaseMenuScene
 from .assets import AssetManager
 from .theme import Colors, Fonts, Layout
+from .ui.utils import draw_themed_panel
 from .achievement_popup import AchievementListUI
 from .config_loader import load_config
 from core.constants import DEFAULT_WINDOW_WIDTH, DEFAULT_WINDOW_HEIGHT
@@ -190,17 +191,7 @@ class AchievementScene(BaseMenuScene):
 
     def _draw_panel_background(self, surface: pygame.Surface, rect: pygame.Rect) -> None:
         """Draw the main container panel."""
-        if self.panel:
-            self.panel.draw(surface, rect)
-        else:
-            pygame.draw.rect(surface, Colors.BG_PANEL, rect, border_radius=Layout.CORNER_RADIUS)
-            pygame.draw.rect(
-                surface,
-                Colors.BORDER,
-                rect,
-                Layout.BORDER_WIDTH,
-                border_radius=Layout.CORNER_RADIUS,
-            )
+        draw_themed_panel(surface, rect, panel=self.panel)
 
     def _compute_content_rects(self, panel_rect: pygame.Rect) -> Tuple[pygame.Rect, pygame.Rect]:
         """Split the panel into list and detail areas."""

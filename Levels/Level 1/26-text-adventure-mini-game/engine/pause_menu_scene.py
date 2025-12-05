@@ -6,6 +6,7 @@ from typing import Dict, Optional, TYPE_CHECKING
 from .base_menu_scene import BaseMenuScene
 from .assets import AssetManager
 from .ui import Menu, MessageBox, NineSlicePanel, ConfirmationDialog, draw_contextual_help
+from .ui.utils import draw_themed_panel
 from .theme import Colors, Fonts, Layout
 from core.world import World
 from core.entities import Player
@@ -410,11 +411,7 @@ class PauseMenuScene(BaseMenuScene):
 
         # Draw menu background panel with rounded corners
         menu_bg_rect = pygame.Rect(menu_x, menu_y, self.MENU_WIDTH, menu_height)
-        if self.panel:
-            self.panel.draw(surface, menu_bg_rect)
-        else:
-            pygame.draw.rect(surface, Colors.BG_PANEL, menu_bg_rect, border_radius=Layout.CORNER_RADIUS)
-            pygame.draw.rect(surface, Colors.BORDER, menu_bg_rect, Layout.BORDER_WIDTH, border_radius=Layout.CORNER_RADIUS)
+        draw_themed_panel(surface, menu_bg_rect, panel=self.panel)
 
         # Draw menu
         font = self.assets.get_font(Fonts.DEFAULT, Fonts.SIZE_BODY)

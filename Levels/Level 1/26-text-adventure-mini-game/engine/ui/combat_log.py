@@ -4,9 +4,9 @@ from typing import List, Optional, Tuple
 
 import pygame
 
-from ..theme import Colors, Fonts, Layout
+from ..theme import Colors, Fonts, Layout, PANEL_COMBAT, PanelStyle
 from .nine_slice import NineSlicePanel
-from .utils import draw_rounded_panel
+from .utils import draw_themed_panel
 
 
 class CombatLog:
@@ -30,6 +30,7 @@ class CombatLog:
         expanded_height: int = 280,
         max_visible_collapsed: int = 2,
         max_visible_expanded: int = 12,
+        style: Optional[PanelStyle] = None,
     ):
         self.position = position
         self.width = width
@@ -45,6 +46,7 @@ class CombatLog:
         self.expanded = False
         self.scroll_offset = 0
         self.auto_scroll = True  # Auto-scroll to bottom when new messages arrive
+        self.style = style or PANEL_COMBAT
 
     def add_message(self, message: str) -> None:
         """Add a message to the log. Strips special prefixes for display."""
@@ -140,6 +142,7 @@ class CombatLog:
         surface: pygame.Surface,
         font: Optional[pygame.font.Font] = None,
         panel: Optional[NineSlicePanel] = None,
+        style: Optional[PanelStyle] = None,
     ) -> None:
         """Draw the combat log."""
         if font is None:
@@ -153,19 +156,7 @@ class CombatLog:
         # Background
         bg_rect = pygame.Rect(x, y, self.width, height)
 
-        if panel:
-            panel.draw(surface, bg_rect)
-        else:
-            # Fallback style matching weather/time panel styling
-            PANEL_BG = (20, 25, 40, 180)
-            draw_rounded_panel(
-                surface,
-                bg_rect,
-                PANEL_BG,
-                Colors.BORDER,
-                border_width=Layout.BORDER_WIDTH_THIN,
-                radius=Layout.CORNER_RADIUS_SMALL
-            )
+        draw_themed_panel(surface, bg_rect, style or self.style, panel)
 
         # Header (when expanded)
         text_x = x + padding

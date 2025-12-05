@@ -6,6 +6,7 @@ from typing import Dict, List, Optional, TYPE_CHECKING
 from .base_menu_scene import BaseMenuScene
 from .assets import AssetManager
 from .ui import Menu, MessageBox, NineSlicePanel, ConfirmationDialog, draw_hp_bar, draw_sp_bar, draw_contextual_help
+from .ui.utils import draw_themed_panel
 from .theme import Colors, Fonts, Layout
 from core.world import World
 from core.entities import Player, PartyMember
@@ -333,16 +334,10 @@ class PartyMenuScene(BaseMenuScene):
 
             # Highlight selected
             if i == self.selected_member_index:
-                if self.panel:
-                    self.panel.draw(surface, card_rect)
-                else:
-                    pygame.draw.rect(surface, Colors.BG_PANEL, card_rect)
+                draw_themed_panel(surface, card_rect, panel=self.panel)
                 pygame.draw.rect(surface, Colors.ACCENT, card_rect, 2)
             else:
-                if self.panel:
-                    self.panel.draw(surface, card_rect)
-                else:
-                    pygame.draw.rect(surface, Colors.BG_DARK, card_rect)
+                draw_themed_panel(surface, card_rect, panel=self.panel)
                 pygame.draw.rect(surface, Colors.BORDER, card_rect, 1)
 
             # Draw member info
@@ -395,11 +390,7 @@ class PartyMenuScene(BaseMenuScene):
         if self.mode == "action" and self.action_menu:
             # Draw action menu background
             menu_bg_rect = pygame.Rect(340, 180, 160, 120)
-            if self.panel:
-                self.panel.draw(surface, menu_bg_rect)
-            else:
-                pygame.draw.rect(surface, Colors.BG_PANEL, menu_bg_rect)
-                pygame.draw.rect(surface, Colors.BORDER, menu_bg_rect, 2)
+            draw_themed_panel(surface, menu_bg_rect, panel=self.panel)
 
             self.action_menu.draw(
                 surface, font,
@@ -414,11 +405,7 @@ class PartyMenuScene(BaseMenuScene):
         if self.mode == "formation" and self.formation_menu:
             # Draw formation menu background
             menu_bg_rect = pygame.Rect(350, 180, 140, 120)
-            if self.panel:
-                self.panel.draw(surface, menu_bg_rect)
-            else:
-                pygame.draw.rect(surface, Colors.BG_PANEL, menu_bg_rect)
-                pygame.draw.rect(surface, Colors.BORDER, menu_bg_rect, 2)
+            draw_themed_panel(surface, menu_bg_rect, panel=self.panel)
 
             self.formation_menu.draw(
                 surface, font,
