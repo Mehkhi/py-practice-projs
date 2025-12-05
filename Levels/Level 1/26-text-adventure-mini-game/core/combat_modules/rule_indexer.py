@@ -76,11 +76,16 @@ class RuleIndexerMixin(AICacheMixin):
             # Convert to bucket ranges
             min_bucket = self._get_hp_bucket(min_hp)
             max_bucket = self._get_hp_bucket(max_hp)
-            for bucket in range(min_bucket, max_bucket + _HP_BUCKET_SIZE, _HP_BUCKET_SIZE):
-                bucket_key = bucket
-                if bucket_key not in index['hp_buckets']:
-                    index['hp_buckets'][bucket_key] = []
-                index['hp_buckets'][bucket_key].append(rule_id)
+            # Only include buckets that actually overlap with the range
+            for bucket in range(min_bucket, max_bucket + 1, _HP_BUCKET_SIZE):
+                # Check if bucket overlaps with the actual range
+                # Bucket represents [bucket, bucket + bucket_size), so it overlaps if:
+                # bucket <= max_hp AND (bucket + bucket_size) > min_hp
+                if bucket <= max_hp and (bucket + _HP_BUCKET_SIZE) > min_hp:
+                    bucket_key = bucket
+                    if bucket_key not in index['hp_buckets']:
+                        index['hp_buckets'][bucket_key] = []
+                    index['hp_buckets'][bucket_key].append(rule_id)
 
         # Index by SP bucket
         if 'sp_percent' in conditions:
@@ -88,11 +93,16 @@ class RuleIndexerMixin(AICacheMixin):
             max_sp = conditions['sp_percent'].get('max', 100)
             min_bucket = self._get_sp_bucket(min_sp)
             max_bucket = self._get_sp_bucket(max_sp)
-            for bucket in range(min_bucket, max_bucket + _SP_BUCKET_SIZE, _SP_BUCKET_SIZE):
-                bucket_key = bucket
-                if bucket_key not in index['sp_buckets']:
-                    index['sp_buckets'][bucket_key] = []
-                index['sp_buckets'][bucket_key].append(rule_id)
+            # Only include buckets that actually overlap with the range
+            for bucket in range(min_bucket, max_bucket + 1, _SP_BUCKET_SIZE):
+                # Check if bucket overlaps with the actual range
+                # Bucket represents [bucket, bucket + bucket_size), so it overlaps if:
+                # bucket <= max_sp AND (bucket + bucket_size) > min_sp
+                if bucket <= max_sp and (bucket + _SP_BUCKET_SIZE) > min_sp:
+                    bucket_key = bucket
+                    if bucket_key not in index['sp_buckets']:
+                        index['sp_buckets'][bucket_key] = []
+                    index['sp_buckets'][bucket_key].append(rule_id)
 
         # Index by status requirements
         status_reqs = set()

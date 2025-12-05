@@ -8,6 +8,13 @@ from typing import Dict, Tuple, Optional, List
 import pygame
 from typing import TYPE_CHECKING
 
+try:
+    import numpy as np
+    HAS_NUMPY = True
+except ImportError:
+    np = None  # type: ignore[assignment]
+    HAS_NUMPY = False
+
 if TYPE_CHECKING:
     from .accessibility import AccessibilityManager
 
@@ -194,24 +201,41 @@ class Gradients:
 
     @staticmethod
     def vertical(surface: pygame.Surface, top_color: Tuple[int, int, int], bottom_color: Tuple[int, int, int]) -> None:
-        """Fill a surface with a vertical gradient."""
+        """Fill a surface with a vertical gradient.
+
+        Uses NumPy vectorized operations for efficient rendering instead of
+        per-line drawing calls.
+        """
         height = surface.get_height()
         width = surface.get_width()
 
-        # Pre-calculate color steps to avoid float math in loop
         r1, g1, b1 = top_color
         r2, g2, b2 = bottom_color
 
-        r_diff = r2 - r1
-        g_diff = g2 - g1
-        b_diff = b2 - b1
+        if HAS_NUMPY:
+            ratios = np.arange(height, dtype=np.float32) / height
 
-        for y in range(height):
-            ratio = y / height
-            r = int(r1 + r_diff * ratio)
-            g = int(g1 + g_diff * ratio)
-            b = int(b1 + b_diff * ratio)
-            pygame.draw.line(surface, (r, g, b), (0, y), (width, y))
+            r = (r1 + (r2 - r1) * ratios).astype(np.uint8)
+            g = (g1 + (g2 - g1) * ratios).astype(np.uint8)
+            b = (b1 + (b2 - b1) * ratios).astype(np.uint8)
+
+            gradient_array = np.zeros((height, width, 3), dtype=np.uint8)
+            gradient_array[:, :, 0] = r[:, np.newaxis]
+            gradient_array[:, :, 1] = g[:, np.newaxis]
+            gradient_array[:, :, 2] = b[:, np.newaxis]
+
+            pygame.surfarray.blit_array(surface, gradient_array.swapaxes(0, 1))
+        else:
+            surface.lock()
+            try:
+                for y in range(height):
+                    ratio = y / height
+                    r = int(r1 + (r2 - r1) * ratio)
+                    g = int(g1 + (g2 - g1) * ratio)
+                    b = int(b1 + (b2 - b1) * ratio)
+                    pygame.draw.line(surface, (r, g, b), (0, y), (width - 1, y))
+            finally:
+                surface.unlock()
 
 # ==============================================
 # FONTS

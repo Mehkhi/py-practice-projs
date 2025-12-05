@@ -10,6 +10,13 @@ from typing import Dict, List, Optional, Tuple
 
 import pygame
 
+try:
+    import numpy as np
+    HAS_NUMPY = True
+except ImportError:
+    np = None  # type: ignore[assignment]
+    HAS_NUMPY = False
+
 from .assets import AssetManager
 
 
@@ -76,7 +83,7 @@ class EndingRenderer:
         self._gradient_surface: Optional[pygame.Surface] = None
 
     def draw_gradient_background(self, surface: pygame.Surface) -> None:
-        """Draw a smooth vertical gradient background based on ending theme.
+        """Draw a smooth vertical gradient background using NumPy for performance.
 
         Args:
             surface: Surface to draw on
@@ -88,13 +95,34 @@ class EndingRenderer:
             self._gradient_surface = pygame.Surface((width, height))
             top = self.theme["bg_top"]
             bottom = self.theme["bg_bottom"]
-            for y in range(height):
-                ratio = y / height
-                ratio = ratio * ratio * (3 - 2 * ratio)  # Smoothstep
-                r = int(top[0] + (bottom[0] - top[0]) * ratio)
-                g = int(top[1] + (bottom[1] - top[1]) * ratio)
-                b = int(top[2] + (bottom[2] - top[2]) * ratio)
-                pygame.draw.line(self._gradient_surface, (r, g, b), (0, y), (width, y))
+
+            if HAS_NUMPY:
+                # Create gradient using NumPy for better performance
+                y_indices = np.arange(height, dtype=np.float32) / height
+                ratios = y_indices * y_indices * (3 - 2 * y_indices)  # Smoothstep
+
+                r = (top[0] + (bottom[0] - top[0]) * ratios).astype(np.uint8)
+                g = (top[1] + (bottom[1] - top[1]) * ratios).astype(np.uint8)
+                b = (top[2] + (bottom[2] - top[2]) * ratios).astype(np.uint8)
+
+                gradient_array = np.zeros((height, width, 3), dtype=np.uint8)
+                gradient_array[:, :, 0] = r[:, np.newaxis]
+                gradient_array[:, :, 1] = g[:, np.newaxis]
+                gradient_array[:, :, 2] = b[:, np.newaxis]
+
+                pygame.surfarray.blit_array(self._gradient_surface, gradient_array.swapaxes(0, 1))
+            else:
+                self._gradient_surface.lock()
+                try:
+                    for y in range(height):
+                        ratio = y / height
+                        ratio = ratio * ratio * (3 - 2 * ratio)
+                        r = int(top[0] + (bottom[0] - top[0]) * ratio)
+                        g = int(top[1] + (bottom[1] - top[1]) * ratio)
+                        b = int(top[2] + (bottom[2] - top[2]) * ratio)
+                        pygame.draw.line(self._gradient_surface, (r, g, b), (0, y), (width - 1, y))
+                finally:
+                    self._gradient_surface.unlock()
 
         surface.blit(self._gradient_surface, (0, 0))
 

@@ -75,6 +75,82 @@ class TestStatusEffect(unittest.TestCase):
             self.assertFalse(result)
         self.assertEqual(effect.duration, -1)
 
+    def test_tick_frozen_applies_damage(self):
+        """Frozen deals cold damage per turn."""
+        effect = StatusEffect(id="frozen", duration=3, stacks=1)
+        stats = Stats(100, 100, 50, 50, 10, 0, 4, 6, 3)
+        initial_hp = stats.hp
+        effect.tick(stats)
+        # Frozen does 2 * stacks damage
+        self.assertEqual(stats.hp, initial_hp - 2)
+
+    def test_tick_frozen_scales_with_stacks(self):
+        """Frozen damage increases with stacks."""
+        effect = StatusEffect(id="frozen", duration=3, stacks=3)
+        stats = Stats(100, 100, 50, 50, 10, 0, 4, 6, 3)
+        initial_hp = stats.hp
+        effect.tick(stats)
+        # 3 stacks = 6 damage
+        self.assertEqual(stats.hp, initial_hp - 6)
+
+    def test_tick_stun_drains_sp(self):
+        """Stun drains SP from mental strain."""
+        effect = StatusEffect(id="stun", duration=2, stacks=1)
+        stats = Stats(100, 100, 50, 50, 10, 5, 4, 6, 3)
+        initial_sp = stats.sp
+        effect.tick(stats)
+        # Stun drains 1 * stacks SP
+        self.assertEqual(stats.sp, initial_sp - 1)
+
+    def test_tick_stun_scales_with_stacks(self):
+        """Stun SP drain increases with stacks."""
+        effect = StatusEffect(id="stun", duration=2, stacks=4)
+        stats = Stats(100, 100, 50, 50, 10, 5, 4, 6, 3)
+        initial_sp = stats.sp
+        effect.tick(stats)
+        # 4 stacks = 4 SP drained
+        self.assertEqual(stats.sp, initial_sp - 4)
+
+    def test_tick_confusion_may_apply_damage(self):
+        """Confusion has a chance to deal self-damage."""
+        from unittest.mock import patch
+
+        effect = StatusEffect(id="confusion", duration=3, stacks=1)
+        stats = Stats(100, 100, 50, 50, 10, 0, 4, 6, 3)
+        initial_hp = stats.hp
+
+        # Mock random to always trigger damage (return value < 0.3)
+        with patch('core.stats.random.random', return_value=0.1):
+            effect.tick(stats)
+            # Should deal 2 * stacks damage
+            self.assertEqual(stats.hp, initial_hp - 2)
+
+    def test_tick_confusion_may_not_apply_damage(self):
+        """Confusion damage is probabilistic - may not trigger."""
+        from unittest.mock import patch
+
+        effect = StatusEffect(id="confusion", duration=3, stacks=1)
+        stats = Stats(100, 100, 50, 50, 10, 0, 4, 6, 3)
+        initial_hp = stats.hp
+
+        # Mock random to never trigger damage (return value >= 0.3)
+        with patch('core.stats.random.random', return_value=0.5):
+            effect.tick(stats)
+            # Should not deal damage
+            self.assertEqual(stats.hp, initial_hp)
+
+    def test_tick_confusion_scales_with_stacks(self):
+        """Confusion self-damage scales with stacks when triggered."""
+        from unittest.mock import patch
+
+        effect = StatusEffect(id="confusion", duration=3, stacks=3)
+        stats = Stats(100, 100, 50, 50, 10, 0, 4, 6, 3)
+        initial_hp = stats.hp
+
+        with patch('core.stats.random.random', return_value=0.1):
+            effect.tick(stats)
+            # 3 stacks = 6 damage
+            self.assertEqual(stats.hp, initial_hp - 6)
 
 class TestStats(unittest.TestCase):
     def setUp(self):

@@ -11,8 +11,8 @@ from typing import Optional, Dict, List, Tuple, Any, TYPE_CHECKING
 from .scene import Scene
 from .assets import AssetManager
 from .ui import Menu, MessageBox, NineSlicePanel, draw_hp_bar, draw_sp_bar, draw_status_icons, CombatLog
-from .ui.utils import draw_rounded_panel
 from .theme import Colors, Fonts, Layout, Gradients
+from engine.world.overworld_renderer import draw_rounded_panel
 from .battle import (
     PartyAIMixin,
     BattleAnimationsMixin,
@@ -838,7 +838,6 @@ class BattleScene(
                         hp_surf.get_width() + hp_padding * 2,
                         hp_surf.get_height() + hp_padding * 2
                     )
-                    from engine.world.overworld_renderer import draw_rounded_panel
                     PANEL_BG = (20, 25, 40, 180)
                     draw_rounded_panel(
                         surface,

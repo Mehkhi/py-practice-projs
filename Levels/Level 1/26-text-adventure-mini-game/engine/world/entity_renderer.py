@@ -90,6 +90,42 @@ class EntityRenderer:
         self._shadow_surface_cache: Dict[Tuple[int, int], pygame.Surface] = {}
         self._detection_surface_cache: Optional[pygame.Surface] = None
         self._enemy_detection_cache: Dict[int, Dict[str, Any]] = {}
+        self._fallback_surface_cache: Dict[Tuple[int, int, int], pygame.Surface] = {}
+
+    def _get_sprite_safe(
+        self, sprite_id: str, size: Tuple[int, int], fallback_color: Tuple[int, int, int] = (128, 128, 128)
+    ) -> pygame.Surface:
+        """Safely get a sprite, returning a colored fallback if loading fails.
+
+        Args:
+            sprite_id: The sprite identifier to load.
+            size: Tuple of (width, height) for the sprite.
+            fallback_color: RGB color for the fallback surface if loading fails.
+
+        Returns:
+            The loaded sprite surface, or a colored rectangle fallback.
+        """
+        try:
+            if self.scene.assets is None:
+                raise ValueError("Assets manager is not available")
+            sprite = self.scene.assets.get_image(sprite_id, size)
+            if sprite is not None:
+                return sprite
+        except (AttributeError, pygame.error, OSError, ValueError) as e:
+            # Log the error but don't crash - this is a rendering issue, not fatal
+            import logging
+            logging.debug(f"Failed to load sprite '{sprite_id}': {e}")
+
+        # Return cached or create new fallback surface
+        cache_key = (size[0], size[1], hash(fallback_color))
+        if cache_key not in self._fallback_surface_cache:
+            fallback = pygame.Surface(size, pygame.SRCALPHA)
+            fallback.fill((*fallback_color, 200))
+            # Draw a simple "X" pattern to indicate missing sprite
+            pygame.draw.line(fallback, (255, 255, 255), (0, 0), size, 2)
+            pygame.draw.line(fallback, (255, 255, 255), (size[0], 0), (0, size[1]), 2)
+            self._fallback_surface_cache[cache_key] = fallback
+        return self._fallback_surface_cache[cache_key]
 
     def _get_detection_tiles(self, enemy: "OverworldEnemy") -> List[Tuple[int, int]]:
         """Precompute detection tile positions in world space for reuse."""
@@ -125,8 +161,9 @@ class EntityRenderer:
 
     def draw_entities(self, surface: pygame.Surface, entities: List) -> None:
         """Draw all entities (NPCs, etc.) on the map."""
+        sprite_size = (self.scene.tile_size, self.scene.tile_size)
         for entity in entities:
-            sprite = self.scene.assets.get_image(entity.sprite_id, (self.scene.tile_size, self.scene.tile_size))
+            sprite = self._get_sprite_safe(entity.sprite_id, sprite_size, fallback_color=(100, 100, 150))
             screen_x, screen_y = self.scene.renderer.project(entity.x, entity.y)
             surface.blit(sprite, (screen_x, screen_y))
 
@@ -134,8 +171,9 @@ class EntityRenderer:
         """Draw the player with improved walking animation."""
         player_screen_x, player_screen_y = self.scene.renderer.project(self.scene.player.x, self.scene.player.y)
 
-        # Get base player sprite
-        player_surface = self.scene.assets.get_image(self.scene.player.sprite_id, (self.scene.tile_size, self.scene.tile_size))
+        # Get base player sprite (with safe fallback)
+        sprite_size = (self.scene.tile_size, self.scene.tile_size)
+        player_surface = self._get_sprite_safe(self.scene.player.sprite_id, sprite_size, fallback_color=(80, 120, 200))
 
         # Calculate animation offsets
         if self.scene.is_walking:
@@ -226,8 +264,9 @@ class EntityRenderer:
         """Draw an overworld enemy with a direction indicator."""
         screen_x, screen_y = self.scene.renderer.project(enemy.x, enemy.y)
 
-        # Draw the enemy sprite
-        sprite = self.scene.assets.get_image(enemy.sprite_id, (self.scene.tile_size, self.scene.tile_size))
+        # Draw the enemy sprite (with safe fallback)
+        sprite_size = (self.scene.tile_size, self.scene.tile_size)
+        sprite = self._get_sprite_safe(enemy.sprite_id, sprite_size, fallback_color=(200, 80, 80))
         surface.blit(sprite, (screen_x, screen_y))
 
         # Draw a direction indicator (red triangle showing danger direction)

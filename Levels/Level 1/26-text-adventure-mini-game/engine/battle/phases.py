@@ -11,6 +11,7 @@ from dataclasses import dataclass
 from typing import TYPE_CHECKING
 
 from core.combat import BattleState
+from core.logging_utils import log_warning
 from core.tutorial_system import TipTrigger
 from engine.battle import AI_NOTIFICATION_DURATION
 
@@ -179,9 +180,21 @@ class BattlePhaseManager:
                 self._phases[self._current_state].exit()
             self._current_state = state
             phase = self._phases.get(state)
-            if phase:
-                phase.enter()
+            if phase is None:
+                log_warning(
+                    f"BattlePhaseManager: No phase handler registered for BattleState {state.name}"
+                )
+                raise ValueError(
+                    f"BattlePhaseManager: No phase handler registered for BattleState {state.name}"
+                )
+            phase.enter()
 
         phase = self._phases.get(state)
-        if phase:
-            phase.update(dt)
+        if phase is None:
+            log_warning(
+                f"BattlePhaseManager: No phase handler registered for BattleState {state.name}"
+            )
+            raise ValueError(
+                f"BattlePhaseManager: No phase handler registered for BattleState {state.name}"
+            )
+        phase.update(dt)

@@ -64,21 +64,135 @@ class RpgGame:
     """Main game class managing pygame and game state."""
 
     def __init__(self):
-        pygame.init()
-        self.config = self._load_config()
-        self._init_display()
-        self._init_input_and_mods()
-        self._init_replay()
+        self._pygame_initialized = False
+        self._init_error: Optional[str] = None
 
-        self.event_bus = EventBus()
-        self._load_domain_data()
+        # Initialize all attributes to None/defaults for cleanup safety
+        self.config: Dict[str, Any] = {}
+        self.screen: Optional[pygame.Surface] = None
+        self.clock: Optional[pygame.time.Clock] = None
+        self.running = False
+        self.event_bus: Optional[EventBus] = None
+        self.world = None
+        self.player = None
+        self.save_manager = None
+        self.save_coordinator = None
+        self.quest_manager = None
+        self.day_night_cycle = None
+        self.weather_system = None
+        self.achievement_manager = None
+        self.party_prototypes = None
+        self.schedule_manager = None
+        self.tutorial_manager = None
+        self.fishing_system = None
+        self.brain_teaser_manager = None
+        self.gambling_manager = None
+        self.arena_manager = None
+        self.challenge_dungeon_manager = None
+        self.post_game_manager = None
+        self.secret_boss_manager = None
+        self.hint_manager = None
+        self.scene_manager = None
+        self._last_time_period: Optional[TimeOfDay] = None
+        self._toast_notifications: List[ToastNotification] = []
 
-        # Warm data caches once at startup to avoid repeated JSON loads
-        warm_data_caches()
+        # Stage 1: Initialize pygame
+        try:
+            pygame.init()
+            self._pygame_initialized = True
+        except pygame.error as e:
+            self._init_error = f"Failed to initialize pygame: {e}"
+            log_error(self._init_error)
+            raise RuntimeError(self._init_error) from e
+        except Exception as e:
+            self._init_error = f"Unexpected error initializing pygame: {e}"
+            log_error(self._init_error)
+            raise RuntimeError(self._init_error) from e
 
-        self.save_manager = SaveManager()
-        self.save_coordinator = SaveCoordinator(self, self.save_manager)
-        self.quest_manager = load_quest_manager_safe(self.world.flags)
+        # Stage 2: Load configuration
+        try:
+            self.config = self._load_config()
+        except FileNotFoundError as e:
+            log_warning(f"Config file not found, using defaults: {e}")
+            self.config = {}
+        except (ValueError, KeyError) as e:
+            log_warning(f"Invalid config format, using defaults: {e}")
+            self.config = {}
+        except Exception as e:
+            log_warning(f"Unexpected error loading config, using defaults: {e}")
+            self.config = {}
+
+        # Stage 3: Initialize display
+        try:
+            self._init_display()
+        except pygame.error as e:
+            self._cleanup_on_failure()
+            self._init_error = f"Failed to initialize display: {e}"
+            log_error(self._init_error)
+            raise RuntimeError(self._init_error) from e
+        except Exception as e:
+            self._cleanup_on_failure()
+            self._init_error = f"Unexpected error initializing display: {e}"
+            log_error(self._init_error)
+            raise RuntimeError(self._init_error) from e
+
+        # Stage 4: Initialize input and mods (non-critical)
+        try:
+            self._init_input_and_mods()
+        except Exception as e:
+            log_warning(f"Failed to initialize input/mods, continuing with defaults: {e}")
+            self.input_manager = get_input_manager()
+            self.mods_enabled = False
+            self.mod_loader = ModLoader(enabled=False)
+
+        # Stage 5: Initialize replay system (non-critical)
+        try:
+            self._init_replay()
+        except Exception as e:
+            log_warning(f"Failed to initialize replay system: {e}")
+            self.replay_recorder = ReplayRecorder(enabled=False, metadata={})
+            self.replay_output_path = None
+
+        # Stage 6: Initialize event bus
+        try:
+            self.event_bus = EventBus()
+        except Exception as e:
+            self._cleanup_on_failure()
+            self._init_error = f"Failed to create event bus: {e}"
+            log_error(self._init_error)
+            raise RuntimeError(self._init_error) from e
+
+        # Stage 7: Load domain data (world, items, etc.)
+        try:
+            self._load_domain_data()
+        except Exception as e:
+            self._cleanup_on_failure()
+            self._init_error = f"Failed to load domain data: {e}"
+            log_error(self._init_error)
+            raise RuntimeError(self._init_error) from e
+
+        # Stage 8: Warm data caches (non-critical)
+        try:
+            warm_data_caches()
+        except Exception as e:
+            log_warning(f"Failed to warm data caches: {e}")
+
+        # Stage 9: Initialize save system
+        try:
+            self.save_manager = SaveManager()
+            self.save_coordinator = SaveCoordinator(self, self.save_manager)
+        except Exception as e:
+            self._cleanup_on_failure()
+            self._init_error = f"Failed to initialize save system: {e}"
+            log_error(self._init_error)
+            raise RuntimeError(self._init_error) from e
+
+        # Stage 10: Initialize quest manager (non-critical)
+        try:
+            self.quest_manager = load_quest_manager_safe(self.world.flags)
+        except Exception as e:
+            log_warning(f"Failed to load quest manager: {e}")
+            self.quest_manager = None
 
         # Wire up quest manager to listen to flag changes
         def on_flag_change(flag_name: str, flag_value: bool) -> None:
@@ -87,25 +201,108 @@ class RpgGame:
                 self.quest_manager.check_flag_objectives(self.world.flags)
         self.world.set_flag_change_callback(on_flag_change)
 
-        self.day_night_cycle = create_day_night_cycle(self.config)
-        self.weather_system = create_weather_system(self.config)
-        self.achievement_manager = load_achievement_manager_safe(self.event_bus)
-        self.party_prototypes = load_party_prototypes(self.items_db)
-        self.schedule_manager = load_npc_schedules(NPC_SCHEDULES_JSON)
-        self.tutorial_manager = create_tutorial_manager()
-        self.fishing_system = load_fishing_system()
-        self.brain_teaser_manager = load_brain_teaser_manager()
-        self.gambling_manager = load_gambling_manager()
-        self.arena_manager = load_arena_manager()
-        self.challenge_dungeon_manager = load_challenge_dungeon_manager()
-        self.post_game_manager = load_post_game_manager()
-        self.secret_boss_manager = load_secret_boss_manager()
-        self.hint_manager = load_hint_manager()
+        # Stage 11: Initialize game subsystems (non-critical - use safe defaults)
+        try:
+            self.day_night_cycle = create_day_night_cycle(self.config)
+        except Exception as e:
+            log_warning(f"Failed to create day/night cycle: {e}")
+            self.day_night_cycle = None
 
-        self._last_time_period: Optional[TimeOfDay] = None
-        self._toast_notifications: List[ToastNotification] = []
+        try:
+            self.weather_system = create_weather_system(self.config)
+        except Exception as e:
+            log_warning(f"Failed to create weather system: {e}")
+            self.weather_system = None
 
-        self.scene_manager = self._build_scene_manager()
+        try:
+            self.achievement_manager = load_achievement_manager_safe(self.event_bus)
+        except Exception as e:
+            log_warning(f"Failed to load achievement manager: {e}")
+            self.achievement_manager = None
+
+        try:
+            self.party_prototypes = load_party_prototypes(self.items_db)
+        except Exception as e:
+            log_warning(f"Failed to load party prototypes: {e}")
+            self.party_prototypes = {}
+
+        try:
+            self.schedule_manager = load_npc_schedules(NPC_SCHEDULES_JSON)
+        except Exception as e:
+            log_warning(f"Failed to load NPC schedules: {e}")
+            self.schedule_manager = None
+
+        try:
+            self.tutorial_manager = create_tutorial_manager()
+        except Exception as e:
+            log_warning(f"Failed to create tutorial manager: {e}")
+            self.tutorial_manager = None
+
+        try:
+            self.fishing_system = load_fishing_system()
+        except Exception as e:
+            log_warning(f"Failed to load fishing system: {e}")
+            self.fishing_system = None
+
+        try:
+            self.brain_teaser_manager = load_brain_teaser_manager()
+        except Exception as e:
+            log_warning(f"Failed to load brain teaser manager: {e}")
+            self.brain_teaser_manager = None
+
+        try:
+            self.gambling_manager = load_gambling_manager()
+        except Exception as e:
+            log_warning(f"Failed to load gambling manager: {e}")
+            self.gambling_manager = None
+
+        try:
+            self.arena_manager = load_arena_manager()
+        except Exception as e:
+            log_warning(f"Failed to load arena manager: {e}")
+            self.arena_manager = None
+
+        try:
+            self.challenge_dungeon_manager = load_challenge_dungeon_manager()
+        except Exception as e:
+            log_warning(f"Failed to load challenge dungeon manager: {e}")
+            self.challenge_dungeon_manager = None
+
+        try:
+            self.post_game_manager = load_post_game_manager()
+        except Exception as e:
+            log_warning(f"Failed to load post-game manager: {e}")
+            self.post_game_manager = None
+
+        try:
+            self.secret_boss_manager = load_secret_boss_manager()
+        except Exception as e:
+            log_warning(f"Failed to load secret boss manager: {e}")
+            self.secret_boss_manager = None
+
+        try:
+            self.hint_manager = load_hint_manager()
+        except Exception as e:
+            log_warning(f"Failed to load hint manager: {e}")
+            self.hint_manager = None
+
+        # Stage 12: Build scene manager (critical)
+        try:
+            self.scene_manager = self._build_scene_manager()
+        except Exception as e:
+            self._cleanup_on_failure()
+            self._init_error = f"Failed to build scene manager: {e}"
+            log_error(self._init_error)
+            raise RuntimeError(self._init_error) from e
+
+    def _cleanup_on_failure(self) -> None:
+        """Clean up resources if initialization fails."""
+        if self._pygame_initialized:
+            try:
+                pygame.quit()
+            except Exception:
+                pass  # Ignore cleanup errors
+        self._pygame_initialized = False
 
     def _load_config(self) -> Dict[str, Any]:
         """Load game configuration from JSON."""
@@ -198,7 +395,12 @@ class RpgGame:
         try:
             if not os.path.exists(screenshots_dir):
                 os.makedirs(screenshots_dir, exist_ok=True)
-        except (OSError, PermissionError) as e:
+        except PermissionError as e:
+            # Permission errors are system-level issues users can't fix - log only
+            log_error(f"Permission denied creating screenshots directory {screenshots_dir}: {e}")
+            return
+        except OSError as e:
+            # Other OS errors might be transient - notify user
             log_error(f"Failed to create screenshots directory {screenshots_dir}: {e}")
             toast = ToastNotification("Screenshot failed: Cannot create directory", duration=2.0, position="top-center")
             self._toast_notifications.append(toast)
@@ -218,6 +420,9 @@ class RpgGame:
             log_error(f"Pygame error saving screenshot to {filepath}: {e}")
             toast = ToastNotification("Screenshot failed: Pygame error", duration=2.0, position="top-center")
             self._toast_notifications.append(toast)
+        except PermissionError as e:
+            # Permission errors are system-level - log only, no toast
+            log_error(f"Permission denied saving screenshot to {filepath}: {e}")
         except OSError as e:
             log_error(f"File system error saving screenshot to {filepath}: {e}")
             toast = ToastNotification("Screenshot failed: File system error", duration=2.0, position="top-center")
@@ -241,7 +446,11 @@ class RpgGame:
         self.replay_recorder.record_event("input", payload)
 
     def _flush_replay(self) -> None:
-        """Persist the replay log to disk if recording is active."""
+        """Persist the replay log to disk if recording is active.
+
+        Always cleans up the replay recorder after attempting to save,
+        regardless of success or failure, to prevent resource leaks.
+        """
         if not self.replay_recorder or not getattr(self.replay_recorder, "enabled", False):
             return
 
@@ -250,20 +459,40 @@ class RpgGame:
             f"replay_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
         )
         target_dir = os.path.dirname(target_path) or "."
+
         try:
             os.makedirs(target_dir, exist_ok=True)
         except PermissionError as e:
             log_error(f"Permission denied creating replay directory {target_dir}: {e}")
+            self._cleanup_replay_recorder()
             return
         except OSError as e:
             log_error(f"OS error creating replay directory {target_dir}: {e}")
+            self._cleanup_replay_recorder()
             return
         except Exception as e:
             log_error(f"Unexpected error creating replay directory {target_dir}: {e}")
+            self._cleanup_replay_recorder()
             return
 
-        if not self.replay_recorder.save(target_path):
-            log_warning(f"Replay recording failed to save to {target_path}")
+        try:
+            if not self.replay_recorder.save(target_path):
+                log_warning(f"Replay recording failed to save to {target_path}")
+        except Exception as e:
+            log_error(f"Exception saving replay to {target_path}: {e}")
+        finally:
+            # Always clean up the recorder to prevent resource leaks
+            self._cleanup_replay_recorder()
+
+    def _cleanup_replay_recorder(self) -> None:
+        """Disable and clean up the replay recorder to release resources."""
+        if self.replay_recorder:
+            self.replay_recorder.enabled = False
+            # Clear any buffered events to free memory
+            if hasattr(self.replay_recorder, 'events'):
+                self.replay_recorder.events.clear()
+            if hasattr(self.replay_recorder, 'clear'):
+                self.replay_recorder.clear()
 
     def run(self) -> None:
         """Main game loop."""
@@ -366,9 +595,13 @@ class RpgGame:
 
     def _update_toasts(self, dt: float) -> None:
         """Update transient toast notifications."""
-        self._toast_notifications = [toast for toast in self._toast_notifications if toast.active]
+        # Update all toasts first
         for toast in self._toast_notifications:
             toast.update(dt)
+        # Remove inactive toasts in-place (reverse iteration to avoid index issues)
+        for i in range(len(self._toast_notifications) - 1, -1, -1):
+            if not self._toast_notifications[i].active:
+                del self._toast_notifications[i]
 
     def _render(self) -> None:
         """Render the current scene and any overlays."""

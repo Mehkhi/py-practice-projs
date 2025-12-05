@@ -63,7 +63,27 @@ class SaveCoordinator:
 
         try:
             context = SaveContext.from_game(self.game)
-            self.game.player = self.save_manager.load_from_slot_with_context(slot, context)
+            loaded_player = self.save_manager.load_from_slot_with_context(slot, context)
+
+            # Validate loaded player before overwriting game state
+            if loaded_player is None:
+                log_warning(f"Load from slot {slot} returned None")
+                return False
+
+            # Validate required player attributes exist
+            required_attrs = ('stats', 'inventory', 'position')
+            missing_attrs = [attr for attr in required_attrs if not hasattr(loaded_player, attr)]
+            if missing_attrs:
+                log_warning(f"Loaded player missing required attributes: {missing_attrs}")
+                return False
+
+            # Validate stats object has essential properties
+            if loaded_player.stats is None:
+                log_warning(f"Loaded player has None stats object")
+                return False
+
+            # Only assign after all validation passes
+            self.game.player = loaded_player
             self.game.save_slot = slot
 
             if self.game.quest_manager:

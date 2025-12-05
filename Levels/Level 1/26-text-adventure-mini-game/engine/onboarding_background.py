@@ -10,6 +10,13 @@ from typing import Dict, List
 
 import pygame
 
+try:
+    import numpy as np
+    HAS_NUMPY = True
+except ImportError:
+    np = None  # type: ignore[assignment]
+    HAS_NUMPY = False
+
 from .theme import Colors
 from .onboarding_theme import generate_stars, generate_particles, update_particles
 
@@ -48,11 +55,72 @@ class OnboardingBackgroundRenderer:
         Call this when the renderer is no longer needed, especially during
         window resizing or scene transitions.
         """
-        # Explicitly clean up cached surfaces
-        for cached_surface in self._cache.values():
-            if cached_surface is not None:
-                cached_surface = None  # Help garbage collector
+        # Drop cached surfaces so references are released promptly.
         self._cache.clear()
+        self._cache = {}
+
+    def _build_gradient_surface(self, width: int, height: int) -> pygame.Surface:
+        """Create the onboarding gradient surface with an optional NumPy fast path."""
+        grad = pygame.Surface((width, height))
+        top, bottom = Colors.BG_ONBOARDING_TOP, Colors.BG_ONBOARDING_BOTTOM
+
+        if HAS_NUMPY:
+            y_indices = np.arange(height, dtype=np.float32) / height
+            ratios = y_indices * y_indices * (3 - 2 * y_indices)  # Smoothstep
+
+            r = (top[0] + (bottom[0] - top[0]) * ratios).astype(np.uint8)
+            g = (top[1] + (bottom[1] - top[1]) * ratios).astype(np.uint8)
+            b = (top[2] + (bottom[2] - top[2]) * ratios).astype(np.uint8)
+
+            gradient_array = np.zeros((height, width, 3), dtype=np.uint8)
+            gradient_array[:, :, 0] = r[:, np.newaxis]
+            gradient_array[:, :, 1] = g[:, np.newaxis]
+            gradient_array[:, :, 2] = b[:, np.newaxis]
+
+            pygame.surfarray.blit_array(grad, gradient_array.swapaxes(0, 1))
+        else:
+            grad.lock()
+            try:
+                for y in range(height):
+                    ratio = y / height
+                    ratio = ratio * ratio * (3 - 2 * ratio)
+                    r = int(top[0] + (bottom[0] - top[0]) * ratio)
+                    g = int(top[1] + (bottom[1] - top[1]) * ratio)
+                    b = int(top[2] + (bottom[2] - top[2]) * ratio)
+                    pygame.draw.line(grad, (r, g, b), (0, y), (width - 1, y))
+            finally:
+                grad.unlock()
+
+        return grad
+
+    def _build_vignette_surface(self, width: int, height: int) -> pygame.Surface:
+        """Create the vignette surface with an optional NumPy fast path."""
+        vig = pygame.Surface((width, height), pygame.SRCALPHA)
+        cx, cy = width // 2, height // 2
+        max_dist = math.sqrt(cx ** 2 + cy ** 2)
+
+        if HAS_NUMPY:
+            x_coords = np.arange(width, dtype=np.float32)
+            y_coords = np.arange(height, dtype=np.float32)
+            xx, yy = np.meshgrid(x_coords, y_coords)
+
+            distances = np.sqrt((xx - cx) ** 2 + (yy - cy) ** 2)
+            alphas = np.minimum(80, (distances / max_dist) ** 2 * 120).astype(np.uint8)
+            pygame.surfarray.pixels_alpha(vig)[:] = alphas.T
+        else:
+            vig.lock()
+            try:
+                for y in range(height):
+                    dy = y - cy
+                    for x in range(width):
+                        dx = x - cx
+                        distance = math.sqrt(dx * dx + dy * dy)
+                        alpha = min(80, (distance / max_dist) ** 2 * 120)
+                        vig.set_at((x, y), (0, 0, 0, int(alpha)))
+            finally:
+                vig.unlock()
+
+        return vig
 
     def draw(self, surface: pygame.Surface, fade_in: float = 1.0) -> None:
         """Draw the complete onboarding background.
@@ -65,26 +133,14 @@ class OnboardingBackgroundRenderer:
 
         # Update cache if dimensions changed
         if width != self.width or height != self.height:
-            # Clean up old surfaces before clearing cache
-            for cached_surface in self._cache.values():
-                if cached_surface is not None:
-                    cached_surface = None  # Help garbage collector
+            # Clear old cached surfaces - they're the wrong size now
             self._cache.clear()
             self.width = width
             self.height = height
 
-        # Gradient background (cached)
+        # Gradient background (cached) - using optimized NumPy-based rendering
         if self._cache.get("gradient") is None or self._cache["gradient"].get_size() != (width, height):
-            grad = pygame.Surface((width, height))
-            top, bottom = Colors.BG_ONBOARDING_TOP, Colors.BG_ONBOARDING_BOTTOM
-            for y in range(height):
-                ratio = y / height
-                ratio = ratio * ratio * (3 - 2 * ratio)  # Smoothstep interpolation
-                r = int(top[0] + (bottom[0] - top[0]) * ratio)
-                g = int(top[1] + (bottom[1] - top[1]) * ratio)
-                b = int(top[2] + (bottom[2] - top[2]) * ratio)
-                pygame.draw.line(grad, (r, g, b), (0, y), (width, y))
-            self._cache["gradient"] = grad
+            self._cache["gradient"] = self._build_gradient_surface(width, height)
         surface.blit(self._cache["gradient"], (0, 0))
 
         # Stars
@@ -115,17 +171,9 @@ class OnboardingBackgroundRenderer:
                 # Draw directly - pygame handles alpha blending efficiently
                 pygame.draw.circle(surface, color, (x, y), size)
 
-        # Vignette (cached)
+        # Vignette (cached) - using optimized NumPy-based rendering
         if self._cache.get("vignette") is None or self._cache["vignette"].get_size() != (width, height):
-            vig = pygame.Surface((width, height), pygame.SRCALPHA)
-            cx, cy = width // 2, height // 2
-            max_dist = math.sqrt(cx ** 2 + cy ** 2)
-            for vy in range(0, height, 4):
-                for vx in range(0, width, 4):
-                    dist = math.sqrt((vx - cx) ** 2 + (vy - cy) ** 2)
-                    alpha = int(min(80, (dist / max_dist) ** 2 * 120))
-                    pygame.draw.rect(vig, (0, 0, 0, alpha), (vx, vy, 4, 4))
-            self._cache["vignette"] = vig
+            self._cache["vignette"] = self._build_vignette_surface(width, height)
         surface.blit(self._cache["vignette"], (0, 0))
 
 

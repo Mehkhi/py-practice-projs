@@ -5,6 +5,13 @@ import random
 import pygame
 from typing import Optional, List, TYPE_CHECKING
 
+try:
+    import numpy as np
+    HAS_NUMPY = True
+except ImportError:
+    np = None  # type: ignore[assignment]
+    HAS_NUMPY = False
+
 from .base_menu_scene import BaseMenuScene
 from .ui import MessageBox, NineSlicePanel
 from .assets import AssetManager
@@ -118,25 +125,46 @@ class NameEntryScene(BaseMenuScene):
         self._draw_footer(surface, center_x, height - 40)
 
     def _draw_gradient_background(self, surface: pygame.Surface) -> None:
-        """Draw a smooth vertical gradient background."""
+        """Draw a smooth vertical gradient background using NumPy for performance."""
         width, height = surface.get_size()
 
         if self._gradient_surface is None or self._gradient_surface.get_size() != (width, height):
             self._gradient_surface = pygame.Surface((width, height))
             top = Colors.BG_ONBOARDING_TOP
             bottom = Colors.BG_ONBOARDING_BOTTOM
-            for y in range(height):
-                ratio = y / height
-                ratio = ratio * ratio * (3 - 2 * ratio)
-                r = int(top[0] + (bottom[0] - top[0]) * ratio)
-                g = int(top[1] + (bottom[1] - top[1]) * ratio)
-                b = int(top[2] + (bottom[2] - top[2]) * ratio)
-                pygame.draw.line(self._gradient_surface, (r, g, b), (0, y), (width, y))
+
+            if HAS_NUMPY:
+                # Create gradient using NumPy for better performance
+                y_indices = np.arange(height, dtype=np.float32) / height
+                ratios = y_indices * y_indices * (3 - 2 * y_indices)  # Smoothstep
+
+                r = (top[0] + (bottom[0] - top[0]) * ratios).astype(np.uint8)
+                g = (top[1] + (bottom[1] - top[1]) * ratios).astype(np.uint8)
+                b = (top[2] + (bottom[2] - top[2]) * ratios).astype(np.uint8)
+
+                gradient_array = np.zeros((height, width, 3), dtype=np.uint8)
+                gradient_array[:, :, 0] = r[:, np.newaxis]
+                gradient_array[:, :, 1] = g[:, np.newaxis]
+                gradient_array[:, :, 2] = b[:, np.newaxis]
+
+                pygame.surfarray.blit_array(self._gradient_surface, gradient_array.swapaxes(0, 1))
+            else:
+                self._gradient_surface.lock()
+                try:
+                    for y in range(height):
+                        ratio = y / height
+                        ratio = ratio * ratio * (3 - 2 * ratio)  # Smoothstep
+                        r = int(top[0] + (bottom[0] - top[0]) * ratio)
+                        g = int(top[1] + (bottom[1] - top[1]) * ratio)
+                        b = int(top[2] + (bottom[2] - top[2]) * ratio)
+                        pygame.draw.line(self._gradient_surface, (r, g, b), (0, y), (width - 1, y))
+                finally:
+                    self._gradient_surface.unlock()
 
         surface.blit(self._gradient_surface, (0, 0))
 
     def _draw_vignette(self, surface: pygame.Surface) -> None:
-        """Draw a subtle vignette effect."""
+        """Draw a subtle vignette effect using NumPy for performance."""
         width, height = surface.get_size()
 
         if self._vignette_surface is None or self._vignette_surface.get_size() != (width, height):
@@ -144,12 +172,26 @@ class NameEntryScene(BaseMenuScene):
             center_x, center_y = width // 2, height // 2
             max_dist = math.sqrt(center_x ** 2 + center_y ** 2)
 
-            for y in range(0, height, 4):
-                for x in range(0, width, 4):
-                    dist = math.sqrt((x - center_x) ** 2 + (y - center_y) ** 2)
-                    ratio = dist / max_dist
-                    alpha = int(min(80, ratio * ratio * 120))
-                    pygame.draw.rect(self._vignette_surface, (0, 0, 0, alpha), (x, y, 4, 4))
+            if HAS_NUMPY:
+                x_coords = np.arange(width, dtype=np.float32)
+                y_coords = np.arange(height, dtype=np.float32)
+                xx, yy = np.meshgrid(x_coords, y_coords)
+
+                distances = np.sqrt((xx - center_x) ** 2 + (yy - center_y) ** 2)
+                alphas = np.minimum(80, (distances / max_dist) ** 2 * 120).astype(np.uint8)
+                pygame.surfarray.pixels_alpha(self._vignette_surface)[:] = alphas.T
+            else:
+                self._vignette_surface.lock()
+                try:
+                    for y in range(height):
+                        dy = y - center_y
+                        for x in range(width):
+                            dx = x - center_x
+                            distance = math.sqrt(dx * dx + dy * dy)
+                            alpha = min(80, (distance / max_dist) ** 2 * 120)
+                            self._vignette_surface.set_at((x, y), (0, 0, 0, int(alpha)))
+                finally:
+                    self._vignette_surface.unlock()
 
         surface.blit(self._vignette_surface, (0, 0))
 

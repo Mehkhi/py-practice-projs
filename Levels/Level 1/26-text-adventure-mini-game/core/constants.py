@@ -55,6 +55,11 @@ STATUS_BLEED_DAMAGE_PER_STACK = 3
 STATUS_TERROR_SP_DRAIN_PER_STACK = 2
 STATUS_BURN_DAMAGE_PER_STACK = 4
 STATUS_SLEEP_HEAL_PER_STACK = 2
+STATUS_FROZEN_DAMAGE_PER_STACK = 2  # Cold damage (less than burn since frozen prevents action)
+STATUS_STUN_SP_DRAIN_PER_STACK = 1  # Mental strain (less than terror since stun prevents action)
+STATUS_CONFUSION_SELF_DAMAGE_PER_STACK = 2  # Panic-induced self-harm
+STATUS_CONFUSION_DAMAGE_CHANCE = 0.3  # 30% chance to self-damage per tick
+
 
 # --- Element Multipliers ---
 # Damage multipliers for elemental affinities

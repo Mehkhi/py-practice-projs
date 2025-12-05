@@ -268,8 +268,16 @@ class SceneManager:
         """Get post-game manager with logging if missing."""
         return self.get_manager("post_game_manager", caller)
 
-    def current(self) -> Scene:
-        """Get the current active scene."""
+    def current(self) -> Optional[Scene]:
+        """Get the current active scene.
+
+        Returns:
+            The current scene, or None if the stack is empty.
+        """
+        if not self.stack:
+            from core.logging_utils import log_warning
+            log_warning("SceneManager.current() called with empty stack")
+            return None
         return self.stack[-1]
 
     def push(self, scene: Scene) -> None:
@@ -283,9 +291,17 @@ class SceneManager:
             self.stack.pop()
 
     def replace(self, scene: Scene) -> None:
-        """Replace the current scene."""
+        """Replace the current scene.
+
+        If the stack is empty, the scene is pushed instead.
+        """
         scene.manager = self
-        self.stack[-1] = scene
+        if not self.stack:
+            from core.logging_utils import log_warning
+            log_warning("SceneManager.replace() called with empty stack, pushing instead")
+            self.stack.append(scene)
+        else:
+            self.stack[-1] = scene
 
     def get_scene_of_type(self, scene_type: type) -> Optional[Scene]:
         """Return the most recent scene on the stack matching the given type."""

@@ -483,8 +483,8 @@ def start_battle(scene: "WorldScene", encounter_id: str, trigger: Optional[Any] 
             computed_skills = metadata["skills"] or getattr(enemy_participant.entity, "skills", [])
             enemy_participant.skills = list(dict.fromkeys(computed_skills))
             enemy_participant.items = metadata["items"]
-            if scene.config.get("ai_validation_enabled", True):
-                scene._validate_ai_profile_dict(
+            if scene.config.get("ai_validation_enabled", True) and scene.ai_validator:
+                scene.ai_validator.validate_single_ai_profile(
                     enemy_participant.ai_profile,
                     scene.skills,
                     scene.items_db,

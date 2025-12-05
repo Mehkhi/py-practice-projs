@@ -1,6 +1,7 @@
 """Stats and status effects system."""
 
 from dataclasses import dataclass, field
+import random
 from typing import TYPE_CHECKING, Any, Callable, Dict, List, Optional, Tuple
 
 if TYPE_CHECKING:
@@ -16,6 +17,10 @@ from core.constants import (
     STATUS_TERROR_SP_DRAIN_PER_STACK,
     STATUS_BURN_DAMAGE_PER_STACK,
     STATUS_SLEEP_HEAL_PER_STACK,
+    STATUS_FROZEN_DAMAGE_PER_STACK,
+    STATUS_STUN_SP_DRAIN_PER_STACK,
+    STATUS_CONFUSION_SELF_DAMAGE_PER_STACK,
+    STATUS_CONFUSION_DAMAGE_CHANCE,
 )
 
 
@@ -45,13 +50,14 @@ def _apply_burn(effect: "StatusEffect", stats: "Stats") -> None:
 
 
 def _apply_frozen(effect: "StatusEffect", stats: "Stats") -> None:
-    """Frozen: cannot act, but takes no tick damage. Effect handled in combat system."""
-    pass
+    """Frozen: cannot act, takes minor cold damage per turn. Speed penalty handled elsewhere."""
+    damage = STATUS_FROZEN_DAMAGE_PER_STACK * effect.stacks
+    stats.hp = max(0, stats.hp - damage)
 
 
 def _apply_stun(effect: "StatusEffect", stats: "Stats") -> None:
-    """Stun: cannot act for duration. Effect handled in combat system."""
-    pass
+    """Stun: cannot act, drains SP from mental strain."""
+    stats.sp = max(0, stats.sp - STATUS_STUN_SP_DRAIN_PER_STACK * effect.stacks)
 
 
 def _apply_sleep(effect: "StatusEffect", stats: "Stats") -> None:
@@ -61,8 +67,10 @@ def _apply_sleep(effect: "StatusEffect", stats: "Stats") -> None:
 
 
 def _apply_confusion(effect: "StatusEffect", stats: "Stats") -> None:
-    """Confusion: may attack wrong target or self. Effect handled in combat system."""
-    pass
+    """Confusion: may hurt self each turn due to panic. Attack redirection handled in combat."""
+    if random.random() < STATUS_CONFUSION_DAMAGE_CHANCE:
+        damage = STATUS_CONFUSION_SELF_DAMAGE_PER_STACK * effect.stacks
+        stats.hp = max(0, stats.hp - damage)
 
 
 # Dispatch dictionary for status effect tick handlers
