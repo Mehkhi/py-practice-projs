@@ -483,14 +483,20 @@ def start_battle(scene: "WorldScene", encounter_id: str, trigger: Optional[Any] 
             computed_skills = metadata["skills"] or getattr(enemy_participant.entity, "skills", [])
             enemy_participant.skills = list(dict.fromkeys(computed_skills))
             enemy_participant.items = metadata["items"]
-            if scene.config.get("ai_validation_enabled", True) and scene.ai_validator:
-                scene.ai_validator.validate_single_ai_profile(
-                    enemy_participant.ai_profile,
-                    scene.skills,
-                    scene.items_db,
-                    encounter_id,
-                    metadata["enemy_id"],
-                )
+            if scene.config.get("ai_validation_enabled", True):
+                if scene.ai_validator:
+                    scene.ai_validator.validate_single_ai_profile(
+                        enemy_participant.ai_profile,
+                        scene.skills,
+                        scene.items_db,
+                        encounter_id,
+                        metadata["enemy_id"],
+                    )
+                else:
+                    log_warning(
+                        f"AI validation enabled but validator not available for "
+                        f"encounter '{encounter_id}' enemy '{metadata['enemy_id']}'"
+                    )
 
     from engine.battle_scene import BattleScene
 

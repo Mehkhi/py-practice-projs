@@ -507,7 +507,13 @@ class RpgGame:
                 break
 
             self._handle_scene_transitions()
-            self.scene_manager.current().update(dt)
+            current_scene = self.scene_manager.current()
+            if current_scene:
+                current_scene.update(dt)
+            else:
+                self.running = False
+                log_warning("No active scene during run loop update - breaking")
+                break
             self._update_toasts(dt)
             self._render()
 
@@ -574,7 +580,9 @@ class RpgGame:
                     self._take_screenshot()
                     continue
                 self._record_replay_event(translated_event)
-                self.scene_manager.current().handle_event(translated_event)
+                current_scene = self.scene_manager.current()
+                if current_scene:
+                    current_scene.handle_event(translated_event)
 
     def _handle_scene_transitions(self) -> None:
         """Handle transitions between title, name entry, and class selection scenes."""
@@ -606,7 +614,9 @@ class RpgGame:
     def _render(self) -> None:
         """Render the current scene and any overlays."""
         self.screen.fill((0, 0, 0))
-        self.scene_manager.current().draw(self.screen)
+        current_scene = self.scene_manager.current()
+        if current_scene:
+            current_scene.draw(self.screen)
         for toast in self._toast_notifications:
             toast.draw(self.screen)
         pygame.display.flip()
