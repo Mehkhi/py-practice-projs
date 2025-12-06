@@ -469,21 +469,11 @@ class RpgGame:
             # Show toast notification
             toast = ToastNotification(f"Screenshot saved: {filename}", duration=2.0, position="top-center")
             self._toast_notifications.append(toast)
-        except pygame.error as e:
-            log_error(f"Pygame error saving screenshot to {filepath}: {e}")
-            toast = ToastNotification("Screenshot failed: Pygame error", duration=2.0, position="top-center")
-            self._toast_notifications.append(toast)
-        except PermissionError as e:
-            # Permission errors are system-level - log only, no toast
-            log_error(f"Permission denied saving screenshot to {filepath}: {e}")
-        except OSError as e:
-            log_error(f"File system error saving screenshot to {filepath}: {e}")
-            toast = ToastNotification("Screenshot failed: File system error", duration=2.0, position="top-center")
-            self._toast_notifications.append(toast)
         except Exception as e:
-            log_error(f"Unexpected error saving screenshot to {filepath}: {e}")
-            toast = ToastNotification("Screenshot failed!", duration=2.0, position="top-center")
-            self._toast_notifications.append(toast)
+            log_error(f"Failed to save screenshot to {filepath}: {e}")
+            if not isinstance(e, PermissionError):
+                toast = ToastNotification("Screenshot failed!", duration=2.0, position="top-center")
+                self._toast_notifications.append(toast)
 
     def _record_replay_event(self, event: pygame.event.Event) -> None:
         """Record translated input events when replay recording is enabled."""
@@ -515,16 +505,8 @@ class RpgGame:
 
         try:
             os.makedirs(target_dir, exist_ok=True)
-        except PermissionError as e:
-            log_error(f"Permission denied creating replay directory {target_dir}: {e}")
-            self._cleanup_replay_recorder()
-            return
-        except OSError as e:
-            log_error(f"OS error creating replay directory {target_dir}: {e}")
-            self._cleanup_replay_recorder()
-            return
         except Exception as e:
-            log_error(f"Unexpected error creating replay directory {target_dir}: {e}")
+            log_warning(f"Failed to create replay directory {target_dir}: {e}")
             self._cleanup_replay_recorder()
             return
 

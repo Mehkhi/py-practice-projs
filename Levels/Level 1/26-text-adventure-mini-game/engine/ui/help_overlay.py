@@ -97,10 +97,6 @@ class HelpOverlay:
         # No animations currently, but method exists for future use
         pass
 
-    def _wrap_text(self, text: str, font: pygame.font.Font, max_width: int) -> List[str]:
-        """Wrap text to fit within max_width using shared helper."""
-        return wrap_text(text, font, max_width)
-
     def draw(self, surface: pygame.Surface) -> None:
         """
         Draw the help overlay:
@@ -210,7 +206,7 @@ class HelpOverlay:
                 y_offset += title_surface.get_height() + Layout.ELEMENT_GAP_SMALL
 
                 # Draw entry content (word-wrapped)
-                wrapped_lines = self._wrap_text(entry.content, content_font, content_width - (Layout.PADDING_LG * 2))
+                wrapped_lines = wrap_text(entry.content, content_font, content_width - (Layout.PADDING_LG * 2))
                 for line in wrapped_lines:
                     if y_offset + line_height > content_y and y_offset < content_y + content_height:
                         line_surface = content_font.render(line, True, Colors.TEXT_PRIMARY)

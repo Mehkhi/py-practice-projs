@@ -1,19 +1,4 @@
-"""Learning AI integration driver for adaptive enemy behavior.
-
-This module provides integration hooks between the battle system and the learning
-AI system. It handles recording player actions for pattern detection and
-applying counter-strategies to modify enemy behavior.
-
-Learning AI integration:
-    - Records player actions with context (HP, targets, turn number)
-    - Applies counter-strategies to modify rule weights
-    - Detects player patterns (skill preferences, target preferences, heal thresholds)
-    - Generates adaptive responses (aggressive, guard_when_weak, focus_fire)
-
-Performance optimization:
-    - Only creates copies for rules that will be modified
-    - Uses selective deep copy for modified rules only
-"""
+"""Integrates the learning AI with battle flow (recording actions and applying counter strategies)."""
 
 import copy
 from typing import TYPE_CHECKING, Any, Dict, List, Optional
@@ -24,18 +9,7 @@ if TYPE_CHECKING:
 
 
 class LearningDriverMixin:
-    """Mixin providing learning AI integration methods for AI systems.
-
-    This mixin assumes the host class has:
-    - self.players: List[BattleParticipant]
-    - self.enemies: List[BattleParticipant]
-    - self.learning_ai: Optional[LearningAI]
-    - self.debug_ai: bool
-    - self.message_log: List[str]
-    - self.turn_counter: int
-    - self._hp_percent(participant) -> float
-    - self._find_participant(entity_id) -> Optional[BattleParticipant]
-    """
+    """Helpers for recording player actions and applying learning AI adjustments."""
 
     def _record_player_action_for_learning(self, cmd: "BattleCommand") -> None:
         """Record a player action for the learning AI to analyze."""
@@ -82,55 +56,7 @@ class LearningDriverMixin:
         enemy: "BattleParticipant",
         counter_strategy: Dict[str, Any]
     ) -> List[Dict[str, Any]]:
-        """Apply learning AI counter-strategy to modify rule weights.
-
-        This method modifies rule weights based on learned player patterns.
-        The learning AI detects player behavior (favorite skills, target
-        preferences, heal thresholds) and generates counter-strategies.
-
-        Performance optimization:
-        - Only creates copies for rules that will be modified
-        - Uses selective deep copy for modified rules only
-
-        Weight modifications:
-        - aggressive: Increases attack action weights
-        - guard_when_weak: Increases guard weights when enemy HP < 40%
-        - skill_over_attack: Increases skill weights over attack weights
-
-        Priority actions:
-        - focus_fire: Boosts attacks targeting weakest enemy
-        - protect_weak_ally: Boosts guard/ally-targeting actions
-
-        Args:
-            rules: List of rule dictionaries (will be selectively copied)
-            enemy: The enemy participant (for HP checks)
-            counter_strategy: Dict with 'weight_modifiers' and 'priority_actions'
-
-        Returns:
-            List[Dict[str, Any]]: Rules with adjusted weights. If any rules were
-                modified, returns a new list containing selectively deep-copied
-                modified rules alongside original unmodified rules. If no
-                modifications were needed (empty counter_strategy or no matching
-                rules), returns the original rules list unchanged (not a copy).
-
-        Example counter_strategy:
-            {
-                "weight_modifiers": {
-                    "aggressive": 1.4,
-                    "guard_when_weak": 1.5
-                },
-                "priority_actions": ["focus_fire", "protect_weak_ally"]
-            }
-
-        This would:
-        - Double attack weights (1.4x multiplier)
-        - Increase guard weights by 50% when enemy HP < 40%
-        - Boost focus fire and ally protection actions by 50%
-
-        See also:
-            LearningAI.get_counter_strategy: Generates counter-strategies
-            _select_ai_action: Uses modified weights for selection
-        """
+        """Apply learning AI weight/priority tweaks to a set of rules."""
         weight_mods = counter_strategy.get('weight_modifiers', {})
         priority_actions = counter_strategy.get('priority_actions', [])
 

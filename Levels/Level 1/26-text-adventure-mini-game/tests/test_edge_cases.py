@@ -21,39 +21,17 @@ from engine.assets import AssetManager
 
 
 def _cleanup_temp_files(temp_dir: str) -> None:
-    """Clean up any remaining .tmp files in a directory.
-
-    This helper ensures that temporary files created during atomic writes
-    are properly removed, even if tests fail or are interrupted.
-
-    Args:
-        temp_dir: Directory path to clean up
-    """
+    """Clean up any remaining .tmp files in a directory."""
     if not os.path.exists(temp_dir):
         return
 
-    try:
-        # Find all .tmp files in the directory
-        tmp_pattern = os.path.join(temp_dir, "*.tmp")
-        tmp_files = glob.glob(tmp_pattern)
-
-        # Remove each .tmp file, handling permission errors gracefully
-        for tmp_file in tmp_files:
-            try:
-                if os.path.exists(tmp_file):
-                    # Try to restore permissions if needed
-                    try:
-                        os.chmod(tmp_file, 0o644)
-                    except (OSError, PermissionError):
-                        pass  # Ignore permission errors when trying to fix permissions
-
-                    os.remove(tmp_file)
-            except (OSError, PermissionError):
-                # Ignore errors - file may be locked or already removed
-                pass
-    except Exception:
-        # Ignore any errors during cleanup - we'll try to remove the directory anyway
-        pass
+    tmp_pattern = os.path.join(temp_dir, "*.tmp")
+    for tmp_file in glob.glob(tmp_pattern):
+        try:
+            os.chmod(tmp_file, 0o644)
+            os.remove(tmp_file)
+        except OSError:
+            pass
 
 
 def _deep_merge(base: Dict[str, Any], overrides: Dict[str, Any]) -> Dict[str, Any]:
@@ -354,48 +332,16 @@ class TestCorruptedSaveFiles(unittest.TestCase):
         return _deep_merge(base, overrides)
 
     def _write_save_data(self, save_data: Dict[str, Any], slot: int = 1) -> str:
-        """Write save data to a slot and return the path.
-
-        Uses atomic write pattern to ensure file is fully written before closing.
-        Sets proper file permissions and ensures cleanup of temp files.
-        """
+        """Write save data to a slot and return the path."""
         save_path = os.path.join(self.temp_dir, f"save_{slot}.json")
-        # Use atomic write: write to temp file first, then rename
         temp_path = f"{save_path}.tmp"
         try:
             with open(temp_path, 'w') as f:
                 json.dump(save_data, f, indent=2)
-
-            # Set proper file permissions (readable/writable by owner, readable by others)
-            try:
-                os.chmod(temp_path, 0o644)
-            except (OSError, PermissionError):
-                # Ignore permission errors - may not be supported on all systems
-                pass
-
-            # Atomic rename (works on Unix and Windows)
             os.replace(temp_path, save_path)
-
-            # Ensure temp file is gone after successful rename
-            # (os.replace should handle this, but be explicit for safety)
-            if os.path.exists(temp_path):
-                try:
-                    os.remove(temp_path)
-                except (OSError, PermissionError):
-                    pass  # File may already be gone or locked
         except Exception:
-            # Clean up temp file on error
             if os.path.exists(temp_path):
-                try:
-                    # Try to restore permissions before removal
-                    try:
-                        os.chmod(temp_path, 0o644)
-                    except (OSError, PermissionError):
-                        pass
-                    os.remove(temp_path)
-                except (OSError, PermissionError):
-                    # If we can't remove it, it will be cleaned up in tearDown
-                    pass
+                os.remove(temp_path)
             raise
         return save_path
 

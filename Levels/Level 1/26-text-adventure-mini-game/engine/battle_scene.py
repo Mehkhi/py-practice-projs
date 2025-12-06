@@ -90,18 +90,6 @@ class BattleScene(
         source_trigger: Optional["Trigger"] = None,
         encounter_id: Optional[str] = None,
     ):
-        # Type validation for required parameters
-        if manager is None:
-            raise ValueError("BattleScene requires a non-None SceneManager instance")
-        if not isinstance(battle_system, BattleSystem):
-            raise TypeError(f"battle_system must be a BattleSystem instance, got {type(battle_system).__name__}")
-        if not isinstance(world, World):
-            raise TypeError(f"world must be a World instance, got {type(world).__name__}")
-        if not isinstance(player, Player):
-            raise TypeError(f"player must be a Player instance, got {type(player).__name__}")
-        if not isinstance(scale, int) or scale < 1:
-            raise ValueError(f"scale must be a positive integer, got {scale}")
-
         super().__init__(manager)
         self.battle_system = battle_system
         self.world = world

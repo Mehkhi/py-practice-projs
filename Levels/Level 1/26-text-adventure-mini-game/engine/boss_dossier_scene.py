@@ -7,6 +7,7 @@ from .base_menu_scene import BaseMenuScene
 from .assets import AssetManager
 from .theme import Colors, Fonts, Layout
 from .ui.utils import draw_themed_panel
+from .ui.text_utils import wrap_text
 from core.secret_bosses import SecretBoss, SecretBossManager
 from .secret_boss_hints import HintManager
 
@@ -188,20 +189,7 @@ class BossDossierScene(BaseMenuScene):
                     selected_boss.description, True, Colors.TEXT_SECONDARY
                 )
                 # Word wrap description if needed
-                words = selected_boss.description.split()
-                lines = []
-                current_line = []
-                for word in words:
-                    test_line = " ".join(current_line + [word])
-                    test_surface = small_font.render(test_line, True, Colors.TEXT_SECONDARY)
-                    if test_surface.get_width() <= right_panel_width - 40:
-                        current_line.append(word)
-                    else:
-                        if current_line:
-                            lines.append(" ".join(current_line))
-                        current_line = [word]
-                if current_line:
-                    lines.append(" ".join(current_line))
+                lines = wrap_text(selected_boss.description, small_font, right_panel_width - 40)
 
                 for line in lines[:3]:  # Limit to 3 lines
                     line_surface = small_font.render(line, True, Colors.TEXT_SECONDARY)
@@ -221,29 +209,9 @@ class BossDossierScene(BaseMenuScene):
                         f"- {hint.content}", True, Colors.TEXT_SECONDARY
                     )
                     # Word wrap
-                    words = hint.content.split()
-                    current_line = []
-                    for word in words:
-                        test_line = " ".join(current_line + [word])
-                        test_surface = small_font.render(
-                            test_line, True, Colors.TEXT_SECONDARY
-                        )
-                        if test_surface.get_width() <= right_panel_width - 50:
-                            current_line.append(word)
-                        else:
-                            if current_line:
-                                line_surface = small_font.render(
-                                    " ".join(current_line), True, Colors.TEXT_SECONDARY
-                                )
-                                surface.blit(
-                                    line_surface, (right_panel_x + 20, detail_y)
-                                )
-                                detail_y += 18
-                            current_line = [word]
-                    if current_line:
-                        line_surface = small_font.render(
-                            " ".join(current_line), True, Colors.TEXT_SECONDARY
-                        )
+                    lines = wrap_text(hint.content, small_font, right_panel_width - 50)
+                    for line in lines:
+                        line_surface = small_font.render(line, True, Colors.TEXT_SECONDARY)
                         surface.blit(line_surface, (right_panel_x + 20, detail_y))
                         detail_y += 18
                     detail_y += 5

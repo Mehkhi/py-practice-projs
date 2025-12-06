@@ -15,73 +15,10 @@ class PlayerPattern:
 
 
 class LearningAI:
-    """AI that learns and adapts to player patterns during combat.
-
-    This system tracks player actions and detects behavioral patterns, then
-    generates counter-strategies to make enemies more challenging. The AI
-    learns patterns such as:
-    - Favorite skills (most frequently used)
-    - Target preferences (weakest, strongest, random)
-    - Heal thresholds (HP% when player heals)
-    - Action type preferences (attack, skill, guard, item)
-    - Guard patterns (turns when player guards)
-
-    Pattern detection requires minimum samples (default: 3 actions) before
-    patterns are considered valid. Confidence scores (0.0-1.0) indicate
-    pattern reliability.
-
-    Adaptation level increases as more patterns are detected with high
-    confidence (>= 0.5). Higher adaptation levels enable more sophisticated
-    counter-strategies.
-
-    Example usage:
-        ```python
-        learning_ai = LearningAI()
-
-        # Record player actions during battle
-        learning_ai.record_player_action(
-            action_type="SKILL",
-            skill_id="fire_bolt",
-            target_id="enemy_1",
-            actor_hp_percent=75.0,
-            target_hp_percent=50.0,
-            turn_number=3,
-            all_enemy_ids=["enemy_1", "enemy_2"],
-            weakest_enemy_id="enemy_1",
-            strongest_enemy_id="enemy_2"
-        )
-
-        # Get counter-strategy after patterns detected
-        if learning_ai.adaptation_level > 0:
-            strategy = learning_ai.get_counter_strategy()
-            # Use strategy to modify enemy AI weights
-        ```
-
-    Attributes:
-        player_actions: History of all recorded player actions
-        patterns: Dict of detected patterns (pattern_type -> PlayerPattern)
-        skill_usage: Count of each skill used
-        target_choices: Count of target selection strategies
-        action_type_counts: Count of each action type
-        heal_hp_thresholds: List of HP% values when player healed
-        guard_patterns: List of turn numbers when player guarded
-        adaptation_level: Number of high-confidence patterns detected
-        min_samples_for_adaptation: Minimum actions needed to detect patterns
-
-    See also:
-        BattleAIMixin._apply_counter_strategy: Uses counter-strategies to modify AI weights
-        BattleAIMixin._record_player_action_for_learning: Records actions for analysis
-    """
+    """Learns player habits during combat and produces counter-strategies."""
 
     def __init__(self, min_samples: int = 3, reanalysis_threshold: int = 3):
-        """Initialize the learning AI.
-
-        Args:
-            min_samples: Minimum player actions needed before pattern detection
-                starts. Default is 3 to avoid false positives from limited data.
-            reanalysis_threshold: Number of new actions before patterns are
-                re-analyzed. Default is 3 (same as min_samples for consistency).
-        """
+        """Configure thresholds for pattern detection and reanalysis."""
         # Track player action history
         self.player_actions: List[Dict[str, Any]] = []
 
@@ -117,37 +54,7 @@ class LearningAI:
         weakest_enemy_id: Optional[str],
         strongest_enemy_id: Optional[str]
     ) -> None:
-        """Record a player action for pattern analysis.
-
-        This method records all relevant data about a player action to enable
-        pattern detection. It updates various counters and triggers pattern
-        analysis periodically (every 3 actions).
-
-        Tracked data:
-        - Action type (ATTACK, SKILL, ITEM, GUARD, etc.)
-        - Skill ID (if skill used)
-        - Target selection (weakest, strongest, or random)
-        - HP percentages (actor and target)
-        - Turn number (for guard pattern detection)
-        - Heal thresholds (HP% when healing actions used)
-
-        Args:
-            action_type: Type of action (e.g., "ATTACK", "SKILL", "GUARD")
-            skill_id: ID of skill used (None if not a skill)
-            target_id: ID of target entity
-            actor_hp_percent: Actor's HP as percentage of max HP
-            target_hp_percent: Target's HP as percentage (None if no target)
-            turn_number: Current turn number
-            all_enemy_ids: List of all enemy entity IDs in battle
-            weakest_enemy_id: ID of enemy with lowest HP
-            strongest_enemy_id: ID of enemy with highest HP
-
-        Pattern analysis is triggered automatically every 3 actions to detect:
-        - Favorite skills (most used skill)
-        - Target preferences (weakest vs strongest vs random)
-        - Heal thresholds (average HP% when player heals)
-        - Action type preferences (most common action type)
-        """
+        """Record a player action for later pattern analysis."""
         action_record = {
             "action_type": action_type,
             "skill_id": skill_id,
@@ -186,29 +93,7 @@ class LearningAI:
         # Patterns will be analyzed lazily in get_counter_strategy()
 
     def _analyze_patterns(self) -> None:
-        """Analyze recorded actions to detect behavioral patterns.
-
-        This method analyzes the accumulated action data to detect patterns
-        in player behavior. Patterns are only created if sufficient samples
-        exist and confidence thresholds are met.
-
-        Detected patterns:
-        1. Favorite skill: Most frequently used skill (requires 2+ uses)
-           - Confidence = skill_uses / total_actions
-        2. Target preference: Most common targeting strategy (requires 3+ targets)
-           - Confidence = preferred_count / total_targets
-           - Only detected if confidence >= 0.5 (50% consistency)
-        3. Heal threshold: Average HP% when player heals (requires 2+ heals)
-           - Confidence = min(1.0, heal_count / 5)
-        4. Action preference: Most common action type (requires 5+ actions)
-           - Confidence = preferred_count / total_actions
-
-        Adaptation level is updated to count patterns with confidence >= 0.5.
-        Higher adaptation levels enable more sophisticated counter-strategies.
-
-        Patterns are stored in self.patterns dict with PlayerPattern objects
-        containing pattern_type, value, confidence, and sample_count.
-        """
+        """Derive learned patterns from recorded actions when enough samples exist."""
         total_actions = len(self.player_actions)
         if total_actions < self.min_samples_for_adaptation:
             return
@@ -263,53 +148,7 @@ class LearningAI:
         self.adaptation_level = len([p for p in self.patterns.values() if p.confidence >= 0.5])
 
     def get_counter_strategy(self) -> Dict[str, Any]:
-        """Generate counter-strategy based on learned patterns.
-
-        This method analyzes detected patterns and generates a counter-strategy
-        dictionary that can be used to modify enemy AI behavior. The strategy
-        includes weight modifiers and priority actions that counter detected
-        player patterns.
-
-        Performance optimization:
-        - Patterns are analyzed lazily (only when counter-strategy is requested)
-        - Counter-strategy is cached and reused until new actions are recorded
-        - Cache is invalidated when action count changes significantly
-
-        Counter-strategies generated:
-        1. Target preference counter:
-           - If player focuses weakest: Increase guard weights for weak enemies
-           - If player focuses strongest: Increase aggressive weights for strong enemies
-        2. Heal threshold counter:
-           - High threshold (>50%): Increase aggression (player heals early)
-           - Low threshold (<50%): Focus fire to burst down (player waits to heal)
-        3. Favorite skill counter:
-           - Fire skills: Prefer fire-resistant enemies
-           - Healing skills: Increase aggression to outpace healing
-        4. Action preference counter:
-           - Skill-heavy: Try to drain SP
-           - Guard-heavy: Use skills over attacks (armor-piercing)
-
-        Args:
-            None (uses self.patterns)
-
-        Returns:
-            Dict with structure:
-            {
-                "weight_modifiers": {
-                    "aggressive": float,  # Multiplier for attack weights
-                    "guard_when_weak": float,  # Multiplier when enemy HP < 40%
-                    "skill_over_attack": float  # Multiplier for skill weights
-                },
-                "target_adjustments": {
-                    "prefer_fire_resist": bool  # Prefer fire-resistant enemies
-                },
-                "priority_actions": [str],  # Actions to boost (e.g., "focus_fire")
-                "avoid_actions": [str]  # Actions to reduce (currently unused)
-            }
-
-        The counter-strategy is used by BattleAIMixin._apply_counter_strategy
-        to modify rule weights during enemy action selection.
-        """
+        """Return a cached counter-strategy, re-analyzing patterns when new actions arrive."""
         # Check if we need to re-analyze patterns
         current_action_count = len(self.player_actions)
         needs_reanalysis = (

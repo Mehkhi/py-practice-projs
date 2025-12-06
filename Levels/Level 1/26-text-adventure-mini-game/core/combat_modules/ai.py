@@ -1,24 +1,7 @@
-"""AI decision-making for the combat system.
+"""AI decision-making mixin for the combat system.
 
-This module contains the BattleAIMixin which provides all AI decision-making
-methods for BattleSystem, including phase management, rule evaluation,
-coordinated tactics, and learning AI integration.
-
-Note on deferred imports:
-    Several methods use deferred imports (e.g., `from core.combat import ActionType`)
-    inside function bodies. This is intentional to avoid circular import issues between
-    core/combat/__init__.py (which defines types) and this module (which is imported by it).
-    Python caches imports, so the performance impact is negligible after the first call.
-
-Refactored modules:
-    - conditions.py: Condition evaluators (ConditionEvaluatorMixin)
-    - targeting.py: Target selection strategies (TargetingMixin)
-    - ai_cache.py: Cache management utilities (AICacheMixin)
-    - phase_evaluator.py: Phase evaluation and state management (PhaseEvaluatorMixin)
-    - rule_indexer.py: Rule indexing and filtering (RuleIndexerMixin)
-    - tactics_driver.py: Coordinated tactics execution (TacticsDriverMixin)
-    - learning_driver.py: Learning AI integration (LearningDriverMixin)
-"""
+Handles rule evaluation, tactics, and learning integration while deferring
+imports to avoid circular references with core.combat."""
 
 import copy
 from typing import TYPE_CHECKING, Any, Dict, List, Optional
@@ -55,53 +38,14 @@ class BattleAIMixin(
     TacticsDriverMixin,  # Includes AICacheMixin
     LearningDriverMixin
 ):
-    """Mixin providing AI decision-making methods for BattleSystem.
+    """AI utilities for BattleSystem (phases, rules, tactics, learning).
 
-    This mixin assumes the host class has:
-    - self.players: List[BattleParticipant]
-    - self.enemies: List[BattleParticipant]
-    - self.skills: Dict[str, Skill]
-    - self.items: Dict[str, Item]
-    - self.message_log: List[str]
-    - self.rng: random.Random
-    - self.debug_ai: bool
-    - self.phase_feedback: bool
-    - self.turn_counter: int
-    - self.enable_coordination: bool
-    - self.enable_learning: bool
-    - self.tactics_coordinator: Optional[TacticsCoordinator]
-    - self.learning_ai: Optional[LearningAI]
-    - self.pending_commands: List[BattleCommand]
-    - self._find_participant(entity_id) -> Optional[BattleParticipant]
-    - self._hp_percent(participant) -> float
+    Host classes should expose player/enemy lists, skills/items, a message log,
+    RNG instance, and a queue for pending commands.
     """
 
-
     def perform_enemy_actions(self) -> None:
-        """Perform AI actions for enemies using rule-based decision making.
-
-        This method orchestrates the entire enemy turn:
-        1. Increments turn counter
-        2. Ticks tactic cooldowns for coordinated tactics
-        3. Attempts coordinated tactics (if enabled and conditions met)
-        4. Gets learning AI counter-strategy (if adaptation level > 0)
-        5. For each enemy not in a coordinated action:
-           - Selects action using AI profile rules
-           - Applies phase management, behavior type, and counter-strategy
-           - Creates and queues battle command
-
-        The method processes all enemies and transitions battle state to
-        RESOLVE_ACTIONS when complete.
-
-        Coordinated tactics take priority - enemies participating in coordination
-        skip individual action selection. The learning AI counter-strategy
-        modifies rule weights to counter detected player patterns.
-
-        See also:
-            _select_ai_action: Individual enemy action selection
-            _attempt_coordinated_tactics: Multi-enemy coordination
-            _apply_counter_strategy: Learning AI weight modifications
-        """
+        """Run the enemy turn: tick tactics, apply learning tweaks, queue commands, then advance state."""
         from core.combat import BattleState
 
         self.turn_counter += 1
@@ -141,54 +85,9 @@ class BattleAIMixin(
         enemy: "BattleParticipant",
         counter_strategy: Optional[Dict[str, Any]] = None
     ) -> Optional["BattleCommand"]:
-        """Select an action for an enemy using AI profile rules with multi-phase support.
+        """Select an action for an enemy using phase-aware rules and learning modifiers.
 
-        This method implements the core AI decision-making logic:
-        1. Determines current phase based on HP thresholds
-        2. Updates phase state and triggers feedback if phase changed
-        3. Applies behavior type modifications (aggressive/defensive/support)
-        4. Applies learning AI counter-strategy weight modifiers
-        5. Evaluates all phase rules against current conditions
-        6. Selects from valid rules using weighted random selection
-        7. Creates battle command from selected rule
-
-        Args:
-            enemy: The enemy participant to select an action for
-            counter_strategy: Optional learning AI counter-strategy dict with
-                weight_modifiers and priority_actions
-
-        Returns:
-            BattleCommand if action selected, None if no valid action available
-            (including when fallback action fails due to no valid targets)
-
-        The AI profile structure supports:
-        - Simple rules: List of rules with conditions and actions
-        - Multi-phase: Phases with HP thresholds, each with their own rules
-        - Behavior types: aggressive, defensive, support, balanced
-        - Fallback actions: Used when no rules pass
-
-        Example AI profile:
-            {
-                "phases": [
-                    {
-                        "name": "aggressive",
-                        "hp_threshold": 50,
-                        "rules": [{"conditions": {...}, "action": {...}}]
-                    },
-                    {
-                        "name": "desperate",
-                        "hp_threshold": 25,
-                        "rules": [{"conditions": {...}, "action": {...}}]
-                    }
-                ],
-                "behavior_type": "aggressive",
-                "fallback_action": {"type": "attack", "target_strategy": "random_enemy"}
-            }
-
-        See also:
-            _determine_phase: Phase selection based on HP
-            _evaluate_ai_rule: Condition evaluation
-            _apply_counter_strategy: Learning AI modifications
+        Falls back to a basic attack when no profile exists.
         """
         if not enemy.ai_profile:
             # Fallback to simple attack if no AI profile

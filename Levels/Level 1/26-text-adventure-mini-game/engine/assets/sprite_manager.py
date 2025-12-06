@@ -289,22 +289,10 @@ class SpriteManager:
                 # Pre-generate scaled versions for all common sizes
                 for size in common_sizes:
                     self.get_image(sprite_id, size)
-            except OSError as e:
-                if strict:
-                    raise RuntimeError(f"Critical sprite preload failed (file error): {sprite_id}") from e
-                log_warning(f"File system error preloading sprite {sprite_id}: {e}")
-            except pygame.error as e:
-                if strict:
-                    raise RuntimeError(f"Critical sprite preload failed (pygame error): {sprite_id}") from e
-                log_warning(f"Pygame error preloading sprite {sprite_id}: {e}")
-            except (ValueError, TypeError) as e:
-                if strict:
-                    raise RuntimeError(f"Critical sprite preload failed (invalid data): {sprite_id}") from e
-                log_warning(f"Invalid sprite data preloading {sprite_id}: {e}")
             except Exception as e:
                 if strict:
-                    raise RuntimeError(f"Critical sprite preload failed (unexpected error): {sprite_id}") from e
-                log_error(f"Unexpected error preloading sprite {sprite_id}: {e}")
+                    raise RuntimeError(f"Critical sprite preload failed for {sprite_id}: {e}") from e
+                log_warning(f"Error preloading sprite {sprite_id}: {e}")
 
     def _get_default_common_sprites(self) -> List[str]:
         """
@@ -481,11 +469,6 @@ class SpriteManager:
             loaded += 1
 
             if progress_callback:
-                try:
-                    progress_callback(loaded, total)
-                except (TypeError, ValueError) as e:
-                    log_warning(f"Progress callback failed (invalid arguments): {e}")
-                except Exception as e:
-                    log_error(f"Unexpected error in progress callback: {e}")
+                progress_callback(loaded, total)
 
         log_debug(f"Background loading complete: {loaded} sprites loaded")
