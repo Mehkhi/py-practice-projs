@@ -823,6 +823,142 @@ def generate_ui():
     pygame.draw.polygon(c, PALETTE["cyan"], inner_points)
     save_img(c, "ui_cursor")
 
+    # Help/Hint Icon (Question Mark) - Gold themed to match UI
+    h = create_surface((32, 32))
+    # Transparent background
+    h.fill((0, 0, 0, 0))
+
+    q_color = PALETTE["gold"]
+    q_outline = PALETTE["black"]
+    q_highlight = PALETTE["light_gold"]
+
+    # Question mark shape (pixel art style, 32x32)
+    # Top curve (semi-circle)
+    center_x, center_y = 16, 10
+    radius = 6
+    # Draw filled circle with outline
+    pygame.draw.circle(h, q_color, (center_x, center_y), radius)
+    pygame.draw.circle(h, q_outline, (center_x, center_y), radius, 1)
+    # Add highlight on top-left
+    pygame.draw.arc(h, q_highlight, (center_x - radius, center_y - radius, radius * 2, radius * 2),
+                   3.14, 4.71, 2)  # Top-left arc
+
+    # Vertical line (straight down from circle)
+    pygame.draw.line(h, q_outline, (16, 15), (16, 19), 2)
+    pygame.draw.line(h, q_color, (16, 15), (16, 19), 1)
+
+    # Bottom dot
+    pygame.draw.circle(h, q_color, (16, 22), 2)
+    pygame.draw.circle(h, q_outline, (16, 22), 2, 1)
+
+    save_img(h, "hint_button")
+    # Also save as help_icon for alternative naming
+    save_img(h, "help_icon")
+
+    # Puzzle Block - Pushable stone block
+    pb = create_surface((32, 32))
+    # Stone block appearance
+    stone_base = PALETTE["stone_base"]
+    stone_dark = PALETTE["stone_dark"]
+    # Fill with base stone color
+    pb.fill(stone_base)
+    # Add texture/depth with darker edges
+    pygame.draw.rect(pb, stone_dark, (0, 0, 32, 32), 2)
+    # Top highlight (3D effect)
+    pygame.draw.line(pb, PALETTE["light_grey"], (2, 2), (30, 2))
+    pygame.draw.line(pb, PALETTE["light_grey"], (2, 2), (2, 30))
+    # Bottom shadow
+    pygame.draw.line(pb, PALETTE["black"], (2, 30), (30, 30))
+    pygame.draw.line(pb, PALETTE["black"], (30, 2), (30, 30))
+    # Add some texture lines
+    for i in range(3):
+        y = 8 + i * 8
+        pygame.draw.line(pb, stone_dark, (4, y), (28, y), 1)
+    save_img(pb, "puzzle_block")
+
+    # Pressure Plate - Floor plate that activates when stepped on
+    pp = create_surface((32, 32))
+    # Metal plate appearance
+    metal_base = PALETTE["light_grey"]
+    metal_dark = PALETTE["dark_grey"]
+    # Base plate
+    pp.fill(metal_base)
+    # Outer border
+    pygame.draw.rect(pp, PALETTE["black"], (0, 0, 32, 32), 1)
+    # Inner border (recessed look)
+    pygame.draw.rect(pp, metal_dark, (4, 4, 24, 24), 2)
+    # Center indicator (slightly raised)
+    pygame.draw.circle(pp, PALETTE["gold"], (16, 16), 6)
+    pygame.draw.circle(pp, PALETTE["orange"], (16, 16), 6, 1)
+    save_img(pp, "pressure_plate")
+
+    # Switch - Toggle switch/button
+    sw = create_surface((32, 32))
+    # Switch base (stone/metal)
+    sw.fill(PALETTE["stone_base"])
+    # Outer border
+    pygame.draw.rect(sw, PALETTE["black"], (0, 0, 32, 32), 1)
+    # Switch button (raised, circular)
+    switch_color = PALETTE["gold"]
+    pygame.draw.circle(sw, switch_color, (16, 16), 10)
+    pygame.draw.circle(sw, PALETTE["orange"], (16, 16), 10, 2)
+    # Highlight on top
+    pygame.draw.circle(sw, PALETTE["light_gold"], (14, 14), 4)
+    # Base plate
+    pygame.draw.rect(sw, PALETTE["dark_grey"], (8, 24, 16, 6))
+    save_img(sw, "switch")
+
+    # Reset Switch - Special switch for resetting puzzles
+    rs = create_surface((32, 32))
+    # Similar to switch but with distinct appearance
+    rs.fill(PALETTE["stone_base"])
+    pygame.draw.rect(rs, PALETTE["black"], (0, 0, 32, 32), 1)
+    # Reset switch (red/orange to indicate reset function)
+    reset_color = PALETTE["red"]
+    pygame.draw.circle(rs, reset_color, (16, 16), 10)
+    pygame.draw.circle(rs, PALETTE["dark_red"], (16, 16), 10, 2)
+    # X symbol or arrow to indicate reset
+    pygame.draw.line(rs, PALETTE["white"], (10, 10), (22, 22), 2)
+    pygame.draw.line(rs, PALETTE["white"], (22, 10), (10, 22), 2)
+    # Base plate
+    pygame.draw.rect(rs, PALETTE["dark_grey"], (8, 24, 16, 6))
+    save_img(rs, "reset_switch")
+
+    # Teleporter - Portal/teleport pad
+    tp = create_surface((32, 32))
+    # Transparent background
+    tp.fill((0, 0, 0, 0))
+    # Outer ring (magical/energy effect)
+    pygame.draw.circle(tp, PALETTE["cyan"], (16, 16), 14, 2)
+    pygame.draw.circle(tp, PALETTE["light_blue"], (16, 16), 12, 1)
+    # Inner portal
+    pygame.draw.circle(tp, PALETTE["dark_blue"], (16, 16), 10)
+    # Energy swirl pattern
+    for i in range(4):
+        angle = i * 1.57  # 90 degrees
+        x1 = int(16 + 6 * math.cos(angle))
+        y1 = int(16 + 6 * math.sin(angle))
+        x2 = int(16 + 10 * math.cos(angle + 0.5))
+        y2 = int(16 + 10 * math.sin(angle + 0.5))
+        pygame.draw.line(tp, PALETTE["cyan"], (x1, y1), (x2, y2), 1)
+    # Center point
+    pygame.draw.circle(tp, PALETTE["white"], (16, 16), 2)
+    save_img(tp, "teleporter")
+
+    # Torch Holder - Holder for torches in puzzles
+    th = create_surface((32, 32))
+    # Metal holder base
+    th.fill(PALETTE["stone_base"])
+    # Base plate
+    pygame.draw.rect(th, PALETTE["dark_grey"], (12, 20, 8, 10))
+    # Vertical pole
+    pygame.draw.rect(th, PALETTE["grey"], (15, 10, 2, 12))
+    # Top holder (U-shaped)
+    pygame.draw.arc(th, PALETTE["gold"], (10, 6, 12, 8), 0, 3.14, 2)
+    pygame.draw.line(th, PALETTE["gold"], (10, 10), (12, 10), 2)
+    pygame.draw.line(th, PALETTE["gold"], (22, 10), (24, 10), 2)
+    save_img(th, "torch_holder")
+
 def save_img(s, name):
     path = os.path.join(SPRITE_DIR, f"{name}.png")
     if DRY_RUN:

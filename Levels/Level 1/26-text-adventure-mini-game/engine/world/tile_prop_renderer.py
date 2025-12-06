@@ -34,8 +34,9 @@ class TilePropRenderer:
             for row in current_map.tiles:
                 for tile in row:
                     sprite_id = getattr(tile, "sprite_id", None) or getattr(tile, "tile_type", None)
+                    # Fallback to grass if sprite_id is missing/empty
                     if not sprite_id:
-                        continue
+                        sprite_id = "grass"
                     if override_grass and sprite_id == "grass_dark":
                         sprite_id = "grass"
                     if sprite_id not in self._tile_surface_cache:
@@ -65,8 +66,14 @@ class TilePropRenderer:
             for x in range(start_tile_x, row_end):
                 tile = row[x]
 
+                # Get sprite_id with fallback handling
+                sprite_id = getattr(tile, "sprite_id", None) or getattr(tile, "tile_type", None)
+
+                # Fallback to grass if sprite_id is missing/empty
+                if not sprite_id:
+                    sprite_id = "grass"
+
                 # Tile sprite overrides for small aesthetic tweaks
-                sprite_id = tile.sprite_id
                 if current_map.map_id == "forest_path" and sprite_id == "grass_dark":
                     sprite_id = "grass"
 

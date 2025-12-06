@@ -4,7 +4,7 @@ from typing import Dict, List, Optional, Tuple
 
 import pygame
 
-from ..theme import Colors, Fonts
+from ..theme import Colors, Fonts, Layout
 
 
 class Minimap:
@@ -43,7 +43,8 @@ class Minimap:
         self.tile_size = tile_size
         self.position = position
         self.alpha = alpha
-        self.border_color = border_color or Colors.BORDER
+        # Use gold border color for consistency with other panels
+        self.border_color = border_color or Colors.BORDER_HIGHLIGHT
         self.border_width = border_width
         # Store explicit overrides; use None to indicate lazy evaluation
         self._player_color_override = player_color
@@ -222,7 +223,7 @@ class Minimap:
             max(1, self.tile_size // 4)
         )
 
-        # Draw border
+        # Draw gold border for consistency with other panels
         border_rect = pygame.Rect(0, 0, self.size, self.size)
         pygame.draw.rect(display_surface, self.border_color, border_rect, self.border_width)
 
@@ -247,11 +248,12 @@ class Minimap:
         item_height = 12
         font = pygame.font.Font(None, 14)
 
-        # Draw semi-transparent background for legend
+        # Draw semi-transparent background for legend with gold border
         legend_height = (len(legend_items) // 2 + len(legend_items) % 2) * item_height + 4
         legend_bg = pygame.Surface((self.size, legend_height), pygame.SRCALPHA)
         legend_bg.fill(Colors.BG_OVERLAY)
-        pygame.draw.rect(legend_bg, self.border_color, (0, 0, self.size, legend_height), 1)
+        # Use same gold border color and width as minimap for consistency
+        pygame.draw.rect(legend_bg, self.border_color, (0, 0, self.size, legend_height), self.border_width)
         surface.blit(legend_bg, (x, y))
 
         # Draw legend items in 2 columns

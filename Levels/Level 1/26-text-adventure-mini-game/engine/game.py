@@ -15,7 +15,14 @@ from .options_scene import OptionsScene
 from .class_selection_scene import ClassSelectionScene, SubclassSelectionScene
 from .config_loader import load_config
 from .event_bus import EventBus
-from core.constants import DEFAULT_WINDOW_WIDTH, DEFAULT_WINDOW_HEIGHT
+from core.constants import (
+    DEFAULT_WINDOW_WIDTH,
+    DEFAULT_WINDOW_HEIGHT,
+    DEFAULT_RESIZABLE,
+    DEFAULT_START_FULLSCREEN,
+    DEFAULT_MIN_WINDOW_WIDTH,
+    DEFAULT_MIN_WINDOW_HEIGHT,
+)
 from core.save_load import SaveManager
 from core.items import load_items_from_json, Item
 from core.time_system import DayNightCycle
@@ -336,7 +343,24 @@ class RpgGame:
         window_w = self.config.get("window_width", DEFAULT_WINDOW_WIDTH)
         window_h = self.config.get("window_height", DEFAULT_WINDOW_HEIGHT)
 
-        self.screen = pygame.display.set_mode((window_w, window_h))
+        # Window resize and fullscreen support
+        self.resizable = self.config.get("resizable", DEFAULT_RESIZABLE)
+        self.start_fullscreen = self.config.get("start_fullscreen", DEFAULT_START_FULLSCREEN)
+        self.min_window_width = self.config.get("min_window_width", DEFAULT_MIN_WINDOW_WIDTH)
+        self.min_window_height = self.config.get("min_window_height", DEFAULT_MIN_WINDOW_HEIGHT)
+
+        # Track windowed size for fullscreen toggle
+        self.windowed_size = (window_w, window_h)
+        self.is_fullscreen = self.start_fullscreen
+
+        # Build display flags
+        flags = 0
+        if self.resizable:
+            flags |= pygame.RESIZABLE
+        if self.start_fullscreen:
+            flags |= pygame.FULLSCREEN
+
+        self.screen = pygame.display.set_mode((window_w, window_h), flags)
         pygame.display.set_caption(self.config.get("window_title", "JRPG Adventure"))
         self.clock = pygame.time.Clock()
         self.running = True
@@ -603,8 +627,17 @@ class RpgGame:
                 self.running = False
                 continue
 
+            # Handle window resize events
+            if event.type == pygame.VIDEORESIZE:
+                self._handle_window_resize(event.w, event.h)
+                continue
+
             translated_events = self.input_manager.translate_event(event)
             for translated_event in translated_events:
+                # F11 toggles fullscreen
+                if translated_event.type == pygame.KEYDOWN and translated_event.key == pygame.K_F11:
+                    self._toggle_fullscreen()
+                    continue
                 if translated_event.type == pygame.KEYDOWN and translated_event.key == pygame.K_F12:
                     self._take_screenshot()
                     continue
@@ -649,6 +682,49 @@ class RpgGame:
         for toast in self._toast_notifications:
             toast.draw(self.screen)
         pygame.display.flip()
+
+    def _handle_window_resize(self, width: int, height: int) -> None:
+        """Handle window resize events, enforcing minimum size.
+
+        Note: Resize events are ignored in fullscreen mode since the window
+        cannot be resized by the user in that state.
+        """
+        # Skip resize handling in fullscreen mode
+        if self.is_fullscreen:
+            return
+
+        # Enforce minimum window size
+        width = max(width, self.min_window_width)
+        height = max(height, self.min_window_height)
+
+        # Update display mode with new size (windowed mode only)
+        flags = pygame.RESIZABLE if self.resizable else 0
+        self.screen = pygame.display.set_mode((width, height), flags)
+
+        # Remember windowed size for fullscreen toggle restoration
+        self.windowed_size = (width, height)
+
+    def _toggle_fullscreen(self) -> None:
+        """Toggle between fullscreen and windowed mode, remembering window size."""
+        if self.is_fullscreen:
+            # Exit fullscreen - restore last windowed size
+            width, height = self.windowed_size
+            flags = pygame.RESIZABLE if self.resizable else 0
+            self.screen = pygame.display.set_mode((width, height), flags)
+            self.is_fullscreen = False
+        else:
+            # Enter fullscreen - save current windowed size first
+            current_size = self.screen.get_size()
+            self.windowed_size = current_size
+
+            # Get desktop resolution for fullscreen
+            # Note: RESIZABLE flag is not used with FULLSCREEN as it has no effect
+            display_info = pygame.display.Info()
+            self.screen = pygame.display.set_mode(
+                (display_info.current_w, display_info.current_h),
+                pygame.FULLSCREEN
+            )
+            self.is_fullscreen = True
 
     def _handle_name_confirmed(self, player_name: str) -> None:
         """Handle name confirmation: transition to class selection."""

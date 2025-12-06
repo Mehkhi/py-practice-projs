@@ -220,9 +220,6 @@ class EntityRenderer:
         # Draw direction indicator (small arrow showing facing direction)
         self._draw_facing_indicator(surface, player_screen_x, player_screen_y)
 
-        # Draw highlight on current tile
-        highlight_rect = pygame.Rect(player_screen_x, player_screen_y, self.scene.draw_tile, self.scene.draw_tile)
-        pygame.draw.rect(surface, Colors.WHITE, highlight_rect, 1)
 
     def _draw_walk_dust(self, surface: pygame.Surface, screen_x: int, screen_y: int) -> None:
         """Draw dust particles when walking."""

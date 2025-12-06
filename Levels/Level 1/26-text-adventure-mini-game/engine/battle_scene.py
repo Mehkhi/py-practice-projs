@@ -769,24 +769,31 @@ class BattleScene(
             render_y = ally_y + offset_y
             surface.blit(ally_surface, (render_x, render_y))
 
-            # Ally selection or active highlight
-            if selected_ally_id and ally.entity.entity_id == selected_ally_id:
-                highlight_rect = pygame.Rect(
-                    render_x - 4,
-                    render_y - 4,
-                    self.draw_size + 8,
-                    self.draw_size + 8
-                )
-                pygame.draw.rect(surface, (255, 255, 0), highlight_rect, 2)
-            elif active_actor_id and ally.entity.entity_id == active_actor_id:
+            # Active actor indicator: show which party member is taking their turn
+            # Uses a subtle gold border around the sprite (distinct from target cursor)
+            if active_actor_id and ally.entity.entity_id == active_actor_id:
+                from .theme import Colors
                 active_rect = pygame.Rect(
-                    render_x - 6,
-                    render_y - 6,
-                    self.draw_size + 12,
-                    self.draw_size + 12
+                    render_x - 2,
+                    render_y - 2,
+                    self.draw_size + 4,
+                    self.draw_size + 4
                 )
-                sp_color = Colors.get_sp_color()
-                pygame.draw.rect(surface, sp_color, active_rect, 2)
+                pygame.draw.rect(surface, Colors.BORDER_HIGHLIGHT, active_rect, 2)
+
+            # Ally selection: use the same target cursor arrow as enemies
+            # Position cursor above unified panel (same pattern as enemy cursor)
+            if selected_ally_id and ally.entity.entity_id == selected_ally_id:
+                # Calculate panel height to position cursor above it
+                panel_width, panel_height = self._get_party_panel_size(ally, hp_font)
+                panel_top = render_y - panel_height - 8  # 8px gap above sprite
+                cursor_y = panel_top - 8  # 8px above the panel
+
+                self._draw_target_cursor(
+                    surface,
+                    render_x + self.sprite_size // 2,
+                    cursor_y
+                )
 
         # --- Party HUD (player + party members) ---
         # Note: All ally HP bars, names, and status icons are now drawn by _draw_party_hud()
@@ -859,10 +866,22 @@ class BattleScene(
                 surface.blit(enemy_surface, (render_x, render_y))
 
                 # Enemy target highlight
+                # Position cursor above the unified enemy info panel
                 if self.waiting_for_target and self.target_side == "enemy":
                     if alive_index == (self.target_index % len(alive_enemies) if alive_enemies else 0):
+                        # Calculate exact panel height for precise cursor positioning
+                        panel_width, panel_height = self._get_enemy_panel_size(enemy, font)
+
+                        # Panel is at render_y - panel_height - 8
+                        # We want cursor arrow to be above the panel
+                        # Default cursor size/arrow tip is roughly 16-24px depending on animation
+                        # We'll position the cursor anchor point 8px above the panel
+
+                        panel_top = render_y - panel_height - 8
+                        cursor_y = panel_top - 8
+
                         self._draw_target_cursor(
-                            surface, render_x + self.sprite_size // 2, render_y
+                            surface, render_x + self.sprite_size // 2, cursor_y
                         )
 
                 enemy_x += self._get_enemy_spacing()

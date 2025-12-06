@@ -22,6 +22,10 @@ DEFAULT_FORMATION_POSITION: str = "middle"
 # Screen dimension constants
 DEFAULT_WINDOW_WIDTH: int = 640
 DEFAULT_WINDOW_HEIGHT: int = 480
+DEFAULT_RESIZABLE: bool = True
+DEFAULT_START_FULLSCREEN: bool = False
+DEFAULT_MIN_WINDOW_WIDTH: int = 640
+DEFAULT_MIN_WINDOW_HEIGHT: int = 480
 
 # Data file locations
 DATA_DIR = "data"

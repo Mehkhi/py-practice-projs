@@ -1,6 +1,10 @@
 {
   "window_width": 640,
   "window_height": 480,
+  "resizable": true,
+  "start_fullscreen": false,
+  "min_window_width": 640,
+  "min_window_height": 480,
   "tile_size": 32,
   "scale": 2,
   "projection": "oblique",
