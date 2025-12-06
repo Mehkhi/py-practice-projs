@@ -1,20 +1,26 @@
-# Email Sender
+# Mail Merge - Personal Email Campaign Manager
 
-A professional command-line email sender with support for attachments, HTML templates, batch processing, and comprehensive error handling.
+A professional mail merge application similar to GMass, with support for Gmail API, Google Sheets sync, campaign tracking, and both CLI and web UI interfaces.
 
 ## Features
 
 ### Core Features
-- ✅ **SMTP Email Sending**: Send emails via any SMTP server with TLS support
-- ✅ **Attachments**: Attach multiple files to your emails
-- ✅ **HTML Templates**: Send rich HTML emails with CSS styling
-- ✅ **CSV Recipients**: Load recipient lists from CSV files
-- ✅ **Error Handling**: Comprehensive error handling for all operations
+- ✅ **Gmail API Integration**: Send emails via Gmail API with OAuth2 authentication
+- ✅ **Campaign Management**: Create and track multiple email campaigns
+- ✅ **CSV Import**: Import recipients from local CSV files
+- ✅ **Google Sheets Sync**: Sync recipient data from Google Sheets
+- ✅ **Template Personalization**: Personalize emails with recipient data (e.g., {name}, {company})
+- ✅ **Status Tracking**: Track sent/failed/queued status for each recipient
+- ✅ **Web UI**: Lightweight web interface for managing campaigns
+- ✅ **CLI Interface**: Full-featured command-line interface
 
-### Bonus Features
+### Additional Features
+- ✅ **SMTP Fallback**: Support for SMTP sending as alternative to Gmail API
+- ✅ **HTML Templates**: Send rich HTML emails with CSS styling
+- ✅ **Attachments**: Attach multiple files to your emails
 - ✅ **Email Validation**: Validate email addresses before sending
 - ✅ **Batch Processing**: Send emails in batches with rate limiting
-- ✅ **Delivery Tracking**: Track successful and failed email deliveries
+- ✅ **Export Results**: Export campaign results to CSV
 - ✅ **Logging**: Detailed logging for debugging and monitoring
 
 ## Installation
@@ -41,9 +47,79 @@ A professional command-line email sender with support for attachments, HTML temp
    pip install -r requirements.txt
    ```
 
+4. **Set up Gmail API credentials (for Gmail sending)**
+   - Go to [Google Cloud Console](https://console.cloud.google.com/)
+   - Create a new project or select an existing one
+   - Enable Gmail API and Google Sheets API
+   - Create OAuth 2.0 credentials (Desktop app)
+   - Download credentials and save as `credentials.json` in the project root
+   - On first run, the app will open a browser for OAuth authentication
+   - Token will be saved to `token.json` for future use
+
 ## Usage
 
-### Basic Commands
+### Mail Merge Campaigns (New)
+
+#### Create a Campaign
+```bash
+python -m email_sender campaign create \
+  --name "Monthly Newsletter" \
+  --subject "Hello {name}, check out our updates!" \
+  --body "Hi {name}, this is your monthly update from {company}." \
+  --html template.html \
+  --source-type csv
+```
+
+#### Import Recipients from CSV
+```bash
+python -m email_sender campaign import-csv \
+  --campaign-id 1 \
+  --csv recipients.csv
+```
+
+#### Sync Recipients from Google Sheet
+```bash
+python -m email_sender campaign sync-sheet \
+  --campaign-id 1 \
+  --sheet-id "https://docs.google.com/spreadsheets/d/YOUR_SHEET_ID" \
+  --range "Sheet1!A1:Z1000"
+```
+
+#### Send Campaign Emails
+```bash
+python -m email_sender campaign send \
+  --campaign-id 1 \
+  --transport gmail \
+  --batch-size 10 \
+  --delay 1.0
+```
+
+#### List All Campaigns
+```bash
+python -m email_sender campaign list
+```
+
+#### View Campaign Status
+```bash
+python -m email_sender campaign status --campaign-id 1
+```
+
+#### Export Campaign Results
+```bash
+python -m email_sender campaign export \
+  --campaign-id 1 \
+  --output results.csv
+```
+
+#### Start Web UI
+```bash
+python -m email_sender web
+```
+Then open http://127.0.0.1:9002 in your browser.
+
+**Note:** The default port is 9002 to avoid conflicts with common services (macOS AirPlay uses 5000, many dev servers use 8000/8080).
+
+### Legacy Commands (Still Supported)
 
 #### Send a Single Email
 ```bash
@@ -116,6 +192,36 @@ python -m email_sender samples
 
 ## Configuration
 
+### Database
+
+Campaign data is stored in a SQLite database (`mail_merge.db`) in the project directory. This database tracks:
+- Campaigns (name, subject, templates, source info)
+- Recipients (email, personalization data, status)
+- Send status (queued, sent, failed with error messages)
+- Timestamps for all operations
+
+The database is automatically created on first use. You can delete `mail_merge.db` to start fresh.
+
+### Gmail API Setup
+
+1. **Create Google Cloud Project**
+   - Visit [Google Cloud Console](https://console.cloud.google.com/)
+   - Create a new project or select existing
+
+2. **Enable APIs**
+   - Enable "Gmail API"
+   - Enable "Google Sheets API"
+
+3. **Create OAuth 2.0 Credentials**
+   - Go to "Credentials" → "Create Credentials" → "OAuth client ID"
+   - Choose "Desktop app" as application type
+   - Download the JSON file and save as `credentials.json` in project root
+
+4. **First Run Authentication**
+   - When you first use Gmail API or Sheets sync, a browser window will open
+   - Sign in with your Google account and authorize the app
+   - Token will be saved to `token.json` for future use
+
 ### SMTP Server Settings
 
 #### Gmail
@@ -156,11 +262,20 @@ Required columns:
 Optional columns:
 - `name`: Recipient name
 - `company`: Company name
-- Any other data for template substitution
+- Any other data for template substitution (accessible via {column_name} in templates)
+
+### Google Sheets Format
+
+Your Google Sheet should have:
+- First row: Column headers (must include `email`)
+- Subsequent rows: Recipient data
+- Same column structure as CSV (email required, other columns for personalization)
+
+Share the sheet with the service account email or make it publicly readable (read-only).
 
 ### HTML Template Format
 
-Create HTML templates with placeholders:
+Create HTML templates with placeholders that will be replaced with recipient data:
 
 ```html
 <!DOCTYPE html>
@@ -184,6 +299,12 @@ Create HTML templates with placeholders:
 </body>
 </html>
 ```
+
+**Template Variables:**
+- Use `{column_name}` syntax to insert recipient data
+- All CSV/Sheet columns are available as variables
+- Missing variables are left as-is (not replaced)
+- Example: `{name}`, `{company}`, `{email}`, etc.
 
 ## Examples
 
@@ -276,11 +397,25 @@ The application handles various error conditions:
 
 ## Security Considerations
 
-- Use App Passwords for Gmail (not your regular password)
-- Store credentials securely (consider environment variables)
+### Credentials and Tokens
+- **Never commit** `credentials.json` or `token.json` to version control
+- These files are automatically added to `.gitignore`
+- Store OAuth credentials securely and restrict access
+- Use App Passwords for Gmail SMTP (not your regular password)
+- Consider using environment variables for sensitive data
+
+### Database
+- The SQLite database (`mail_merge.db`) contains recipient email addresses
+- Keep the database file secure and backed up
+- Consider encrypting the database for production use
+
+### Best Practices
 - Use TLS encryption for SMTP connections
 - Validate all email addresses before sending
 - Be mindful of rate limits to avoid being blocked
+- Only send to recipients who have opted in
+- Comply with anti-spam laws (CAN-SPAM, GDPR, etc.)
+- Use the web UI only on trusted networks (defaults to localhost)
 
 ## Troubleshooting
 

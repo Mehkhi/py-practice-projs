@@ -1,0 +1,175 @@
+{% extends "base.html" %}
+
+{% block title %}Attachments - {{ campaign.name }}{% endblock %}
+
+{% block extra_css %}
+        .container { max-width: 900px; }
+        .upload-form {
+            background: #3b4252;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            border: 1px solid #434c5e;
+        }
+        .upload-form h2 {
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            color: #d8dee9;
+        }
+        .form-row {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .file-input {
+            flex: 1;
+            min-width: 200px;
+        }
+        input[type="file"] {
+            padding: 0.5rem;
+            border: 1px dashed #4c566a;
+            border-radius: 4px;
+            background: #2e3440;
+            color: #eceff4;
+            width: 100%;
+        }
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .checkbox-group input { width: auto; }
+
+        .attachments-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+        .attachment-card {
+            background: #3b4252;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid #434c5e;
+        }
+        .attachment-preview {
+            height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #2e3440;
+        }
+        .attachment-preview img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        .attachment-preview .file-icon {
+            font-size: 3rem;
+        }
+        .attachment-info {
+            padding: 1rem;
+        }
+        .attachment-name {
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-bottom: 0.25rem;
+            word-break: break-all;
+        }
+        .attachment-meta {
+            font-size: 0.75rem;
+            color: #d8dee9;
+            margin-bottom: 0.5rem;
+        }
+        .inline-badge {
+            display: inline-block;
+            background: #a3be8c;
+            color: #2e3440;
+            padding: 0.1rem 0.4rem;
+            border-radius: 3px;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+        .attachment-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+        .attachment-actions .btn {
+            padding: 0.3rem 0.6rem;
+            font-size: 0.8rem;
+        }
+        .content-id-hint {
+            font-size: 0.75rem;
+            color: #88c0d0;
+            font-family: monospace;
+        }
+{% endblock %}
+
+{% block content %}
+        <div class="header">
+            <div>
+                <a href="{{ url_for('campaign_detail', campaign_id=campaign.id) }}" class="back-link">← Back to Campaign</a>
+                <h1 style="margin-top: 0.5rem;">📎 Attachments: {{ campaign.name }}</h1>
+            </div>
+        </div>
+
+        <div class="upload-form">
+            <h2>Upload New Attachment</h2>
+            <form action="{{ url_for('upload_attachment', campaign_id=campaign.id) }}" method="POST" enctype="multipart/form-data">
+                <div class="form-row">
+                    <div class="file-input">
+                        <input type="file" name="file" accept="image/*,.pdf,.doc,.docx" required>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="is_inline" name="is_inline">
+                        <label for="is_inline">Inline image</label>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Upload</button>
+                </div>
+            </form>
+            <p class="help-text" style="margin-top: 1rem;">
+                Inline images can be embedded in HTML emails using their Content-ID.
+                Use <code>cid:content_id</code> in your HTML template.
+            </p>
+        </div>
+
+        {% if attachments %}
+        <div class="attachments-grid">
+            {% for att in attachments %}
+            <div class="attachment-card">
+                <div class="attachment-preview">
+                    {% if att.mime_type and att.mime_type.startswith('image/') %}
+                    <img src="{{ url_for('view_attachment', attachment_id=att.id) }}" alt="{{ att.original_filename }}">
+                    {% else %}
+                    <span class="file-icon">📄</span>
+                    {% endif %}
+                </div>
+                <div class="attachment-info">
+                    <div class="attachment-name">{{ att.original_filename }}</div>
+                    <div class="attachment-meta">
+                        {{ (att.file_size / 1024)|round(1) }} KB
+                        {% if att.is_inline %}
+                        <span class="inline-badge">INLINE</span>
+                        {% endif %}
+                    </div>
+                    {% if att.content_id %}
+                    <div class="content-id-hint">cid:{{ att.content_id }}</div>
+                    {% endif %}
+                    <div class="attachment-actions">
+                        <a href="{{ url_for('view_attachment', attachment_id=att.id) }}" class="btn btn-secondary" target="_blank">View</a>
+                        <form action="{{ url_for('delete_attachment', attachment_id=att.id) }}" method="POST" style="display:inline;" onsubmit="return confirm('Delete this attachment?');">
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="card">
+            <div class="empty-state">
+                <p>No attachments yet. Upload images or files above.</p>
+            </div>
+        </div>
+        {% endif %}
+{% endblock %}

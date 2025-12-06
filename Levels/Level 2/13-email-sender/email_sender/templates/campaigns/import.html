@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block title %}Import CSV{% endblock %}
+
+{% block extra_css %}
+        .container { max-width: 600px; }
+        .hint {
+            color: #d8dee9;
+            font-size: 0.85rem;
+            margin-top: 6px;
+        }
+        .form-actions {
+            display: flex;
+            gap: 15px;
+            margin-top: 25px;
+            flex-wrap: wrap;
+        }
+{% endblock %}
+
+{% block content %}
+        <div class="header">
+            <h1>Import CSV</h1>
+            <a href="/" class="btn btn-outline btn-sm">← Dashboard</a>
+        </div>
+        <div class="card">
+            <div class="card-body" style="padding: 30px;">
+                <form method="POST" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label>Campaign ID</label>
+                        <input type="number" name="campaign_id" placeholder="Enter campaign ID" required>
+                        <p class="hint">Enter the ID of the campaign to import recipients into</p>
+                    </div>
+                    <div class="form-group">
+                        <label>CSV File</label>
+                        <input type="file" name="csv_file" accept=".csv" required>
+                        <p class="hint">CSV should have an "email" column and any merge fields</p>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-success">Import Recipients</button>
+                        <a href="/campaigns" class="btn btn-outline">View Campaigns</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+{% endblock %}

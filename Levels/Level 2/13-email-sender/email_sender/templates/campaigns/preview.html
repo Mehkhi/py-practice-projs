@@ -1,0 +1,122 @@
+{% extends "base.html" %}
+
+{% block title %}Email Preview - {{ campaign.name }}{% endblock %}
+
+{% block extra_css %}
+        .container { max-width: 900px; }
+        .preview-controls {
+            background: #3b4252;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+        .preview-controls label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #d8dee9;
+        }
+        .preview-controls select {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid #4c566a;
+            border-radius: 4px;
+            background: #2e3440;
+            color: #eceff4;
+        }
+        .email-frame {
+            background: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+        .email-header {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-bottom: 1px solid #e9ecef;
+            color: #333;
+        }
+        .email-header p {
+            margin: 0.25rem 0;
+            font-size: 0.9rem;
+        }
+        .email-header strong { color: #666; }
+        .email-body {
+            padding: 1.5rem;
+            min-height: 300px;
+            color: #333;
+        }
+        .email-body.plain-text {
+            white-space: pre-wrap;
+            font-family: monospace;
+        }
+        .toggle-view {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        .toggle-view button {
+            padding: 0.5rem 1rem;
+            border: 1px solid #4c566a;
+            background: #3b4252;
+            color: #eceff4;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .toggle-view button.active {
+            background: #5e81ac;
+            border-color: #5e81ac;
+        }
+{% endblock %}
+
+{% block content %}
+        <div class="header">
+            <h1>📧 Email Preview</h1>
+            <a href="{{ url_for('campaign_detail', campaign_id=campaign.id) }}" class="back-link">← Back to Campaign</a>
+        </div>
+
+        <div class="preview-controls">
+            <label for="recipient-select">Preview as recipient:</label>
+            <select id="recipient-select" onchange="updatePreview()">
+                {% for r in recipients %}
+                <option value="{{ r.id }}" {% if r.id == selected_recipient.id %}selected{% endif %}>
+                    {{ r.email }} {% if r.personalization_data %}({{ r.personalization_data }}){% endif %}
+                </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="toggle-view">
+            <button id="btn-html" class="active" onclick="showView('html')">HTML View</button>
+            <button id="btn-text" onclick="showView('text')">Plain Text View</button>
+        </div>
+
+        <div class="email-frame">
+            <div class="email-header">
+                <p><strong>From:</strong> {{ from_email or 'sender@example.com' }}</p>
+                <p><strong>To:</strong> {{ selected_recipient.email }}</p>
+                <p><strong>Subject:</strong> {{ rendered_subject }}</p>
+            </div>
+            <div id="html-view" class="email-body">
+                {{ rendered_html|safe }}
+            </div>
+            <div id="text-view" class="email-body plain-text" style="display: none;">
+                {{ rendered_text }}
+            </div>
+        </div>
+{% endblock %}
+
+{% block scripts %}
+    <script>
+        function showView(view) {
+            document.getElementById('html-view').style.display = view === 'html' ? 'block' : 'none';
+            document.getElementById('text-view').style.display = view === 'text' ? 'block' : 'none';
+            document.getElementById('btn-html').classList.toggle('active', view === 'html');
+            document.getElementById('btn-text').classList.toggle('active', view === 'text');
+        }
+
+        function updatePreview() {
+            const recipientId = document.getElementById('recipient-select').value;
+            window.location.href = '{{ url_for("preview_email", campaign_id=campaign.id) }}?recipient_id=' + recipientId;
+        }
+    </script>
+{% endblock %}

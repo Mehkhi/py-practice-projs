@@ -1,0 +1,152 @@
+{% extends "base.html" %}
+
+{% block title %}Mail Merge - All Campaigns{% endblock %}
+
+{% block extra_css %}
+        .campaign-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .campaign-item {
+            padding: 20px;
+            border: 1px solid #434c5e;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            background: #2e3440;
+        }
+        .campaign-item:hover {
+            border-color: #88c0d0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        .campaign-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+        .campaign-info h3 {
+            color: #eceff4;
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+        }
+        .campaign-info .campaign-id {
+            color: #81a1c1;
+            font-size: 0.85rem;
+        }
+        .campaign-info p {
+            color: #d8dee9;
+            font-size: 0.95rem;
+            margin-top: 5px;
+        }
+        .campaign-stats {
+            display: flex;
+            gap: 25px;
+            margin: 15px 0;
+            padding: 15px;
+            background: #3b4252;
+            border-radius: 8px;
+            border: 1px solid #434c5e;
+        }
+        .campaign-stat {
+            text-align: center;
+        }
+        .campaign-stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #eceff4;
+        }
+        .campaign-stat-label {
+            font-size: 0.75rem;
+            color: #81a1c1;
+            text-transform: uppercase;
+        }
+        .campaign-stat.total .campaign-stat-value { color: #88c0d0; }
+        .campaign-stat.sent .campaign-stat-value { color: #a3be8c; }
+        .campaign-stat.failed .campaign-stat-value { color: #bf616a; }
+        .campaign-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .header-actions {
+            display: flex;
+            gap: 10px;
+        }
+        .empty-state-icon {
+            font-size: 4rem;
+            margin-bottom: 15px;
+        }
+        .empty-state h3 {
+            color: #eceff4;
+            margin-bottom: 10px;
+        }
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+            .campaign-stats {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
+{% endblock %}
+
+{% block content %}
+        <div class="header">
+            <h1>All Campaigns</h1>
+            <div class="header-actions">
+                <a href="/" class="btn btn-outline btn-sm">← Dashboard</a>
+                <a href="/campaign/new" class="btn btn-primary btn-sm">New Campaign</a>
+                <a href="/campaign/import" class="btn btn-success btn-sm">Import CSV</a>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-body">
+                {% if campaigns %}
+                <div class="campaign-list">
+                    {% for campaign in campaigns %}
+                    <div class="campaign-item">
+                        <div class="campaign-header">
+                            <div class="campaign-info">
+                                <h3>{{ campaign.name }}</h3>
+                                <span class="campaign-id">ID: {{ campaign.id }}</span>
+                                <p><strong>Subject:</strong> {{ campaign.subject }}</p>
+                            </div>
+                        </div>
+                        <div class="campaign-stats">
+                            <div class="campaign-stat total">
+                                <div class="campaign-stat-value">{{ campaign.recipient_count or 0 }}</div>
+                                <div class="campaign-stat-label">Total Recipients</div>
+                            </div>
+                            <div class="campaign-stat sent">
+                                <div class="campaign-stat-value">{{ campaign.sent_count or 0 }}</div>
+                                <div class="campaign-stat-label">Sent</div>
+                            </div>
+                            <div class="campaign-stat failed">
+                                <div class="campaign-stat-value">{{ campaign.failed_count or 0 }}</div>
+                                <div class="campaign-stat-label">Failed</div>
+                            </div>
+                        </div>
+                        <div class="campaign-actions">
+                            <a href="/campaign/{{ campaign.id }}" class="btn btn-outline btn-sm">View Details</a>
+                            <a href="/campaign/{{ campaign.id }}/send" class="btn btn-success btn-sm">Send</a>
+                            <a href="/campaign/{{ campaign.id }}/export" class="btn btn-primary btn-sm">Export Results</a>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <div class="empty-state">
+                    <div class="empty-state-icon"></div>
+                    <h3>No Campaigns Yet</h3>
+                    <p>Create your first campaign to get started!</p>
+                    <a href="/campaign/new" class="btn btn-primary" style="margin-top: 15px;">Create Campaign</a>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}Sending Campaign{% endblock %}
+
+{% block extra_css %}
+        .container { max-width: 600px; }
+        .result-box {
+            background: #2e3440;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+            border: 1px solid #434c5e;
+        }
+        .result-box h3 {
+            margin-bottom: 10px;
+            color: #88c0d0;
+        }
+        .result-box p {
+            margin: 5px 0;
+        }
+        .success { color: #a3be8c; }
+        .error { color: #bf616a; }
+{% endblock %}
+
+{% block content %}
+        <div class="header">
+            <h1>Campaign Sending Initiated</h1>
+            <a href="/campaign/{{ campaign.id }}" class="btn btn-outline btn-sm">← Back to Campaign</a>
+        </div>
+        <div class="card">
+            <div class="card-body" style="padding: 30px;">
+                <div class="result-box">
+                    <h3>Sending Status</h3>
+                    <p>Campaign: <strong>{{ campaign.name }}</strong></p>
+                    <p>Transport: <strong>{{ transport }}</strong></p>
+                    <p class="success">Sending has been initiated. Check campaign details for progress.</p>
+                </div>
+                <div style="margin-top: 20px;">
+                    <a href="/campaign/{{ campaign.id }}" class="btn btn-primary">View Campaign Status</a>
+                </div>
+            </div>
+        </div>
+{% endblock %}

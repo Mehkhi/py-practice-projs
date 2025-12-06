@@ -139,25 +139,56 @@ def create_sample_csv(file_path: str) -> None:
     logger.info(f"Created sample CSV file: {file_path}")
 
 
-def format_email_template(template: str, data: Dict[str, Any]) -> str:
+def format_email_template(template: str, data: Dict[str, Any], use_jinja: bool = False) -> str:
     """
     Format an email template with provided data.
 
     Args:
-        template: Email template string with placeholders like {name}
+        template: Email template string with placeholders like {name} or Jinja2 syntax
         data: Dictionary with data to substitute
+        use_jinja: If True, use Jinja2 rendering; otherwise use simple .format()
 
     Returns:
         Formatted email content
     """
     try:
-        return template.format(**data)
+        if use_jinja:
+            try:
+                from jinja2 import Template
+                jinja_template = Template(template)
+                return jinja_template.render(**data)
+            except ImportError:
+                logger.warning("Jinja2 not available, falling back to .format()")
+                return template.format(**data)
+        else:
+            return template.format(**data)
     except KeyError as e:
         logger.warning(f"Missing template variable: {e}")
         return template
     except Exception as e:
         logger.error(f"Error formatting template: {e}")
         return template
+
+
+def load_template_file(file_path: str) -> str:
+    """
+    Load template content from a file.
+
+    Args:
+        file_path: Path to template file
+
+    Returns:
+        Template content as string
+
+    Raises:
+        FileNotFoundError: If template file doesn't exist
+    """
+    template_path = Path(file_path)
+    if not template_path.exists():
+        raise FileNotFoundError(f"Template file not found: {file_path}")
+
+    with open(template_path, 'r', encoding='utf-8') as f:
+        return f.read()
 
 
 def get_file_size_mb(file_path: str) -> float:

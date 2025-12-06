@@ -77,7 +77,14 @@ def list_tasks() -> str:
     elif completed_filter == "false":
         completed = False
 
-    valid_sort_fields = ["created_at", "title", "completed", "due_date", "priority", "category"]
+    valid_sort_fields = [
+        "created_at",
+        "title",
+        "completed",
+        "due_date",
+        "priority",
+        "category",
+    ]
     if sort_by not in valid_sort_fields:
         sort_by = "created_at"
 
@@ -131,7 +138,9 @@ def list_tasks() -> str:
 def new_task() -> str:
     """Show form to create a new task."""
     templates = TaskTemplate.query.order_by(TaskTemplate.created_at.desc()).all()
-    return render_template("tasks/create.html", templates=templates, statuses=KANBAN_STATUSES)
+    return render_template(
+        "tasks/create.html", templates=templates, statuses=KANBAN_STATUSES
+    )
 
 
 @tasks_bp.route("/create", methods=["POST"])
@@ -160,35 +169,30 @@ def create_task_route() -> redirect:
         flash("Title is required.", "error")
         return redirect(url_for("tasks.new_task"))
 
-    try:
-        task = create_task(
-            current_user.id,
-            title,
-            description,
-            status=status,
-            priority=priority,
-            category=category,
-            due_date=due_date,
-            size_points=size_points,
-            recurrence_interval_days=recurrence_interval_days,
-            recurrence_end_date=recurrence_end_date,
-            requires_approval=requires_approval,
-            blocked_reason=blocked_reason,
-            template_id=template_id_int,
-            auto_schedule=auto_schedule,
-            auto_triage=auto_triage,
-        )
-        flash(
-            f"Task '{task.title}' created with {task.priority} priority, due "
-            f"{task.due_date.strftime('%b %d') if task.due_date else 'TBD'}.",
-            "success",
-        )
-        logger.info(f"Task {task.id} created by user {current_user.id}")
-        return redirect(url_for("tasks.list_tasks"))
-    except Exception as e:
-        flash("An error occurred while creating the task.", "error")
-        logger.error(f"Error creating task: {e}")
-        return redirect(url_for("tasks.new_task"))
+    task = create_task(
+        current_user.id,
+        title,
+        description,
+        status=status,
+        priority=priority,
+        category=category,
+        due_date=due_date,
+        size_points=size_points,
+        recurrence_interval_days=recurrence_interval_days,
+        recurrence_end_date=recurrence_end_date,
+        requires_approval=requires_approval,
+        blocked_reason=blocked_reason,
+        template_id=template_id_int,
+        auto_schedule=auto_schedule,
+        auto_triage=auto_triage,
+    )
+    flash(
+        f"Task '{task.title}' created with {task.priority} priority, due "
+        f"{task.due_date.strftime('%b %d') if task.due_date else 'TBD'}.",
+        "success",
+    )
+    logger.info(f"Task {task.id} created by user {current_user.id}")
+    return redirect(url_for("tasks.list_tasks"))
 
 
 @tasks_bp.route("/<int:task_id>/edit", methods=["GET"])
@@ -300,15 +304,14 @@ def toggle_task_route(task_id: int) -> redirect:
         flash("You don't have permission to modify this task.", "error")
 
     if request.headers.get("X-Requested-With") == "XMLHttpRequest":
-        try:
-            task = Task.query.get(task_id)
-            return jsonify({
+        task = Task.query.get(task_id)
+        return jsonify(
+            {
                 "status": "success",
                 "completed": task.completed,
-                "message": f"Task marked as {'completed' if task.completed else 'incomplete'}"
-            })
-        except Exception:
-             return jsonify({"status": "error", "message": "Could not fetch task status"}), 500
+                "message": f"Task marked as {'completed' if task.completed else 'incomplete'}",
+            }
+        )
 
     return redirect(url_for("tasks.list_tasks"))
 
@@ -320,7 +323,11 @@ def board_view() -> str:
     tasks_by_status = {}
     for status in KANBAN_STATUSES:
         tasks, _ = get_tasks(
-            user_id=current_user.id, status=status, sort_by="kanban_order", order="asc", per_page=200
+            user_id=current_user.id,
+            status=status,
+            sort_by="kanban_order",
+            order="asc",
+            per_page=200,
         )
         tasks_by_status[status] = tasks
 
@@ -471,8 +478,12 @@ def templates() -> str:
         default_priority = request.form.get("default_priority", "medium")
         default_status = request.form.get("default_status", "backlog")
         recurrence_days = request.form.get("default_recurrence_interval_days")
-        default_recurrence_interval_days = int(recurrence_days) if recurrence_days else None
-        default_requires_approval = request.form.get("default_requires_approval") == "on"
+        default_recurrence_interval_days = (
+            int(recurrence_days) if recurrence_days else None
+        )
+        default_requires_approval = (
+            request.form.get("default_requires_approval") == "on"
+        )
         default_checklist = request.form.get("default_checklist", "").strip() or None
 
         if not name:
@@ -496,7 +507,9 @@ def templates() -> str:
         return redirect(url_for("tasks.templates"))
 
     templates = TaskTemplate.query.order_by(TaskTemplate.created_at.desc()).all()
-    return render_template("tasks/templates.html", templates=templates, statuses=KANBAN_STATUSES)
+    return render_template(
+        "tasks/templates.html", templates=templates, statuses=KANBAN_STATUSES
+    )
 
 
 @tasks_bp.route("/<int:task_id>")

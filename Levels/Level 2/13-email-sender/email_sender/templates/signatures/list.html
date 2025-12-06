@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+
+{% block title %}Email Signatures{% endblock %}
+
+{% block extra_css %}
+        .signatures-grid {
+            display: grid;
+            gap: 1rem;
+        }
+        .signature-card {
+            background: #3b4252;
+            border-radius: 8px;
+            padding: 1.5rem;
+            position: relative;
+            border: 1px solid #434c5e;
+        }
+        .signature-card.default {
+            border: 2px solid #a3be8c;
+        }
+        .signature-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        .signature-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+        .default-badge {
+            background: #a3be8c;
+            color: #2e3440;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        .signature-preview {
+            background: #2e3440;
+            padding: 1rem;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            color: #d8dee9;
+            white-space: pre-wrap;
+            max-height: 150px;
+            overflow: hidden;
+        }
+        .signature-actions {
+            margin-top: 1rem;
+            display: flex;
+            gap: 0.5rem;
+        }
+{% endblock %}
+
+{% block content %}
+        <div class="header">
+            <div>
+                <a href="{{ url_for('index') }}" class="back-link">← Dashboard</a>
+                <h1 style="margin-top: 0.5rem;">📝 Email Signatures</h1>
+            </div>
+            <a href="{{ url_for('new_signature') }}" class="btn btn-primary">+ New Signature</a>
+        </div>
+
+        {% if signatures %}
+        <div class="signatures-grid">
+            {% for sig in signatures %}
+            <div class="signature-card {% if sig.is_default %}default{% endif %}">
+                <div class="signature-header">
+                    <span class="signature-name">{{ sig.name }}</span>
+                    {% if sig.is_default %}
+                    <span class="default-badge">DEFAULT</span>
+                    {% endif %}
+                </div>
+                <div class="signature-preview">{{ sig.content[:300] }}{% if sig.content|length > 300 %}...{% endif %}</div>
+                <div class="signature-actions">
+                    <a href="{{ url_for('edit_signature', signature_id=sig.id) }}" class="btn btn-secondary btn-sm">Edit</a>
+                    {% if not sig.is_default %}
+                    <form action="{{ url_for('set_default_signature', signature_id=sig.id) }}" method="POST" style="display:inline;">
+                        <button type="submit" class="btn btn-secondary btn-sm">Set as Default</button>
+                    </form>
+                    {% endif %}
+                    <form action="{{ url_for('delete_signature', signature_id=sig.id) }}" method="POST" style="display:inline;" onsubmit="return confirm('Delete this signature?');">
+                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                    </form>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="card">
+            <div class="empty-state">
+                <p>No signatures yet. Create your first email signature!</p>
+            </div>
+        </div>
+        {% endif %}
+{% endblock %}

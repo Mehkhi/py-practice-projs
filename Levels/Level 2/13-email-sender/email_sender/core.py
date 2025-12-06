@@ -33,7 +33,7 @@ class EmailSender:
         smtp_port: int,
         username: str,
         password: str,
-        use_tls: bool = True
+        use_tls: bool = True,
     ):
         """
         Initialize the EmailSender.
@@ -55,7 +55,9 @@ class EmailSender:
     def connect(self) -> None:
         """Establish SMTP connection."""
         try:
-            logger.info(f"Connecting to SMTP server {self.smtp_server}:{self.smtp_port}")
+            logger.info(
+                f"Connecting to SMTP server {self.smtp_server}:{self.smtp_port}"
+            )
             self._connection = smtplib.SMTP(self.smtp_server, self.smtp_port)
 
             if self.use_tls:
@@ -103,7 +105,10 @@ class EmailSender:
         body: str,
         html_body: Optional[str] = None,
         attachments: Optional[List[str]] = None,
-        from_email: Optional[str] = None
+        from_email: Optional[str] = None,
+        campaign_id: Optional[int] = None,
+        recipient_id: Optional[int] = None,
+        enable_tracking: bool = True,
     ) -> Dict[str, Any]:
         """
         Send an email to multiple recipients.
@@ -115,6 +120,9 @@ class EmailSender:
             html_body: HTML body (optional)
             attachments: List of file paths to attach
             from_email: Sender email (defaults to username)
+            campaign_id: Campaign ID for tracking (optional)
+            recipient_id: Recipient ID for tracking (optional)
+            enable_tracking: Whether to inject tracking into HTML (default True)
 
         Returns:
             Dictionary with sending results
@@ -130,18 +138,23 @@ class EmailSender:
         from_email = from_email or self.username
 
         # Create message
-        msg = MIMEMultipart('alternative')
-        msg['From'] = from_email
-        msg['To'] = ', '.join(to_emails)
-        msg['Subject'] = subject
+        msg = MIMEMultipart("alternative")
+        msg["From"] = from_email
+        msg["To"] = ", ".join(to_emails)
+        msg["Subject"] = subject
 
         # Add text body
-        text_part = MIMEText(body, 'plain', 'utf-8')
+        text_part = MIMEText(body, "plain", "utf-8")
         msg.attach(text_part)
 
         # Add HTML body if provided
         if html_body:
-            html_part = MIMEText(html_body, 'html', 'utf-8')
+            # Inject tracking if enabled and IDs provided
+            if enable_tracking and campaign_id is not None and recipient_id is not None:
+                from .tracking import add_tracking_to_email
+
+                html_body = add_tracking_to_email(html_body, campaign_id, recipient_id)
+            html_part = MIMEText(html_body, "html", "utf-8")
             msg.attach(html_part)
 
         # Add attachments
@@ -160,9 +173,9 @@ class EmailSender:
             logger.info("Email sent successfully")
 
             return {
-                'success': True,
-                'recipients': to_emails,
-                'attachments_count': len(attachments) if attachments else 0
+                "success": True,
+                "recipients": to_emails,
+                "attachments_count": len(attachments) if attachments else 0,
             }
 
         except smtplib.SMTPRecipientsRefused as e:
@@ -183,13 +196,12 @@ class EmailSender:
                 raise FileNotFoundError(f"Attachment file not found: {file_path}")
 
             with open(file_path, "rb") as attachment:
-                part = MIMEBase('application', 'octet-stream')
+                part = MIMEBase("application", "octet-stream")
                 part.set_payload(attachment.read())
 
             encoders.encode_base64(part)
             part.add_header(
-                'Content-Disposition',
-                f'attachment; filename= {file_path.name}'
+                "Content-Disposition", f"attachment; filename= {file_path.name}"
             )
             msg.attach(part)
             logger.info(f"Added attachment: {file_path.name}")
@@ -206,7 +218,7 @@ class EmailSender:
         html_body: Optional[str] = None,
         attachments: Optional[List[str]] = None,
         batch_size: int = 10,
-        delay_seconds: float = 1.0
+        delay_seconds: float = 1.0,
     ) -> Dict[str, Any]:
         """
         Send emails in batches with rate limiting.
@@ -230,16 +242,18 @@ class EmailSender:
             logger.info(f"Starting batch send to {total_recipients} recipients")
 
             results = {
-                'total_recipients': total_recipients,
-                'batches_sent': 0,
-                'successful_emails': 0,
-                'failed_emails': 0,
-                'errors': []
+                "total_recipients": total_recipients,
+                "batches_sent": 0,
+                "successful_emails": 0,
+                "failed_emails": 0,
+                "errors": [],
             }
 
             for i in range(0, total_recipients, batch_size):
-                batch = recipients_data[i:i + batch_size]
-                batch_emails = [row.get('email', '') for row in batch if row.get('email')]
+                batch = recipients_data[i : i + batch_size]
+                batch_emails = [
+                    row.get("email", "") for row in batch if row.get("email")
+                ]
 
                 if not batch_emails:
                     continue
@@ -250,23 +264,27 @@ class EmailSender:
                         subject=subject,
                         body=body,
                         html_body=html_body,
-                        attachments=attachments
+                        attachments=attachments,
                     )
 
-                    results['batches_sent'] += 1
-                    results['successful_emails'] += len(batch_emails)
+                    results["batches_sent"] += 1
+                    results["successful_emails"] += len(batch_emails)
                     logger.info(f"Batch {results['batches_sent']} sent successfully")
 
                 except Exception as e:
-                    results['failed_emails'] += len(batch_emails)
-                    results['errors'].append(f"Batch {results['batches_sent'] + 1}: {str(e)}")
+                    results["failed_emails"] += len(batch_emails)
+                    results["errors"].append(
+                        f"Batch {results['batches_sent'] + 1}: {str(e)}"
+                    )
                     logger.error(f"Batch {results['batches_sent'] + 1} failed: {e}")
 
                 # Rate limiting delay
                 if i + batch_size < total_recipients:
                     time.sleep(delay_seconds)
 
-            logger.info(f"Batch sending completed. Success: {results['successful_emails']}, Failed: {results['failed_emails']}")
+            logger.info(
+                f"Batch sending completed. Success: {results['successful_emails']}, Failed: {results['failed_emails']}"
+            )
             return results
 
         except Exception as e:
@@ -276,4 +294,5 @@ class EmailSender:
 
 class EmailError(Exception):
     """Custom exception for email sending errors."""
+
     pass

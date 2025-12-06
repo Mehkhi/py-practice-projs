@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Mail Merge{% endblock %}</title>
+    <style>
+        /* Base Reset & Typography */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #2e3440;
+            color: #eceff4;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Header */
+        .header {
+            background: #3b4252;
+            padding: 25px 30px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            margin-bottom: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid #434c5e;
+        }
+        .header h1 {
+            color: #eceff4;
+            font-size: 1.8rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .header-nav {
+            display: flex;
+            gap: 10px;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #5e81ac, #81a1c1);
+            color: #eceff4;
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(94, 129, 172, 0.4);
+        }
+        .btn-success {
+            background: linear-gradient(135deg, #a3be8c, #8fbcbb);
+            color: #2e3440;
+        }
+        .btn-success:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(163, 190, 140, 0.4);
+        }
+        .btn-outline {
+            background: transparent;
+            border: 2px solid #88c0d0;
+            color: #88c0d0;
+        }
+        .btn-outline:hover {
+            background: #88c0d0;
+            color: #2e3440;
+        }
+        .btn-danger {
+            background: #bf616a;
+            color: #eceff4;
+        }
+        .btn-danger:hover {
+            background: #d08770;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(191, 97, 106, 0.4);
+        }
+        .btn-secondary {
+            background: #4c566a;
+            color: white;
+        }
+        .btn-sm {
+            padding: 8px 16px;
+            font-size: 0.85rem;
+        }
+
+        /* Cards */
+        .card {
+            background: #3b4252;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            border: 1px solid #434c5e;
+            overflow: hidden;
+        }
+        .card:hover {
+            border-color: #81a1c1;
+        }
+
+        /* Forms */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: #d8dee9;
+        }
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #4c566a;
+            border-radius: 6px;
+            background: #3b4252;
+            color: #eceff4;
+            font-size: 1rem;
+        }
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: #88c0d0;
+        }
+        textarea {
+            min-height: 120px;
+            font-family: monospace;
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #434c5e;
+        }
+        th {
+            background: #3b4252;
+            font-weight: 600;
+            color: #88c0d0;
+        }
+        tr:hover {
+            background: rgba(136, 192, 208, 0.05);
+        }
+
+        /* Status Colors */
+        .status-sent { color: #a3be8c; font-weight: 600; }
+        .status-failed { color: #bf616a; font-weight: 600; }
+        .status-queued { color: #ebcb8b; font-weight: 600; }
+        .status-opened { color: #88c0d0; font-weight: 600; }
+        .status-not-opened { color: #d8dee9; font-style: italic; }
+
+        /* Utilities */
+        .text-muted { color: #d8dee9; }
+        .text-center { text-align: center; }
+        .mt-1 { margin-top: 0.5rem; }
+        .mt-2 { margin-top: 1rem; }
+        .mb-1 { margin-bottom: 0.5rem; }
+        .mb-2 { margin-bottom: 1rem; }
+
+        /* Back Link */
+        .back-link {
+            color: #88c0d0;
+            text-decoration: none;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 3rem;
+            color: #d8dee9;
+        }
+
+        /* Help Text */
+        .help-text {
+            font-size: 0.85rem;
+            color: #81a1c1;
+            margin-top: 0.25rem;
+        }
+
+        {% block extra_css %}{% endblock %}
+    </style>
+</head>
+<body>
+    <div class="container">
+        {% block content %}{% endblock %}
+    </div>
+    {% block scripts %}{% endblock %}
+</body>
+</html>
